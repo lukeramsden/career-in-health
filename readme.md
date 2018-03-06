@@ -9,6 +9,7 @@
 - Stripe intergration for payment
 - On new job upload, look for persons that can do job
 - On adding job referances look to see if it is in the system, if not email / sms them?
+- Facebook / Google / Twitter logins?
 
 ### Data we need to collect
 - CV's so we can design the database and how it might function at ui level
