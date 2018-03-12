@@ -14,3 +14,7 @@
 ### Data we need to collect
 - CV's so we can design the database and how it might function at ui level
 - A list of all job positions that we want to use in the system
+
+
+### Potential Competitors
+https://jobs.communitycare.co.uk/?intcmp=Jobs-Navbar

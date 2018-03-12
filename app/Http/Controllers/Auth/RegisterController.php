@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Models\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -48,11 +49,20 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
+        $rules = [
+            'i_am' => 'required',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-        ]);
+            'terms' => 'required'
+        ];
+
+        if ($data['i_am'] !== null && $data['i_am'] == 'Employeer') {
+            $rules['company_name'] = 'required|string|max:255|unique:companies,name';
+        }
+
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -63,10 +73,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $data = (object) $data;
+
+        $user = new User();
+        $user->email = $data->email;
+        $user->first_name = ucwords($data->first_name);
+        $user->last_name = ucwords($data->last_name);
+        $user->password = Hash::make($data->password);
+        $user->save();
+
+        if ($data->i_am == 'Employeer') {
+            // create company;
+            $company = new Company();
+            $company->name = ucwords($data->company_name);
+            $company->created_by_user_id = $user->id;
+            $company->save();
+
+            $user->company_id = $company->id;
+            $user->save();
+        }
+
+        return $user;
     }
 }
