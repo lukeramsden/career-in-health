@@ -19,7 +19,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-        <link rel="shortcut icon" type="image/png" href="/icons/favicon.png"/>
+        
+        <link rel="shortcut icon" type="image/png" href="/i/favicon.png"/>
         <link rel="alternate" href="{{ env('APP_URL') }}" hreflang="en-gb" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
