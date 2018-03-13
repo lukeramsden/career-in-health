@@ -47,7 +47,7 @@
                     </div>
 
                     <div class='col-12 mt-5'>
-                        <p class='holding-content'>Looking for your new career / employee in the health care sector? Thats what were are here for. Recruitment made simple with our easy to use Advert builder, CV builder and Generated Personel File.</p>
+                        <p class='holding-content'>Looking for your new career / employee in the health care sector? Thats what were are here for. Recruitment made simple with our easy to use Advert builder, CV builder and Auto Generated Personel File.</p>
                     </div>
 
                 </div>
