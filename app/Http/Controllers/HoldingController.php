@@ -10,7 +10,10 @@ class HoldingController extends Controller
     
     public function index()
     {
-        return view('holding');
+        return view('holding')
+            ->with([
+                'message' => null
+            ]);
     }
 
     public function subscribe(Request $request)
@@ -23,7 +26,12 @@ class HoldingController extends Controller
         $subscribe->email = $request->email;
         $subscribe->save();
 
-        return redirect('/')
+        return redirect('/subscribe-thank-you');
+    }
+
+    public function subscribeThankYou()
+    {   
+        return view('holding')
             ->with([
                 'message' => 'Thank you for subscribing to Career In Health.'
             ]);

@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HoldingController@index');
+Route::get('/subscribe-thank-you', 'HoldingController@subscribeThankYou');
 Route::post('/', 'HoldingController@subscribe');
 
 if (env('APP_ENV') == 'local') {

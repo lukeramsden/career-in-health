@@ -18,3 +18,8 @@
 
 ### Potential Competitors
 https://jobs.communitycare.co.uk/?intcmp=Jobs-Navbar
+https://carerecruiter.co.uk/ DA - 18, Found by adwords
+
+### Potential Media Boost
+https://ukrecruiter.co.uk/ DA - 42
+https://www.socialtalent.com DA - 32 Maybe..

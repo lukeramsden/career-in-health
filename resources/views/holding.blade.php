@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
     <head>
+        @if (env('APP_ENV') != 'local')
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109407615-2"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'UA-109407615-2');
+            </script>
+        @endif
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- CSRF Token -->
+        <meta name="description" content="Welcome to Career In Health. Innovative recruitment built exclusively for the UK's health sector">
+
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
         <title>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="shortcut icon" type="image/png" href="/icons/favicon.png"/>
 
-        <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
 
     <body>
         <div id="app">
-            <div class='content'>
+            <div class='content'><div class='container'>
                 <div class='row'>
 
                     <div class='col-12'>
@@ -28,8 +39,8 @@
                     </div>
 
                     <div class='col-12'>
-                        @if (session()->get('message') != null)
-                            <h1 class='holding-content'>{{ session()->get('message') }}</h1>
+                        @if ($message != null)
+                            <h1 class='holding-content'>{{ $message }}</h1>
                         @else
                             <h1 class='holding-content'>Innovative recruitment built exclusively for the UK's health sector</h1>
                         @endif
@@ -40,11 +51,11 @@
                     </div>
 
                 </div>
-            </div>
+            </div></div>
 
-            <div class='content holding-blue'>
+            <div class='content holding-blue'><div class='container'>
                 <div class='row'>
-                    <div class='col-12'><div class='container'>
+                    <div class='col-12'>
                         <h2 class='holding-content'>Keep up-to-date by subscribing to our mailing list</h2>
 
                         <form method='post'>
@@ -63,15 +74,15 @@
                             @endif
                         </form>
 
-                    </div></div>
+                    </div>
                 </div>
-            </div>
+            </div></div>
 
             <div class='content holding-dark-blue'>
                 <div class='container'>
                     <div class='row'>
                         <div class='col-12'>
-                            <p>All Content © Career In Health™ {{ date('Y') }}</p>
+                            <p>All Content © Career In Health {{ date('Y') }}</p>
                         </div>
                     </div>
                 </div>
