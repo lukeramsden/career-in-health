@@ -12,4 +12,9 @@ class Company extends Model
         return $this->hasMany('App\Models\Advert');
     }
 
+    public function addresses()
+    {
+        return $this->hasMany('App\Models\Address');
+    }
+
 }

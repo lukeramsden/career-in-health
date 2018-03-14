@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Advert extends Model
 {
     
-    protected $guarded = ['_token', 'id'];
+    protected $guarded = ['_token', 'id', 'save_for_later'];
 
     private $roles = [
         '1' => 'Senior Carer / Head of Care / Team Leader',
@@ -78,26 +78,6 @@ class Advert extends Model
     public function getTypes()
     {
         return $this->types;
-    }
-
-    public function getAllLocations()
-    {
-        $locations = Location::select(['id', 'name', 'county'])
-            ->whereIn('type', ['City', 'Town', 'Village'])
-            ->get();
-
-        $locs = [];
-
-        foreach ($locations as $loc) {
-            $locs[] = (object) [
-                'id' => $loc->id,
-                'name' => str_replace("'", '', $loc->name) .' ('. $loc->county .')',
-            ];
-        }  
-
-        $locs = collect($locs)->unique('name')->all();
-
-        return $locs;
     }
 
     public function linkEdit()

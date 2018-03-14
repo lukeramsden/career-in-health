@@ -17,6 +17,7 @@ class AdvertController extends Controller
             ];
         } else {
             $rules = [
+                'address_id' => 'required',
                 'title' => 'required|max:160',
                 'description' => 'required|max:3000',
                 'role' => 'required',

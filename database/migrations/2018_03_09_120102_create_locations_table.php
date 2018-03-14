@@ -30,6 +30,8 @@ class CreateLocationsTable extends Migration
             $table->string('type', 50)->nullable();
             $table->timestamps();
         });
+
+        App\Models\Location::LoadCSV();
     }
 
     /**

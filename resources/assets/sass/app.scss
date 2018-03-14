@@ -59,8 +59,8 @@ p {
         height: 50px !important;
         padding-right: 66px;
         background-image: url(/i/icon-dropdown-second.svg);
-        background-size: 48px 48px;
-        background-position: center right;
+        background-size: 10px 7px;
+        background-position: center right 16px;
         background-repeat: no-repeat;
     }
 
@@ -94,11 +94,29 @@ p {
             padding-top: 10px;
         }
     }
+
+    .note {
+        width: 100%;
+        color: $text-light;
+        font-weight: 300;
+        font-style: italic;
+        padding-top: 10px;
+
+        b {
+            font-weight: 400;
+        }
+    }
 }
 
 .btn-big {
     height: 50px;
     padding: 0px 30px;
+}
+
+.btn-text {
+    background-color: transparent;
+    color: $text;
+    text-decoration: underline;
 }
 
 body {
@@ -482,10 +500,24 @@ p.holding-content {
 
     h1 {
         color: $text-dark;
+        font-size: 34px;
+        font-weight: 600;
+        height: 40px;
+    }
+
+    h3 {
+        color: $text-dark;
+        font-size: 24px;
+        font-weight: 600;
+        padding-top: 10px;
     }
 
     .row {
         margin: 0px;
+
+        &.align-minus {
+            margin: 0px -15px;
+        }
 
         &:last-child {
             .form-section,
@@ -526,4 +558,11 @@ p.holding-content {
             padding-top: 30px;
         }
     }
+}
+
+.exp-spacer {
+    font-size: 28px;
+    font-weight: 400;
+    color: $text-dark;
+    padding: 0px 10px;
 }

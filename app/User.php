@@ -2,12 +2,14 @@
 
 namespace App;
 
+use Laravel\Cashier\Billable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use Billable;
 
     protected $fillable = [
         'name', 'email', 'password',
@@ -31,4 +33,5 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Company');
     }
+    
 }

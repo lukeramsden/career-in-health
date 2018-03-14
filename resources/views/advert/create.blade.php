@@ -18,6 +18,28 @@
                 <div class='row'>
                     <div class='col-md-7 form-section'>
                         <div class="form-group">
+                            <label>Address (<span class='text-action'>*</span>)</label>
+
+                            <select name='address_id' class="form-control location-search {{ $errors->has('address_id') ? 'is-invalid' : '' }}">
+                                <option {{ old('address_id', $advert->address_id) != null ? '' : 'selected' }} disabled>Address</option>
+                                @foreach (Auth::user()->company->addresses as $loc)
+                                    <option {{ $loc->id == old('address_id', $advert->address_id) ? 'selected' : '' }} value='{{ $loc->id }}'>{{ $loc->name }} - {{ $loc->location->name }}</option>
+                                @endforeach
+                            </select>
+
+                            @if ($errors->has('address_id'))
+                                <div class="invalid-feedback">{{ $errors->first('address_id') }}</div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class='col-md-5 help-section'>
+                        <p>This will be the address that you want to find staff for.<br />If you haven't created a address <a href='{{ route('address_create') }}'>click here</a> to creat one</p>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='col-md-7 form-section'>
+                        <div class="form-group">
                             <label>Title (<span class='text-action'>*</span>)</label>
                             <input type="text" name='title' class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" 
                                 placeholder="Title" value='{{ old('title', $advert->title) }}'>
@@ -133,34 +155,15 @@
                         </div>
                     </div>
                     <div class='col-md-5 help-section'>
-                        <p></p>
+                        <p>If you don't want to provide a salary just leave it blank.</p>
                     </div>
                 </div>
 
-                {{-- <div class='row'>
-                    <div class='col-md-7 form-section'>
-                        <div class="form-group">
-                            <label>Location (<span class='text-action'>*</span>)</label>
-                            <select name='location_id' class="form-control location-search {{ $errors->has('location_id') ? 'is-invalid' : '' }}">
-                                <option></option>
-                                @foreach ($advert->getAllLocations() as $loc)
-                                    <option {{ $loc->id == old('location_id') ? 'selected' : '' }} value='{{ $loc->id }}'>{{ $loc->name }}</option>
-                                @endforeach
-                            </select>
-
-                            @if ($errors->has('location_id'))
-                                <div class="invalid-feedback">{{ $errors->first('location_id') }}</div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class='col-md-5 help-section'>
-                        <p></p>
-                    </div>
-                </div> --}}
 
                 <div class='row'>
                     <div class='col-md-7 form-section'>
                         <button class='btn btn-action btn-big'>Create Advert</button>
+                        <button class='btn btn-text btn-big' name='save_for_later' value='1'>Save As Draft</button>
                     </div>
                     <div class='col-md-5 help-section'>
                         <p></p>
@@ -172,8 +175,4 @@
     </div>
     
 @endsection
-@section('script')
-    <script>
-        $(".location-search").select2({});
-    </script>
-@endsection
+

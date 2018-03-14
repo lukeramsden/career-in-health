@@ -10032,9 +10032,9 @@ p {
 .form-group .select2-selection {
   height: 50px !important;
   padding-right: 66px;
-  background-image: url(/icons/icon-dropdown-second.svg);
-  background-size: 48px 48px;
-  background-position: center right;
+  background-image: url(/i/icon-dropdown-second.svg);
+  background-size: 10px 7px;
+  background-position: center right 16px;
   background-repeat: no-repeat;
 }
 
@@ -10068,9 +10068,27 @@ p {
   padding-top: 10px;
 }
 
+.form-group .note {
+  width: 100%;
+  color: #808080;
+  font-weight: 300;
+  font-style: italic;
+  padding-top: 10px;
+}
+
+.form-group .note b {
+  font-weight: 400;
+}
+
 .btn-big {
   height: 50px;
   padding: 0px 30px;
+}
+
+.btn-text {
+  background-color: transparent;
+  color: #666666;
+  text-decoration: underline;
 }
 
 body {
@@ -10464,10 +10482,24 @@ p.holding-content {
 
 .create-advert-container h1 {
   color: #434343;
+  font-size: 34px;
+  font-weight: 600;
+  height: 40px;
+}
+
+.create-advert-container h3 {
+  color: #434343;
+  font-size: 24px;
+  font-weight: 600;
+  padding-top: 10px;
 }
 
 .create-advert-container .row {
   margin: 0px;
+}
+
+.create-advert-container .row.align-minus {
+  margin: 0px -15px;
 }
 
 .create-advert-container .row:last-child .form-section,
@@ -10504,5 +10536,12 @@ p.holding-content {
   color: #808080;
   font-weight: 300;
   padding-top: 30px;
+}
+
+.exp-spacer {
+  font-size: 28px;
+  font-weight: 400;
+  color: #434343;
+  padding: 0px 10px;
 }
 

@@ -12,7 +12,7 @@ class Location extends Model
         ini_set('memory_limit','-1');
         ini_set('max_execution_time', 10000);
 
-        Location::where('id', '>', 0)->delete();
+        // Location::where('id', '>', 0)->delete();
 
         $csv = array_map('str_getcsv', file(base_path().'/storage/app/public/uk-towns.csv'));
 

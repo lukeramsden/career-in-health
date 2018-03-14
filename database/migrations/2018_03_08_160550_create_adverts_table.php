@@ -24,7 +24,7 @@ class CreateAdvertsTable extends Migration
             $table->integer('type')->nullable();
             $table->float('min_salary', 10, 2)->nullable();
             $table->float('max_salary', 10, 2)->nullable();
-            $table->integer('location_id')->nullable();
+            $table->integer('address_id')->nullable();
             $table->string('postcode', 10)->nullable();
             $table->timestamp('started_at')->nullable();
             $table->timestamp('end_at')->nullable();
@@ -34,8 +34,6 @@ class CreateAdvertsTable extends Migration
             $table->integer('status')->default(0);
             $table->timestamps();
         });
-
-        App\Models\Location::LoadCSV();
     }
 
     /**
