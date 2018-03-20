@@ -109,7 +109,7 @@
                         <div class="form-group">
                             <label>Jobs</label>
                             
-                            <select name="job_types[]" class="form-control {{ $errors->has('job_types') ? 'is-invalid' : '' }}'" multiple title="Jobs" size="15">
+                            <select name="job_types[]" class="form-control {{ $errors->has('job_types') ? 'is-invalid' : '' }}" multiple title="Jobs" size="15">
                                 @foreach(\App\Models\JobType::all() as $job)
                                     <option {{ $profile->jobTypes->contains($job) ? 'selected' : '' }} value="{{ $job->id }}">{{ $job->name }}</option>
                                 @endforeach
@@ -124,7 +124,7 @@
                 </div>
                 <div class='row'>
                     <div class='col-md-7 form-section'>
-                        <button class='btn btn-action btn-big'>Save</button>
+                        <button type="submit" class='btn btn-action btn-big'>Save</button>
                     </div>
                     <div class='col-md-5 help-section'></div>
                 </div>
