@@ -1,5 +1,4 @@
 @extends('layouts.account')
-@section('content')
 
 @section('content')
 <div class="container">
@@ -46,10 +45,7 @@
                                     <button class='btn btn-action'>Login</button>
                                 </div>
                             </div>
-
                         </div>
-
-
                     </form>
                 </div>
             </div>
