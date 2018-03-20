@@ -10171,9 +10171,8 @@ body {
 }
 
 .navbar-light .navbar-nav .show > .nav-link,
-.navbar-light .navbar-nav .active > .nav-link,
 .navbar-light .navbar-nav .nav-link.show,
-.navbar-light .navbar-nav .nav-link.active {
+.navbar-light .navbar-nav .active > .nav-link {
   color: white !important;
   background-color: rgba(0, 0, 0, 0.1);
 }
@@ -10478,6 +10477,7 @@ p.holding-content {
   margin-bottom: 100px;
   width: 100%;
   display: block;
+  background-color: #e6e6e6;
 }
 
 .create-advert-container h1 {
@@ -10512,13 +10512,18 @@ p.holding-content {
   padding: 10px 24px 60px 24px;
 }
 
+.create-advert-container .row:last-child .form-section.zero-side-padding,
+.create-advert-container .row:last-child .help-section.zero-side-padding {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .create-advert-container .row.first-row .form-section,
 .create-advert-container .row.first-row .help-section {
   padding: 60px 40px 20px;
 }
 
 .create-advert-container .form-section {
-  background-color: #e6e6e6;
   padding: 10px 40px 0px;
 }
 
@@ -10543,5 +10548,204 @@ p.holding-content {
   font-weight: 400;
   color: #434343;
   padding: 0px 10px;
+}
+
+.plan-box {
+  border: 1px solid #cccccc;
+  background-color: white;
+}
+
+.plan-box .head {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #4d6a99;
+  padding: 30px 0px 24px;
+}
+
+.plan-box .head h2 {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+.plan-box .head span {
+  display: block;
+  color: #f9834e;
+  font-size: 18px;
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
+  height: 20px;
+}
+
+.plan-box .body {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 40px 0px 34px;
+}
+
+.plan-box .body > div {
+  width: 80%;
+}
+
+.plan-box .body span {
+  display: block;
+  color: #434343;
+  font-size: 16px;
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
+  height: 20px;
+}
+
+.plan-box .body h2 {
+  color: #434343;
+  font-size: 44px;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+}
+
+.plan-box .body .btn {
+  margin-top: 30px;
+  width: 100%;
+  line-height: 50px;
+  font-size: 16px;
+  font-weight: 400;
+  display: block;
+}
+
+.why-choose-us {
+  border: 1px solid #cccccc;
+  background-color: white;
+  padding: 60px 30px 40px;
+}
+
+.why-choose-us h2 {
+  color: #434343;
+  font-size: 24px;
+}
+
+.why-choose-us ul {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+}
+
+.why-choose-us ul li {
+  display: block;
+  width: 100%;
+  color: #666666;
+  font-size: 18px;
+  font-weight: 600;
+  padding-left: 30px;
+  position: relative;
+  margin-top: 20px;
+}
+
+.why-choose-us ul li span {
+  font-size: 14px;
+  font-weight: 300;
+  color: #808080;
+  display: block;
+  height: 14px;
+  line-height: 14px;
+}
+
+.why-choose-us ul li:before {
+  content: '';
+  display: block;
+  background-image: url(/i/icon-tick-action.svg);
+  background-size: 18px;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 5px;
+  left: 0px;
+  height: 18px;
+  width: 30px;
+}
+
+.payment-summary {
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  margin-top: 30px;
+}
+
+.payment-summary li {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(204, 204, 204, 0.25);
+  font-size: 16px;
+  font-weight: 300;
+  color: #434343;
+}
+
+.payment-summary li span {
+  float: right;
+}
+
+.payment-summary li.total {
+  padding-bottom: 34px;
+  font-weight: 600;
+}
+
+.payment-section .form-group {
+  margin-top: 30px;
+  margin-bottom: 0px;
+}
+
+.need-help {
+  margin-top: 40px;
+}
+
+.need-help h3 + h4 {
+  margin-top: 30px;
+}
+
+.need-help h4 {
+  font-size: 18px;
+  color: #434343;
+  font-weight: 400;
+}
+
+.need-help h4 b {
+  font-weight: 600;
+}
+
+.current-subscription {
+  background-color: #b3b3b3;
+  color: #808080;
+}
+
+.current-subscription:hover {
+  cursor: default !important;
+  background-color: #b3b3b3;
+  color: #808080;
 }
 

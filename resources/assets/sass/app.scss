@@ -200,7 +200,8 @@ body {
     }
 }
 
-.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
+// , .navbar-light .navbar-nav .nav-link.active
+.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .active > .nav-link {
     color: white !important;
     background-color: rgba(0,0,0, 0.1);
 }
@@ -497,6 +498,7 @@ p.holding-content {
     margin-bottom: 100px;
     width: 100%;
     display: block;
+    background-color: #e6e6e6;
 
     h1 {
         color: $text-dark;
@@ -527,6 +529,11 @@ p.holding-content {
                 &.no-side-padding {
                     padding: 10px 24px 60px 24px;
                 }
+
+                &.zero-side-padding {
+                    padding-left: 0px;
+                    padding-right: 0px;
+                }
             }
         }
 
@@ -539,7 +546,7 @@ p.holding-content {
     }
 
     .form-section {
-        background-color: #e6e6e6;
+        // background-color: #e6e6e6;
         padding: 10px 40px 0px;
 
         &.no-side-padding {
@@ -565,4 +572,193 @@ p.holding-content {
     font-weight: 400;
     color: $text-dark;
     padding: 0px 10px;
+}
+
+.plan-box {
+    border: 1px solid #cccccc;
+    background-color: white;
+
+    .head {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $second;
+        padding: 30px 0px 24px;
+
+        h2 {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        span {
+            display: block;
+            color: $action;
+            font-size: 18px;
+            font-weight: 300;
+            width: 100%;
+            text-align: center;
+            height: 20px;
+        }
+    }
+
+    .body {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0px 34px;
+
+        > div {
+            width: 80%;
+        }
+
+        span {
+            display: block;
+            color: $text-dark;
+            font-size: 16px;
+            font-weight: 300;
+            width: 100%;
+            text-align: center;
+            height: 20px;
+        }
+
+        h2 {
+            color: $text-dark;
+            font-size: 44px;
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+            padding: 0px;
+            margin: 0px; 
+        }
+
+        .btn {
+            margin-top: 30px;
+            width: 100%;
+            line-height: 50px;
+            font-size: 16px;
+            font-weight: 400;
+            display: block;
+        }
+    }
+}
+
+.why-choose-us {
+    border: 1px solid #cccccc;
+    background-color: white;
+    padding: 60px 30px 40px;
+
+    h2 {
+        color: $text-dark;
+        font-size: 24px;
+    }
+
+    ul {
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+        list-style: none;
+
+        li {
+            display: block;
+            width: 100%;
+            color: $text;
+            font-size: 18px;
+            font-weight: 600;
+            padding-left: 30px;
+            position: relative;
+            margin-top: 20px;
+
+            span {
+                font-size: 14px;
+                font-weight: 300;
+                color: $text-light;
+                display: block;
+                height: 14px;
+                line-height: 14px;
+            }
+
+            &:before {
+                content: '';
+                display: block;
+                background-image: url(/i/icon-tick-action.svg);
+                background-size: 18px;
+                background-position: center;
+                background-repeat: no-repeat;
+                position: absolute;
+                top: 5px;
+                left: 0px;
+                height: 18px;
+                width: 30px;
+            }
+        }
+    }
+}
+
+.payment-summary {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    margin-top: 30px;
+
+    li {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(#cccccc, 0.25);
+        font-size: 16px;
+        font-weight: 300;
+        color: $text-dark;
+
+        span {
+            float: right;
+        }
+
+        &.total {
+            padding-bottom: 34px;
+            font-weight: 600;
+        }
+    }
+}
+
+.payment-section {
+    .form-group {
+        margin-top: 30px;
+        margin-bottom: 0px;
+    }
+}
+
+.need-help {
+    margin-top: 40px;
+
+    h3 + h4 {
+        margin-top: 30px;
+    }
+
+    h4 {
+        font-size: 18px;
+        color: $text-dark;
+        font-weight: 400;
+
+        b {
+            font-weight: 600;
+        }
+    }
+}
+
+.current-subscription {
+    background-color: #b3b3b3;
+    color: $text-light;
+
+    &:hover {
+        cursor: default !important;
+        background-color: #b3b3b3;
+        color: $text-light;
+    }
 }

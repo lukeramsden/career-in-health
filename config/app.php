@@ -2,6 +2,9 @@
 
 return [
 
+    'support_number' => '01253 123123',
+    'support_email' => 'support@careerinhealth.co.uk',
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

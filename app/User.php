@@ -33,5 +33,31 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Company');
     }
+
+    public function stripePlan()
+    {
+        return $this->hasMany('App\Models\Subscribe');
+    }
+
+    public function activeStripePlan()
+    {
+        return $this->getSubscriptionUser()
+            ->stripePlan()
+            ->orderBy('created_at', 'DESC')
+            ->first();
+    }
     
+    public function getSubscriptionUser()
+    {
+        $user = $this->company->users()
+            ->whereNotNull('stripe_id')
+            ->first();
+
+        if ($user == null) {
+            $user = $this->company->users()
+                ->first();
+        }
+
+        return $user;
+    }
 }

@@ -38,8 +38,10 @@ if (env('APP_ENV') == 'local') {
         Route::post('/address', 'AddressController@store');
 
 
-        Route::get('/payment', 'SubscriptionController@payment');
-        Route::post('/payment', 'SubscriptionController@makePayment');
+        Route::get('/plans', 'SubscriptionController@index')->name('plans');
+
+        Route::get('/payment/{plan}', 'SubscriptionController@payment');
+        Route::post('/payment/{plan}', 'SubscriptionController@makePayment');
     });
 
     Route::get('/test', function() {
