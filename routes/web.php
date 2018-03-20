@@ -89,8 +89,8 @@ if (env('APP_ENV') == 'local') {
             Route::post('/4_certifications', 'CVBuilderController@step4_save');
         });
 
+        Route::get('/personnel', 'PersonnelFileController@generate');
         Route::get('/test', function() {
-            Route::get('/personnel', 'PersonnelFileController@generate');
 
             //     $p = new App\Models\SubscriptionPlan();
             //     $p->getPlansFromStripe();
