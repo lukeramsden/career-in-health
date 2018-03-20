@@ -21,11 +21,6 @@ class User extends Authenticatable
 
     protected $with = ['profile'];
 
-    public function fullName() 
-    {
-        return $this->first_name . ' ' . $this->last_name;
-    }
-
     public function isCompany()
     {
         return $this->company_id !== null ? true : false;
