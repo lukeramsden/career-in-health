@@ -89,6 +89,9 @@
                             </div>
 
                             <div class='col-md-12 mt-3 company-name' style='display: none;'>
+                                {{-- TODO:: Make this show up depending on old()
+                                            this dissapears if one of the other inputs is wrong
+                                --}}
                                 <div class="form-group">
                                     <label>Company Name (<span class='text-action'>*</span>)</label>
                                     <input type='text' name="company_name" class="form-control" placeholder="Company Name">
