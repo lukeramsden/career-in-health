@@ -40,7 +40,6 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-        $this->redirectTo = route('cv-builder.profile');
     }
 
     /**
@@ -96,6 +95,9 @@ class RegisterController extends Controller
 
             $user->company_id = $company->id;
             $user->save();
+            $this->redirectTo = '/home';
+        } else {
+            $this->redirectTo = route('cv-builder.profile');
         }
 
         return $user;
