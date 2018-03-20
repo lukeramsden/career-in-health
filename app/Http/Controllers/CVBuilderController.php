@@ -37,7 +37,7 @@ class CVBuilderController extends Controller
         $profile->fill($data);
         $profile->jobTypes()->sync($data['job_types']);
         $profile->save();
-        
+
         return redirect(route('cv-builder.work-experience'));
     }
 
