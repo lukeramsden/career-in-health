@@ -83,9 +83,8 @@ class RegisterController extends Controller
         $profile = new Profile;
         $profile->first_name = ucwords($data->first_name);
         $profile->last_name = ucwords($data->last_name);
-        $user->profile()->save($profile);
-
         $user->save();
+        $user->profile()->save($profile);
 
         if ($data->i_am == 'Employeer') {
             // create company;
