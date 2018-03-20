@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Profile;
 use App\User;
 use App\Models\Company;
 use App\Http\Controllers\Controller;
@@ -52,7 +53,7 @@ class RegisterController extends Controller
         $rules = [
             'i_am' => 'required',
             'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'last_name' => 'string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'terms' => 'required'
@@ -73,13 +74,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $data = (object) $data;
+        $data = (object) $data; // ? - luke
 
         $user = new User();
         $user->email = $data->email;
-        $user->first_name = ucwords($data->first_name);
-        $user->last_name = ucwords($data->last_name);
         $user->password = Hash::make($data->password);
+
+        $profile = new Profile;
+        $profile->first_name = ucwords($data->first_name);
+        $profile->last_name = ucwords($data->last_name);
+        $user->profile()->save($profile);
+
         $user->save();
 
         if ($data->i_am == 'Employeer') {

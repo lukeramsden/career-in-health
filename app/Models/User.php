@@ -19,6 +19,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $with = ['profile'];
+
     public function fullName() 
     {
         return $this->first_name . ' ' . $this->last_name;
@@ -59,5 +61,10 @@ class User extends Authenticatable
         }
 
         return $user;
+    }
+
+    public function profile()
+    {
+        return $this->hasOne('App\Models\Profile');
     }
 }
