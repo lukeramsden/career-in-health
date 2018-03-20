@@ -54,6 +54,7 @@ if (env('APP_ENV') == 'local') {
                 Route::prefix('work-experience')->group(function () {
                     Route::get('/edit', 'ProfileWorkExperienceController@edit')->name('profile.work.edit');
                     Route::post('/create', 'ProfileWorkExperienceController@store')->name('profile.work.store');
+                    Route::get('/{profileWorkExperience}/edit', 'ProfileWorkExperienceController@edit_single')->name('profile.work.edit_single');
                     Route::post('/{profileWorkExperience}/edit', 'ProfileWorkExperienceController@update')->name('profile.work.update');
                     Route::get('/{profileWorkExperience}/destroy', 'ProfileWorkExperienceController@destroy')->name('profile.work.destroy');
                 });

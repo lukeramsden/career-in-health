@@ -25,6 +25,15 @@ class ProfileWorkExperienceController extends Controller
             ]);
     }
 
+    public function edit_single(ProfileWorkExperience $profileWorkExperience)
+    {
+        return view('profile.work-experience.edit')
+            ->with([
+                'work' => $profileWorkExperience,
+                'is_cvbuilder' => false
+            ]);
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate($this::$validation);
