@@ -19,7 +19,7 @@ class ReferenceController extends Controller
 
     public function edit()
     {
-        return view('references_edit')
+        return view('profile.references.edit')
             ->with([
                 'profile' => Auth::user()->profile,
                 'is_cvbuilder' => false,

@@ -11,7 +11,7 @@ class CVBuilderController extends Controller
 
     public function step1_show()
     {
-        return view('profile_edit')
+        return view('profile.edit')
             ->with([
                 'profile' => Auth::user()->profile,
                 'is_cvbuilder' => true,
@@ -40,7 +40,7 @@ class CVBuilderController extends Controller
 
     public function step2_show()
     {
-        return view('work-experience_edit')
+        return view('profile.work-experience.edit')
             ->with([
                 'profile' => Auth::user()->profile,
                 'is_cvbuilder' => true,
@@ -56,7 +56,7 @@ class CVBuilderController extends Controller
 
     public function step3_show()
     {
-        return view('references_edit')
+        return view('profile.references.edit')
             ->with([
                 'profile' => Auth::user()->profile,
                 'is_cvbuilder' => true,
@@ -72,7 +72,7 @@ class CVBuilderController extends Controller
 
     public function step4_show()
     {
-        return view('certifications_edit')
+        return view('profile.certifications.edit')
             ->with([
                 'profile' => Auth::user()->profile,
                 'is_cvbuilder' => true,

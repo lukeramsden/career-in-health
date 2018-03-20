@@ -23,7 +23,7 @@ class CertificationController extends Controller
 
     public function edit()
     {
-        return view('certifications_edit')
+        return view('profile.certifications.edit')
             ->with([
                 'profile' => Auth::user()->profile,
                 'is_cvbuilder' => false,

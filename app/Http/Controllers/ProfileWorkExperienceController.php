@@ -18,7 +18,7 @@ class ProfileWorkExperienceController extends Controller
 
     public function edit()
     {
-        return view('work-experience_edit')
+        return view('profile.work-experience.edit')
             ->with([
                 'profile' => Auth::user()->profile,
                 'is_cvbuilder' => false,

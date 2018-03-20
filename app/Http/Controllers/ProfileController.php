@@ -21,7 +21,7 @@ class ProfileController extends Controller
 
     public function show()
     {
-        return view('profile')
+        return view('profile.show')
             ->with([
                 'profile' => Auth::user()->profile
             ]);
@@ -29,7 +29,7 @@ class ProfileController extends Controller
 
     public function edit()
     {
-        return view('profile_edit')
+        return view('profile.edit')
             ->with([
                 'profile' => Auth::user()->profile,
                 'action' => route('profile.update'),
