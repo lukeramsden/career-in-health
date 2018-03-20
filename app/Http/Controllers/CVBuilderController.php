@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CVBuilderController extends Controller
 {
@@ -24,15 +25,19 @@ class CVBuilderController extends Controller
 
         $profile = Auth::user()->profile;
 
+        $old_avatar_path = $profile->avatar_path;
+
         if($request->hasFile('avatar'))
         {
-            $path = $request->file('avatar')->store('public');
+            $path = $request->file('avatar')->storePublicly('avatars');
             $profile->avatar_path = $path;
+            Storage::delete($old_avatar_path);
         }
 
         $profile->fill($data);
+        $profile->jobTypes()->sync($data['job_types']);
         $profile->save();
-
+        
         return redirect(route('cv-builder.work-experience'));
     }
 
