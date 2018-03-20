@@ -59,7 +59,7 @@ class RegisterController extends Controller
             'terms' => 'required'
         ];
 
-        if ($data['i_am'] !== null && $data['i_am'] == 'Employeer') {
+        if ($data['i_am'] !== null && $data['i_am'] == 'Employer') {
             $rules['company_name'] = 'required|string|max:255|unique:companies,name';
         }
 
@@ -86,7 +86,7 @@ class RegisterController extends Controller
         $user->save();
         $user->profile()->save($profile);
 
-        if ($data->i_am == 'Employeer') {
+        if ($data->i_am == 'Employer') {
             // create company;
             $company = new Company();
             $company->name = ucwords($data->company_name);

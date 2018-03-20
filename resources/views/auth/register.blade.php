@@ -23,7 +23,7 @@
                                     <select class='form-control i-am {{ $errors->has('i_am') ? 'is-invalid' : '' }}' name='i_am'>
                                         <option value='' disabled selected>I am</option>
                                         <option {{ old('i_am') == 'Employee' ? 'selected' : '' }}>Employee</option>
-                                        <option {{ old('i_am') == 'Employeer' ? 'selected' : '' }}>Employeer</option>
+                                        <option {{ old('i_am') == 'Employer' ? 'selected' : '' }}>Employer</option>
                                     </select>
 
                                     @if ($errors->has('i_am'))
@@ -126,7 +126,7 @@
 @section('script')
 <script>
     $('.i-am').on('change', function() {
-        if ($(this).val() == 'Employeer') {
+        if ($(this).val() == 'Employer') {
             $('.company-name').show();
         } else {
             $('.company-name').hide();

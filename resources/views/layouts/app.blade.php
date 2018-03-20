@@ -62,7 +62,7 @@
                                 @endif
                             @else
                                 <li><a class="nav-link {{ isActive('/') ? 'active' : '' }}" href='/'>Home</a></li>
-                                <li><a class="nav-link" href='#'>Employeer</a></li>
+                                <li><a class="nav-link" href='#'>Employer</a></li>
                                 <li><a class="nav-link" href='#'>Employee</a></li>
                                 <li><a class="nav-link" href='#'>Pricing</a></li>
                                 <li><a class="nav-link" href='#'>Reviews</a></li>
