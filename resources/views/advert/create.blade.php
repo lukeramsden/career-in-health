@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="container">
-        <div class='create-advert-container has-top-bar'>
+        <div class='create-advert-container form-container has-top-bar'>
             <form method='post'>
                 {{ csrf_field() }}
 

@@ -43,7 +43,7 @@ p {
     }
 
     textarea,
-    select,
+    select:not([multiple]),
     input,
     .select2-selection {
         background-color: white;
@@ -54,11 +54,11 @@ p {
         -webkit-appearance: none;
     }
 
-    select,
+    select:not([multiple]),
     .select2-selection {
         height: 50px !important;
         padding-right: 66px;
-        background-image: url(/i/icon-dropdown-second.svg);
+        background-image: url('/i/icon-dropdown-second.svg');
         background-size: 10px 7px;
         background-position: center right 16px;
         background-repeat: no-repeat;
@@ -493,9 +493,9 @@ p.holding-content {
     }
 }
 
-.create-advert-container {
-    margin-top: 100px;
-    margin-bottom: 100px;
+.form-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
     width: 100%;
     display: block;
     background-color: #e6e6e6;
@@ -564,6 +564,10 @@ p.holding-content {
             font-weight: 300;
             padding-top: 30px;
         }
+    }
+
+    .list-group-flush .list-group-item {
+        line-height: 0.85;
     }
 }
 
