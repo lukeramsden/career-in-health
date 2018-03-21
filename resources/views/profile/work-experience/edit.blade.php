@@ -64,8 +64,11 @@
                     <div class='row'>
                         <div class='col-md-7 form-section no-side-padding'>
                             <div class="row">
-                                <div class="col-md-12 work-edit-button">
-                                    <a href="{{ route('profile.work.edit_single', ['profileWorkExperience' => $work, 'isCvBuilder' => $isCvBuilder]) }}" class='btn btn-action btn-block'>Edit</a>
+                                <div class="col-md-10">
+                                    <a href="{{ route('profile.work.edit_single', ['work' => $work, 'isCvBuilder' => $isCvBuilder]) }}" class='btn btn-action btn-block'>Edit</a>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="{{ route('profile.work.destroy', ['work' => $work]) }}" class="btn btn-danger btn-block">Delete</a>
                                 </div>
                             </div>
                         </div>

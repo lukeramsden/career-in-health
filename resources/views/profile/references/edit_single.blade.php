@@ -76,7 +76,7 @@
                     <div class="col-md-7 form-section">
                         <div class="form-group">
                             <label>Associated Job</label>
-                            <select name="work_id" title="Associated Job" class="form-control">
+                            <select name="work_id" title="Associated Job" class="custom-select">
                                 <option value>-</option>
                                 @foreach(Auth::user()->profile->work as $work)
                                     <option {{ $reference->work_id === $work->id ? 'selected' : '' }} value="{{ $work->id }}">{{ $work->job_title }} at {{ $work->company_name }}</option>

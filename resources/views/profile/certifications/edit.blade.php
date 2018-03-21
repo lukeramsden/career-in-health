@@ -73,8 +73,14 @@
                     <div class='row'>
                         <div class='col-md-7 form-section no-side-padding'>
                             <div class="row">
-                                <div class="col-md-12 work-edit-button">
+                                <div class="col-md-8">
                                     <a href="{{ route('profile.certifications.edit_single', ['certification' => $certification, 'isCvBuilder' => $isCvBuilder]) }}" class='btn btn-action btn-block'>Edit</a>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="{{ $certification->url() }}" target="_blank" class="btn btn-outline-secondary btn-block">View</a>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="{{ route('profile.certifications.destroy', ['certification' => $certification]) }}" class="btn btn-danger btn-block">Delete</a>
                                 </div>
                             </div>
                         </div>

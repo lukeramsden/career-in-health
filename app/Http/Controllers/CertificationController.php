@@ -26,7 +26,7 @@ class CertificationController extends Controller
         return view('profile.certifications.edit')
             ->with([
                 'profile' => Auth::user()->profile,
-                'is_cvbuilder' => false,
+                'isCvBuilder' => false,
             ]);
     }
 
@@ -35,7 +35,7 @@ class CertificationController extends Controller
         return view('profile.certifications.edit_single')
             ->with([
                 'certification' => $certification,
-                'is_cvbuilder' => false,
+                'isCvBuilder' => false,
             ]);
     }
 

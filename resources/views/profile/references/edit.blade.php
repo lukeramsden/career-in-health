@@ -65,7 +65,7 @@
                         <div class="col-md-7 form-section">
                             <div class="form-group">
                                 <label>Associated Job</label>
-                                <select name="work_id" title="Associated Job" class="form-control" readonly>
+                                <select name="work_id" title="Associated Job" class="custom-select" disabled readonly>
                                     <option selected value="{{ $reference->work->id }}">{{ $reference->work->job_title }} at {{ $reference->work->company_name }}</option>
                                 </select>
                             </div>
@@ -76,8 +76,11 @@
                     <div class='row'>
                         <div class='col-md-7 form-section no-side-padding'>
                             <div class="row">
-                                <div class="col-md-12 work-edit-button">
+                                <div class="col-md-10">
                                     <a href="{{ route('profile.references.edit_single', ['reference' => $reference, 'isCvBuilder' => $isCvBuilder]) }}" class='btn btn-action btn-block'>Edit</a>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="{{ route('profile.references.destroy', ['reference' => $reference]) }}" class="btn btn-danger btn-block">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -150,7 +153,7 @@
                     <div class="col-md-7 form-section">
                         <div class="form-group">
                             <label>Associated Job</label>
-                            <select name="work_id" title="Associated Job" class="form-control  {{ $errors->has('work_id') ? 'is-invalid' : '' }}">
+                            <select name="work_id" title="Associated Job" class="custom-select  {{ $errors->has('work_id') ? 'is-invalid' : '' }}">
                                 <option value>-</option>
                                 @foreach(Auth::user()->profile->work as $work)
                                     <option {{ old('work_id') == $work->id ? 'selected' : '' }} value="{{ $work->id }}">{{ $work->job_title }} at {{ $work->company_name }}</option>

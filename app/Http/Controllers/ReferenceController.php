@@ -22,7 +22,7 @@ class ReferenceController extends Controller
         return view('profile.references.edit')
             ->with([
                 'profile' => Auth::user()->profile,
-                'is_cvbuilder' => false,
+                'isCvBuilder' => false,
             ]);
     }
 
@@ -31,7 +31,7 @@ class ReferenceController extends Controller
         return view('profile.references.edit_single')
             ->with([
                 'reference' => $reference,
-                'is_cvbuilder' => false,
+                'isCvBuilder' => false,
             ]);
     }
 
