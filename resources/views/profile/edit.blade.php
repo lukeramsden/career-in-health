@@ -24,7 +24,7 @@
                         <div class="form-group">
                             <label>Avatar</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="input-avatar">
+                                <input type="file" class="custom-file-input" id="input-avatar" name="avatar">
                                 <label class="custom-file-label" for="input-avatar">Choose file...</label>
                                 @if ($errors->has('avatar'))
                                     <div class="invalid-feedback">{{ $errors->first('avatar') }}</div>
