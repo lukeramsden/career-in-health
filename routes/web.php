@@ -62,6 +62,7 @@ if (env('APP_ENV') == 'local') {
                 Route::prefix('references')->group(function () {
                     Route::get('/edit', 'ReferenceController@edit')->name('profile.references.edit');
                     Route::post('/create', 'ReferenceController@store')->name('profile.references.store');
+                    Route::get('/{reference}/edit', 'ReferenceController@edit_single')->name('profile.references.edit_single');
                     Route::post('/{reference}/edit', 'ReferenceController@update')->name('profile.references.update');
                     Route::get('/{reference}/destroy', 'ReferenceController@destroy')->name('profile.references.destroy');
                 });

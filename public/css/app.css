@@ -10038,6 +10038,11 @@ p {
   background-repeat: no-repeat;
 }
 
+.form-group select:disabled,
+.form-group .form-control[readonly] {
+  background-color: #e9ecef;
+}
+
 .form-group .select2-selection__rendered {
   padding: 0px !important;
   height: 48px;

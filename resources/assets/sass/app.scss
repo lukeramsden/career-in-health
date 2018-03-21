@@ -64,6 +64,11 @@ p {
         background-repeat: no-repeat;
     }
 
+    select:disabled,
+    .form-control[readonly] {
+        background-color: #e9ecef;
+    }
+
     .select2-selection__rendered {
         padding: 0px !important;
         height: 48px;

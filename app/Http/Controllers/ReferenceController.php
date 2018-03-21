@@ -26,6 +26,15 @@ class ReferenceController extends Controller
             ]);
     }
 
+    public function edit_single(Reference $reference)
+    {
+        return view('profile.references.edit_single')
+            ->with([
+                'reference' => $reference,
+                'is_cvbuilder' => false,
+            ]);
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate($this::$validation);
@@ -47,7 +56,15 @@ class ReferenceController extends Controller
         $reference->fill($data);
         $reference->save();
 
-        return back()
+        if($request->query('isCvBuilder', false))
+        {
+            return redirect(route('cv-builder.references'))
+                ->with([
+                    'status' => 'Updated!'
+                ]);
+        }
+
+        return redirect(route('profile.references.edit'))
             ->with([
                 'status' => 'Updated!'
             ]);

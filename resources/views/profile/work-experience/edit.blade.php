@@ -27,13 +27,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Job Title</label>
-                                        <input type="text" class="form-control" placeholder="Job Title" disabled value="{{ $work->job_title }}">
+                                        <input type="text" class="form-control" placeholder="Job Title" readonly value="{{ $work->job_title }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Company Name</label>
-                                        <input type="text" class="form-control" placeholder="Company Name" disabled value="{{ $work->company_name }}">
+                                        <input type="text" class="form-control" placeholder="Company Name" readonly value="{{ $work->company_name }}">
                                     </div>
                                 </div>
                             </div>
@@ -47,13 +47,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Start Date</label>
-                                        <input type="date" class="form-control" placeholder="Start Date" disabled value="{{ $work->start_date }}">
+                                        <input type="date" class="form-control" placeholder="Start Date" readonly value="{{ $work->start_date }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>End Date</label>
-                                        <input type="date" class="form-control" placeholder="End Date" disabled value="{{ $work->end_date }}">
+                                        <input type="date" class="form-control" placeholder="End Date" readonly value="{{ $work->end_date }}">
                                     </div>
                                 </div>
                             </div>

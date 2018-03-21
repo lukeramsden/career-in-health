@@ -2,142 +2,189 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        References
-                    </div>
-
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        @foreach ($profile->references as $reference)
-                            <form id="references-form{{$reference->id}}" class="references-form" action="{{ route('profile.references.update', ['reference' => $reference]) }}" method="post">
-                                {{ csrf_field() }}
-                                <div class="form-row">
-                                    <div class="form-group col-12">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="person_name" disabled="disabled" placeholder="Name" value="{{ $reference->person_name }}">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="">at</span>
-                                            </div>
-                                            <input type="text" class="form-control" name="person_company" disabled="disabled" placeholder="Company" value="{{ $reference->person_company }}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-12">
-                                        <input type="text" class="form-control" name="person_relation" disabled="disabled" placeholder="Relation" value="{{ $reference->person_relation }}">
-                                    </div>
-                                    <div class="form-group col-12">
-                                        <input type="text" class="form-control" name="person_contact" disabled="disabled" placeholder="Contact Info" value="{{ $reference->person_contact }}">
-                                    </div>
-                                    <div class="form-group col-12">
-                                        <label for="work_id">Associated Job</label>
-                                        <select name="work_id" id="work_id" class="form-control" disabled="disabled">
-                                            <option value>-</option>
-                                            @foreach($profile->work as $work)
-                                                <option {{ $reference->work_id === $work->id ? 'selected' : '' }} value="{{ $work->id }}"><em>{{ $work->job_title }}</em> at <em>{{ $work->company_name }}</em></option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="references-form-buttons">
-                                    <button type="button" class="references-form-edit btn btn-primary" onclick="setActiveForm({{$reference->id}})">Edit</button>
-                                    <button type="submit" class="references-form-submit btn btn-primary d-none">Save</button>
-                                    <a href="{{ route('profile.references.destroy', ['reference' => $reference]) }}" class="btn btn-danger">Delete</a>
-                                </div>
-                            </form>
-                            <hr>
-                        @endforeach
-
-                        <script>
-                            function setFormClasses(form, active) {
-                                // needed so you can pass elements from .each() without casting
-                                // doesn't do anything if its already of correct type
-                                form = $(form);
-
-                                // call function with bracket notation because it allows for expressions
-                                // get first child with class, then add or remove class d-none based on active bool
-                                $(form.find('.references-form-edit')[0])[active ? 'addClass' : 'removeClass']('d-none');
-                                $(form.find('.references-form-submit')[0])[active ? 'removeClass' : 'addClass']('d-none');
-
-                                form.find('.form-control').each(function(i, el) {
-                                    $(el).prop('disabled', !active);
-                                });
-                            }
-
-                            function setActiveForm(id) {
-                                // disable all forms
-                                $('.references-form').each(function() {setFormClasses(this, false)});
-                                // enable one form
-                                setFormClasses($('#references-form' + id), true);
-                            }
-
-                            window.onload = function () {
-                                setActiveForm();
-                            }
-                        </script>
-
-                        <br>
-
-                        <form action="{{ route('profile.references.store') }}" method="post">
-                            {{ csrf_field() }}
-                            <div class="form-row">
-                                <div class="form-group col-12">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="person_name" placeholder="Name" value="{{ old('person_name') }}">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="">at</span>
-                                        </div>
-                                        <input type="text" class="form-control" name="person_company" placeholder="Company" value="{{ old('person_company') }}">
-                                    </div>
-                                </div>
-                                <div class="form-group col-12">
-                                    <input type="text" class="form-control" name="person_relation" placeholder="Relation" value="{{ old('person_relation') }}">
-                                </div>
-                                <div class="form-group col-12">
-                                    <input type="text" class="form-control" name="person_contact" placeholder="Contact Info" value="{{ old('person_contact') }}">
-                                </div>
-                                <div class="form-group col-12">
-                                    <label for="work_id">Associated Job</label>
-                                    <select name="work_id" id="work_id" class="form-control">
-                                        <option value>-</option>
-                                        @foreach($profile->work as $work)
-                                            <option value="{{ $work->id }}"><em>{{ $work->job_title }}</em> at <em>{{ $work->company_name }}</em></option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Add</button>
-                        </form>
-    
-                        @if($isCvBuilder)
-                            <br>
-                            <form method="post">
-                                {{ csrf_field() }}
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Done</button>
-                                </div>
-                            </form>
-                        @endif
-                    </div>
+        <div class="edit-work-experience-container form-container has-top-bar">
+            <div class="row first-row">
+                <div class="col-md-7 form-section">
+                    <h1>References</h1>
                 </div>
+                <div class="col-md-5 help-section">
+                    <h1>Help</h1>
+                </div>
+            </div>
+            
+            @foreach ($profile->references as $reference)
+                <form>
+                    <div class="row">
+                        <div class="col-md-7 form-section">
+                            <hr>
+                        </div>
+                        <div class="col-md-5 help-section"></div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-7 form-section no-side-padding">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Person Name</label>
+                                        <input type="text" class="form-control" placeholder="Person Name" readonly value="{{ $reference->person_name }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Company Name</label>
+                                        <input type="text" class="form-control" placeholder="Company Name" readonly value="{{ $reference->person_company }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 help-section"></div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-7 form-section no-side-padding">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Relation</label>
+                                        <input type="text" class="form-control" placeholder="Relation" readonly value="{{ $reference->person_relation }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Contact Information</label>
+                                        <input type="text" class="form-control" placeholder="Contact Information" readonly value="{{ $reference->person_contact }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 help-section"></div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-7 form-section">
+                            <div class="form-group">
+                                <label>Associated Job</label>
+                                <select name="work_id" title="Associated Job" class="form-control" readonly>
+                                    <option selected value="{{ $reference->work->id }}">{{ $reference->work->job_title }} at {{ $reference->work->company_name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-5 help-section"></div>
+                    </div>
+                    
+                    <div class='row'>
+                        <div class='col-md-7 form-section no-side-padding'>
+                            <div class="row">
+                                <div class="col-md-12 work-edit-button">
+                                    <a href="{{ route('profile.references.edit_single', ['reference' => $reference, 'isCvBuilder' => $isCvBuilder]) }}" class='btn btn-action btn-block'>Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-md-5 help-section'></div>
+                    </div>
+                </form>
+            @endforeach
+            
+            <form action="{{ route('profile.references.store') }}" method="post">
+                {{ csrf_field() }}
+                <div class="row">
+                    <div class="col-md-7 form-section">
+                        <hr>
+                    </div>
+                    <div class="col-md-5 help-section"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 form-section no-side-padding">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Person Name (<span class="text-action">*</span>)</label>
+                                    <input type="text" class="form-control {{ $errors->has('person_name') ? 'is-invalid' : '' }}" name="person_name" placeholder="Person Name" required value="{{ old('person_name') }}">
+                                    @if ($errors->has('person_name'))
+                                        <div class="invalid-feedback">{{ $errors->first('person_name') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Company Name (<span class="text-action">*</span>)</label>
+                                    <input type="text" class="form-control {{ $errors->has('person_company') ? 'is-invalid' : '' }}" name="person_company" placeholder="Company Name" required value="{{ old('person_company') }}">
+                                    @if ($errors->has('person_company'))
+                                        <div class="invalid-feedback">{{ $errors->first('person_company') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 help-section"></div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-7 form-section no-side-padding">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Relation (<span class="text-action">*</span>)</label>
+                                    <input type="text" class="form-control {{ $errors->has('person_relation') ? 'is-invalid' : '' }}" name="person_relation" placeholder="Relation" required value="{{ old('person_relation') }}">
+                                    @if ($errors->has('person_relation'))
+                                        <div class="invalid-feedback">{{ $errors->first('person_relation') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Contact Information (<span class="text-action">*</span>)</label>
+                                    <input type="text" class="form-control {{ $errors->has('person_contact') ? 'is-invalid' : '' }}" name="person_contact" placeholder="Contact Information" required value="{{ old('person_contact') }}">
+                                    @if ($errors->has('person_contact'))
+                                        <div class="invalid-feedback">{{ $errors->first('person_contact') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 help-section"></div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-7 form-section">
+                        <div class="form-group">
+                            <label>Associated Job</label>
+                            <select name="work_id" title="Associated Job" class="form-control  {{ $errors->has('work_id') ? 'is-invalid' : '' }}">
+                                <option value>-</option>
+                                @foreach(Auth::user()->profile->work as $work)
+                                    <option {{ old('work_id') == $work->id ? 'selected' : '' }} value="{{ $work->id }}">{{ $work->job_title }} at {{ $work->company_name }}</option>
+                                @endforeach
+                            </select>
+                            @if ($errors->has('work_id'))
+                                <div class="invalid-feedback">{{ $errors->first('work_id') }}</div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-5 help-section"></div>
+                </div>
+                
+                <div class='row'>
+                    <div class='col-md-7 form-section'>
+                        <button type="submit" class='btn btn-action btn-block'>Add</button>
+                    </div>
+                    <div class='col-md-5 help-section'></div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-7 form-section">
+                    <hr>
+                    @if($isCvBuilder)
+                        <br>
+                        <form method="post">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-action btn-big">Done</button>
+                            </div>
+                        </form>
+                    @endif
+                </div>
+                <div class="col-md-5 help-section"></div>
             </div>
         </div>
     </div>
