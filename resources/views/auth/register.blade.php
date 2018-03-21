@@ -20,7 +20,7 @@
                             <div class='col-12'>
                                 <div class="form-group">
                                     <label>I am (<span class='text-action'>*</span>)</label>
-                                    <select class='form-control i-am {{ $errors->has('i_am') ? 'is-invalid' : '' }}' name='i_am'>
+                                    <select class='custom-select i-am {{ $errors->has('i_am') ? 'is-invalid' : '' }}' name='i_am'>
                                         <option value='' disabled selected>I am</option>
                                         <option {{ old('i_am') == 'Employee' ? 'selected' : '' }}>Employee</option>
                                         <option {{ old('i_am') == 'Employer' ? 'selected' : '' }}>Employer</option>
