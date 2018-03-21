@@ -127,7 +127,7 @@
                             <button type="submit" class="btn btn-primary">Add</button>
                         </form>
     
-                        @if($is_cvbuilder)
+                        @if($isCvBuilder)
                             <br>
                             <form method="post">
                                 {{ csrf_field() }}

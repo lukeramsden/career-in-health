@@ -12,7 +12,7 @@
                 </div>
             </div>
             
-            <form action="{{ route('profile.work.update', ['profileWorkExperience' => $work, 'isCvBuilder' => $is_cvbuilder]) }}" method="post">
+            <form action="{{ route('profile.work.update', ['profileWorkExperience' => $work, 'isCvBuilder' => app('request')->input('isCvBuilder')]) }}" method="post">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-7 form-section">
@@ -76,22 +76,13 @@
                 
                 <div class='row'>
                     <div class='col-md-7 form-section'>
-                        <button type="submit" class='btn btn-action btn-block'>Add</button>
+                        <button type="submit" class='btn btn-action btn-block'>Save</button>
                     </div>
                     <div class='col-md-5 help-section'></div>
                 </div>
                 <div class="row">
                     <div class="col-md-7 form-section">
                         <hr>
-                        @if($is_cvbuilder)
-                            <br>
-                            <form method="post">
-                                {{ csrf_field() }}
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-action btn-big">Done</button>
-                                </div>
-                            </form>
-                        @endif
                     </div>
                     <div class="col-md-5 help-section"></div>
                 </div>

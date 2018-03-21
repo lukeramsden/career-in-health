@@ -21,16 +21,16 @@ class ProfileWorkExperienceController extends Controller
         return view('profile.work-experience.edit')
             ->with([
                 'profile' => Auth::user()->profile,
-                'is_cvbuilder' => false,
+                'isCvBuilder' => false,
             ]);
     }
 
     public function edit_single(ProfileWorkExperience $profileWorkExperience)
     {
-        return view('profile.work-experience.edit')
+        return view('profile.work-experience.edit_single')
             ->with([
                 'work' => $profileWorkExperience,
-                'is_cvbuilder' => false
+                'isCvBuilder' => false
             ]);
     }
 
@@ -55,7 +55,15 @@ class ProfileWorkExperienceController extends Controller
         $profileWorkExperience->fill($data);
         $profileWorkExperience->save();
 
-        return back()
+        if($request->query('isCvBuilder', false))
+        {
+            return redirect(route('cv-builder.work-experience'))
+                ->with([
+                    'status' => 'Updated!'
+                ]);
+        }
+
+        return redirect(route('profile.work.edit'))
             ->with([
                 'status' => 'Updated!'
             ]);

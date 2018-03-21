@@ -15,7 +15,7 @@ class CVBuilderController extends Controller
         return view('profile.edit')
             ->with([
                 'profile' => Auth::user()->profile,
-                'is_cvbuilder' => true,
+                'isCvBuilder' => true,
             ]);
     }
 
@@ -48,7 +48,7 @@ class CVBuilderController extends Controller
         return view('profile.work-experience.edit')
             ->with([
                 'profile' => Auth::user()->profile,
-                'is_cvbuilder' => true,
+                'isCvBuilder' => true,
             ]);
     }
 
@@ -64,7 +64,7 @@ class CVBuilderController extends Controller
         return view('profile.references.edit')
             ->with([
                 'profile' => Auth::user()->profile,
-                'is_cvbuilder' => true,
+                'isCvBuilder' => true,
             ]);
     }
 
@@ -80,7 +80,7 @@ class CVBuilderController extends Controller
         return view('profile.certifications.edit')
             ->with([
                 'profile' => Auth::user()->profile,
-                'is_cvbuilder' => true,
+                'isCvBuilder' => true,
             ]);
     }
 
