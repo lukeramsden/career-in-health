@@ -71,7 +71,7 @@
                         <div class="form-group">
                             <label>Town</label>
 
-                            <select name='town' class="form-control location-search {{ $errors->has('location_id') ? 'is-invalid' : '' }}">
+                            <select name='town' class="custom-select location-search {{ $errors->has('location_id') ? 'is-invalid' : '' }}">
                                 <option {{ old('town', $address->town) != null ? '' : 'selected' }} disabled>Town</option>
                                 @foreach ($address->getAllLocations() as $loc)
                                     <option {{ $loc->id == old('town', $address->town) ? 'selected' : '' }} value='{{ $loc->id }}'>{{ $loc->name }}</option>

@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label>Address (<span class='text-action'>*</span>)</label>
 
-                            <select name='address_id' class="form-control location-search {{ $errors->has('address_id') ? 'is-invalid' : '' }}">
+                            <select name='address_id' class="custom-select location-search {{ $errors->has('address_id') ? 'is-invalid' : '' }}">
                                 <option {{ old('address_id', $advert->address_id) != null ? '' : 'selected' }} disabled>Address</option>
                                 @foreach (Auth::user()->company->addresses as $loc)
                                     <option {{ $loc->id == old('address_id', $advert->address_id) ? 'selected' : '' }} value='{{ $loc->id }}'>{{ $loc->name }} - {{ $loc->location->name }}</option>
@@ -75,7 +75,7 @@
                     <div class='col-md-7 form-section'>
                         <div class="form-group">
                             <label>Role (<span class='text-action'>*</span>)</label>
-                            <select class='form-control {{ $errors->has('role') ? 'is-invalid' : '' }}' name='role'>
+                            <select class='custom-select {{ $errors->has('role') ? 'is-invalid' : '' }}' name='role'>
                                 <option value='' selected disabled></option>
                                 @foreach ($advert->getRoles() as $id => $role)
                                     <option value='{{ $id }}' {{ old('role', $advert->role) == $id ? 'selected' : '' }}>{{ $role }}</option>
@@ -96,7 +96,7 @@
                     <div class='col-md-7 form-section'>
                         <div class="form-group">
                             <label>Role Setting (<span class='text-action'>*</span>)</label>
-                            <select class='form-control {{ $errors->has('setting') ? 'is-invalid' : '' }}' name='setting'>
+                            <select class='custom-select {{ $errors->has('setting') ? 'is-invalid' : '' }}' name='setting'>
                                 <option value='' selected disabled></option>
                                 @foreach ($advert->getSettings() as $id => $setting)
                                     <option value='{{ $id }}' {{ old('setting', $advert->setting) == $id ? 'selected' : '' }}>{{ $setting }}</option>
@@ -117,7 +117,7 @@
                     <div class='col-md-7 form-section'>
                         <div class="form-group">
                             <label>Type (<span class='text-action'>*</span>)</label>
-                            <select class='form-control {{ $errors->has('type') ? 'is-invalid' : '' }}' name='type'>
+                            <select class='custom-select {{ $errors->has('type') ? 'is-invalid' : '' }}' name='type'>
                                 <option value='' selected disabled></option>
                                 @foreach ($advert->getTypes() as $id => $type)
                                     <option value='{{ $id }}' {{ old('type', $advert->type) == $id ? 'selected' : '' }}>{{ $type }}</option>
