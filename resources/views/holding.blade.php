@@ -42,12 +42,12 @@
                         @if ($message != null)
                             <h1 class='holding-content'>{{ $message }}</h1>
                         @else
-                            <h1 class='holding-content'>Innovative recruitment built exclusively for the UK's health sector</h1>
+                            <h1 class='holding-content'>Innovative recruitment built exclusively for the UK's health sector.</h1>
                         @endif
                     </div>
 
                     <div class='col-12 mt-5'>
-                        <p class='holding-content'>Looking for your new career / employee in the health care sector? Thats what were are here for. Recruitment made simple with our easy to use Advert builder, CV builder and Auto Generated Personel File.</p>
+                        <p class='holding-content'>Looking for your new career/employee in the health care sector? That's what we're here for - recruitment made simple with our easy to use Advert Builder, CV Builder and Auto-Generated Personnel File.</p>
                     </div>
 
                 </div>
