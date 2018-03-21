@@ -5,7 +5,7 @@
         <div class="edit-work-experience-container form-container has-top-bar">
             <div class="row first-row">
                 <div class="col-md-7 form-section">
-                    <h1>References</h1>
+                    <h1>{{ $isCvBuilder ? 'Add' : 'Edit Your' }} References</h1>
                 </div>
                 <div class="col-md-5 help-section">
                     <h1>Help</h1>

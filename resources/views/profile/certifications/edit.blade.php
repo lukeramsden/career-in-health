@@ -1,46 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    {{--
-    @foreach ($profile->certifications as $certification)
-        <form id="certifications-form{{$certification->id}}" class="certifications-form" action="{{ route('profile.certifications.update', ['certification' => $certification]) }}" method="post">
-            {{ csrf_field() }}
-            <div class="form-row">
-                <div class="form-group col-12">
-                    <input type="text" class="form-control" name="name" disabled="disabled" placeholder="Name" value="{{ $certification->name }}">
-                </div>
-            </div>
-
-            <div class="certifications-form-buttons">
-                <button type="button" class="certifications-form-edit btn btn-primary" onclick="setActiveForm({{$certification->id}})">Edit</button>
-                <button type="submit" class="certifications-form-submit btn btn-primary d-none">Save</button>
-                <a href="{{ route('profile.certifications.destroy', ['certification' => $certification]) }}" class="btn btn-danger">Delete</a>
-                <a href="{{ $certification->url() }}" class="btn btn-outline-secondary">View</a>
-            </div>
-        </form>
-        <hr>
-    @endforeach
-    
-    <form action="{{ route('profile.certifications.store') }}" enctype="multipart/form-data" method="post">
-        {{ csrf_field() }}
-        <div class="form-row">
-            <div class="form-group col-12">
-                <input type="text" class="form-control" name="name" placeholder="Name" value="{{ old('name') }}">
-            </div>
-            <div class="form-group col-12">
-                <input type="file" class="form-control-file" name="file">
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Add</button>
-    </form>
-    --}}
-
     <div class="container">
         <div class="edit-work-experience-container form-container has-top-bar">
             <div class="row first-row">
                 <div class="col-md-7 form-section">
-                    <h1>Certifications</h1>
+                    <h1>{{ $isCvBuilder ? 'Add' : 'Edit' }} Your Certifications</h1>
                 </div>
                 <div class="col-md-5 help-section">
                     <h1>Help</h1>

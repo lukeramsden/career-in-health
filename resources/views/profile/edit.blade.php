@@ -3,20 +3,21 @@
 @section('content')
     <div class="container">
         <div class="edit-profile-container form-container has-top-bar">
+            <div class="row first-row">
+                <div class="col-md-7 form-section">
+                    <h1>{{ $isCvBuilder ? 'Add Your Personal Details' : 'Edit Your Profile' }}</h1>
+                </div>
+                <div class="col-md-5 help-section">
+                    <h1>Help</h1>
+                </div>
+            </div>
+
             <form
             @isset($action)
             action="{{ $action }}"
             @endisset
             method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                <div class="row first-row">
-                    <div class="col-md-7 form-section">
-                        <h1>Edit Your Profile</h1>
-                    </div>
-                    <div class="col-md-5 help-section">
-                        <h1>Help</h1>
-                    </div>
-                </div>
     
                 <div class="row">
                     <div class="col-md-7 form-section">
