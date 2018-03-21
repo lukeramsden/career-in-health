@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Advert extends Model
 {
-    
+    protected $with = ['address'];
+
     protected $guarded = ['_token', 'id', 'save_for_later'];
 
     private $roles = [
@@ -87,4 +88,29 @@ class Advert extends Model
         ]);
     }
 
+    public function address()
+    {
+        return $this->hasOne('App\Models\Address', 'id', 'address_id');
+    }
+
+    public function getDistanceToLocation(Location $location)
+    {
+        $lat1 = $this->address->location->latitude;
+        $lon1 = $this->address->location->longitude;
+        $lat2 = $location->latitude;
+        $lon2 = $location->longitude;
+
+        $theta = $lon1 - $lon2;
+        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+        $dist = acos($dist);
+        $dist = rad2deg($dist);
+        $miles = $dist * 60 * 1.1515;
+
+        return $miles;
+    }
+
+    public function getDistanceToAddress(Address $address)
+    {
+        return $this->getDistanceToLocation($address->location);
+    }
 }

@@ -10477,7 +10477,8 @@ p.holding-content {
   color: #808080;
 }
 
-.form-container {
+.form-container,
+.search-container {
   margin-top: 50px;
   margin-bottom: 50px;
   width: 100%;
@@ -10485,70 +10486,106 @@ p.holding-content {
   background-color: #e6e6e6;
 }
 
-.form-container h1 {
+.form-container h1,
+.search-container h1 {
   color: #434343;
   font-size: 34px;
   font-weight: 600;
   height: 40px;
 }
 
-.form-container h3 {
+.form-container h3,
+.search-container h3 {
   color: #434343;
   font-size: 24px;
   font-weight: 600;
   padding-top: 10px;
 }
 
-.form-container .row {
+.form-container .row,
+.search-container .row {
   margin: 0px;
 }
 
-.form-container .row.align-minus {
+.form-container .row.align-minus,
+.search-container .row.align-minus {
   margin: 0px -15px;
 }
 
 .form-container .row:last-child .form-section,
-.form-container .row:last-child .help-section {
+.form-container .row:last-child .help-section,
+.form-container .row:last-child .results-section,
+.search-container .row:last-child .form-section,
+.search-container .row:last-child .help-section,
+.search-container .row:last-child .results-section {
   padding: 10px 40px 60px;
 }
 
 .form-container .row:last-child .form-section.no-side-padding,
-.form-container .row:last-child .help-section.no-side-padding {
+.form-container .row:last-child .help-section.no-side-padding,
+.form-container .row:last-child .results-section.no-side-padding,
+.search-container .row:last-child .form-section.no-side-padding,
+.search-container .row:last-child .help-section.no-side-padding,
+.search-container .row:last-child .results-section.no-side-padding {
   padding: 10px 24px 60px 24px;
 }
 
 .form-container .row:last-child .form-section.zero-side-padding,
-.form-container .row:last-child .help-section.zero-side-padding {
+.form-container .row:last-child .help-section.zero-side-padding,
+.form-container .row:last-child .results-section.zero-side-padding,
+.search-container .row:last-child .form-section.zero-side-padding,
+.search-container .row:last-child .help-section.zero-side-padding,
+.search-container .row:last-child .results-section.zero-side-padding {
   padding-left: 0px;
   padding-right: 0px;
 }
 
 .form-container .row.first-row .form-section,
-.form-container .row.first-row .help-section {
+.form-container .row.first-row .help-section,
+.form-container .row.first-row .results-section,
+.search-container .row.first-row .form-section,
+.search-container .row.first-row .help-section,
+.search-container .row.first-row .results-section {
   padding: 60px 40px 20px;
 }
 
-.form-container .form-section {
+.form-container .form-section,
+.search-container .form-section {
   padding: 10px 40px 0px;
 }
 
-.form-container .form-section.no-side-padding {
+.form-container .form-section.no-side-padding,
+.search-container .form-section.no-side-padding {
   padding: 10px 24px 0px 24px;
 }
 
-.form-container .help-section {
+.form-container .help-section,
+.search-container .help-section {
   background-color: white;
   padding: 10px 40px 0px;
 }
 
-.form-container .help-section p {
+.form-container .help-section p,
+.search-container .help-section p {
   font-size: 13px;
   color: #808080;
   font-weight: 300;
   padding-top: 30px;
 }
 
-.form-container .list-group-flush .list-group-item {
+.form-container .results-section,
+.search-container .results-section {
+  background-color: white;
+  padding: 10px 40px 60px;
+}
+
+.form-container .results-section p,
+.search-container .results-section p {
+  font-size: 16px;
+}
+
+.form-container .list-group-flush .list-group-item,
+.search-container .list-group-flush .list-group-item {
   line-height: 0.85;
 }
 

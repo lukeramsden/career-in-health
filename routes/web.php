@@ -21,6 +21,8 @@ if (env('APP_ENV') == 'local') {
         return view('welcome');
     });
 
+    Route::get('/search', 'SearchController@search');
+
     Auth::routes();
 
     Route::get('/home', 'HomeController@index')->name('home');

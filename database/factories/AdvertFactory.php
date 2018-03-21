@@ -13,6 +13,6 @@ $factory->define(Advert::class, function (Faker $faker) {
         'type' => $faker->numberBetween(1, count($tempAdvert->getTypes())),
         'min_salary' => $faker->randomFloat(2, 0, 1000000),
         'max_salary' => $faker->randomFloat(2, 0, 1000000),
-        'address_id' => $faker->numberBetween(1, 30000),
+        'address_id' => $faker->numberBetween(1, 200),
     ];
 });

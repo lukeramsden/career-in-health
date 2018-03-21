@@ -498,7 +498,7 @@ p.holding-content {
     }
 }
 
-.form-container {
+.form-container, .search-container {
     margin-top: 50px;
     margin-bottom: 50px;
     width: 100%;
@@ -528,7 +528,8 @@ p.holding-content {
 
         &:last-child {
             .form-section,
-            .help-section {
+            .help-section,
+            .results-section {
                 padding: 10px 40px 60px;
 
                 &.no-side-padding {
@@ -544,7 +545,8 @@ p.holding-content {
 
         &.first-row {
             .form-section,
-            .help-section {
+            .help-section,
+            .results-section {
                 padding: 60px 40px 20px;
             }
         }
@@ -568,6 +570,15 @@ p.holding-content {
             color: $text-light;
             font-weight: 300;
             padding-top: 30px;
+        }
+    }
+
+    .results-section {
+        background-color: white;
+        padding: 10px 40px 60px;
+
+        p {
+            font-size: 16px;
         }
     }
 
