@@ -33,6 +33,7 @@ class ProfileController extends Controller
             ->with([
                 'profile' => Auth::user()->profile,
                 'action' => route('profile.update'),
+                'isCvBuilder' => false,
             ]);
     }
 
