@@ -59,7 +59,7 @@ class RegisterController extends Controller
             'terms' => 'required'
         ];
 
-        if ($data['i_am'] !== null && $data['i_am'] == 'Employer') {
+        if (isset($data['i_am']) && $data['i_am'] == 'Employer') {
             $rules['company_name'] = 'required|string|max:255|unique:companies,name';
         }
 
