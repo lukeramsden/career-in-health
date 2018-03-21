@@ -70,6 +70,7 @@ if (env('APP_ENV') == 'local') {
                 Route::prefix('certifications')->group(function () {
                     Route::get('/edit', 'CertificationController@edit')->name('profile.certifications.edit');
                     Route::post('/create', 'CertificationController@store')->name('profile.certifications.store');
+                    Route::get('/{certification}/edit', 'CertificationController@edit_single')->name('profile.certifications.edit_single');
                     Route::post('/{certification}/edit', 'CertificationController@update')->name('profile.certifications.update');
                     Route::get('/{certification}/destroy', 'CertificationController@destroy')->name('profile.certifications.destroy');
                     Route::get('/{certification}/download', 'CertificationController@download')->name('profile.certifications.download');

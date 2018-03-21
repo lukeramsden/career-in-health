@@ -30,6 +30,15 @@ class CertificationController extends Controller
             ]);
     }
 
+    public function edit_single(Certification $certification)
+    {
+        return view('profile.certifications.edit_single')
+            ->with([
+                'certification' => $certification,
+                'is_cvbuilder' => false,
+            ]);
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate(array_merge($this::$validation, $this::$file_validation));
@@ -39,7 +48,7 @@ class CertificationController extends Controller
         $certification = new Certification();
         $certification->file_path = $path;
         $certification->fill($data);
-        Auth::user()->profile->certifications()->save($certification);
+        $profile->certifications()->save($certification);
 
         return back()
             ->with([
@@ -54,7 +63,15 @@ class CertificationController extends Controller
         $certification->fill($data);
         $certification->save();
 
-        return back()
+        if($request->query('isCvBuilder', false))
+        {
+            return redirect(route('cv-builder.certifications'))
+                ->with([
+                    'status' => 'Updated!'
+                ]);
+        }
+
+        return redirect(route('profile.certifications.edit'))
             ->with([
                 'status' => 'Updated!'
             ]);
