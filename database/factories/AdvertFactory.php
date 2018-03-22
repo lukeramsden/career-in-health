@@ -10,7 +10,7 @@ $factory->define(Advert::class, function (Faker $faker) {
         'title' => $faker->text(120),
         'description' => $faker->text(3000),
         'job_type_id' => $faker->numberBetween(1, count(\App\Models\JobType::$list)),
-        'setting' => $faker->numberBetween(1, count(Advert::$settings))),
+        'setting' => $faker->numberBetween(1, count(Advert::$settings)),
         'type' => $faker->numberBetween(1, count(Advert::$types)),
         'min_salary' => $min_salary,
         'max_salary' => $max_salary,
