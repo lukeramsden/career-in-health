@@ -107,7 +107,7 @@
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $advert->getType() }}</h6>
                                     <p class="card-text">{{ str_limit($advert->description, 60) }}</p>
                                     <a href="#" class="card-link">View</a>
-                                    <a href="#" class="card-link">See On Map</a>
+                                    <a href="{{ $advert->address->location->mapUrl() }}" target="_blank" class="card-link">See On Map</a>
                                 </div>
                             </div>
                         @endforeach

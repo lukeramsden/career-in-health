@@ -67,4 +67,9 @@ class Location extends Model
         }
     }
 
+    public function mapUrl()
+    {
+        return "http://maps.google.com/maps?q=$this->latitude,$this->longitude";
+    }
+
 }
