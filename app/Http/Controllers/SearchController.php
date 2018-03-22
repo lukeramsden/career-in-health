@@ -27,10 +27,9 @@ class SearchController extends Controller
             $data = $request->validate($this::$validation);
             $town = Location::find($request->town);
             $results = Advert::query();
-            $results = $results->whereHas('address', function($query) use($town, $data) {
-                $query->whereHas('location', function($query) use($town, $data) {
-                    $query->whereRaw('( 3959 * acos( cos( radians(?) ) * cos( radians( latitude ) )
-                        * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin(radians(latitude)) ) ) < ?', [
+            $results = $results->whereHas('address', function($q) use($town, $data) {
+                $q->whereHas('location', function($q) use($town, $data) {
+                    $q->whereRaw('(3959 * acos(cos(radians(?)) * cos(radians( latitude )) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) < ?', [
                         $town->latitude,
                         $town->longitude,
                         $town->latitude,
@@ -51,7 +50,7 @@ class SearchController extends Controller
             if($request->has('type_filter'))
                 $results->whereIn('type', $request->type_filter);
 
-            $results = $results->paginate(10);
+            $results = $results->orderBy('max_salary', 'desc')->paginate(10);
 
             return view('search')
                 ->with([
