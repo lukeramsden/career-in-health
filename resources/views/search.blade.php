@@ -106,7 +106,7 @@
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $advert->getSetting() }}</h6>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $advert->getType() }}</h6>
                                     <p class="card-text">{{ str_limit($advert->description, 60) }}</p>
-                                    <a href="#" class="card-link">View</a>
+                                    <a href="{{ route('advert.show', ['advert' => $advert]) }}" class="card-link">View</a>
                                     <a href="{{ $advert->address->location->mapUrl() }}" target="_blank" class="card-link">See On Map</a>
                                 </div>
                             </div>

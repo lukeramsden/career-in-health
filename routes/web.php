@@ -23,6 +23,8 @@ if (env('APP_ENV') == 'local') {
 
     Route::get('/search', 'SearchController@search')->name('search');
 
+    Route::get('/advert/{advert}', 'AdvertController@show')->name('advert.show');
+
     Auth::routes();
 
     Route::get('/home', 'HomeController@index')->name('home');
@@ -36,10 +38,8 @@ if (env('APP_ENV') == 'local') {
             Route::get('/advert/{advert}', 'AdvertController@edit')->name('advert_edit');
             Route::post('/advert/{advert}', 'AdvertController@update');
 
-
             Route::get('/address', 'AddressController@create')->name('address_create');
             Route::post('/address', 'AddressController@store');
-
 
             Route::get('/plans', 'SubscriptionController@index')->name('plans');
 
@@ -96,7 +96,6 @@ if (env('APP_ENV') == 'local') {
 
         Route::get('/personnel', 'PersonnelFileController@generate');
         Route::get('/test', function() {
-
             //     $p = new App\Models\SubscriptionPlan();
             //     $p->getPlansFromStripe();
 

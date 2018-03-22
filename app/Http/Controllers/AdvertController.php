@@ -37,6 +37,14 @@ class AdvertController extends Controller
             ]);
     }
 
+    public function show(Advert $advert)
+    {
+        return view('advert.show')
+            ->with([
+                'advert' => $advert
+            ]);
+    }
+
     public function create()
     {
         return view('advert.create')
