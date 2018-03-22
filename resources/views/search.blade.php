@@ -42,9 +42,9 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Jobs</label>
+                                    <label>Job Types</label>
                                     
-                                    <select name="job_types[]" class="form-control {{ $errors->has('job_types') ? 'is-invalid' : '' }}" multiple title="Jobs" size="15">
+                                    <select name="job_types[]" id="job_types" class="form-control {{ $errors->has('job_types') ? 'is-invalid' : '' }}" multiple title="Jobs" size="15">
                                         @foreach(\App\Models\JobType::all() as $job)
                                             <option {{ collect(old('job_types', Request::get('job_types')))->contains($job->id) ? 'selected':'' }} value="{{ $job->id }}">{{ $job->name }}</option>
                                         @endforeach
@@ -53,6 +53,7 @@
                                     @if ($errors->has('job_types'))
                                         <div class="invalid-feedback">{{ $errors->first('job_types') }}</div>
                                     @endif
+                                    <button type="button" style="height: auto;" onclick="$('#job_types').val([]);" class="btn btn-block btn-danger">Clear Selected Items</button>
                                 </div>
                             </div>
                             <div class="col-12">
