@@ -13,7 +13,8 @@ class SearchController extends Controller
         'town' => 'required|integer|exists:locations,id',
         'radius' => 'required|integer|min:10|max:500',
         'job_types' => 'array',
-        'job_types.*' => 'integer|distinct|exists:job_types,id'
+        'job_types.*' => 'integer|distinct|exists:job_types,id',
+        'min_salary' => 'nullable|integer|min:0|max:150000'
     ];
 
     public function search(Request $request)
@@ -37,7 +38,8 @@ class SearchController extends Controller
             if($request->has('job_types'))
                 $results->whereIn('job_type_id', $request->job_types);
 
-//            dd($results->toSql());
+            if($request->has('min_salary'))
+                $results->where('max_salary', '>', $request->min_salary);
 
             $results = $results->paginate(10);
 

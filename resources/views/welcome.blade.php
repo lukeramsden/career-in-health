@@ -13,7 +13,7 @@
 
                         <div class='buttons'>
                             <a href='#' class='btn btn-primary'>Pricing</a>
-                            <a href='#' class='btn btn-action'>Get Started</a>
+                            <a href='{{ route('search') }}' class='btn btn-action'>Get Started</a>
                         </div>
                     </div>
                 </div>

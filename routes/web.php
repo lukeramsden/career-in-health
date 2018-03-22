@@ -21,7 +21,7 @@ if (env('APP_ENV') == 'local') {
         return view('welcome');
     });
 
-    Route::get('/search', 'SearchController@search');
+    Route::get('/search', 'SearchController@search')->name('search');
 
     Auth::routes();
 
