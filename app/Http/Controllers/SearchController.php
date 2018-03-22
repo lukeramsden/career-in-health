@@ -11,7 +11,9 @@ class SearchController extends Controller
 {
     static $validation = [
         'town' => 'required|integer|exists:locations,id',
-        'radius' => 'required|integer|min:10|max:500'
+        'radius' => 'required|integer|min:10|max:500',
+        'job_types' => 'array',
+        'job_types.*' => 'integer|distinct|exists:job_types,id'
     ];
 
     public function search(Request $request)
@@ -31,6 +33,11 @@ class SearchController extends Controller
                     ]);
                 });
             });
+
+            if($request->has('job_types'))
+                $results->whereIn('job_type_id', $request->job_types);
+
+//            dd($results->toSql());
 
             $results = $results->paginate(10);
 

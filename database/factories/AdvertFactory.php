@@ -8,7 +8,7 @@ $factory->define(Advert::class, function (Faker $faker) {
     return [
         'title' => $faker->text(120),
         'description' => $faker->text(3000),
-        'role' => $faker->numberBetween(1, count($tempAdvert->getRoles())),
+        'job_type_id' => $faker->numberBetween(1, count(\App\Models\JobType::$list)),
         'setting' => $faker->numberBetween(1, count($tempAdvert->getSettings())),
         'type' => $faker->numberBetween(1, count($tempAdvert->getTypes())),
         'min_salary' => $faker->randomFloat(2, 0, 1000000),

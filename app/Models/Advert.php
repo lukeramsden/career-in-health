@@ -11,40 +11,6 @@ class Advert extends Model
 
     protected $guarded = ['_token', 'id', 'save_for_later'];
 
-    private $roles = [
-        '1' => 'Senior Carer / Head of Care / Team Leader',
-        '2' => 'Carer / Care Assistant / Care Support Worker',
-        '3' => 'Bank Carer / Care Assistant',
-        '4' => 'Activity Coordinator',
-        '5' => 'Clinical Lead / Nurse Team Leader',
-        '6' => 'Staff Nurse',
-        '7' => 'Nurse',
-        '8' => 'Bank Nurse',
-        '9' => 'Registered Manager / Service Manager',
-        '10' => 'Deputy Manager / Assistant Manager',
-        '11' => 'Area / Regional Manager',
-        '12' => 'Director / Divisional Director',
-        '13' => 'Social Worker',
-        '14' => 'Physiotherapist',
-        '15' => 'Occupational Therapist',
-        '16' => 'Training & Development',
-        '17' => 'Psychologist',
-        '18' => 'Receptionist',
-        '19' => 'Administrator',
-        '20' => 'Finance / Accountant / Bookkeeper',
-        '21' => 'Human Resources / HR / Recruitment',
-        '22' => 'Marketing',
-        '23' => 'Cook / Chef',
-        '24' => 'Kitchen Assistant / Catering Assistant',
-        '25' => 'Housekeeper / Cleaner',
-        '26' => 'Domestic / Domestic Assistant',
-        '27' => 'Laundry Assistant',
-        '28' => 'Maintenance / Handyperson',
-        '29' => 'Driver',
-        '30' => 'Gardener',
-        '31' => 'Other'
-    ];
-
     private $settings = [
         '1' => 'Care Home / Nursing Home',
         '2' => 'Housing with Care',
@@ -64,10 +30,19 @@ class Advert extends Model
         '6' => 'Voluntary',
     ];
 
-    public function getRoles()
+    public function jobType()
     {
-        sort($this->roles);
-        return $this->roles;
+        return $this->hasOne('App\Models\JobType', 'id', 'job_type_id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo('App\Models\Company', 'company_id', 'id');
+    }
+
+    public function address()
+    {
+        return $this->hasOne('App\Models\Address', 'id', 'address_id');
     }
 
     public function getSettings()
@@ -86,11 +61,6 @@ class Advert extends Model
         return route('advert_edit', [
             $this->id
         ]);
-    }
-
-    public function address()
-    {
-        return $this->hasOne('App\Models\Address', 'id', 'address_id');
     }
 
     public function getDistanceToLocation(Location $location)

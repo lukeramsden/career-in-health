@@ -19,7 +19,7 @@ class CreateAdvertsTable extends Migration
             $table->integer('created_by_user_id');
             $table->string('title', 120)->nullable();
             $table->string('description', 3000)->nullable();
-            $table->integer('role')->nullable();
+            $table->integer('job_type_id')->nullable();
             $table->integer('setting')->nullable();
             $table->integer('type')->nullable();
             $table->float('min_salary', 10, 2)->nullable();
