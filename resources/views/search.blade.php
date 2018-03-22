@@ -44,6 +44,13 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Radius (miles)</label>
+                                    <div id="radius-slider"></div>
+                                    <input type="hidden" name="radius" id="radius-input" value="{{ old('radius', Request::get('radius', 50)) }}">
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <button type="submit" class='btn btn-action btn-block'>Search</button>
                             </div>
@@ -72,7 +79,38 @@
     </div>
 @endsection
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.0.3/nouislider.min.js" integrity="sha256-oj880/QiddQHkKfC9iOmsu+Hu5V4KCHfS3RY3RaZdZc=" crossorigin="anonymous"></script>
+    
     <script>
         $(".location-search").select2({});
+        var radiusSlider = document.getElementById('radius-slider');
+        
+        noUiSlider.create(radiusSlider, {
+            start: {{ old('radius', Request::get('radius', 50)) }},
+            step: 5,
+            tooltips: true,
+            range: {
+                'min': 10,
+                'max': 500
+            }
+        });
+        
+        radiusSlider.noUiSlider.on('change', function() {
+        	$('#radius-input').val(parseInt(radiusSlider.noUiSlider.get()));
+        });
     </script>
+
+    <style>
+        .noUi-tooltip {
+            display: none;
+        }
+        .noUi-active .noUi-tooltip {
+            display: block;
+    
+        }
+        
+        .noUi-handle {
+            outline: none;
+        }
+    </style>
 @endsection

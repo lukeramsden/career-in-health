@@ -10,24 +10,24 @@ use Illuminate\Support\Facades\DB;
 class SearchController extends Controller
 {
     static $validation = [
-        'town' => 'required|integer|exists:locations,id'
+        'town' => 'required|integer|exists:locations,id',
+        'radius' => 'required|integer|min:10|max:500'
     ];
 
     public function search(Request $request)
     {
-        $data = $request->all();//validate($this::$validation);
-
         if($request->has('town')) {
+            $data = $request->validate($this::$validation);
             $town = Location::find($request->town);
             $results = Advert::query();
-            $results = $results->whereHas('address', function($query) use($town) {
-                $query->whereHas('location', function($query) use($town) {
+            $results = $results->whereHas('address', function($query) use($town, $data) {
+                $query->whereHas('location', function($query) use($town, $data) {
                     $query->whereRaw('( 3959 * acos( cos( radians(?) ) * cos( radians( latitude ) )
                         * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin(radians(latitude)) ) ) < ?', [
                         $town->latitude,
                         $town->longitude,
                         $town->latitude,
-                        5000,
+                        $data['radius'],
                     ]);
                 });
             });
