@@ -445,7 +445,7 @@ p.holding-content {
                         height: 50px;
                         line-height: 52px;
                         font-weight: 600;
-                        font-style: 16px;
+                        font-size: 16px;
 
                         & + .btn {
                             margin-left: 30px;
@@ -584,6 +584,12 @@ p.holding-content {
 
     .list-group-flush .list-group-item {
         line-height: 0.85;
+    }
+
+    &-parent {
+        @media (min-width: 1200px) {
+            max-width: 1340px;
+        }
     }
 }
 

@@ -15,30 +15,39 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
-        $data = $request->validate($this::$validation);
+        $data = $request->all();//validate($this::$validation);
 
-        $town = Location::find($request->town);
-        $results = Advert::whereHas('address', function($query) use($town) {
-            $query->whereHas('location', function($query) use($town) {
-                $query->whereRaw('( 3959 * acos( cos( radians(?) ) * cos( radians( latitude ) )
-                    * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin(radians(latitude)) ) ) < ?', [
-                    $town->latitude,
-                    $town->longitude,
-                    $town->latitude,
-                    5000,
-                ]);
+        if($request->has('town')) {
+            $town = Location::find($request->town);
+            $results = Advert::query();
+            $results = $results->whereHas('address', function($query) use($town) {
+                $query->whereHas('location', function($query) use($town) {
+                    $query->whereRaw('( 3959 * acos( cos( radians(?) ) * cos( radians( latitude ) )
+                        * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin(radians(latitude)) ) ) < ?', [
+                        $town->latitude,
+                        $town->longitude,
+                        $town->latitude,
+                        5000,
+                    ]);
+                });
             });
-        });
+
+            $results = $results->paginate(10);
+
+            return view('search')
+                ->with([
+                    'results' => $results,
+                    'town' => $town
+                ]);
+        }
+
+        return view('search')
+            ->with([
+                'results' => []
+            ]);
 
 //        if($request->has('title'))
 //            $results->where('title', 'LIKE', '%'.$data['title'].'%');
 
-        $results = $results->paginate(10);
-
-        return view('search')
-            ->with([
-                'results' => $results,
-                'town' => $town
-            ]);
     }
 }
