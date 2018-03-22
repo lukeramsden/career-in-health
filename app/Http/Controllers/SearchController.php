@@ -61,9 +61,5 @@ class SearchController extends Controller
         }
 
         return view('search');
-
-//        if($request->has('title'))
-//            $results->where('title', 'LIKE', '%'.$data['title'].'%');
-
     }
 }
