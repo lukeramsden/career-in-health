@@ -11,7 +11,7 @@ class Advert extends Model
 
     protected $guarded = ['_token', 'id', 'save_for_later'];
 
-    private $settings = [
+    static $settings = [
         '1' => 'Care Home / Nursing Home',
         '2' => 'Housing with Care',
         '3' => 'Hospital',
@@ -21,7 +21,7 @@ class Advert extends Model
         '7' => 'Other',
     ];
 
-    private $types = [
+    static $types = [
         '1' => 'Full Time',
         '2' => 'Part Time',
         '3' => 'Full Time or Part Time',
@@ -45,15 +45,14 @@ class Advert extends Model
         return $this->hasOne('App\Models\Address', 'id', 'address_id');
     }
 
-    public function getSettings()
+    public function getSetting()
     {
-        sort($this->settings);
-        return $this->settings;
+        return Advert::$settings[$this->setting];
     }
 
-    public function getTypes()
+    public function getType()
     {
-        return $this->types;
+        return Advert::$types[$this->type];
     }
 
     public function linkEdit()

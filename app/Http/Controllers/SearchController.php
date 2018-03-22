@@ -14,7 +14,11 @@ class SearchController extends Controller
         'radius' => 'required|integer|min:10|max:500',
         'job_types' => 'array',
         'job_types.*' => 'integer|distinct|exists:job_types,id',
-        'min_salary' => 'nullable|integer|min:0|max:150000'
+        'min_salary' => 'nullable|integer|min:0|max:150000',
+        'setting_filter' => 'array',
+        'setting_filter.*' => 'integer|distinct',
+        'type_filter' => 'array',
+        'type_filter.*' => 'integer|distinct',
     ];
 
     public function search(Request $request)
@@ -40,6 +44,12 @@ class SearchController extends Controller
 
             if($request->has('min_salary'))
                 $results->where('max_salary', '>', $request->min_salary);
+
+            if($request->has('setting_filter'))
+                $results->whereIn('setting', $request->setting_filter);
+
+            if($request->has('type_filter'))
+                $results->whereIn('type', $request->type_filter);
 
             $results = $results->paginate(10);
 

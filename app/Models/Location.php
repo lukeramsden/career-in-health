@@ -6,7 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-    
+    public static function getAllLocations()
+    {
+        $locations = Location::select(['id', 'name', 'county'])
+            ->whereIn('type', ['City', 'Town'])
+            ->get();
+
+        $locs = [];
+
+        foreach ($locations as $loc) {
+            $locs[] = (object) [
+                'id' => $loc->id,
+                'name' => str_replace("'", '', $loc->name) .' ('. $loc->county .')',
+            ];
+        }
+
+        $locs = collect($locs)->unique('name')->all();
+
+        return $locs;
+    }
+
     public static function LoadCSV()
     {
         ini_set('memory_limit','-1');
