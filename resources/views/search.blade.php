@@ -59,19 +59,20 @@
                 </div>
                 <div class="col-md-8 results-section no-side-padding">
                     @isset($results)
-                    @foreach($results as $advert)
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $advert->title }}</h5>
-                                <h6 class="card-subtitle mb-2"><b>{{ number_format((float)$advert->getDistanceToLocation($town), 0, '.', '') }}</b> miles away</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ $advert->address->location->name }}</h6>
-                                <p class="card-text">{{ str_limit($advert->description, 60) }}</p>
-                                <a href="#" class="card-link">View</a>
-                                <a href="#" class="card-link">See On Map</a>
+                        {!! $results->appends(Request::capture()->except('page'))->render("pagination::bootstrap-4") !!}
+                        @foreach($results as $advert)
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $advert->title }}</h5>
+                                    <h6 class="card-subtitle mb-2"><b>{{ number_format((float)$advert->getDistanceToLocation($town), 0, '.', '') }}</b> miles away</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ $advert->address->location->name }}</h6>
+                                    <p class="card-text">{{ str_limit($advert->description, 60) }}</p>
+                                    <a href="#" class="card-link">View</a>
+                                    <a href="#" class="card-link">See On Map</a>
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
-                    {!! $results->appends(Request::capture()->except('page'))->render("pagination::bootstrap-4") !!}
+                        @endforeach
+                        {!! $results->appends(Request::capture()->except('page'))->render("pagination::bootstrap-4") !!}
                     @endisset
                 </div>
             </div>
