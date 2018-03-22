@@ -51,6 +51,7 @@
                     </form>
                 </div>
                 <div class="col-md-8 results-section no-side-padding">
+                    @isset($results)
                     @foreach($results as $advert)
                         <div class="card mb-3">
                             <div class="card-body">
@@ -64,6 +65,7 @@
                         </div>
                     @endforeach
                     {!! $results->appends(Request::capture()->except('page'))->render("pagination::bootstrap-4") !!}
+                    @endisset
                 </div>
             </div>
         </div>
