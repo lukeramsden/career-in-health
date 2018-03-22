@@ -16,6 +16,7 @@
                 <div class="col-md-4 form-section">
                     <form method="get">
                         {{-- TODO: ERROR HANDLING --}}
+                        {{-- TODO: Turn multiple select in to box of checkboxes --}}
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
