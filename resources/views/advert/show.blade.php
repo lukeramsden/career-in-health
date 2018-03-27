@@ -33,6 +33,7 @@
                         </li>
                     </ul>
                     <a href="{{ route('advert_apply', ['advert' => $advert]) }}" class="btn btn-action">Apply</a>
+                    <p class="text-muted"><span class="font-weight-bold text-info">{{ $advert->applications()->count() }}</span> {{ $advert->applications()->count() == 1 ? 'person has' : 'people have' }} already applied!</p>
                     <div class="card-footer">
                         <p class="card-text"><small class="text-muted">Last updated {{ $advert->updated_at->diffForHumans() }}</small></p>
                     </div>
