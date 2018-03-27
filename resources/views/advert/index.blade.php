@@ -16,8 +16,6 @@
                         <thead>
                             <tr>
                                 <th>Title</th>
-                                <th>Location</th>
-                                <th>Status</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -26,15 +24,9 @@
                                 <tr>
                                     <td>
                                         <p>{{ $advert->title }}</p>
-                                        @foreach($advert->applications as $application)
-                                            <p>
-                                                <small>{{ $application->user->profile->first_name . ' ' . $application->user->profile->last_name}}</small>
-                                            </p>
-                                        @endforeach
                                     </td>
-                                    <td></td>
-                                    <td></td>
                                     <td>
+                                        <a href='{{ route('advert_show_internal', ['advert' => $advert]) }}' class='btn btn-outline-primary btn-sm'>View</a>
                                         <a href='{{ $advert->linkEdit() }}' class='btn btn-action btn-sm'>Edit</a>
                                     </td>
                                 </tr>
