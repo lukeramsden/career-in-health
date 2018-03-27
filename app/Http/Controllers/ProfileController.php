@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,15 @@ class ProfileController extends Controller
         'job_types.*' => 'integer|distinct|exists:job_types,id'
     ];
 
-    public function show()
+    public function show(User $user)
+    {
+        return view('profile.show')
+            ->with([
+                'profile' => $user->profile
+            ]);
+    }
+
+    public function show_me()
     {
         return view('profile.show')
             ->with([

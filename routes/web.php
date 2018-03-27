@@ -57,7 +57,8 @@ if (env('APP_ENV') == 'local') {
         });
 
         Route::prefix('profile')->group(function () {
-                Route::get("/", "ProfileController@show")->name('profile');
+                Route::get("/", "ProfileController@show_me")->name('profile.me');
+                Route::get("/{user}", "ProfileController@show")->name('profile');
                 Route::get("/edit", "ProfileController@edit")->name('profile.edit');
                 Route::post("/edit", "ProfileController@update")->name('profile.update');
 

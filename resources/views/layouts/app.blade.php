@@ -87,7 +87,7 @@
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         @if (!Auth::user()->isCompany())
-                                            <a class="dropdown-item" href='{{ route('profile') }}'>My Profile</a>
+                                            <a class="dropdown-item" href='{{ route('profile.me') }}'>My Profile</a>
                                             <a class="dropdown-item" href='{{ route('cv-builder.profile') }}'>CV Builder</a>
                                         @endif
                                         <a class="dropdown-item" href='#'>Subscription</a>

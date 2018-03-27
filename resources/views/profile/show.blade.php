@@ -8,12 +8,14 @@
                     <div class="card-header">
                         Profile
 
-                        <div class="btn-group btn-group-sm" role="group" style="float:right">
-                            <a href="{{ route('profile.edit') }}" class="btn btn-primary">EDIT PROFILE</a>
-                            <a href="{{ route('profile.work.edit') }}" class="btn    btn-primary">EDIT WORK EXPERIENCE</a>
-                            <a href="{{ route('profile.references.edit') }}" class="btn    btn-primary">EDIT REFERENCES</a>
-                            <a href="{{ route('profile.certifications.edit') }}" class="btn    btn-primary">EDIT CERTIFICATIONS</a>
-                        </div>
+                        @if($profile == Auth::user()->profile)
+                            <div class="btn-group btn-group-sm" role="group" style="float:right">
+                                <a href="{{ route('profile.edit') }}" class="btn btn-primary">EDIT PROFILE</a>
+                                <a href="{{ route('profile.work.edit') }}" class="btn    btn-primary">EDIT WORK EXPERIENCE</a>
+                                <a href="{{ route('profile.references.edit') }}" class="btn    btn-primary">EDIT REFERENCES</a>
+                                <a href="{{ route('profile.certifications.edit') }}" class="btn    btn-primary">EDIT CERTIFICATIONS</a>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="card-body">
