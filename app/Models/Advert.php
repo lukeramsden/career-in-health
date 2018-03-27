@@ -45,6 +45,11 @@ class Advert extends Model
         return $this->hasOne('App\Models\Address', 'id', 'address_id');
     }
 
+    public function applications()
+    {
+        return $this->hasMany('App\Models\AdvertApplication');
+    }
+
     public function getSetting()
     {
         return Advert::$settings[$this->setting];
