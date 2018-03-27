@@ -44,15 +44,15 @@
                             <h2>Why Choose Us?</h2>
 
                             <ul>
-                                <li>No Credits<span>No 12 month limits, just a smiple subscription.</span></li>
-                                <li>Upto 120 Days Advert Length<span>Run your advert for as long as you want, as many times as you want.</span></li>
+                                <li>No Credits<span>No 12 month limits, just a simple subscription.</span></li>
+                                <li>Up to 120 Days Advert Length<span>Run your advert for as long as you want, as many times as you want.</span></li>
                                 <li>Unlimited Adverts<span></span></li>
                                 <li>Unlimited Candidates<span></span></li>
-                                <li>Candidate Managment System<span>Keep track of your candidates with our management system.</span></li>
-                                <li>Email Notifications<span>We will keep you notified about new applicants, or surgestions.</span></li>
+                                <li>Candidate Management System<span>Keep track of your candidates with our management system.</span></li>
+                                <li>Email Notifications<span>We will keep you notified about new applicants, or suggestions.</span></li>
                                 <li>Advert Analytics<span>See how many people have seen your advert, viewed and applied.</span></li>
                                 <li>Advert Builder</li>
-                                <li>Auto Generated Personel File</li>
+                                <li>Auto Generated Personnel File</li>
                             </ul>
                         </div>
                     </div>

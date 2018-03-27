@@ -12,7 +12,6 @@
 
             <div class='row'>
                 <div class='col-md-12 form-section'>
-
                     <table class='table'>
                         <thead>
                             <tr>
@@ -25,7 +24,14 @@
                         <tbody>
                             @foreach ($adverts as $advert)
                                 <tr>
-                                    <td>{{ $advert->title }}</td>
+                                    <td>
+                                        <p>{{ $advert->title }}</p>
+                                        @foreach($advert->applications as $application)
+                                            <p>
+                                                <small>{{ $application->user->profile->first_name . ' ' . $application->user->profile->last_name}}</small>
+                                            </p>
+                                        @endforeach
+                                    </td>
                                     <td></td>
                                     <td></td>
                                     <td>
