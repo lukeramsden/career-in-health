@@ -23,6 +23,7 @@
                     " id="appl-card-{{$application->id}}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $application->user->profile->first_name . ' ' . $application->user->profile->last_name }}</h5>
+                            <p class="card-text">{{ $application->custom_cover_letter or 'Cover letter is empty' }}</p>
                             <select class="custom-select" onchange="sendUpdate({{ $application->id }}, this.value)">
                                 <option {{ !isset($application->status) ? 'selected' : '' }} disabled>-</option>
                                 @foreach(App\Models\AdvertApplication::$statuses as $id => $status)
