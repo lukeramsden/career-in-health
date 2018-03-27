@@ -47,7 +47,6 @@ if (env('APP_ENV') == 'local') {
             Route::post('/payment/{plan}', 'SubscriptionController@makePayment');
         });
 
-        // TODO: Make views
         Route::prefix('profile')->group(function () {
                 Route::get("/", "ProfileController@show")->name('profile');
                 Route::get("/edit", "ProfileController@edit")->name('profile.edit');
@@ -79,7 +78,6 @@ if (env('APP_ENV') == 'local') {
                 });
             });
 
-        // TODO: Make views
         Route::prefix('cv-builder')->group(function () {
             Route::get('/1_profile', 'CVBuilderController@step1_show')->name('cv-builder.profile');
             Route::post('/1_profile', 'CVBuilderController@step1_save');
