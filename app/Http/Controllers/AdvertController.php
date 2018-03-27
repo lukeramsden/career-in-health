@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class AdvertController extends Controller
 {
-    
     private function getValidateRules($request)
     {
         if ($request->save_for_later !== null) {
@@ -40,6 +39,20 @@ class AdvertController extends Controller
     public function show(Advert $advert)
     {
         return view('advert.show')
+            ->with([
+                'advert' => $advert
+            ]);
+    }
+
+    public function show_internal(Request $request, Advert $advert)
+    {
+        $user = Auth::user();
+        if(!$user->isCompany()
+            || $advert->company_id !== $user->company_id) {
+            return redirect(route('home'));
+        }
+
+        return view('advert.show_internal')
             ->with([
                 'advert' => $advert
             ]);

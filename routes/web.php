@@ -36,12 +36,16 @@ if (env('APP_ENV') == 'local') {
                 Route::get('/new', 'AdvertController@create')->name('advert_create');
                 Route::post('/', 'AdvertController@store')->name('advert_store');
 
-                Route::get('/{advert}', 'AdvertController@edit')->name('advert_edit');
-                Route::post('/{advert}', 'AdvertController@update');
+                Route::get('/{advert}/view', 'AdvertController@show_internal')->name('advert_show_internal');
+
+                Route::get('/{advert}/edit', 'AdvertController@edit')->name('advert_edit');
+                Route::post('/{advert}/edit', 'AdvertController@update');
 
                 Route::get('/{advert}/apply', 'AdvertApplicationController@create')->name('advert_apply');
                 Route::post('/{advert}/apply', 'AdvertApplicationController@store')->name('advert_store');
             });
+
+            Route::post('/application/{application}/update', 'AdvertApplicationController@update')->name('advert-application.update');
 
             Route::get('/address', 'AddressController@create')->name('address_create');
             Route::post('/address', 'AddressController@store');

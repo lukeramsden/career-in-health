@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class AdvertApplication extends Model
 {
+    static $statuses = [
+        '1' => 'Hire',
+        '2' => 'Don\'t Hire',
+        '3' => 'Interview',
+        '4' => 'Interested',
+    ];
+
     protected $fillable = ['custom_cover_letter'];
 
     public function user()

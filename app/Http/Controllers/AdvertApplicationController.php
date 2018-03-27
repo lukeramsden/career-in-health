@@ -9,9 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class AdvertApplicationController extends Controller
 {
-    static $validation = [
-        'custom_cover_letter' => 'nullable|string|max:3000',
-    ];
+    private function getValidateRules(bool $internal)
+    {
+        return $internal ? [
+                    'status' => 'nullable|integer'
+                ] : [
+                    'custom_cover_letter' => 'nullable|string|max:3000',
+                ];
+    }
 
     public function create(Advert $advert)
     {
@@ -42,7 +47,7 @@ class AdvertApplicationController extends Controller
                         ]);
         }
         
-        $data = $request->validate($this::$validation);
+        $data = $request->validate($this->getValidateRules(false));
 
         $application = new AdvertApplication();
         $application->user_id = Auth::user()->id;
@@ -53,5 +58,27 @@ class AdvertApplicationController extends Controller
             ->with([
                 'status' => 'Applied!'
             ]);
+    }
+
+    public function update(Request $request, AdvertApplication $application)
+    {
+        if ($request->has('status')) {
+            $user = Auth::user();
+            if(!$user->isCompany() || $application->advert->company_id !== $user->company_id) {
+                return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status']);
+            } else {
+                $data = $request->validate($this->getValidateRules(true));
+
+                $application->status = $data['status'];
+            }
+        } else {
+            $data = $request->validate($this->getValidateRules(false));
+
+            $application->fill($data);
+        }
+
+        $application->save();
+
+        return response()->json(['success' => true]);
     }
 }
