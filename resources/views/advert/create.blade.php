@@ -3,7 +3,9 @@
 
     <div class="container">
         <div class='create-advert-container form-container has-top-bar'>
-            <form method='post'>
+            {{--TODO: Fix advert create--}}
+            {{--TODO: Job type field seems to be causing problems--}}
+            <form action="{{ route('advert_store') }}" method='post'>
                 {{ csrf_field() }}
 
                 <div class='row first-row'>
@@ -75,15 +77,15 @@
                     <div class='col-md-7 form-section'>
                         <div class="form-group">
                             <label>Role (<span class='text-action'>*</span>)</label>
-                            <select class='custom-select {{ $errors->has('role') ? 'is-invalid' : '' }}' name='role'>
+                            <select class='custom-select {{ $errors->has('job_type_id') ? 'is-invalid' : '' }}' name='job_type_id'>
                                 <option value='' selected disabled></option>
-                                @foreach ($advert->getRoles() as $id => $role)
-                                    <option value='{{ $id }}' {{ old('role', $advert->role) == $id ? 'selected' : '' }}>{{ $role }}</option>
+                                @foreach(\App\Models\JobType::all() as $job)
+                                    <option {{ old('job_type_id') == $job ? 'selected':'' }} value="{{ $job->id }}">{{ $job->name }}</option>
                                 @endforeach
                             </select>
 
-                            @if ($errors->has('description'))
-                                <div class="invalid-feedback">{{ $errors->first('description') }}</div>
+                            @if ($errors->has('job_type_id'))
+                                <div class="invalid-feedback">{{ $errors->first('job_type_id') }}</div>
                             @endif
                         </div>
                     </div>
@@ -98,7 +100,7 @@
                             <label>Role Setting (<span class='text-action'>*</span>)</label>
                             <select class='custom-select {{ $errors->has('setting') ? 'is-invalid' : '' }}' name='setting'>
                                 <option value='' selected disabled></option>
-                                @foreach ($advert->getSettings() as $id => $setting)
+                                @foreach (App\Models\Advert::$settings as $id => $setting)
                                     <option value='{{ $id }}' {{ old('setting', $advert->setting) == $id ? 'selected' : '' }}>{{ $setting }}</option>
                                 @endforeach
                             </select>
@@ -119,7 +121,7 @@
                             <label>Type (<span class='text-action'>*</span>)</label>
                             <select class='custom-select {{ $errors->has('type') ? 'is-invalid' : '' }}' name='type'>
                                 <option value='' selected disabled></option>
-                                @foreach ($advert->getTypes() as $id => $type)
+                                @foreach (App\Models\Advert::$types as $id => $type)
                                     <option value='{{ $id }}' {{ old('type', $advert->type) == $id ? 'selected' : '' }}>{{ $type }}</option>
                                 @endforeach
                             </select>

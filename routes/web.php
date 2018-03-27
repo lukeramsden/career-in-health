@@ -30,13 +30,15 @@ if (env('APP_ENV') == 'local') {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::group(['middleware' => ['auth']], function () {
-        Route::prefix('/account')->group(function() {
-            Route::get('/adverts', 'AdvertController@index')->name('adverts');
-            Route::get('/advert', 'AdvertController@create')->name('advert_create');
-            Route::post('/advert', 'AdvertController@store');
+        Route::prefix('account')->group(function() {
+            Route::prefix('advert')->group(function() {
+                Route::get('/', 'AdvertController@index')->name('adverts');
+                Route::get('/new', 'AdvertController@create')->name('advert_create');
+                Route::post('/', 'AdvertController@store')->name('advert_store');
 
-            Route::get('/advert/{advert}', 'AdvertController@edit')->name('advert_edit');
-            Route::post('/advert/{advert}', 'AdvertController@update');
+                Route::get('/{advert}', 'AdvertController@edit')->name('advert_edit');
+                Route::post('/{advert}', 'AdvertController@update');
+            });
 
             Route::get('/address', 'AddressController@create')->name('address_create');
             Route::post('/address', 'AddressController@store');

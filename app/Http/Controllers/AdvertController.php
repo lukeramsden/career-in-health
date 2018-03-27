@@ -20,7 +20,7 @@ class AdvertController extends Controller
                 'address_id' => 'required',
                 'title' => 'required|max:160',
                 'description' => 'required|max:3000',
-                'role' => 'required',
+                'job_type' => 'required',
                 'setting' => 'required',
                 'type' => 'required',
             ];
