@@ -46,13 +46,13 @@
                             <ul>
                                 <li>No Credits<span>No 12 month limits, just a simple subscription.</span></li>
                                 <li>Up to 120 Days Advert Length<span>Run your advert for as long as you want, as many times as you want.</span></li>
-                                <li>Unlimited Adverts<span></span></li>
-                                <li>Unlimited Candidates<span></span></li>
+                                <li>Unlimited Adverts<span>Fill as many places as you need.</span></li>
+                                <li>Unlimited Candidates<span>Don't miss out on the perfect candidate because of stupid limits.</span></li>
                                 <li>Candidate Management System<span>Keep track of your candidates with our management system.</span></li>
                                 <li>Email Notifications<span>We will keep you notified about new applicants, or suggestions.</span></li>
                                 <li>Advert Analytics<span>See how many people have seen your advert, viewed and applied.</span></li>
-                                <li>Advert Builder</li>
-                                <li>Auto Generated Personnel File</li>
+                                <li>Advert Builder<span></span></li>
+                                <li>Auto Generated Personnel File<span>Saving you the hassle.</span></li>
                             </ul>
                         </div>
                     </div>
