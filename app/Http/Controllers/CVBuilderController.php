@@ -84,8 +84,12 @@ class CVBuilderController extends Controller
             ]);
     }
 
-    public function step4_save()
+    public function step4_save(Request $request)
     {
+        if ($request->session()->has('apply_to_job_id')) {
+            return redirect(route('advert_apply', ['advert' => session('apply_to_job_id')]));
+        }
+
         return redirect(route('profile'));
     }
 }

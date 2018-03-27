@@ -38,6 +38,9 @@ if (env('APP_ENV') == 'local') {
 
                 Route::get('/{advert}', 'AdvertController@edit')->name('advert_edit');
                 Route::post('/{advert}', 'AdvertController@update');
+
+                Route::get('/{advert}/apply', 'AdvertApplicationController@create')->name('advert_apply');
+                Route::post('/{advert}/apply', 'AdvertApplicationController@store')->name('advert_store');
             });
 
             Route::get('/address', 'AddressController@create')->name('address_create');

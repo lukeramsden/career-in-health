@@ -32,7 +32,7 @@
                             <h5>{{ $advert->getType() }}</h5>
                         </li>
                     </ul>
-                    <a href="{{ Auth::guest() ? route('register') : ''/*TODO: Add applying functionality*/}}" class="btn btn-action">Apply</a>
+                    <a href="{{ route('advert_apply', ['advert' => $advert]) }}" class="btn btn-action">Apply</a>
                     <div class="card-footer">
                         <p class="card-text"><small class="text-muted">Last updated {{ $advert->updated_at->diffForHumans() }}</small></p>
                     </div>
