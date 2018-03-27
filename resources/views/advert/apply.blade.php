@@ -18,7 +18,7 @@
                     <div class="col-md-7 form-section">
                         <div class="form-group">
                             <label>Custom Cover Letter</label>
-                            <textarea class="form-control {{ $errors->has('custom_cover_letter') ? 'is-invalid' : '' }}" placeholder="Cover Letter (max 3000 characters)" name="custom_cover_letter" rows="5">{{ old('custom_cover_letter') }}</textarea>
+                            <textarea class="form-control {{ $errors->has('custom_cover_letter') ? 'is-invalid' : '' }}" maxlength="3000" placeholder="Cover Letter (max 3000 characters)" name="custom_cover_letter" rows="5">{{ old('custom_cover_letter') }}</textarea>
                         
                             @if ($errors->has('custom_cover_letter'))
                                 <div class="invalid-feedback">{{ $errors->first('custom_cover_letter') }}</div>

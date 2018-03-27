@@ -25,7 +25,7 @@
                             <h5 class="card-title">{{ $application->user->profile->first_name . ' ' . $application->user->profile->last_name }}</h5>
                             <p class="card-text">{{ $application->custom_cover_letter or 'Cover letter is empty' }}</p>
                             <hr><p class="small mb-2 text-muted">Not shown to applicant</p>
-                            <textarea class="form-control mb-3" rows="3" placeholder="Notes" oninput="dUpdateNotes({{ $application->id }}, this.value)">{{ $application->notes }}</textarea>
+                            <textarea class="form-control mb-3" rows="3" maxlength="500" placeholder="Notes" oninput="dUpdateNotes({{ $application->id }}, this.value)">{{ $application->notes }}</textarea>
                             <select class="custom-select" onchange="updateStatus({{ $application->id }}, this.value)">
                                 <option {{ !isset($application->status) ? 'selected' : '' }} disabled>-</option>
                                 @foreach(App\Models\AdvertApplication::$statuses as $id => $status)
