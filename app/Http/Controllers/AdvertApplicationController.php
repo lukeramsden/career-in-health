@@ -12,7 +12,8 @@ class AdvertApplicationController extends Controller
     private function getValidateRules(bool $internal)
     {
         return $internal ? [
-                    'status' => 'nullable|integer'
+                    'status' => 'nullable|integer',
+                    'notes' => 'nullable|string|max:500'
                 ] : [
                     'custom_cover_letter' => 'nullable|string|max:3000',
                 ];
@@ -62,14 +63,20 @@ class AdvertApplicationController extends Controller
 
     public function update(Request $request, AdvertApplication $application)
     {
-        if ($request->has('status')) {
+        if ($request->has('status') || $request->has('notes')) {
             $user = Auth::user();
             if(!$user->isCompany() || $application->advert->company_id !== $user->company_id) {
-                return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status']);
+                return $request->ajax() ?
+                    response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status'])
+                    : back()->with(['status' => 'You must own the advert to update an application\'s status']);
             } else {
                 $data = $request->validate($this->getValidateRules(true));
 
-                $application->status = $data['status'];
+                if($request->has('status'))
+                    $application->status = $data['status'];
+
+                if($request->has('notes'))
+                    $application->notes = $data['notes'];
             }
         } else {
             $data = $request->validate($this->getValidateRules(false));
@@ -79,6 +86,7 @@ class AdvertApplicationController extends Controller
 
         $application->save();
 
-        return response()->json(['success' => true]);
+        return $request->ajax() ? response()->json(['success' => true])
+            : back()->with(['status' => 'Success!']);
     }
 }

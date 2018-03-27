@@ -21,6 +21,7 @@ class CreateAdvertApplicationsTable extends Migration
             $table->foreign('advert_id')->references('id')->on('adverts');
             $table->string('custom_cover_letter', 3000)->nullable();
             $table->integer('status')->nullable();
+            $table->string('notes', 500)->nullable();
             $table->timestamps();
         });
     }

@@ -24,7 +24,9 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $application->user->profile->first_name . ' ' . $application->user->profile->last_name }}</h5>
                             <p class="card-text">{{ $application->custom_cover_letter or 'Cover letter is empty' }}</p>
-                            <select class="custom-select" onchange="sendUpdate({{ $application->id }}, this.value)">
+                            <hr><p class="small mb-2 text-muted">Not shown to applicant</p>
+                            <textarea class="form-control mb-3" rows="3" placeholder="Notes" oninput="dUpdateNotes({{ $application->id }}, this.value)">{{ $application->notes }}</textarea>
+                            <select class="custom-select" onchange="updateStatus({{ $application->id }}, this.value)">
                                 <option {{ !isset($application->status) ? 'selected' : '' }} disabled>-</option>
                                 @foreach(App\Models\AdvertApplication::$statuses as $id => $status)
                                     <option {{ $application->status == $id ? 'selected' : '' }} value="{{ $id }}">{{ $status }}</option>
@@ -38,14 +40,16 @@
     </div>
 @endsection
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
     <script>
-        function sendUpdate(id, val)
+        const dUpdateNotes = _.debounce(updateNotes, 600);
+        function updateStatus(id, val)
         {
             console.log(id + ' - ' + val);
-            var url = '{{ route('advert-application.update', 'xtemp1') }}';
-            axios.post(url.replace('xtemp1', id), { 'status': val })
-                .then(function(response) {
-                    console.log(response);
+            var url = '{{ route('advert-application.update', 'xtemp') }}';
+            axios.post(url.replace('xtemp', id), { 'status': val })
+                .then(function(resp) {
+                    console.log(resp);
                     var css;
                     switch(parseInt(val)) {
                         case 1:
@@ -63,8 +67,21 @@
                     }
                     $('#appl-card-' + id).attr('class', 'card ' + css)
                 })
-                .catch(function(error) {
-                    console.log(error);
+                .catch(function(err) {
+                    console.log(err);
+                });
+        }
+        
+        function updateNotes(id, val)
+        {
+            console.log(id + ' - ' + val);
+            var url = '{{ route('advert-application.update', 'xtemp') }}';
+            axios.post(url.replace('xtemp', id), { 'notes': val })
+                .then(function(resp) {
+                    console.log(resp);
+                })
+                .catch(function(err) {
+                    console.log(err);
                 });
         }
     </script>
