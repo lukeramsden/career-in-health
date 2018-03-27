@@ -29,6 +29,7 @@ class AdvertApplicationController extends Controller
         $data = $request->validate($this::$validation);
 
         $application = new AdvertApplication();
+        $application->user_id = Auth::user()->id;
         $application->fill($data);
         $advert->applications()->save($application);
 

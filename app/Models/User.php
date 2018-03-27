@@ -23,7 +23,7 @@ class User extends Authenticatable
 
     public function isCompany()
     {
-        return $this->company_id !== null ? true : false;
+        return $this->company_id !== null ? true : false; // not sure why you don't just return the expression james
     }
 
     public function company()
@@ -34,6 +34,11 @@ class User extends Authenticatable
     public function stripePlan()
     {
         return $this->hasMany('App\Models\Subscribe');
+    }
+
+    public function applications()
+    {
+        return $this->hasMany('App\Models\AdvertApplication');
     }
 
     public function activeStripePlan()
