@@ -20,12 +20,28 @@ class AdvertApplicationController extends Controller
             return redirect(route('register'));
         }
 
+        if(AdvertApplication::alreadyApplied(Auth::user(), $advert))
+        {
+            return redirect(route('advert.show', ['advert' => $advert]))
+                        ->with([
+                            'status' => 'You have already applied to this job!'
+                        ]);
+        }
+
         return view('advert.apply')
             ->with(['advert' => $advert]);
     }
 
     public function store(Request $request, Advert $advert)
     {
+        if(AdvertApplication::alreadyApplied(Auth::user(), $advert))
+        {
+            return redirect(route('advert.show', ['advert' => $advert]))
+                        ->with([
+                            'status' => 'You have already applied to this job!'
+                        ]);
+        }
+        
         $data = $request->validate($this::$validation);
 
         $application = new AdvertApplication();
