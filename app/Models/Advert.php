@@ -52,6 +52,10 @@ class Advert extends Model
 
     public function getSetting()
     {
+        // TODO / Note
+        // static isn't the worst choice
+        // could have been private or static because i dont see these fields be needed out side of this model
+        // Referance: you can also use self::$settings[$this->setting]; to access this property
         return Advert::$settings[$this->setting];
     }
 

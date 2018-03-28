@@ -31,6 +31,15 @@
         
                                 </div>
                             </div>
+
+                            {{-- 
+                                TODO
+                                Please change Radius slider to be 5 - 50 in steps of 5.
+                                    also on 50 if you could get the label to say 50+ that would be good
+
+                                This is to make it easier to both design and use.
+                            --}}
+
                             <div class="col-md-12 mb-5">
                                 <div class="form-group">
                                     <label>Radius (miles)</label>
@@ -51,6 +60,14 @@
                                     <button type="button" style="height: auto;" onclick="$('#job_types').val([]);" class="btn btn-block btn-danger">Clear Selected Items</button>
                                 </div>
                             </div>
+
+                            {{-- 
+                                TODO
+                                need a max salary
+                                that should be always greater than min
+                                default should be the max vale of the max salary slider
+                                the last value might want to be $150,000+?
+                            --}}
                             <div class="col-md-12 mb-5">
                                 <div class="form-group">
                                     <label>Minimum Salary</label>

@@ -38,6 +38,20 @@ class SearchController extends Controller
                 });
             });
 
+            // TODO
+            // you have validated the request using $data = $request->validate($this::$validation);
+            // $request->has('job_types') could still give you issues because it might have slipped through
+            // validation becuase its not required or something missed in validation.
+            // i would consider looking at using the $data var to get the request data because it will only
+            // have the data that has been validated correctly.
+
+            // format if's correctly 
+            // if (isset($data['job_types'])) {
+            //     $results->whereIn('job_type_id', $data['job_types']);
+            // }
+
+            // there are a few other ifs dotted around that arn't formated correctly
+ 
             if($request->has('job_types'))
                 $results->whereIn('job_type_id', $request->job_types);
 
