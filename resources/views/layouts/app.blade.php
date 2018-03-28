@@ -57,7 +57,7 @@
                                 <li><a class="nav-link {{ isActive('home') ? 'active' : '' }}" href='/home'>Dashboard</a></li>
 
                                 @if (Auth::user()->isCompany())
-                                    <li><a class="nav-link {{ isActive('*/adverts') ? 'active' : '' }}" href='{{ route('advert.index') }}'>Adverts</a></li>
+                                    <li><a class="nav-link {{ isActive('*/advert/*') || isActive('*/advert') ? 'active' : '' }}" href='{{ route('advert.index') }}'>Adverts</a></li>
                                     <li><a class="nav-link {{ isActive('*/plans') ? 'active' : '' }}" href='{{ route('plans') }}'>Plans</a></li>
                                 @endif
                             @else

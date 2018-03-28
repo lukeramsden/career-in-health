@@ -19,7 +19,7 @@ class AdvertController extends Controller
                 'address_id' => 'required',
                 'title' => 'required|max:160',
                 'description' => 'required|max:3000',
-                'job_type' => 'required',
+                'job_type_id' => 'required|integer|exists:job_types,id',
                 'setting' => 'required',
                 'type' => 'required',
             ];
@@ -62,7 +62,8 @@ class AdvertController extends Controller
     {
         return view('advert.create')
             ->with([
-                'advert' => new Advert()
+                'advert' => new Advert(),
+                'edit' => false
             ]);
     }
 
@@ -70,7 +71,8 @@ class AdvertController extends Controller
     {
         return view('advert.create')
             ->with([
-                'advert' => $advert
+                'advert' => $advert,
+                'edit' => true
             ]);
     }
 

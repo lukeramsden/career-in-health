@@ -3,14 +3,13 @@
 
     <div class="container">
         <div class='create-advert-container form-container has-top-bar'>
-            {{--TODO: Fix advert create--}}
-            {{--TODO: Job type field seems to be causing problems--}}
-            <form action="{{ route('advert.store') }}" method='post'>
+            {{-- TODO: Fix advert create error handling --}}
+            <form action="{{ route('advert.store') }}" method="post">
                 {{ csrf_field() }}
 
                 <div class='row first-row'>
                     <div class='col-md-7 form-section'>
-                        <h1>Create A New Advert</h1>
+                        <h1>{{ $edit ? 'Edit An Advert' : 'Create A New Advert' }}</h1>
                     </div>
                     <div class='col-md-5 help-section'>
                         <h1>Help</h1>
@@ -80,7 +79,7 @@
                             <select class='custom-select {{ $errors->has('job_type_id') ? 'is-invalid' : '' }}' name='job_type_id'>
                                 <option value='' selected disabled></option>
                                 @foreach(\App\Models\JobType::all() as $job)
-                                    <option {{ old('job_type_id') == $job ? 'selected':'' }} value="{{ $job->id }}">{{ $job->name }}</option>
+                                    <option {{ old('job_type_id', $advert->job_type_id) == $job->id ? 'selected':'' }} value="{{ $job->id }}">{{ $job->name }}</option>
                                 @endforeach
                             </select>
 
@@ -164,8 +163,10 @@
 
                 <div class='row'>
                     <div class='col-md-7 form-section'>
-                        <button class='btn btn-action btn-big'>Create Advert</button>
-                        <button class='btn btn-text btn-big' name='save_for_later' value='1'>Save As Draft</button>
+                        <button class='btn btn-action btn-big'>{{ $edit ? 'Save' : 'Create Advert' }}</button>
+                        @if(!$edit)
+                            <button class='btn btn-text btn-big' name='save_for_later' value='1'>Save As Draft</button>
+                        @endif
                     </div>
                     <div class='col-md-5 help-section'>
                         <p></p>

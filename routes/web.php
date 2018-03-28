@@ -34,7 +34,7 @@ if (env('APP_ENV') == 'local') {
             Route::prefix('advert')->group(function() {
                 Route::get('/', 'AdvertController@index')->name('advert.index');
                 Route::get('/new', 'AdvertController@create')->name('advert.create');
-                Route::post('/', 'AdvertController@store')->name('advert.store');
+                Route::post('/new', 'AdvertController@store')->name('advert.store');
 
                 Route::get('/{advert}/view', 'AdvertController@show_internal')->name('advert.show.internal');
 
