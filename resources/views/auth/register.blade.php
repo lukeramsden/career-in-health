@@ -88,13 +88,12 @@
                                 </div>
                             </div>
 
-                            <div class='col-md-12 mt-3 company-name' style='display: none;'>
-                                {{-- TODO:: Make this show up depending on old()
-                                            this dissapears if one of the other inputs is wrong
-                                --}}
+                            <div class='col-md-12 mt-3 company-name d-none'>
+                                {{-- TODO: Make this show up depending on old() - doesn't appear if there are validation errors --}}
+                                {{-- TODO: Error Handling --}}
                                 <div class="form-group">
                                     <label>Company Name (<span class='text-action'>*</span>)</label>
-                                    <input type='text' name="company_name" class="form-control" placeholder="Company Name">
+                                    <input type='text' name="company_name" class="form-control" value="{{ old('company_name') }}" placeholder="Company Name">
                                 </div>
                             </div>
 
@@ -126,10 +125,10 @@
 @section('script')
 <script>
     $('.i-am').on('change', function() {
-        if ($(this).val() == 'Employer') {
-            $('.company-name').show();
+        if ($(this).val() === 'Employer') {
+            $('.company-name').removeClass('d-none');
         } else {
-            $('.company-name').hide();
+            $('.company-name').addClass('d-none');
         }
     });
 </script>
