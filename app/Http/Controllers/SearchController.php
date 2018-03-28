@@ -26,7 +26,7 @@ class SearchController extends Controller
     {
         if($request->has('town')) {
             $data = $request->validate(self::$validation);
-            $town = Location::find($request->town);
+            $town = Location::find($data['town']);
             $results = Advert::query();
             $results = $results->whereHas('address', function($q) use($town, $data) {
                 $q->whereHas('location', function($q) use($town, $data) {
@@ -40,19 +40,19 @@ class SearchController extends Controller
             });
 
             if(isset($data['job_types']))
-                $results->whereIn('job_type_id', $request->job_types);
+                $results->whereIn('job_type_id', $data['job_types']);
 
             if(isset($data['min_salary']))
-                $results->where('max_salary', '>', $request->min_salary);
+                $results->where('max_salary', '>', $data['min_salary']);
 
-            if(isset($data['max_salary']))
-                $results->where('max_salary', '<', $request->min_salary);
+            if(isset($data['max_salary']) && $data['max_salary'] < 150000)
+                $results->where('max_salary', '<', $data['max_salary']);
 
             if(isset($data['setting_filter']))
-                $results->whereIn('setting', $request->setting_filter);
+                $results->whereIn('setting', $data['setting_filter']);
 
             if(isset($data['type_filter']))
-                $results->whereIn('type', $request->type_filter);
+                $results->whereIn('type', $data['type_filter']);
 
             $results = $results->orderBy('max_salary', 'desc')->paginate(10);
 
