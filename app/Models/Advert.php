@@ -62,7 +62,7 @@ class Advert extends Model
 
     public function linkEdit()
     {
-        return route('advert_edit', [
+        return route('advert.edit', [
             $this->id
         ]);
     }

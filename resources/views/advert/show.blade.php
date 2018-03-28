@@ -33,7 +33,7 @@
                         </li>
                     </ul>
                     @php($alreadyApplied = App\Models\AdvertApplication::alreadyApplied(Auth::user(), $advert))
-                    <a href="{{ route('advert_apply', ['advert' => $advert]) }}" class="btn {{ $alreadyApplied ? 'btn-secondary disabled' : 'btn-action' }}">{{ $alreadyApplied ? 'You have already applied!' : 'Apply' }}</a>
+                    <a href="{{ route('advert.apply.create', ['advert' => $advert]) }}" class="btn {{ $alreadyApplied ? 'btn-secondary disabled' : 'btn-action' }}">{{ $alreadyApplied ? 'You have already applied!' : 'Apply' }}</a>
                     <p class="text-muted"><span class="font-weight-bold text-info">{{ $advert->applications()->count() }}</span> {{ $advert->applications()->count() == 1 ? 'person has' : 'people have' }} already applied!</p>
                     <div class="card-footer">
                         <p class="card-text"><small class="text-muted">Last updated {{ $advert->updated_at->diffForHumans() }}</small></p>

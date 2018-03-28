@@ -5,7 +5,7 @@
         <div class='create-advert-container form-container has-top-bar'>
             {{--TODO: Fix advert create--}}
             {{--TODO: Job type field seems to be causing problems--}}
-            <form action="{{ route('advert_store') }}" method='post'>
+            <form action="{{ route('advert.store') }}" method='post'>
                 {{ csrf_field() }}
 
                 <div class='row first-row'>
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class='col-md-5 help-section'>
-                        <p>This will be the address that you want to find staff for.<br />If you haven't created a address <a href='{{ route('address_create') }}'>click here</a> to creat one</p>
+                        <p>This will be the address that you want to find staff for.<br />If you haven't created a address <a href='{{ route('address.create') }}'>click here</a> to creat one</p>
                     </div>
                 </div>
 

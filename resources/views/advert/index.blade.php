@@ -26,7 +26,7 @@
                                         <p>{{ $advert->title }}</p>
                                     </td>
                                     <td>
-                                        <a href='{{ route('advert_show_internal', ['advert' => $advert]) }}' class='btn btn-outline-primary btn-sm'>View</a>
+                                        <a href='{{ route('advert.show.internal', ['advert' => $advert]) }}' class='btn btn-outline-primary btn-sm'>View</a>
                                         <a href='{{ $advert->linkEdit() }}' class='btn btn-action btn-sm'>Edit</a>
                                     </td>
                                 </tr>

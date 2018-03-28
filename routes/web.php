@@ -32,22 +32,22 @@ if (env('APP_ENV') == 'local') {
     Route::group(['middleware' => ['auth']], function () {
         Route::prefix('account')->group(function() {
             Route::prefix('advert')->group(function() {
-                Route::get('/', 'AdvertController@index')->name('adverts');
-                Route::get('/new', 'AdvertController@create')->name('advert_create');
-                Route::post('/', 'AdvertController@store')->name('advert_store');
+                Route::get('/', 'AdvertController@index')->name('advert.index');
+                Route::get('/new', 'AdvertController@create')->name('advert.create');
+                Route::post('/', 'AdvertController@store')->name('advert.store');
 
-                Route::get('/{advert}/view', 'AdvertController@show_internal')->name('advert_show_internal');
+                Route::get('/{advert}/view', 'AdvertController@show_internal')->name('advert.show.internal');
 
-                Route::get('/{advert}/edit', 'AdvertController@edit')->name('advert_edit');
-                Route::post('/{advert}/edit', 'AdvertController@update');
+                Route::get('/{advert}/edit', 'AdvertController@edit')->name('advert.edit');
+                Route::post('/{advert}/edit', 'AdvertController@update')->name('advert.update');
 
-                Route::get('/{advert}/apply', 'AdvertApplicationController@create')->name('advert_apply');
-                Route::post('/{advert}/apply', 'AdvertApplicationController@store')->name('advert_store');
+                Route::get('/{advert}/apply', 'AdvertApplicationController@create')->name('advert.apply.create');
+                Route::post('/{advert}/apply', 'AdvertApplicationController@store')->name('advert.apply.store');
             });
 
             Route::post('/application/{application}/update', 'AdvertApplicationController@update')->name('advert-application.update');
 
-            Route::get('/address', 'AddressController@create')->name('address_create');
+            Route::get('/address', 'AddressController@create')->name('address.create');
             Route::post('/address', 'AddressController@store');
 
             Route::get('/plans', 'SubscriptionController@index')->name('plans');

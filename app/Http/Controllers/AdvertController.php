@@ -84,7 +84,7 @@ class AdvertController extends Controller
         $advert->fill($request->all());
         $advert->save();
 
-        return redirect(route('adverts'));
+        return redirect(route('advert.index'));
     }
 
     public function update(Advert $advert, Request $request)
@@ -94,6 +94,6 @@ class AdvertController extends Controller
         $advert->fill($request->all());
         $advert->save();
 
-        return redirect(route('adverts'));
+        return redirect(route('advert.index'));
     }
 }

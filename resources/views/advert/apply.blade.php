@@ -11,7 +11,7 @@
                 </div>
             </div>
 
-            <form action="{{ route('advert_store', ['advert' => $advert]) }}" method="post">
+            <form action="{{ route('advert.apply.store', ['advert' => $advert]) }}" method="post">
                 {{ csrf_field() }}
     
                 <div class="row">
