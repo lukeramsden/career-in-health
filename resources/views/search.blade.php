@@ -32,14 +32,6 @@
                                 </div>
                             </div>
 
-                            {{-- 
-                                TODO
-                                Please change Radius slider to be 5 - 50 in steps of 5.
-                                    also on 50 if you could get the label to say 50+ that would be good
-
-                                This is to make it easier to both design and use.
-                            --}}
-
                             <div class="col-md-12 mb-5">
                                 <div class="form-group">
                                     <label>Radius (miles)</label>
@@ -61,18 +53,12 @@
                                 </div>
                             </div>
 
-                            {{-- 
-                                TODO
-                                need a max salary
-                                that should be always greater than min
-                                default should be the max vale of the max salary slider
-                                the last value might want to be $150,000+?
-                            --}}
                             <div class="col-md-12 mb-5">
                                 <div class="form-group">
                                     <label>Minimum Salary</label>
                                     <div id="salary-slider"></div>
                                     <input type="hidden" name="min_salary" id="min-salary-input" value="{{ old('min_salary', Request::get('min_salary', 0)) }}">
+                                    <input type="hidden" name="max_salary" id="max-salary-input" value="{{ old('max_salary', Request::get('max_salary', 150000)) }}">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -149,13 +135,12 @@
             step: 5,
             tooltips: true,
             range: {
-                'min': 10,
-                'max': 500
+                'min': 5,
+                'max': 50
             },
             pips: {
-           		mode: 'values',
-           		values: [10,100,200,300,400,500],
-           		density: 4
+           		mode: 'steps',
+           		density: 3
            	},
             format: wNumb({
            		decimals: 0
@@ -175,7 +160,8 @@
         
         noUiSlider.create(salarySlider, {
             start: [
-                {{ old('min_salary', Request::get('min_salary', 0)) }}
+                {{ old('min_salary', Request::get('min_salary', 0)) }},
+                {{ old('max_salary', Request::get('max_salary', 150000)) }}
             ],
             step: 500,
             tooltips: true,
@@ -197,7 +183,8 @@
         });
         
         salarySlider.noUiSlider.on('change', function(values, handle) {
-            $('#min-salary-input').val(moneyFormatter.from(values[handle]));
+            $('#min-salary-input').val(moneyFormatter.from(values[0]));
+            $('#max-salary-input').val(moneyFormatter.from(values[1]));
         });
     </script>
 

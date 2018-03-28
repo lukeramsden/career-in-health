@@ -14,7 +14,8 @@ class SearchController extends Controller
         'radius' => 'required|integer|min:10|max:500',
         'job_types' => 'array',
         'job_types.*' => 'integer|distinct|exists:job_types,id',
-        'min_salary' => 'nullable|integer|min:0|max:150000',
+        'min_salary' => 'required|integer|min:0|max:150000',
+        'max_salary' => 'required|integer|min:1|max:150000|greater_than_field:min_salary',
         'setting_filter' => 'array',
         'setting_filter.*' => 'integer|distinct',
         'type_filter' => 'array',
@@ -24,7 +25,7 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         if($request->has('town')) {
-            $data = $request->validate($this::$validation);
+            $data = $request->validate(self::$validation);
             $town = Location::find($request->town);
             $results = Advert::query();
             $results = $results->whereHas('address', function($q) use($town, $data) {
@@ -38,30 +39,19 @@ class SearchController extends Controller
                 });
             });
 
-            // TODO
-            // you have validated the request using $data = $request->validate($this::$validation);
-            // $request->has('job_types') could still give you issues because it might have slipped through
-            // validation becuase its not required or something missed in validation.
-            // i would consider looking at using the $data var to get the request data because it will only
-            // have the data that has been validated correctly.
-
-            // format if's correctly 
-            // if (isset($data['job_types'])) {
-            //     $results->whereIn('job_type_id', $data['job_types']);
-            // }
-
-            // there are a few other ifs dotted around that arn't formated correctly
- 
-            if($request->has('job_types'))
+            if(isset($data['job_types']))
                 $results->whereIn('job_type_id', $request->job_types);
 
-            if($request->has('min_salary'))
+            if(isset($data['min_salary']))
                 $results->where('max_salary', '>', $request->min_salary);
 
-            if($request->has('setting_filter'))
+            if(isset($data['max_salary']))
+                $results->where('max_salary', '<', $request->min_salary);
+
+            if(isset($data['setting_filter']))
                 $results->whereIn('setting', $request->setting_filter);
 
-            if($request->has('type_filter'))
+            if(isset($data['type_filter']))
                 $results->whereIn('type', $request->type_filter);
 
             $results = $results->orderBy('max_salary', 'desc')->paginate(10);
