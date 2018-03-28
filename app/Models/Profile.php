@@ -37,7 +37,7 @@ class Profile extends Model
     public function picture()
     {
         ///TODO: add our own default profile picture (potentially do it front-end)
-        return $this->avatar_path ? Storage::url('app/' . $this->avatar_path) : 'http://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg';
+        return $this->avatar_path ? Storage::url($this->avatar_path) : 'http://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg';
     }
 
     public function jobTypes()
