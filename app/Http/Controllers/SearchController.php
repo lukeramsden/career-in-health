@@ -11,7 +11,7 @@ class SearchController extends Controller
 {
     static $validation = [
         'town' => 'required|integer|exists:locations,id',
-        'radius' => 'required|integer|min:10|max:500',
+        'radius' => 'required|integer|min:5|max:50',
         'job_types' => 'array',
         'job_types.*' => 'integer|distinct|exists:job_types,id',
         'min_salary' => 'required|integer|min:0|max:150000',
@@ -28,16 +28,19 @@ class SearchController extends Controller
             $data = $request->validate(self::$validation);
             $town = Location::find($data['town']);
             $results = Advert::query();
-            $results = $results->whereHas('address', function($q) use($town, $data) {
-                $q->whereHas('location', function($q) use($town, $data) {
-                    $q->whereRaw('(3959 * acos(cos(radians(?)) * cos(radians( latitude )) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) < ?', [
-                        $town->latitude,
-                        $town->longitude,
-                        $town->latitude,
-                        $data['radius'],
-                    ]);
+
+            if(isset($data['radius']) && $data['radius'] < 50) {
+                $results = $results->whereHas('address', function($q) use($town, $data) {
+                    $q->whereHas('location', function($q) use($town, $data) {
+                        $q->whereRaw('(3959 * acos(cos(radians(?)) * cos(radians( latitude )) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) < ?', [
+                            $town->latitude,
+                            $town->longitude,
+                            $town->latitude,
+                            $data['radius'],
+                        ]);
+                    });
                 });
-            });
+            }
 
             if(isset($data['job_types']))
                 $results->whereIn('job_type_id', $data['job_types']);

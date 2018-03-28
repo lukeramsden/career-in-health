@@ -187,7 +187,8 @@
             $('#max-salary-input').val(moneyFormatter.from(values[1]));
         });
         
-        $('div.noUi-value:nth-child(30)').html('£150,000+')
+        $('#radius-slider').find('div.noUi-value:nth-child(47)').html('50+');
+        $('#salary-slider').find('div.noUi-value:nth-child(30)').html('£150,000+');
     </script>
 
     <style>
