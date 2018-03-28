@@ -59,6 +59,8 @@
                                 @if (Auth::user()->isCompany())
                                     <li><a class="nav-link {{ isActive('*/advert/*') || isActive('*/advert') ? 'active' : '' }}" href='{{ route('advert.index') }}'>Adverts</a></li>
                                     <li><a class="nav-link {{ isActive('*/plans') ? 'active' : '' }}" href='{{ route('plans') }}'>Plans</a></li>
+                                @else
+                                    <li><a class="nav-link  {{ isActive('search') ? 'active' : '' }}" href='{{ route('search') }}'>Search</a></li>
                                 @endif
                             @else
                                 <li><a class="nav-link {{ isActive('/') ? 'active' : '' }}" href='/'>Home</a></li>
