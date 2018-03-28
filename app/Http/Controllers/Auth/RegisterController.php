@@ -74,32 +74,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $data = (object) $data; // ? - luke
+        $data = (object) $data;
 
         $user = new User();
         $user->email = $data->email;
         $user->password = Hash::make($data->password);
 
-        $profile = new Profile;
+        $profile = new Profile();
         $profile->first_name = ucwords($data->first_name);
         $profile->last_name = ucwords($data->last_name);
-        $user->save();
         $user->profile()->save($profile);
 
         if ($data->i_am == 'Employer') {
-            // create company;
             $company = new Company();
             $company->name = ucwords($data->company_name);
             $company->created_by_user_id = $user->id;
             $company->save();
 
             $user->company_id = $company->id;
-            $user->save();
             $this->redirectTo = '/home';
-        } else {
+        } else if($data->i_am == 'Employee') {
             $this->redirectTo = route('cv-builder.profile');
         }
 
+        $user->save();
         return $user;
     }
 }
