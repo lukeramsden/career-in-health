@@ -11,7 +11,7 @@ class Certification extends Model
 
     public function url()
     {
-        return Storage::url('app/' . $this->file_path);
+        return Storage::url($this->file_path);
     }
 
     public function download_resp()
