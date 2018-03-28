@@ -21,6 +21,10 @@ if (env('APP_ENV') == 'local') {
         return view('welcome');
     });
 
+    Route::get('/pricing', function() {
+        return view('pricing');
+    });
+
     Route::get('/search', 'SearchController@search')->name('search');
     Route::get('/advert/{advert}', 'AdvertController@show')->name('advert.show');
 

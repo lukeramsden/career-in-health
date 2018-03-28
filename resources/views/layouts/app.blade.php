@@ -64,7 +64,7 @@
                                 <li><a class="nav-link {{ isActive('/') ? 'active' : '' }}" href='/'>Home</a></li>
                                 <li><a class="nav-link" href='#'>Employer</a></li>
                                 <li><a class="nav-link" href='#'>Employee</a></li>
-                                <li><a class="nav-link" href='#'>Pricing</a></li>
+                                <li><a class="nav-link {{ isActive('pricing') ? 'active' : '' }}" href='/pricing'>Pricing</a></li>
                                 <li><a class="nav-link" href='#'>Reviews</a></li>
                                 <li><a class="nav-link  {{ isActive('search') ? 'active' : '' }}" href='{{ route('search') }}'>Search</a></li>
                             @endif
