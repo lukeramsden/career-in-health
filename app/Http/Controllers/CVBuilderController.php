@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Storage;
 
 class CVBuilderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /// profile
 
     public function step1_show()

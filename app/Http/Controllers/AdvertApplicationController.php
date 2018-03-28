@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AdvertApplicationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('create');
+    }
+
     private function getValidateRules(bool $internal)
     {
         return $internal ? [

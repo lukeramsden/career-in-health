@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class AdvertController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('show');
+    }
+
     private function getValidateRules($request)
     {
         if ($request->save_for_later !== null) {

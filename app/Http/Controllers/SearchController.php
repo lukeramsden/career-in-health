@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
+    public function __construct()
+    {
+        ///
+    }
+
     static $validation = [
         'town' => 'required|integer|exists:locations,id',
         'radius' => 'required|integer|min:5|max:50',

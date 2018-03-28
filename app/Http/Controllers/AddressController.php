@@ -8,7 +8,11 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create()
     {
         return view('address.create')

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     static $validation = [
         'first_name' => 'required|string|max:40',
         'last_name' => 'nullable|string|max:40',

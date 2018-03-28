@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class CertificationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     static $validation = [
         'name' => 'required|string|max:80'
     ];
