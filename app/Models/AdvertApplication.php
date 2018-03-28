@@ -26,12 +26,14 @@ class AdvertApplication extends Model
         return $this->belongsTo('App\Models\Advert');
     }
 
-    static public function alreadyApplied(User $user, Advert $advert)
+    static public function alreadyApplied(User $user = null, Advert $advert = null)
     {
-            return AdvertApplication::where([
-                ['user_id', $user->id],
-                ['advert_id', $advert->id]
-            ])->count() > 0 ? true : false;
+        if($user == null || $advert == null) return false;
+
+        return AdvertApplication::where([
+            ['user_id', $user->id],
+            ['advert_id', $advert->id]
+        ])->count() > 0 ? true : false;
     }
 
 }

@@ -90,6 +90,6 @@ class CVBuilderController extends Controller
             return redirect(route('advert_apply', ['advert' => session('apply_to_job_id')]));
         }
 
-        return redirect(route('profile'));
+        return redirect(route('profile.me'));
     }
 }
