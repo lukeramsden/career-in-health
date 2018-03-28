@@ -11158,3 +11158,17 @@ p.holding-content {
   color: #808080;
 }
 
+.profile .form-section,
+.profile .row:last-child .form-section {
+  padding: 0;
+}
+
+.profile-picture {
+  height: auto;
+  width: 250px;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
+

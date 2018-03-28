@@ -790,3 +790,18 @@ p.holding-content {
         color: $text-light;
     }
 }
+
+.profile {
+    .form-section, .row:last-child .form-section {
+        padding: 0;
+    }
+
+    &-picture {
+        height: auto;
+        width: 250px;
+        padding: 5px;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
+}
