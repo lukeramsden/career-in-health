@@ -22,4 +22,9 @@ class Company extends Model
         return $this->hasMany('App\User');
     }
 
+    public function applications()
+    {
+        return $this->hasManyThrough('App\Models\AdvertApplication', 'App\Models\Advert');
+    }
+
 }
