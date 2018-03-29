@@ -28,16 +28,18 @@
                             </div>
                         @endif
                     </div>
-                    <hr class="my-3 mx-5">
+                    <hr class="my-3 mx-3">
                     <div class="row">
                         <div class="col-md-6 border-right border-secondary edit-button-overlay-container">
-                            <ul class="list-group list-group-flush list-work-experience mx-5">
                                 @foreach($profile->work as $work)
-                                    <li class="list-group-item text-truncate">
+                                    <div class="work-experience mx-5 my-0">
+                                        @if (!$loop->first)
+                                            <hr class="my-1">
+                                        @endif
                                         <div class="m-0 d-block">
                                             <span class="font-weight-bold">{{ $work->job_title }}</span> <span class="font-italic text-muted">at</span> <span class="font-weight-bold">{{ $work->company_name }}</span>
                                         </div>
-                                        <div class="mt-2 d-block">
+                                        <div class="m-0 mt-2 d-block">
                                             @isset($work->end_date)
                                                 <span class="font-italic text-muted">From</span> <span
                                                 class="font-weight-bold">{{ date("F jS, Y", strtotime($work->start_date)) }}</span> <span
@@ -45,12 +47,11 @@
                                             @endisset
                                             
                                             @empty($work->end_date)
-                                                <span class="font-italic text-muted">Started</span> <span class="font-weight-bold">{{ date("F jS, Y", strtotime($work->start_date)) }}</span> <span class="badge badge-secondary">Currently Working Here</span>
-                                            @endempty
+                                                    <span class="font-italic text-muted">Started</span> <span class="font-weight-bold">{{ date("F jS, Y", strtotime($work->start_date)) }}</span> <span class="badge badge-secondary">Currently Working Here</span>
+                                                @endempty
                                         </div>
-                                    </li>
+                                    </div>
                                 @endforeach
-                            </ul>
                             @if($owner)
                                 <div class="edit-button-overlay" style="top: 0; right: 10px;">
                                     <a href="{{ route('profile.work.edit') }}" class="btn btn-outline-primary btn-block mx-0">EDIT</a>
