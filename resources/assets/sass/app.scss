@@ -817,6 +817,20 @@ p.holding-content {
             background: transparent;
         }
     }
+
+    .edit-button-overlay {
+
+        &-container:hover {
+            .edit-button-overlay { opacity: 1; }
+        }
+
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        opacity: 0;
+        -webkit-transition: all .2s ease-in-out;
+        transition: all .2s ease-in-out;
+    }
 }
 
 .alert-updated {

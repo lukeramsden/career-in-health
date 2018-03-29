@@ -5,8 +5,8 @@
         <div class="profile form-container has-top-bar">
             <div class="row">
                 <div class="col-md-12 form-section py-3">
-                    <div class="row no-side-padding">
-                        <div class="media col-11">
+                    <div class="row no-side-padding edit-button-overlay-container">
+                        <div class="media col-12">
                             <div class="py-2">
                                 <img class="mr-3 profile-picture" src="{{ $profile->picture() }}" alt="Profile picture">
                             </div>
@@ -23,14 +23,14 @@
                             </div>
                         </div>
                         @if($owner)
-                            <div class="col-1">
+                            <div class="edit-button-overlay">
                                 <a href="{{ route('profile.edit') }}" class="btn btn-outline-primary btn-block mx-0">EDIT</a>
                             </div>
                         @endif
                     </div>
                     <hr class="my-3 mx-5">
                     <div class="row">
-                        <div class="col-md-6 border-right border-secondary">
+                        <div class="col-md-6 border-right border-secondary edit-button-overlay-container">
                             <ul class="list-group list-group-flush list-work-experience mx-5">
                                 @foreach($profile->work as $work)
                                     <li class="list-group-item text-truncate">
@@ -51,8 +51,19 @@
                                     </li>
                                 @endforeach
                             </ul>
+                            @if($owner)
+                                <div class="edit-button-overlay" style="top: 0; right: 10px;">
+                                    <a href="{{ route('profile.work.edit') }}" class="btn btn-outline-primary btn-block mx-0">EDIT</a>
+                                </div>
+                            @endif
                         </div>
-                        <div class="col-md-6"></div>
+                        <div class="col-md-6 edit-button-overlay-container">
+                            @if($owner)
+                                <div class="edit-button-overlay" style="top: 0; right: 10px;">
+                                    <a href="{{ route('profile.references.edit') }}" class="btn btn-outline-primary btn-block mx-0">EDIT</a>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
