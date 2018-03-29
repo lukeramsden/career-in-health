@@ -14,6 +14,7 @@ class CertificationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('only.employee')->except('download');
     }
 
     static $validation = [

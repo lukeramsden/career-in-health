@@ -12,14 +12,7 @@ class AdvertApplicationController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('create');
-        $this->middleware(function ($request, $next) {
-            if(Auth::check() && Auth::user()->isCompany())
-            {
-                return redirect(route('home'));
-            }
-
-            return $next($request);
-        });
+        $this->middleware('only.employee');
     }
 
     private function getValidateRules(bool $internal)

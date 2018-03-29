@@ -12,6 +12,7 @@ class ProfileWorkExperienceController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('only.employee');
     }
 
     static $validation = [
