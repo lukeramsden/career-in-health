@@ -17,7 +17,7 @@
                     <div class="col-md-7 form-section">
                         <div class="alert alert-success alert-updated">
                             {{ session('status') }}
-                            <a href="{{ route('profile.me') }}" class="btn btn-link">View Your Profile</a>
+                            <a href="{{ route('profile.me') }}" class="alert-link">View Your Profile</a>
                         </div>
                     </div>
                     <div class="col-md-5 help-section"></div>
