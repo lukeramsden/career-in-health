@@ -17,7 +17,7 @@
                                 <p class="my-2">{{ $profile->description }}</p>
                                 <div>
                                     @foreach($profile->jobTypes as $jobType)
-                                        <span class="badge badge-pill badge-primary">{{ $jobType->name }}</span>
+                                        <span class="badge badge-primary">{{ $jobType->name }}</span>
                                     @endforeach
                                 </div>
                             </div>
