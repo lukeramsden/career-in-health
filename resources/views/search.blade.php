@@ -100,6 +100,7 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $advert->title }}</h4>
+                                    {{-- TODO: Figure out why $advert->jobType->name is causing so many queries --}}
                                     <h5 class="card-subtitle mb-2 text-muted">{{ $advert->jobType->name }} at {{ $advert->company->name }}</h5>
                                     <h6 class="card-subtitle mb-2"><b>{{ number_format((float)$advert->getDistanceToLocation($town), 0, '.', '') }}</b> miles away</h6>
                                     <h6 class="card-subtitle mb-2 text-muted">{{ $advert->address->location->name }}</h6>

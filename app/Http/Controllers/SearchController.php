@@ -32,7 +32,7 @@ class SearchController extends Controller
         if($request->has('town')) {
             $data = $request->validate(self::$validation);
             $town = Location::find($data['town']);
-            $results = Advert::query();
+            $results = Advert::with('address', 'address.location', 'jobtype', 'company');
 
             if(isset($data['radius']) && $data['radius'] < 50) {
                 $results = $results->whereHas('address', function($q) use($town, $data) {
