@@ -11,7 +11,7 @@ class AdvertController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('show');
-        $this->middleware('only.employer');
+        $this->middleware('only.employer')->except('show');
     }
 
     private function getValidateRules($request)

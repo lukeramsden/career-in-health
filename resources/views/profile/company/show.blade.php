@@ -7,9 +7,11 @@
                 <div class="col-md-12 form-section py-3">
                     <div class="row no-side-padding edit-button-overlay-container">
                         <div class="media col-12">
-                            <div class="py-2">
-                                <img class="mr-3 company-picture" src="{{ $company->picture() }}" alt="Profile picture">
-                            </div>
+                            @if($company->picture() != null)
+                                <div class="py-2">
+                                    <img class="mr-3 company-picture" src="{{ $company->picture() }}" alt="Profile picture">
+                                </div>
+                            @endif
                             <div class="media-body">
                                 <h1 class="display-3 mb-0 mt-3">{{ $company->name }}</h1>
                                 @isset($company->headline)

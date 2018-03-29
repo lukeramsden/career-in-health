@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Company extends Model
 {
-    protected $fillable = ['name', 'headline', 'location', 'description'];
+    protected $fillable = ['name', 'headline', 'location', 'description', 'phone', 'contact_email'];
     
     public function adverts()
     {
@@ -31,8 +31,7 @@ class Company extends Model
 
     public function picture()
     {
-        ///TODO: add our own default profile picture (potentially do it front-end)
-        return $this->avatar_path ? Storage::url($this->avatar_path) : 'http://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg';
+        return $this->avatar_path ? Storage::url($this->avatar_path) : null;
     }
 
 }

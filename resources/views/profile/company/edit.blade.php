@@ -31,9 +31,11 @@
                     <div class="col-md-7 form-section">
                         <div class="form-group">
                             <div class="media col-12">
-                                <div class="py-2">
-                                    <img class="mr-3 company-picture" src="{{ $company->picture() }}" alt="Profile picture">
-                                </div>
+                                @if($company->picture() != null)
+                                    <div class="py-2">
+                                        <img class="mr-3 company-picture" src="{{ $company->picture() }}" alt="Profile picture">
+                                    </div>
+                                @endif
                                 <div class="media-body">
                                     <label>Avatar</label>
                                     <div class="custom-file">
@@ -108,6 +110,37 @@
                         </div>
                     </div>
                     <div class="col-md-5 help-section"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-7 form-section">
+                        <div class="row no-side-padding">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="text" name="phone" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}"
+                                        placeholder="Phone Number" value="{{ old('phone', $company->phone) }}">
+                                    
+                                    @if ($errors->has('phone'))
+                                        <div class="invalid-feedback">{{ $errors->first('phone') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" name="contact_email" class="form-control {{ $errors->has('contact_email') ? 'is-invalid' : '' }}"
+                                        placeholder="Email Address" value="{{ old('contact_email', $company->contact_email) }}">
+                                    
+                                    @if ($errors->has('contact_email'))
+                                        <div class="invalid-feedback">{{ $errors->first('contact_email') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 help-section">
+                        <p>These are shown to applications wanting to contact you</p>
+                    </div>
                 </div>
                 <div class='row'>
                     <div class='col-md-7 form-section'>

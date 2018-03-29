@@ -20,7 +20,9 @@ class CompanyProfileController extends Controller
         'headline' => 'nullable|string|max:80',
         'location' => 'nullable|string|max:80',
         'description' => 'nullable|string|max:500',
-        'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1'
+        'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1',
+        'phone' => 'nullable|string',
+        'contact_email' => 'nullable|email'
     ];
 
     public function show(Company $company)

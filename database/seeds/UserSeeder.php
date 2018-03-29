@@ -23,6 +23,8 @@ class UserSeeder extends Seeder
 
         $company = new Company();
         $company->name = 'Karma AS';
+        $company->phone = '123-4567-8901';
+        $company->contact_email = 'careers@karma.com';
         $company->created_by_user_id = $companyUser->id;
         $company->save();
 

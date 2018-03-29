@@ -21,6 +21,8 @@ class CreateCompaniesTable extends Migration
             $table->string('location')->nullable();
             $table->string('description', 500)->nullable();
             $table->string('avatar_path')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('contact_email')->nullable();
             // stripe stuff here
             $table->timestamps();
         });

@@ -20,6 +20,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
         <link rel="shortcut icon" type="image/png" href="/i/favicon.png"/>
 
+        <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @yield('stylesheet')
