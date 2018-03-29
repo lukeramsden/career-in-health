@@ -12,6 +12,18 @@
                 </div>
             </div>
 
+            @if (session('status'))
+                <div class="row">
+                    <div class="col-md-7 form-section">
+                        <div class="alert alert-success alert-updated">
+                            {{ session('status') }}
+                            <a href="{{ route('profile.me') }}" class="btn btn-link">View Your Profile</a>
+                        </div>
+                    </div>
+                    <div class="col-md-5 help-section"></div>
+                </div>
+            @endif
+            
             <form
             @isset($action)
             action="{{ $action }}"
