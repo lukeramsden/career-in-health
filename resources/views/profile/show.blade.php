@@ -12,9 +12,15 @@
                             </div>
                             <div class="media-body">
                                 <h1 class="display-3 mb-0 mt-3">{{ $profile->first_name . ' ' . $profile->last_name }}</h1>
-                                <p class="h5 mb-0 mt-1"><b>{{ $profile->headline }}</b></p>
-                                <p class="h5 mb-0 mt-1"><span class="text-muted">From</span> <b>{{ $profile->location }}</b></p>
-                                <p class="my-2">{{ $profile->description }}</p>
+                                @isset($profile->headline)
+                                    <p class="h5 mb-0 mt-1"><b>{{ $profile->headline }}</b></p>
+                                @endisset
+                                @isset($profile->location)
+                                    <p class="h5 mb-0 mt-1"><span class="text-muted">From</span> <b>{{ $profile->location }}</b></p>
+                                @endisset
+                                @isset($profile->description)
+                                    <p class="my-2">{{ $profile->description }}</p>
+                                @endisset
                                 <div>
                                     @foreach($profile->jobTypes as $jobType)
                                         <span class="badge badge-primary">{{ $jobType->name }}</span>
