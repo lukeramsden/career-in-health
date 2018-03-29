@@ -11183,7 +11183,7 @@ p.holding-content {
   background: transparent;
 }
 
-.profile .edit-button-overlay {
+.edit-button-overlay {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -11192,8 +11192,17 @@ p.holding-content {
   transition: all .2s ease-in-out;
 }
 
-.profile .edit-button-overlay-container:hover .edit-button-overlay {
+.edit-button-overlay-container:hover .edit-button-overlay {
   opacity: 1;
+}
+
+.company-picture {
+  height: auto;
+  width: 150px;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
 }
 
 .alert-updated {
