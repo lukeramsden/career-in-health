@@ -78,7 +78,13 @@
                             <div class="form-group">
                                 <label>Associated Job</label>
                                 <select name="work_id" title="Associated Job" class="custom-select" disabled readonly>
-                                    <option selected value="{{ $reference->work->id }}">{{ $reference->work->job_title }} at {{ $reference->work->company_name }}</option>
+                                    @isset($reference->work)
+                                        <option selected value="{{ $reference->work->id }}">{{ $reference->work->job_title }} at {{ $reference->work->company_name }}</option>
+                                    @endisset
+                                    
+                                    @empty($reference->work)
+                                        <option value="" selected>-</option>
+                                    @endempty
                                 </select>
                             </div>
                         </div>

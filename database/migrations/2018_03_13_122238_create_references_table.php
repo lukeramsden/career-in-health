@@ -23,6 +23,7 @@ class CreateReferencesTable extends Migration
             $table->string('person_company');
             $table->string('person_relation');
             $table->string('person_contact');
+            $table->string('person_contact');
             $table->timestamps();
         });
     }
