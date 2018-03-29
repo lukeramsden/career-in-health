@@ -11179,6 +11179,10 @@ p.holding-content {
   margin-right: 4px;
 }
 
+.profile .list-work-experience li {
+  background: transparent;
+}
+
 .alert-updated {
   padding-right: 4em;
 }
