@@ -12,7 +12,7 @@ class AdvertSeeder extends Seeder
      */
     public function run()
     {
-        $adverts = factory(Advert::class, 50)->create([
+        $adverts = factory(Advert::class, 150)->create([
             'company_id' => 1,
             'created_by_user_id' => 1,
         ]);
