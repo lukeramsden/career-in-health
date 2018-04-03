@@ -5,3 +5,33 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+$action: #f9834e;
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f2f2f2;
+}
+
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height:100%;
+
+  padding: 0 25px;
+
+  border-right: $dark solid 1px;
+  background-color: white;
+
+  .nav {
+    margin-top: 10em;
+    a {
+      color: $action;
+
+      &:hover {
+        color: darken($action, 15%);
+        background-color: #ddd;
+      }
+    }
+  }
+}

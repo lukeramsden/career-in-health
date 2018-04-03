@@ -17,7 +17,7 @@ Route::post('/', 'HoldingController@subscribe');
 
 if (env('APP_ENV') == 'local')
 {
-    Route::view('/', 'welcome')->name('welcome');
+    Route::view('/', 'kitchen-sink')->name('welcome');
     Route::view('/pricing', 'pricing')->name('pricing');
 
     Route::get('/search', 'SearchController@search')->name('search');
