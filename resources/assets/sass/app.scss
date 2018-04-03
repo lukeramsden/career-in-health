@@ -859,5 +859,13 @@ p.holding-content {
 .badge {
     &-pagination {
         font-size: 100%;
+
+        &-inactive {
+            background: transparent;
+
+            &:hover {
+                background-color: #eee;
+            }
+        }
     }
 }

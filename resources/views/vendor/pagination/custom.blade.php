@@ -28,7 +28,7 @@
                             </li>
                         @else
                             <li class="list-inline-item">
-                                <a class="badge badge-pagination badge-light text-primary p-3 px-4" href="{{ $url }}" style="background: transparent;">{{ $page }}</a>
+                                <a class="badge badge-pagination badge-pagination-inactive badge-light text-primary p-3 px-4" href="{{ $url }}">{{ $page }}</a>
                             </li>
                         @endif
                     @endforeach

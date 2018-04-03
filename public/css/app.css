@@ -11221,3 +11221,11 @@ p.holding-content {
   font-size: 100%;
 }
 
+.badge-pagination-inactive {
+  background: transparent;
+}
+
+.badge-pagination-inactive:hover {
+  background-color: #eee;
+}
+
