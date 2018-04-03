@@ -11,8 +11,8 @@
 
             <div class='row'>
                 <div class='col-md-12 form-section'>
-                    <table id="table" class='table' data-responsive="true" data-order-multi="true">
-                        <thead>
+                    <table id="table" class='table table-striped' data-responsive="true" data-order-multi="true">
+                        <thead class="thead-dark">
                             <tr>
                                 <th>Title</th>
                                 <th>Applications</th>
@@ -57,6 +57,7 @@
         $('#table').DataTable({
             responsive: true,
             orderMulti: true,
+            order: [[ 1, "desc" ], [ 0, "asc" ]]
         });
     </script>
 @endsection
