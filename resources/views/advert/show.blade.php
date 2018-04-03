@@ -8,9 +8,8 @@
                         <div class="media-body">
                             <h4><a href="{{ route('company', ['company' => $advert->company]) }}">{{ $advert->company->name }}</a></h4>
                             <h1>{{ $advert->jobType->name }}</h1>
-                            <div class="mt-3">
-                                <h4>{{ $advert->title }}</h4>
-                            </div>
+                            <h3 class="mb-0 pt-1">{{ $advert->getSetting() }}</h3>
+                            <h4 class="mt-2">{{ $advert->title }}</h4>
                             <div class="d-block my-4">
                                 <div class="d-inline-block">
                                     <h5><span class="badge badge-primary badge-pill p-3">{{ $advert->getType() }}</span></h5>
