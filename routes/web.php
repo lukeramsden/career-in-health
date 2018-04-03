@@ -18,15 +18,8 @@ Route::post('/', 'HoldingController@subscribe');
 if (env('APP_ENV') == 'local')
 {
 
-    Route::get('/', function()
-    {
-        return view('welcome');
-    });
-
-    Route::get('/pricing', function()
-    {
-        return view('pricing');
-    });
+    Route::view('/', 'welcome');
+    Route::view('/pricing', 'pricing');
 
     Route::get('/search', 'SearchController@search')->name('search');
     Route::get('/advert/{advert}', 'AdvertController@show')->name('advert.show');
