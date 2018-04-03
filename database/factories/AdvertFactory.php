@@ -14,6 +14,6 @@ $factory->define(Advert::class, function (Faker $faker) {
         'type' => $faker->numberBetween(1, count(Advert::$types)),
         'min_salary' => $min_salary,
         'max_salary' => $max_salary,
-        'address_id' => $faker->numberBetween(1, 200),
+        'address_id' => $faker->numberBetween(1, 5),
     ];
 });

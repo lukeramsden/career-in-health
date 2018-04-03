@@ -12,7 +12,7 @@ class AddressSeeder extends Seeder
      */
     public function run()
     {
-        $addresses = factory(Address::class, 200)->create([
+        $addresses = factory(Address::class, 5)->create([
             'company_id' => 1,
         ]);
     }
