@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Models\Advert;
+use App\Advert;
 use Illuminate\Http\Request;
 
 class AdvertController extends Controller

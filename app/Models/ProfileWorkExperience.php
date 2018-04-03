@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,10 +10,10 @@ class ProfileWorkExperience extends Model
 
     public function references()
     {
-        return $this->hasMany('App\Models\Reference', 'work_id');
+        return $this->hasMany('App\Reference', 'work_id');
     }
 
     public function profile() {
-        return $this->belongsTo('App\Models\Profile');
+        return $this->belongsTo('App\Profile');
     }
 }

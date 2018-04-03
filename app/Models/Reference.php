@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,11 +10,11 @@ class Reference extends Model
 
     public function work()
     {
-        return $this->belongsTo('App\Models\ProfileWorkExperience');
+        return $this->belongsTo('App\ProfileWorkExperience');
     }
 
     public function profile()
     {
-        return $this->belongsTo('App\Models\Profile');
+        return $this->belongsTo('App\Profile');
     }
 }

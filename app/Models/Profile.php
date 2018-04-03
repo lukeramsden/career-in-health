@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -16,17 +16,17 @@ class Profile extends Model
 
     public function work()
     {
-        return $this->hasMany('App\Models\ProfileWorkExperience');
+        return $this->hasMany('App\ProfileWorkExperience');
     }
 
     public function references()
     {
-        return $this->hasMany('App\Models\Reference');
+        return $this->hasMany('App\Reference');
     }
 
     public function certifications()
     {
-        return $this->hasMany('App\Models\Certification');
+        return $this->hasMany('App\Certification');
     }
 
     public function user()
@@ -37,11 +37,11 @@ class Profile extends Model
     public function picture()
     {
         ///TODO: add our own default profile picture (potentially do it front-end)
-        return $this->avatar_path ? Storage::url($this->avatar_path) : 'http://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg';
+        return $this->avatar_path ? Storage::url($this->avatar_path) : null;
     }
 
     public function jobTypes()
     {
-        return $this->belongsToMany('App\Models\JobType');
+        return $this->belongsToMany('App\JobType');
     }
 }

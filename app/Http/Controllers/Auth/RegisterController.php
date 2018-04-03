@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -92,7 +92,7 @@ class RegisterController extends Controller
             $company->save();
 
             $user->company_id = $company->id;
-            $this->redirectTo = '/home';
+            $this->redirectTo = '/dashboard';
         } else if($data->i_am == 'Employee') {
             $this->redirectTo = route('cv-builder.profile');
         }

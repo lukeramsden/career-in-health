@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
-use App\Models\Location;
+use App\Location;
 use Illuminate\Database\Eloquent\Model;
 
 class Advert extends Model
@@ -32,22 +32,22 @@ class Advert extends Model
 
     public function jobType()
     {
-        return $this->hasOne('App\Models\JobType', 'id', 'job_type_id');
+        return $this->hasOne('App\JobType', 'id', 'job_type_id');
     }
 
     public function company()
     {
-        return $this->belongsTo('App\Models\Company', 'company_id', 'id');
+        return $this->belongsTo('App\Company', 'company_id', 'id');
     }
 
     public function address()
     {
-        return $this->hasOne('App\Models\Address', 'id', 'address_id');
+        return $this->hasOne('App\Address', 'id', 'address_id');
     }
 
     public function applications()
     {
-        return $this->hasMany('App\Models\AdvertApplication');
+        return $this->hasMany('App\AdvertApplication');
     }
 
     public function getSetting()

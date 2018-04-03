@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +23,7 @@ class AdvertApplication extends Model
     
     public function advert()
     {
-        return $this->belongsTo('App\Models\Advert');
+        return $this->belongsTo('App\Advert');
     }
 
     static public function alreadyApplied(User $user = null, Advert $advert = null)

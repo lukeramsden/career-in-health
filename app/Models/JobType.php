@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -175,6 +175,6 @@ class JobType extends Model
 
     public function profile()
     {
-        return $this->belongsToMany('App\Models\Profile');
+        return $this->belongsToMany('App\Profile');
     }
 }

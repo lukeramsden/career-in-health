@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Advert;
-use App\Models\AdvertApplication;
+use App\Advert;
+use App\AdvertApplication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

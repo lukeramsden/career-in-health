@@ -6,7 +6,7 @@ use Auth;
 use Stripe\Token;
 use Stripe\Stripe;
 use Illuminate\Http\Request;
-use App\Models\SubscriptionPlan;
+use App\SubscriptionPlan;
 
 class SubscriptionController extends Controller
 {   

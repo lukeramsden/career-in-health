@@ -17,7 +17,6 @@ Route::post('/', 'HoldingController@subscribe');
 
 if (env('APP_ENV') == 'local')
 {
-
     Route::view('/', 'welcome');
     Route::view('/pricing', 'pricing');
 
@@ -26,27 +25,34 @@ if (env('APP_ENV') == 'local')
 
     Auth::routes();
 
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/applications', 'AdvertApplicationController@index')->name('view.applications');
+    Route::get('/dashboard', 'DashController@index')->name('dashboard');
 
     Route::prefix('account')->group(function()
     {
-        Route::prefix('advert')->group(function()
+        Route::prefix('advert')
+            ->name('advert.')
+            ->group(function()
         {
-            Route::get('/', 'AdvertController@index')->name('advert.index');
-            Route::get('/new', 'AdvertController@create')->name('advert.create');
-            Route::post('/new', 'AdvertController@store')->name('advert.store');
+            Route::get('/', 'AdvertController@index')->name('index');
+            Route::get('/new', 'AdvertController@create')->name('create');
+            Route::post('/new', 'AdvertController@store')->name('store');
 
-            Route::get('/{advert}/view', 'AdvertController@show_internal')->name('advert.show.internal');
+            Route::get('/{advert}/view', 'AdvertController@show_internal')->name('show.internal');
 
-            Route::get('/{advert}/edit', 'AdvertController@edit')->name('advert.edit');
-            Route::post('/{advert}/edit', 'AdvertController@update')->name('advert.update');
+            Route::get('/{advert}/edit', 'AdvertController@edit')->name('edit');
+            Route::post('/{advert}/edit', 'AdvertController@update')->name('update');
 
-            Route::get('/{advert}/apply', 'AdvertApplicationController@create')->name('advert.apply.create');
-            Route::post('/{advert}/apply', 'AdvertApplicationController@store')->name('advert.apply.store');
+            Route::prefix('application')
+                ->name('application')
+                ->group(function() {
+                    Route::get('/all', 'AdvertApplicationController@index')->name('index');
+
+                    Route::post('/{application}/update', 'AdvertApplicationController@update')->name('update');
+                    Route::get('/{advert}', 'AdvertApplicationController@create')->name('create');
+                    Route::post('/{advert}', 'AdvertApplicationController@store')->name('store');
+                });
         });
 
-        Route::post('/application/{application}/update', 'AdvertApplicationController@update')->name('advert-application.update');
 
         Route::get('/address', 'AddressController@create')->name('address.create');
         Route::post('/address', 'AddressController@store');
@@ -57,89 +63,74 @@ if (env('APP_ENV') == 'local')
         Route::post('/payment/{plan}', 'SubscriptionController@makePayment');
     });
 
-    Route::prefix('profile')->group(function ()
+    Route::prefix('profile')
+        ->name('profile.')
+        ->group(function ()
     {
-        Route::get("/", "ProfileController@show_me")->name('profile.me');
-        Route::post("/edit", "ProfileController@update")->name('profile.update');
-        Route::get("/edit", "ProfileController@edit")->name('profile.edit');
-        Route::get("/{user}", "ProfileController@show")->name('profile');
+        Route::get("/", "ProfileController@show_me")->name('show.me');
+        Route::post("/edit", "ProfileController@update")->name('update');
+        Route::get("/edit", "ProfileController@edit")->name('edit');
+        Route::get("/{user}", "ProfileController@show")->name('show');
 
-        Route::prefix('work-experience')->group(function ()
+        Route::prefix('work-experience')
+            ->name('work-experience')
+            ->group(function ()
         {
-            Route::get('/edit', 'ProfileWorkExperienceController@edit')->name('profile.work.edit');
-            Route::post('/create', 'ProfileWorkExperienceController@store')->name('profile.work.store');
-            Route::get('/{profileWorkExperience}/edit', 'ProfileWorkExperienceController@edit_single')->name('profile.work.edit_single');
-            Route::post('/{profileWorkExperience}/edit', 'ProfileWorkExperienceController@update')->name('profile.work.update');
-            Route::get('/{profileWorkExperience}/destroy', 'ProfileWorkExperienceController@destroy')->name('profile.work.destroy');
+            Route::get('/edit', 'ProfileWorkExperienceController@edit')->name('edit');
+            Route::post('/create', 'ProfileWorkExperienceController@store')->name('store');
+            Route::get('/{profileWorkExperience}/edit', 'ProfileWorkExperienceController@edit_single')->name('edit.single');
+            Route::post('/{profileWorkExperience}/edit', 'ProfileWorkExperienceController@update')->name('update');
+            Route::get('/{profileWorkExperience}/destroy', 'ProfileWorkExperienceController@destroy')->name('destroy');
         });
 
-        Route::prefix('references')->group(function ()
+        Route::prefix('references')
+            ->name('references.')
+            ->group(function ()
         {
-            Route::get('/edit', 'ReferenceController@edit')->name('profile.references.edit');
-            Route::post('/create', 'ReferenceController@store')->name('profile.references.store');
-            Route::get('/{reference}/edit', 'ReferenceController@edit_single')->name('profile.references.edit_single');
-            Route::post('/{reference}/edit', 'ReferenceController@update')->name('profile.references.update');
-            Route::get('/{reference}/destroy', 'ReferenceController@destroy')->name('profile.references.destroy');
+            Route::get('/edit', 'ReferenceController@edit')->name('edit');
+            Route::post('/create', 'ReferenceController@store')->name('store');
+            Route::get('/{reference}/edit', 'ReferenceController@edit_single')->name('edit.single');
+            Route::post('/{reference}/edit', 'ReferenceController@update')->name('update');
+            Route::get('/{reference}/destroy', 'ReferenceController@destroy')->name('destroy');
         });
 
-        Route::prefix('certifications')->group(function ()
+        Route::prefix('certifications')
+            ->name('certifications.')
+            ->group(function ()
         {
-            Route::get('/edit', 'CertificationController@edit')->name('profile.certifications.edit');
-            Route::post('/create', 'CertificationController@store')->name('profile.certifications.store');
-            Route::get('/{certification}/edit', 'CertificationController@edit_single')->name('profile.certifications.edit_single');
-            Route::post('/{certification}/edit', 'CertificationController@update')->name('profile.certifications.update');
-            Route::get('/{certification}/destroy', 'CertificationController@destroy')->name('profile.certifications.destroy');
-            Route::get('/{certification}/download', 'CertificationController@download')->name('profile.certifications.download');
+            Route::get('/edit', 'CertificationController@edit')->name('edit');
+            Route::post('/create', 'CertificationController@store')->name('store');
+            Route::get('/{certification}/edit', 'CertificationController@edit_single')->name('edit.single');
+            Route::post('/{certification}/edit', 'CertificationController@update')->name('update');
+            Route::get('/{certification}/destroy', 'CertificationController@destroy')->name('destroy');
+            Route::get('/{certification}/download', 'CertificationController@download')->name('download');
         });
     });
 
-    Route::prefix('cv-builder')->group(function ()
+    Route::prefix('cv-builder')
+        ->name('cv-builder.')
+        ->group(function ()
     {
-        Route::get('/1_profile', 'CVBuilderController@step1_show')->name('cv-builder.profile');
+        Route::get('/1_profile', 'CVBuilderController@step1_show')->name('profile');
         Route::post('/1_profile', 'CVBuilderController@step1_save');
 
-        Route::get('/2_work-experience', 'CVBuilderController@step2_show')->name('cv-builder.work-experience');
+        Route::get('/2_work-experience', 'CVBuilderController@step2_show')->name('work-experience');
         Route::post('/2_work-experience', 'CVBuilderController@step2_save');
 
-        Route::get('/3_references', 'CVBuilderController@step3_show')->name('cv-builder.references');
+        Route::get('/3_references', 'CVBuilderController@step3_show')->name('references');
         Route::post('/3_references', 'CVBuilderController@step3_save');
 
-        Route::get('/4_certifications', 'CVBuilderController@step4_show')->name('cv-builder.certifications');
+        Route::get('/4_certifications', 'CVBuilderController@step4_show')->name('certifications');
         Route::post('/4_certifications', 'CVBuilderController@step4_save');
     });
 
-    Route::prefix('company')->group(function ()
+    Route::prefix('company')
+        ->name('company.')
+        ->group(function ()
     {
-        Route::get("/", "CompanyProfileController@show_me")->name('company.me');
-        Route::post("/edit", "CompanyProfileController@update")->name('company.update');
-        Route::get("/edit", "CompanyProfileController@edit")->name('company.edit');
-        Route::get("/{company}", "CompanyProfileController@show")->name('company');
-    });
-
-    Route::get('/personnel', 'PersonnelFileController@generate');
-    Route::get('/test', function() {
-        //     $p = new App\Models\SubscriptionPlan();
-        //     $p->getPlansFromStripe();
-
-        //     $user = App\User::find(1);
-
-        //     Stripe\Stripe::setApiKey(env('STRIPE_KEY'));
-
-        //     $token = Stripe\Token::create([
-        //         'card' => [
-        //             'address_line1' => '44 leicester rd',
-        //             'address_zip' => 'fy1 4hl',
-        //             'number' => '4000056655665556',
-        //             'exp_month' => '12',
-        //             'exp_year' => '2019',
-        //             'cvc' => '123',
-        //             'currency' => 'GBP',
-        //         ]
-        //     ]);
-
-        //     $user->newSubscription('Standard Packages', 'starter')
-        //         ->create($token->id, [
-        //             'email' => $user->email
-        //         ]);
+        Route::get("/", "CompanyProfileController@show_me")->name('show.me');
+        Route::post("/edit", "CompanyProfileController@update")->name('update');
+        Route::get("/edit", "CompanyProfileController@edit")->name('edit');
+        Route::get("/{company}", "CompanyProfileController@show")->name('show');
     });
 }

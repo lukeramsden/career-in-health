@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -11,12 +11,12 @@ class Company extends Model
     
     public function adverts()
     {
-        return $this->hasMany('App\Models\Advert');
+        return $this->hasMany('App\Advert');
     }
 
     public function addresses()
     {
-        return $this->hasMany('App\Models\Address');
+        return $this->hasMany('App\Address');
     }
 
     public function users()
@@ -26,7 +26,7 @@ class Company extends Model
 
     public function applications()
     {
-        return $this->hasManyThrough('App\Models\AdvertApplication', 'App\Models\Advert');
+        return $this->hasManyThrough('App\AdvertApplication', 'App\Advert');
     }
 
     public function picture()

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Advert;
-use App\Models\Location;
+use App\Advert;
+use App\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +11,6 @@ class Subscribe extends Model
 
     public function plan()
     {
-        return $this->hasOne('App\Models\SubscriptionPlan', 'stripe_plan_id', 'stripe_plan');
+        return $this->hasOne('App\SubscriptionPlan', 'stripe_plan_id', 'stripe_plan');
     }
 }

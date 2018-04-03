@@ -28,17 +28,17 @@ class User extends Authenticatable
 
     public function company()
     {
-        return $this->belongsTo('App\Models\Company');
+        return $this->belongsTo('App\Company');
     }
 
     public function stripePlan()
     {
-        return $this->hasMany('App\Models\Subscribe');
+        return $this->hasMany('App\Subscribe');
     }
 
     public function applications()
     {
-        return $this->hasMany('App\Models\AdvertApplication');
+        return $this->hasMany('App\AdvertApplication');
     }
 
     public function activeStripePlan()
@@ -65,6 +65,6 @@ class User extends Authenticatable
 
     public function profile()
     {
-        return $this->hasOne('App\Models\Profile');
+        return $this->hasOne('App\Profile');
     }
 }

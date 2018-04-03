@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subscribe;
+use App\Subscribe;
 use Illuminate\Http\Request;
 
 class HoldingController extends Controller

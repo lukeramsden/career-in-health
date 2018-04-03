@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +12,7 @@ class Address extends Model
 
     public function location()
     {
-        return $this->hasOne('App\Models\Location', 'id', 'town');
+        return $this->hasOne('App\Location', 'id', 'town');
     }
 
 }

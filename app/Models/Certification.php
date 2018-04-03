@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +22,6 @@ class Certification extends Model
 
     public function profile()
     {
-        return $this->belongsTo('App\Models\Profile');
+        return $this->belongsTo('App\Profile');
     }
 }
