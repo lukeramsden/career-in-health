@@ -115,7 +115,7 @@
                                                     <p><span class="badge badge-secondary badge-pill p-2 px-3">{{ $advert->getType() }}</span></p>
                                                 </div>
                                                 <div class="d-inline-block ml-4">
-                                                    <p><span class="oi oi-map-marker mr-3"></span>{{ $advert->address->location->name }}</p>
+                                                    <p><span class="oi oi-map-marker mr-3"></span>{{ $advert->address->location->name }} (<b>{{ number_format((float)$advert->getDistanceToLocation($town), 0, '.', '') }}</b> miles away)</p>
                                                 </div>
                                                 <div class="d-inline-block ml-4">
                                                     <p>
