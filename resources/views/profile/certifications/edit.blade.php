@@ -12,6 +12,20 @@
                 </div>
             </div>
             
+            @if (session('status'))
+                <div class="row">
+                    <div class="col-md-7 form-section">
+                        <div class="alert alert-success alert-updated">
+                            {{ session('status') }}
+                            @if(!$isCvBuilder)
+                                <a href="{{ route('profile.me') }}" class="alert-link">View Your Profile</a>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-5 help-section"></div>
+                </div>
+            @endif
+            
             @foreach ($profile->certifications as $certification)
                 <form>
                     <div class="row">

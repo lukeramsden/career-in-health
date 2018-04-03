@@ -17,7 +17,9 @@
                     <div class="col-md-7 form-section">
                         <div class="alert alert-success alert-updated">
                             {{ session('status') }}
-                            <a href="{{ route('profile.me') }}" class="alert-link">View Your Profile</a>
+                            @if(!$isCvBuilder)
+                                <a href="{{ route('profile.me') }}" class="alert-link">View Your Profile</a>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-5 help-section"></div>
