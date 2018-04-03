@@ -12,7 +12,7 @@ class AdvertApplicationController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('create');
-        $this->middleware('only.employee');
+        $this->middleware('only.employee')->except('update');
     }
 
     private function getValidateRules(bool $internal)
@@ -23,6 +23,12 @@ class AdvertApplicationController extends Controller
                 ] : [
                     'custom_cover_letter' => 'nullable|string|max:3000',
                 ];
+    }
+
+    public function index()
+    {
+        return view('view-applications')
+            ->with(['applications' => Auth::user()->applications]);
     }
 
     public function create(Advert $advert)

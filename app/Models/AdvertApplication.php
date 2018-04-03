@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class AdvertApplication extends Model
 {
     static $statuses = [
-        '0' => 'None',
-        '1' => 'Applied',
-        '2' => 'Shortlisted',
-        '3' => 'Offered',
-        '4' => 'Rejected',
+        '0' => 'Applied',
+        '1' => 'Shortlisted',
+        '2' => 'Offered',
+        '3' => 'Rejected',
     ];
 
     protected $fillable = ['custom_cover_letter'];

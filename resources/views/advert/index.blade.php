@@ -2,8 +2,7 @@
 @section('content')
 
     <div class="container-fluid">
-        <div class='create-advert-container has-top-bar my-5'>
-
+        <div class='create-advert-container form-container has-top-bar my-5'>
             <div class='row first-row my-3'>
                 <div class='col-md-12 form-section'>
                     <h1>All Adverts</h1>

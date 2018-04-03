@@ -11,27 +11,24 @@
                     border-success
                             @break
                     @case(2)
-                    border-danger
-                            @break
-                    @case(3)
                     border-info
                             @break
-                    @case(4)
-                    border-secondary
+                    @case(3)
+                    border-danger
                             @break
                     @endswitch
                     " id="appl-card-{{$application->id}}">
                         <div class="card-body">
                             <a href="{{ route('profile', ['profile' => $application->user->profile]) }}"><h5 class="card-title">{{ $application->user->profile->first_name . ' ' . $application->user->profile->last_name }}</h5></a>
                             <p class="card-text">{{ $application->custom_cover_letter or 'Cover letter is empty' }}</p>
-                            <hr><p class="small mb-2 text-muted">Not shown to applicant</p>
-                            <textarea class="form-control mb-3" rows="3" maxlength="500" placeholder="Notes" oninput="dUpdateNotes({{ $application->id }}, this.value)">{{ $application->notes }}</textarea>
                             <select class="custom-select" onchange="updateStatus({{ $application->id }}, this.value)">
                                 <option {{ !isset($application->status) ? 'selected' : '' }} disabled>-</option>
                                 @foreach(App\Models\AdvertApplication::$statuses as $id => $status)
                                     <option {{ $application->status == $id ? 'selected' : '' }} value="{{ $id }}">{{ $status }}</option>
                                 @endforeach
                             </select>
+                            <hr><p class="small mb-2 text-muted">Not shown to applicant</p>
+                            <textarea class="form-control mb-3" rows="3" maxlength="500" placeholder="Notes" oninput="dUpdateNotes({{ $application->id }}, this.value)">{{ $application->notes }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -56,13 +53,10 @@
                             css = 'border-success';
                             break;
                         case 2:
-                            css = 'border-danger';
-                            break;
-                        case 3:
                             css = 'border-info';
                             break;
-                        case 4:
-                            css = 'border-secondary';
+                        case 3:
+                            css = 'border-danger';
                             break;
                     }
                     $('#appl-card-' + id).attr('class', 'card ' + css)

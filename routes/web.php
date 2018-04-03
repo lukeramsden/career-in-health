@@ -34,6 +34,7 @@ if (env('APP_ENV') == 'local')
     Auth::routes();
 
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/applications', 'AdvertApplicationController@index')->name('view.applications');
 
     Route::prefix('account')->group(function()
     {
