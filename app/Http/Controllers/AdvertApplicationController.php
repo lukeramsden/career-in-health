@@ -28,7 +28,7 @@ class AdvertApplicationController extends Controller
     public function index()
     {
         return view('view-applications')
-            ->with(['applications' => Auth::user()->applications]);
+            ->with(['applications' => Auth::user()->applications()->with('user', 'advert', 'advert.company', 'advert.jobType')->get()]);
     }
 
     public function create(Advert $advert)

@@ -26,7 +26,7 @@
                                         <p>{{ $advert->title }}</p>
                                     </td>
                                     <td>
-                                        <p>{{ $advert->applications()->count() }}</p>
+                                        <p>{{ $advert->applications->count() }}</p>
                                     </td>
                                     <td>
                                         <a href='{{ route('advert.show.internal', ['advert' => $advert]) }}' class='btn btn-outline-primary btn-sm'>View</a>

@@ -36,9 +36,11 @@ class AdvertController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
+        $adverts = $user->company->adverts()->with('applications')->get();
         return view('advert.index')
             ->with([
-                'adverts' => Auth::user()->company->adverts
+                'adverts' => $adverts
             ]);
     }
 
