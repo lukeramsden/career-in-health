@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\AdvertApplication;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class DashController extends Controller
 {
     public function __construct()
     {

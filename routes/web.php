@@ -17,8 +17,8 @@ Route::post('/', 'HoldingController@subscribe');
 
 if (env('APP_ENV') == 'local')
 {
-    Route::view('/', 'welcome');
-    Route::view('/pricing', 'pricing');
+    Route::view('/', 'welcome')->name('welcome');
+    Route::view('/pricing', 'pricing')->name('pricing');
 
     Route::get('/search', 'SearchController@search')->name('search');
     Route::get('/advert/{advert}', 'AdvertController@show')->name('advert.show');
@@ -53,14 +53,14 @@ if (env('APP_ENV') == 'local')
                 });
         });
 
-
-        Route::get('/address', 'AddressController@create')->name('address.create');
-        Route::post('/address', 'AddressController@store');
+        Route::prefix('address')
+            ->name('address.')
+            ->group(function() {
+                Route::get('/address', 'AddressController@create')->name('create');
+                Route::post('/address', 'AddressController@store')->name('store');
+            });
 
         Route::get('/plans', 'SubscriptionController@index')->name('plans');
-
-        Route::get('/payment/{plan}', 'SubscriptionController@payment');
-        Route::post('/payment/{plan}', 'SubscriptionController@makePayment');
     });
 
     Route::prefix('profile')
@@ -112,16 +112,16 @@ if (env('APP_ENV') == 'local')
         ->group(function ()
     {
         Route::get('/1_profile', 'CVBuilderController@step1_show')->name('profile');
-        Route::post('/1_profile', 'CVBuilderController@step1_save');
+        Route::post('/1_profile', 'CVBuilderController@step1_save')->name('profile.save');
 
         Route::get('/2_work-experience', 'CVBuilderController@step2_show')->name('work-experience');
-        Route::post('/2_work-experience', 'CVBuilderController@step2_save');
+        Route::post('/2_work-experience', 'CVBuilderController@step2_save')->name('work-experience.save');
 
         Route::get('/3_references', 'CVBuilderController@step3_show')->name('references');
-        Route::post('/3_references', 'CVBuilderController@step3_save');
+        Route::post('/3_references', 'CVBuilderController@step3_save')->name('references.save');
 
         Route::get('/4_certifications', 'CVBuilderController@step4_show')->name('certifications');
-        Route::post('/4_certifications', 'CVBuilderController@step4_save');
+        Route::post('/4_certifications', 'CVBuilderController@step4_save')->name('certifications.save');
     });
 
     Route::prefix('company')
