@@ -65,7 +65,6 @@
                                             <label>Settings</label>
                                             
                                             @foreach(\App\Models\Advert::$settings as $id => $setting)
-                                                {{-- TODO: Make backgrounds darker when unchecked--}}
                                                 <div class="custom-control custom-checkbox">
                                                   <input type="checkbox" class="custom-control-input" {{ collect(old('setting_filter', Request::get('setting_filter')))->contains($id) ? 'checked':'' }} name="setting_filter[]" value="{{ $id }}" id="setting-check{{ $id }}">
                                                   <label class="custom-control-label" for="setting-check{{ $id }}">{{ $setting }}</label>
@@ -78,7 +77,6 @@
                                             <label>Types</label>
                                             
                                             @foreach(\App\Models\Advert::$types as $id => $type)
-                                                {{-- TODO: Make backgrounds darker when unchecked--}}
                                                 <div class="custom-control custom-checkbox">
                                                   <input type="checkbox" class="custom-control-input" {{ collect(old('type_filter', Request::get('type_filter')))->contains($id) ? 'checked':'' }} name="type_filter[]" value="{{ $id }}" id="type-check{{ $id }}">
                                                   <label class="custom-control-label" for="type-check{{ $id }}">{{ $type }}</label>
@@ -136,7 +134,6 @@
                         </div>
                     @endforeach
                     <div class="mt-4">
-                        {{-- TODO: customize this to match search form --}}
                         {!! $results->appends(Request::capture()->except('page'))->render("pagination::custom") !!}
                     </div>
                 @endisset

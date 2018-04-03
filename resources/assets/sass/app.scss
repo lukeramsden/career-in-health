@@ -869,3 +869,7 @@ p.holding-content {
         }
     }
 }
+
+.custom-control-label::before {
+    background-color: #b9bbbe;
+}

@@ -11229,3 +11229,7 @@ p.holding-content {
   background-color: #eee;
 }
 
+.custom-control-label::before {
+  background-color: #b9bbbe;
+}
+
