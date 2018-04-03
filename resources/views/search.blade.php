@@ -137,7 +137,7 @@
                     @endforeach
                     <div class="mt-4">
                         {{-- TODO: customize this to match search form --}}
-                        {!! $results->appends(Request::capture()->except('page'))->render("pagination::search") !!}
+                        {!! $results->appends(Request::capture()->except('page'))->render("pagination::custom") !!}
                     </div>
                 @endisset
             </div>
