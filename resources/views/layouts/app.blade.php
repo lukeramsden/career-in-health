@@ -26,11 +26,14 @@
     </head>
     <body>
         <div id="navbar">
-            <nav class="nav flex-column">
-                <a class="nav-link active" href="#">Active</a>
-                <a class="nav-link" href="#">Link</a>
-                <a class="nav-link" href="#">Link</a>
-            </nav>
+            <img class="logo" src="/images/cih-logo.svg" alt="logo">
+            <div id="nav-inner">
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="#">Dashboard</a>
+                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Link</a>
+                </nav>
+            </div>
         </div>
     
         <div id="app">

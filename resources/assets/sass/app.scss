@@ -2,10 +2,12 @@
 // @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700');
 
+$action: #f9834e;
+$dark-primary: #354968;
+$primary: #455782;
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
-$action: #f9834e;
 
 body {
     font-family: 'Open Sans', sans-serif;
@@ -17,21 +19,69 @@ body {
   top: 0;
   left: 0;
   height:100%;
+  width: 18vh;
 
-  padding: 0 25px;
+  padding: 0;
 
   border-right: $dark solid 1px;
   background-color: white;
 
+  #nav-inner {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
   .nav {
-    margin-top: 10em;
+    width: 100%;
     a {
-      color: $action;
+      width: 100%;
+
+      background-color: transparent;
+      color: $primary;
+
+      height: 40px;
+
+      &.active {
+        background-color: $primary;
+        color: white;
+
+        &:hover {
+          color: white;
+          background-color: $dark-primary;
+
+          &:after {
+            border-left-color: $dark-primary;
+          }
+        }
+
+
+        &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: -20px;
+            margin: auto;
+            height: 40px;
+            top: -40px;
+            bottom: 40px;
+            z-index: 100;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 20px solid $primary;
+        }
+
+      }
 
       &:hover {
-        color: darken($action, 15%);
-        background-color: #ddd;
+        color: $primary;
+        background-color: #eee;
       }
     }
+  }
+
+  .logo {
+    position: absolute;
+    margin: 15px;
   }
 }
