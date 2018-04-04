@@ -29,9 +29,15 @@
             <img class="logo" src="/images/cih-logo.svg" alt="logo">
             <div id="nav-inner">
                 <nav class="nav flex-column">
+                    <small class="text-muted">Home</small>
+                    
                     <a class="nav-link active" href="#">Dashboard</a>
-                    <a class="nav-link" href="#">Link</a>
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">My Profile</a>
+                    
+                    <small class="text-muted">Advert-Related</small>
+                    
+                    <a class="nav-link" href="#">Search</a>
+                    <a class="nav-link" href="#">My Applications</a>
                 </nav>
             </div>
         </div>

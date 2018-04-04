@@ -14,16 +14,33 @@ body {
     background-color: #f2f2f2;
 }
 
+$navbar-width: 200px;
+
+#app {
+  margin-left: $navbar-width;
+  height: 500px;
+  width: auto;
+  position: relative;
+  overflow: auto;
+  z-index: 1;
+
+  .container-fluid {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+// TODO: Hide this on smaller screens and make a hamburger menu
 #navbar {
   position: fixed;
   top: 0;
   left: 0;
   height:100%;
-  width: 18vh;
+  width: $navbar-width;
 
   padding: 0;
 
-  border-right: $dark solid 1px;
+  border-right: $gray-500 solid 1px;
   background-color: white;
 
   #nav-inner {
@@ -32,10 +49,13 @@ body {
     height: 100%;
   }
 
-  .nav {
+  nav {
     width: 100%;
+
     a {
       width: 100%;
+
+      position: relative;
 
       background-color: transparent;
       color: $primary;
@@ -57,31 +77,127 @@ body {
 
 
         &:after {
-            content: '';
-            display: block;
-            position: absolute;
-            right: -20px;
-            margin: auto;
-            height: 40px;
-            top: -40px;
-            bottom: 40px;
-            z-index: 100;
-            border-top: 20px solid transparent;
-            border-bottom: 20px solid transparent;
-            border-left: 20px solid $primary;
-        }
+          content: '';
+          display: block;
+          position: absolute;
+          z-index: 100;
+          margin: auto;
 
+          height: 40px;
+
+          right: -20px;
+          top: 0;
+          bottom: 0;
+
+          border-top: 20px solid transparent;
+          border-bottom: 20px solid transparent;
+          border-left: 20px solid $primary;
+        }
       }
 
       &:hover {
         color: $primary;
-        background-color: #eee;
+        background-color: $gray-200;
       }
+    }
+
+    small {
+      margin: 10px;
+      padding-left: 5px;
+      border-bottom: 1px solid $gray-300;
     }
   }
 
   .logo {
     position: absolute;
-    margin: 15px;
+    margin: 25px;
+  }
+}
+
+.card-custom {
+  // top bar
+  position: relative;
+
+  &:before {
+      content: '';
+      display: block;
+      left: 0;
+      right: 0;
+      top: -14px;
+      height: 14px;
+      background-color: $primary;
+  }
+
+  // card styling
+  border-radius: 0;
+  border: 0;
+  background-color: #e6e6e6;
+
+  .list-group {
+    &-item {
+      background-color: #e6e6e6;
+    }
+  }
+}
+
+.pagination {
+  margin: 0;
+
+  .page-link {
+    color: $primary;
+
+    &:hover {
+      background-color: $gray-300;
+    }
+  }
+
+  .page-item {
+    .page-link {
+      background: transparent;
+      border: none;
+      color: $gray-800;
+    }
+
+    &-active {
+      background-color: $primary;
+      border-radius: 0.25rem;
+
+      .page-link {
+        color: white;
+      }
+
+      &:hover {
+        background-color: $dark-primary;
+      }
+    }
+
+    &-ellipses,
+    &-previous,
+    &-next {
+      //background-color: $gray-200;
+
+      .page-link {
+        color: $gray-600;
+      }
+    }
+
+  }
+  .page-item {
+    &-previous,
+    &-next {
+      margin-left: 6px;
+      margin-right: 6px;
+      border: 1px solid $gray-600;
+      border-radius: 0.25rem;
+
+      &:not(.disabled):hover {
+        border-color: darken($gray-500, 8%);
+        background-color: $gray-200;
+      }
+
+      &.disabled {
+        border-color: $gray-500;
+      }
+    }
   }
 }
