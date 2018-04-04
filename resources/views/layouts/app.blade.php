@@ -29,15 +29,33 @@
             <img class="logo" src="/images/cih-logo.svg" alt="logo">
             <div id="nav-inner">
                 <nav class="nav flex-column">
-                    <small class="text-muted">Home</small>
+                    @guest
+                        <a class="nav-link {{ active_route('welcome') }}" href="{{ route('welcome') }}">Home</a>
+                        <a class="nav-link {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
+                    @endguest
                     
-                    <a class="nav-link active" href="#">Dashboard</a>
-                    <a class="nav-link" href="#">My Profile</a>
+                    @auth
+                        <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
                     
-                    <small class="text-muted">Advert-Related</small>
-                    
-                    <a class="nav-link" href="#">Search</a>
-                    <a class="nav-link" href="#">My Applications</a>
+                        @if(Auth::user()->isCompany())
+                            <small class="text-muted">Profile</small>
+                            <a class="nav-link" href="#">My Profile</a>
+                            <a class="nav-link" href="#">Edit Profile</a>
+                            <small class="text-muted">Adverts</small>
+                            <a class="nav-link nav-link-action" href="#">Create New Advert</a>
+                            <a class="nav-link" href="#">My Adverts</a>
+                        @else
+                            <small class="text-muted">Profile</small>
+                            <a class="nav-link" href="#">My Profile</a>
+                            <a class="nav-link" href="#">Edit Profile</a>
+                            <a class="nav-link" href="#">CV Builder</a>
+                            <small class="text-muted">Find a job</small>
+                            <a class="nav-link" href="#">Search</a>
+                            <a class="nav-link" href="#">My Applications</a>
+                            
+                        @endif
+                        
+                    @endauth
                 </nav>
             </div>
         </div>

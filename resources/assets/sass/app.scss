@@ -62,12 +62,22 @@ $navbar-width: 200px;
 
       height: 40px;
 
-      &.active {
-        background-color: $primary;
-        color: white;
+      &.nav-link-action {
+        background-color: $action;
+        color: $white;
 
         &:hover {
-          color: white;
+          background-color: darken($action, 10%);
+          color: $white;
+        }
+      }
+
+      &.active {
+        background-color: $primary;
+        color: $white;
+
+        &:hover {
+          color: $white;
           background-color: $dark-primary;
 
           &:after {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e472e82fb976753cf0c98fecc3a8685",
+    "content-hash": "f02f60719cfcf548bc6748dfd95cab7e",
     "packages": [
         {
             "name": "akaunting/money",
@@ -2156,6 +2156,45 @@
                 "uuid"
             ],
             "time": "2018-01-20T00:28:24+00:00"
+        },
+        {
+            "name": "rukhsar/laravel-active-route",
+            "version": "v1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Rukhsar/laravel-active-route.git",
+                "reference": "573c3f3396446da147ea58bcf5b143ea7f1893e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Rukhsar/laravel-active-route/zipball/573c3f3396446da147ea58bcf5b143ea7f1893e8",
+                "reference": "573c3f3396446da147ea58bcf5b143ea7f1893e8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rukhsar\\ActiveRoute\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rukhsar Manzoor",
+                    "email": "rukhsar.man@gmail.com"
+                }
+            ],
+            "description": "A laravel helper package.",
+            "time": "2017-02-11T23:07:02+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",

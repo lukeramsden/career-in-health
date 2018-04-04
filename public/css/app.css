@@ -10046,13 +10046,23 @@ body {
   height: 40px;
 }
 
+#navbar nav a.nav-link-action {
+  background-color: #f9834e;
+  color: #fff;
+}
+
+#navbar nav a.nav-link-action:hover {
+  background-color: #f7601d;
+  color: #fff;
+}
+
 #navbar nav a.active {
   background-color: #455782;
-  color: white;
+  color: #fff;
 }
 
 #navbar nav a.active:hover {
-  color: white;
+  color: #fff;
   background-color: #354968;
 }
 

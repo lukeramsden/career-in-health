@@ -163,6 +163,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Rukhsar\ActiveRoute\ActiveRouteServiceProvider::class,
+
     ],
 
     /*
@@ -212,6 +214,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'Active' =>  Rukhsar\ActiveRoute\Facades\Active::class,
     ],
 
 ];

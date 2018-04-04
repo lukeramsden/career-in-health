@@ -21,10 +21,10 @@ class DashController extends Controller
                 ->orderBy('updated_at', 'desc')
                 ->get();
 
-            return view('company_home')
+            return view('company.dashboard')
                 ->with(['applications' => $applications]);
         }
 
-        return view('home');
+        return view('employee.dashboard');
     }
 }
