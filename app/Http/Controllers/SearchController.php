@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Advert;
 use App\Location;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {

@@ -3,22 +3,31 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700');
 
 $action: #f9834e;
-$dark-primary: #354968;
 $primary: #455782;
+$dark-primary: #354968;
+
+$theme-colors: (
+  "primary": $primary,
+  "action": $action,
+  "dark-primary": $dark-primary,
+);
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
 body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #f2f2f2;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f2f2f2;
 }
 
 $navbar-width: 200px;
 
+.btn-action {
+  color: $white;
+}
+
 #app {
   margin-left: $navbar-width;
-  height: 500px;
   width: auto;
   position: relative;
   overflow: auto;
@@ -27,6 +36,7 @@ $navbar-width: 200px;
   .container-fluid {
     padding-left: 30px;
     padding-right: 30px;
+    height: 100%;
   }
 }
 
@@ -210,4 +220,69 @@ $navbar-width: 200px;
       }
     }
   }
+}
+
+#search {
+  &-row {
+    margin: 0;
+  }
+
+  &-results {
+    padding: 0 30px;
+
+    .card {
+      margin-bottom: $spacer * 1.5;
+    }
+
+    &-parent {
+      margin-top: $spacer;
+    }
+  }
+
+  &-form {
+    @include media-breakpoint-up(md) {
+      height: 100%;
+      background-color: $gray-700;
+      color: $light;
+    }
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: $spacer * 2;
+    }
+
+    &-parent {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+
+#first-search {
+  &-row {
+    margin: 0;
+    margin-top: $spacer * 8;
+  }
+}
+
+// select2 styles
+.select2-container--default .select2-results__option[aria-selected="true"] {
+  background-color: $action !important;
+  color: $white !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected="true"] {
+  background-color: darken($action, 10%) !important;
+  color: $white !important;
+}
+
+.select2-container .select2-selection--single {
+  height: 39px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 37px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 38px !important;
 }
