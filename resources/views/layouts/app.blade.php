@@ -23,12 +23,22 @@
                         <a class="nav-link" href="#">My Adverts</a>
                     @else
                         <small class="text-muted">Profile</small>
-                        <a class="nav-link" href="#">My Profile</a>
-                        <a class="nav-link" href="#">Edit Profile</a>
-                        <a class="nav-link" href="#">CV Builder</a>
+                        
+                        <a class="nav-link {{ active_route('profile.show.me') }}" href="{{ route('profile.show.me') }}">My Profile</a>
+                       
+                        <a class="nav-link {{ active_route([
+                            'profile.edit',
+                            'profile.work-experience.*',
+                            'profile.references.*',
+                            'profile.certifications.*'
+                        ]) }}" href="{{ route('profile.edit') }}">Edit Profile</a>
+                        
+                        <a class="nav-link {{ active_route('cv-builder.*') }}" href="{{ route('cv-builder.profile') }}">CV Builder</a>
+                        
                         <small class="text-muted">Find a job</small>
-                        <a class="nav-link" href="#">Search</a>
-                        <a class="nav-link" href="#">My Applications</a>
+                        
+                        <a class="nav-link {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
+                        <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
                     @endif
                     
                 @endauth

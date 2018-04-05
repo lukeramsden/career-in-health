@@ -43,7 +43,7 @@ if (env('APP_ENV') == 'local')
             Route::post('/{advert}/edit', 'AdvertController@update')->name('update');
 
             Route::prefix('application')
-                ->name('application')
+                ->name('application.')
                 ->group(function() {
                     Route::get('/all', 'AdvertApplicationController@index')->name('index');
 
@@ -68,12 +68,12 @@ if (env('APP_ENV') == 'local')
         ->group(function ()
     {
         Route::get("/", "ProfileController@show_me")->name('show.me');
-        Route::post("/edit", "ProfileController@update")->name('update');
         Route::get("/edit", "ProfileController@edit")->name('edit');
+        Route::post("/edit", "ProfileController@update")->name('update');
         Route::get("/{user}", "ProfileController@show")->name('show');
 
         Route::prefix('work-experience')
-            ->name('work-experience')
+            ->name('work-experience.')
             ->group(function ()
         {
             Route::get('/edit', 'ProfileWorkExperienceController@edit')->name('edit');
