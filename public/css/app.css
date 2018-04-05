@@ -10981,6 +10981,20 @@ body {
   }
 }
 
+#login-container {
+  min-height: 100vh;
+}
+
+@media (min-width: 768px) {
+  #login-container .card {
+    margin-top: 100%;
+  }
+}
+
+#login-container .card .form-group {
+  position: relative;
+}
+
 .select2-container .select2-selection--single {
   height: 39px !important;
 }

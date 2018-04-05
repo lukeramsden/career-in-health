@@ -349,6 +349,19 @@ $navbar-width: 200px;
   }
 }
 
+#login-container {
+  min-height: 100vh;
+  .card {
+    @include media-breakpoint-up(md) {
+      margin-top: 100%;
+    }
+    
+    .form-group {
+      position: relative;
+    }
+  }
+}
+
 // select2 styles
 .select2-container .select2-selection--single {
   height: 39px !important;
