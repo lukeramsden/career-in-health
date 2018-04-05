@@ -15,6 +15,8 @@ $theme-colors: (
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@import "nouislider";
+
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: #f2f2f2;
@@ -240,19 +242,33 @@ $navbar-width: 200px;
   }
 
   &-form {
-    @include media-breakpoint-up(md) {
-      height: 100%;
-      background-color: $gray-700;
-      color: $light;
-    }
-
-    @include media-breakpoint-down(sm) {
-      margin-bottom: $spacer * 2;
-    }
-
     &-parent {
-      padding: 0;
+      padding: 0 35px;
       margin: 0;
+
+      @include media-breakpoint-up(md) {
+        min-height: 100vh;
+        border-left: 1px solid $gray-400;
+        background-color: #eeeeee;
+      }
+
+      @include media-breakpoint-down(sm) {
+        margin-bottom: $spacer * 2;
+      }
+    }
+
+    form {
+      padding: $spacer * 3 $spacer;
+
+      .form-group {
+        &-dropdown {
+          margin-bottom: $spacer * 4;
+        }
+      }
+
+      button {
+        margin: 40px 0;
+      }
     }
   }
 }

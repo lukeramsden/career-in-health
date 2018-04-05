@@ -15,11 +15,11 @@ class SearchController extends Controller
 
     static $validation = [
         'town' => 'required|integer|exists:locations,id',
-        'radius' => 'required|integer|min:5|max:50',
+        'radius' => 'nullable|integer|min:5|max:50',
         'job_types' => 'array',
         'job_types.*' => 'integer|distinct|exists:job_types,id',
-        'min_salary' => 'required|integer|min:0|max:150000',
-        'max_salary' => 'required|integer|min:1|max:150000|greater_than_field:min_salary',
+        'min_salary' => 'nullable|integer|min:0|max:150000',
+        'max_salary' => 'nullable|integer|min:1|max:150000|greater_than_field:min_salary',
         'setting_filter' => 'array',
         'setting_filter.*' => 'integer|distinct',
         'type_filter' => 'array',
@@ -70,6 +70,9 @@ class SearchController extends Controller
                 ]);
         }
 
-        return view('search');
+        return view('search')
+            ->with([
+                'isAdvanced' => $request->query('advanced')
+            ]);
     }
 }
