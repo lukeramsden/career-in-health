@@ -10794,6 +10794,55 @@ body {
   background-color: #e9ecef;
 }
 
+#navbar nav .nav-section-sub {
+  overflow: visible;
+  max-height: 500px;
+  /* approximate max height */
+  -webkit-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: .5s;
+          transition-duration: .5s;
+  -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+          transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+#navbar nav .nav-section.closed .nav-section-sub {
+  height: 0;
+  overflow: hidden;
+}
+
+#navbar nav .nav-section .nav-link-sub {
+  font-size: 80%;
+  margin-left: 10%;
+  width: 90%;
+  height: 34px;
+}
+
+#navbar nav .nav-section .nav-link-sub:nth-last-child(1) {
+  border-bottom-left-radius: 10px;
+}
+
+#navbar nav .nav-section.active .nav-link {
+  color: #fff;
+  background-color: #455782;
+}
+
+#navbar nav .nav-section.active .nav-link:hover {
+  background-color: #354968;
+}
+
+#navbar nav .nav-section.active .nav-link-sub:hover:after {
+  border-left-color: #354968;
+}
+
+#navbar nav .nav-section.active .nav-link-sub:after {
+  height: 34px;
+  border-top: 17px solid transparent;
+  border-bottom: 17px solid transparent;
+  border-left: 17px solid #455782;
+  right: -17px;
+}
+
 #navbar nav small {
   margin: 10px;
   padding-left: 5px;

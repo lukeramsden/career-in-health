@@ -46,7 +46,7 @@ class AdvertApplicationController extends Controller
                         ]);
         }
 
-        return view('advert.apply')
+        return view('employee.advert.apply')
             ->with([$advert]);
     }
 

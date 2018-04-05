@@ -37,7 +37,17 @@
                         
                         <small class="text-muted">Find a Job</small>
                         
-                        <a class="nav-link {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
+                        <div class="nav-section-parent">
+                            <div class="nav-section {{ active_route('search') }}">
+                                <a class="nav-link {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
+                                <div class="nav-section-sub">
+                                    <a class="nav-link nav-link-sub" href="javascript:">SubMenu 1</a>
+                                    <a class="nav-link nav-link-sub {{ active_route('search') }}" href="javascript:">SubMenu 2</a>
+                                    <a class="nav-link nav-link-sub" href="javascript:">SubMenu 3</a>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
                     @endif
                   
