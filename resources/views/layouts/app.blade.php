@@ -56,7 +56,7 @@
     <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     @yield('stylesheet')
 @endsection
-@section('script')
+@section('b_script')
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    @yield('b_script')
+    @yield('script')
 @endsection
