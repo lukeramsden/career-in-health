@@ -17,13 +17,14 @@ Route::post('/', 'HoldingController@subscribe');
 
 if (env('APP_ENV') == 'local')
 {
-    Route::view('/', 'kitchen-sink')->name('welcome');
+    Route::view('/', 'home')->name('home');
     Route::view('/pricing', 'pricing')->name('pricing');
 
     Route::get('/search', 'SearchController@search')->name('search');
     Route::get('/advert/{advert}', 'AdvertController@show')->name('advert.show');
 
     Auth::routes();
+    Route::get('/logout', 'Auth\LoginController@logout')->name('logout.get');
 
     Route::get('/dashboard', 'DashController@index')->name('dashboard');
 

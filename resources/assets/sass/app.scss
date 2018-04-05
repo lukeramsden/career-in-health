@@ -82,6 +82,24 @@ $navbar-width: 200px;
           background-color: darken($action, 10%);
           color: $white;
         }
+
+        &.active {
+          background-color: $action;
+          color: $white;
+
+          &:hover {
+            background-color: darken($action, 10%);
+            color: $white;
+
+            &:after {
+              border-left-color: darken($action, 10%);
+            }
+          }
+
+          &:after {
+            border-left-color: $action;
+          }
+        }
       }
 
       &.active {

@@ -5,7 +5,7 @@
         <div id="nav-inner">
             <nav class="nav flex-column">
                 @guest
-                    <a class="nav-link {{ active_route('welcome') }}" href="{{ route('welcome') }}">Home</a>
+                    <a class="nav-link {{ active_route('home') }}" href="{{ route('home') }}">Home</a>
                     <a class="nav-link {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
                     <a class="nav-link {{ active_route('login') }}" href="{{ route('login') }}">Log In</a>
                     <a class="nav-link {{ active_route('register') }}" href="{{ route('register') }}">Register</a>
@@ -35,11 +35,14 @@
                         
                         <a class="nav-link {{ active_route('cv-builder.*') }}" href="{{ route('cv-builder.profile') }}">CV Builder</a>
                         
-                        <small class="text-muted">Find a job</small>
+                        <small class="text-muted">Find a Job</small>
                         
                         <a class="nav-link {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
                         <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
                     @endif
+                  
+                    <small class="text-muted">Account</small>
+                    <a class="nav-link" href="{{ route('logout.get') }}">Log Out</a>
                     
                 @endauth
             </nav>
