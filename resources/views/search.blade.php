@@ -47,6 +47,9 @@
                     <div id="search-results" style="">
                         @isset($results)
                             {!! $results->appends(Request::capture()->except('page'))->render("vendor.pagination") !!}
+                            <div class="text-center">
+                                <p class="font-italic">Found {{ $results->total() }} matching adverts</p>
+                            </div>
                             @foreach($results as $advert)
                                 <div class="card card-custom">
                                     <div class="card-body">
