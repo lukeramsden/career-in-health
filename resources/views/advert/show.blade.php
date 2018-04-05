@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card card-custom card-advert">
                     <div class="card-body">
-                        <a href="{{ route('company.show', ['company' => $advert->company]) }}" class="card-subtitle">
+                        <a href="{{ route('company.show', [$advert->company]) }}" class="card-subtitle">
                             {{$advert->company->name}}
                         </a>
                         <h4 class="card-title">{{$advert->jobType->name}}</h4>
@@ -51,7 +51,7 @@
                                 <button type="button" disabled class="btn btn-block btn-secondary">You can't apply</button>
                             @else
                                 @if(!\App\AdvertApplication::alreadyApplied(Auth::user(), $advert))
-                                    <a href="{{ route('advert.application.create', ['advert' => $advert]) }}" class="btn btn-block btn-action">Apply</a>
+                                    <a href="{{ route('advert.application.create', [$advert]) }}" class="btn btn-block btn-action">Apply</a>
                                 @else
                                     <button type="button" disabled class="btn btn-block btn-secondary">Already Applied!</button>
                                 @endif

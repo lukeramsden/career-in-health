@@ -77,11 +77,11 @@
                             @foreach($results as $advert)
                                 <div class="card card-custom card-advert">
                                     <div class="card-body">
-                                        <a href="{{ route('company.show', ['company' => $advert->company]) }}" class="card-subtitle">
+                                        <a href="{{ route('company.show', [$advert->company]) }}" class="card-subtitle">
                                             {{$advert->company->name}}
                                         </a>
                                         <h4 class="card-title">{{$advert->jobType->name}}</h4>
-                                        <h5><a href="{{ route('advert.show', ['advert' => $advert]) }}">{{ $advert->title }}</a></h5>
+                                        <h5><a href="{{ route('advert.show', [$advert]) }}">{{ $advert->title }}</a></h5>
                                         <h6>{{ $advert->getSetting() }}</h6>
                                         <div id="small-details">
                                             <div>
@@ -96,7 +96,7 @@
                                                 </p>
                                             </div>
                                             <div>
-                                                <a href="{{ route('advert.show', ['advert' => $advert]) }}"
+                                                <a href="{{ route('advert.show', [$advert]) }}"
                                                    class="btn btn-outline-primary">View</a>
                                             </div>
                                         </div>

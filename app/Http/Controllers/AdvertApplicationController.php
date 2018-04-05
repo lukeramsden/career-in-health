@@ -40,21 +40,21 @@ class AdvertApplicationController extends Controller
 
         if(AdvertApplication::alreadyApplied(Auth::user(), $advert))
         {
-            return redirect(route('advert.show', ['advert' => $advert]))
+            return redirect(route('advert.show', [$advert]))
                         ->with([
                             'status' => 'You have already applied to this job!'
                         ]);
         }
 
         return view('advert.apply')
-            ->with(['advert' => $advert]);
+            ->with([$advert]);
     }
 
     public function store(Request $request, Advert $advert)
     {
         if(AdvertApplication::alreadyApplied(Auth::user(), $advert))
         {
-            return redirect(route('advert.show', ['advert' => $advert]))
+            return redirect(route('advert.show', [advert]))
                         ->with([
                             'status' => 'You have already applied to this job!'
                         ]);
@@ -67,7 +67,7 @@ class AdvertApplicationController extends Controller
         $application->fill($data);
         $advert->applications()->save($application);
 
-        return redirect(route('advert.show', ['advert' => $advert]))
+        return redirect(route('advert.show', [$advert]))
             ->with([
                 'status' => 'Applied!'
             ]);
