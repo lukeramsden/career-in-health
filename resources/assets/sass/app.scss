@@ -286,6 +286,18 @@ $navbar-width: 200px;
         &-dropdown {
           margin-bottom: $spacer * 4;
         }
+
+        .custom-control {
+          &-label {
+            &::before {
+              border: 1px solid $gray-700;
+            }
+          }
+
+          &-input:checked ~ .custom-control-label::before {
+            background-color: $action;
+          }
+        }
       }
 
       button {

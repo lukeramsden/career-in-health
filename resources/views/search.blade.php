@@ -38,6 +38,30 @@
                                 <input type="hidden" name="max_salary" id="max-salary-input" value="{{ old('max_salary', Request::get('max_salary', 150000)) }}">
                             </div>
     
+                            <div class="form-group">
+                                <label>Settings</label>
+                                
+                                @foreach(\App\Advert::$settings as $id => $setting)
+                                    <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" {{ collect(old('setting_filter', Request::get('setting_filter')))->contains($id) ? 'checked':'' }} name="setting_filter[]" value="{{ $id }}" id="setting-check{{ $id }}">
+                                      <label class="custom-control-label" for="setting-check{{ $id }}">{{ $setting }}</label>
+                                    </div>
+                                @endforeach
+                            
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Types</label>
+                                
+                                @foreach(\App\Advert::$types as $id => $type)
+                                    <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" {{ collect(old('type_filter', Request::get('type_filter')))->contains($id) ? 'checked':'' }} name="type_filter[]" value="{{ $id }}" id="type-check{{ $id }}">
+                                      <label class="custom-control-label" for="type-check{{ $id }}">{{ $type }}</label>
+                                    </div>
+                                @endforeach
+                            
+                            </div>
+                            
                             <button type="submit" class="btn btn-block btn-action">Search</button>
                         </form>
                     </div>

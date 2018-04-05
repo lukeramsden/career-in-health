@@ -53,7 +53,7 @@ class SearchController extends Controller
                 $results->where('max_salary', '>', $data['min_salary']);
 
             if(isset($data['max_salary']) && $data['max_salary'] < 150000)
-                $results->where('max_salary', '<', $data['max_salary']);
+                $results->where('min_salary', '<', $data['max_salary']);
 
             if(isset($data['setting_filter']))
                 $results->whereIn('setting', $data['setting_filter']);

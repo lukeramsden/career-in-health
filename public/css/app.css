@@ -10934,6 +10934,14 @@ body {
   margin-bottom: 4rem;
 }
 
+#search-form form .form-group .custom-control-label::before {
+  border: 1px solid #495057;
+}
+
+#search-form form .form-group .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #f9834e;
+}
+
 #search-form form button {
   margin: 40px 0;
 }
