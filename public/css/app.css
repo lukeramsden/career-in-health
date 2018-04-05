@@ -10876,6 +10876,33 @@ body {
   margin-bottom: 1.5rem;
 }
 
+#search-results .card h1,
+#search-results .card h2,
+#search-results .card h3,
+#search-results .card h4,
+#search-results .card h5,
+#search-results .card h6 {
+  margin-bottom: 0.2rem;
+}
+
+#search-results .card #small-details {
+  display: block;
+  margin-top: 0.8rem;
+  margin-bottom: 0;
+}
+
+#search-results .card #small-details p {
+  margin: 0;
+}
+
+#search-results .card #small-details div {
+  display: inline-block;
+}
+
+#search-results .card #small-details div:not(:first-child) {
+  margin-left: 1.5rem;
+}
+
 #search-results-parent {
   margin-top: 1rem;
 }

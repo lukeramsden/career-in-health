@@ -3,7 +3,6 @@
     <div class="container-fluid p-0 m-0">
         @if(isset($results) || $isAdvanced)
             <div class="row" id="search-row">
-                {{-- RESULTS --}}
                 <div class="col-12 col-md-5 col-lg-4 order-md-last" id="search-form-parent">
                     <div id="search-form">
                         <form method="get">
@@ -43,6 +42,7 @@
                         </form>
                     </div>
                 </div>
+                {{-- RESULTS --}}
                 <div class="col-12 col-md-7 col-lg-8" id="search-results-parent">
                     <div id="search-results" style="">
                         @isset($results)
@@ -53,9 +53,26 @@
                                         <a href="{{ route('company.show', ['company' => $advert->company]) }}" class="card-subtitle">
                                             {{$advert->company->name}}
                                         </a>
-                                        <h4 class="card-title">
-                                            {{$advert->jobType->name}}
-                                        </h4>
+                                        <h4 class="card-title">{{$advert->jobType->name}}</h4>
+                                        <h5><a href="{{ route('advert.show', ['advert' => $advert]) }}">{{ $advert->title }}</a></h5>
+                                        <h6>{{ $advert->getSetting() }}</h6>
+                                        <div id="small-details">
+                                            <div>
+                                                <p><span class="badge badge-secondary badge-pill p-2 px-3">{{ $advert->getType() }}</span></p>
+                                            </div>
+                                            <div>
+                                                <p><span class="oi oi-map-marker mr-3"></span>{{ $advert->address->location->name }} (<b>{{ number_format((float)$advert->getDistanceToLocation($town), 0, '.', '') }}</b> miles away)</p>
+                                            </div>
+                                            <div>
+                                                <p>
+                                                    @money($advert->min_salary * 100, 'GBP') - @money($advert->max_salary * 100, 'GBP')
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <a href="{{ route('advert.show', ['advert' => $advert]) }}"
+                                                   class="btn btn-outline-primary">View</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach

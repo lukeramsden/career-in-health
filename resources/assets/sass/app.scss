@@ -234,6 +234,28 @@ $navbar-width: 200px;
 
     .card {
       margin-bottom: $spacer * 1.5;
+
+      h1, h2, h3, h4, h5, h6 {
+        margin-bottom: 0.2rem;
+      }
+
+      #small-details {
+        display: block;
+        margin-top: 0.8rem;
+        margin-bottom: 0;
+
+        p {
+          margin: 0;
+        }
+
+        div {
+          display: inline-block;
+
+          &:not(:first-child) {
+            margin-left: $spacer * 1.5;
+          }
+        }
+      }
     }
 
     &-parent {
