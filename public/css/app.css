@@ -10808,6 +10808,33 @@ body {
   background-color: #e6e6e6;
 }
 
+.card-custom.card-advert h1,
+.card-custom.card-advert h2,
+.card-custom.card-advert h3,
+.card-custom.card-advert h4,
+.card-custom.card-advert h5,
+.card-custom.card-advert h6 {
+  margin-bottom: 0.3rem;
+}
+
+.card-custom.card-advert #small-details {
+  display: block;
+  margin: 0;
+}
+
+.card-custom.card-advert #small-details p {
+  margin: 0;
+}
+
+.card-custom.card-advert #small-details div {
+  margin-top: 0.8rem;
+  display: inline-block;
+}
+
+.card-custom.card-advert #small-details div:not(:first-child) {
+  margin-left: 1.5rem;
+}
+
 .pagination {
   margin: 0;
 }
@@ -10876,33 +10903,6 @@ body {
   margin-bottom: 1.5rem;
 }
 
-#search-results .card h1,
-#search-results .card h2,
-#search-results .card h3,
-#search-results .card h4,
-#search-results .card h5,
-#search-results .card h6 {
-  margin-bottom: 0.2rem;
-}
-
-#search-results .card #small-details {
-  display: block;
-  margin: 0;
-}
-
-#search-results .card #small-details p {
-  margin: 0;
-}
-
-#search-results .card #small-details div {
-  margin-top: 0.8rem;
-  display: inline-block;
-}
-
-#search-results .card #small-details div:not(:first-child) {
-  margin-left: 1.5rem;
-}
-
 #search-results-parent {
   margin-top: 1rem;
 }
@@ -10949,6 +10949,18 @@ body {
 #first-search-row {
   margin: 0;
   margin-top: 8rem;
+}
+
+@media (min-width: 768px) {
+  #advert-show-row .col-12:nth-child(1) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  #advert-show-row .col-12 {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .select2-container .select2-selection--single {

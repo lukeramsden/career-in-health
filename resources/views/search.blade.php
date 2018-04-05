@@ -75,7 +75,7 @@
                                 <p class="font-italic">Found {{ $results->total() }} matching adverts</p>
                             </div>
                             @foreach($results as $advert)
-                                <div class="card card-custom">
+                                <div class="card card-custom card-advert">
                                     <div class="card-body">
                                         <a href="{{ route('company.show', ['company' => $advert->company]) }}" class="card-subtitle">
                                             {{$advert->company->name}}
@@ -116,7 +116,7 @@
                         {{ csrf_field() }}
                         <h6 class="text-muted">I'm a</h6>
                         <div id="first-search-job-type">
-                            <select id="first-search-job-type-control" name="job_types[]" class="custom-select" multiple size="1">
+                            <select id="first-search-job-type-control" name="job_types[]" class="custom-select town-control" multiple size="1">
                                 @foreach(\App\JobType::all() as $job)
                                     <option {{ collect(old('job_types', Request::get('job_types')))->contains($job->id) ? 'selected':'' }} value="{{ $job->id }}">{{ $job->name }}</option>
                                 @endforeach
@@ -124,7 +124,7 @@
                         </div>
                         <h6 class="text-muted my-2">in</h6>
                         <div id="first-search-town">
-                            <select id="first-search-town-control" name="town" class="custom-select" required>
+                            <select id="first-search-town-control" name="town" class="custom-select job-type-control" required>
                                 <option {{ old('town', Request::get('town')) != null ? '' : 'selected' }} disabled></option>
                                 @foreach (\App\Location::getAllLocations() as $loc)
                                     <option {{ $loc->id == old('town', Request::get('town')) ? 'selected' : '' }} value='{{ $loc->id }}'>{{ $loc->name }}</option>

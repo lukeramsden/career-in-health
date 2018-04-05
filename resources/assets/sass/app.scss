@@ -160,6 +160,31 @@ $navbar-width: 200px;
       background-color: #e6e6e6;
     }
   }
+
+
+  &.card-advert {
+    h1, h2, h3, h4, h5, h6 {
+      margin-bottom: 0.3rem;
+    }
+
+    #small-details {
+      display: block;
+      margin: 0;
+
+      p {
+        margin: 0;
+      }
+
+      div {
+        margin-top: 0.8rem;
+        display: inline-block;
+
+        &:not(:first-child) {
+          margin-left: $spacer * 1.5;
+        }
+      }
+    }
+  }
 }
 
 .pagination {
@@ -234,28 +259,6 @@ $navbar-width: 200px;
 
     .card {
       margin-bottom: $spacer * 1.5;
-
-      h1, h2, h3, h4, h5, h6 {
-        margin-bottom: 0.2rem;
-      }
-
-      #small-details {
-        display: block;
-        margin: 0;
-
-        p {
-          margin: 0;
-        }
-
-        div {
-          margin-top: 0.8rem;
-          display: inline-block;
-
-          &:not(:first-child) {
-            margin-left: $spacer * 1.5;
-          }
-        }
-      }
     }
 
     &-parent {
@@ -311,6 +314,20 @@ $navbar-width: 200px;
   &-row {
     margin: 0;
     margin-top: $spacer * 8;
+  }
+}
+
+#advert-show-row {
+    & .col-12 {
+      @include media-breakpoint-up(md) {
+        &:nth-child(1) {
+          margin-bottom: $spacer * 1.5;
+        }
+      }
+
+      @include media-breakpoint-down(sm) {
+        margin-bottom: $spacer * 0.5;
+      }
   }
 }
 
