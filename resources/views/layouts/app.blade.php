@@ -60,7 +60,7 @@
                         
                         {{----}}
                         
-                        <small class="text-muted">Find a Job</small>
+                        <small class="text-muted">Get Hired</small>
                         
                         <a class="nav-link {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
                         

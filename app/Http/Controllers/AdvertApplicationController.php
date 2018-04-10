@@ -27,7 +27,7 @@ class AdvertApplicationController extends Controller
 
     public function index()
     {
-        return view('view-applications')
+        return view('employee.view-applications')
             ->with(['applications' => Auth::user()->applications()->with('user', 'advert', 'advert.company', 'advert.jobType')->get()]);
     }
 
@@ -47,7 +47,7 @@ class AdvertApplicationController extends Controller
         }
 
         return view('employee.advert.apply')
-            ->with([$advert]);
+            ->with(['advert' => $advert]);
     }
 
     public function store(Request $request, Advert $advert)

@@ -38,7 +38,7 @@ class ProfileWorkExperienceController extends Controller
                 'work' => $profileWorkExperience,
                 'isCvBuilder' => false
             ]);
-    }
+    }z
 
     public function store(Request $request)
     {
