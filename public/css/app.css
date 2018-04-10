@@ -10794,21 +10794,19 @@ body {
   background-color: #e9ecef;
 }
 
-#navbar nav .nav-section-sub {
-  overflow: visible;
-  max-height: 500px;
-  /* approximate max height */
-  -webkit-transition-property: all;
-  transition-property: all;
-  -webkit-transition-duration: .5s;
-          transition-duration: .5s;
-  -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-          transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+#navbar nav .nav-section-sub:last-child {
+  margin-bottom: 0.25em;
 }
 
-#navbar nav .nav-section.closed .nav-section-sub {
-  height: 0;
-  overflow: hidden;
+#navbar nav .nav-section-title:after {
+  content: '';
+  position: absolute;
+  width: 90%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  bottom: 0;
+  left: 50%;
+  border-bottom: 4px solid #455782;
 }
 
 #navbar nav .nav-section .nav-link-sub {
