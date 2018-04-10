@@ -103,7 +103,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {!! $results->appends(Request::capture()->except('page'))->render("vendor.pagination") !!}
+                            {!! $results->appends(Request::capture()->except('page'))->render('vendor.pagination') !!}
                         @endisset
                     </div>
                 </div>

@@ -11079,3 +11079,13 @@ body {
   color: #d9d9d9 !important;
 }
 
+.table#applications p {
+  margin-bottom: 0;
+}
+
+.table#applications th {
+  color: #fff;
+  background-color: #455782;
+  border-color: #354968;
+}
+

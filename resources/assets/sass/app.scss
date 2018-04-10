@@ -463,3 +463,15 @@ $navbar-width: 200px;
     }
   }
 }
+
+.table#applications {
+  p {
+    margin-bottom: 0;
+  }
+
+  th {
+    color: $white;
+    background-color: $primary;
+    border-color: $dark-primary;
+  }
+}
