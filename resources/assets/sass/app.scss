@@ -422,6 +422,51 @@ $navbar-width: 200px;
   }
 }
 
+#register-container {
+  border: 0;
+  @include media-breakpoint-up(lg) {
+    width: 70%;
+  }
+
+  -webkit-box-shadow: 26px 62px 162px -51px rgba(0,0,0,0.4);
+  -moz-box-shadow: 26px 62px 162px -51px rgba(0,0,0,0.4);
+  box-shadow: 26px 62px 162px -51px rgba(0,0,0,0.4);
+
+  &-parent {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card-body {
+    padding: 0;
+  }
+
+  .col {
+    padding: 4rem;
+    padding-bottom: 2.4rem;
+
+    &:first-child {
+      background-color: $white;
+    }
+
+    &:last-child {
+      background-color: $primary;
+      color: $white;
+      text-align: center;
+    }
+  }
+
+  button {
+    text-align: center;
+    border-radius: 25px;
+    margin: 0 auto;
+    min-width: 50%;
+    align-self: center;
+  }
+}
+
 // select2 styles
 .select2-container .select2-selection--single {
   height: 39px !important;

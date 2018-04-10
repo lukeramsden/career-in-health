@@ -11042,6 +11042,59 @@ body {
   position: relative;
 }
 
+#register-container {
+  border: 0;
+  -webkit-box-shadow: 26px 62px 162px -51px rgba(0, 0, 0, 0.4);
+  box-shadow: 26px 62px 162px -51px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 992px) {
+  #register-container {
+    width: 70%;
+  }
+}
+
+#register-container-parent {
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#register-container .card-body {
+  padding: 0;
+}
+
+#register-container .col {
+  padding: 4rem;
+  padding-bottom: 2.4rem;
+}
+
+#register-container .col:first-child {
+  background-color: #fff;
+}
+
+#register-container .col:last-child {
+  background-color: #455782;
+  color: #fff;
+  text-align: center;
+}
+
+#register-container button {
+  text-align: center;
+  border-radius: 25px;
+  margin: 0 auto;
+  min-width: 50%;
+  -ms-flex-item-align: center;
+      align-self: center;
+}
+
 .select2-container .select2-selection--single {
   height: 39px !important;
 }
