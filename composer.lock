@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f02f60719cfcf548bc6748dfd95cab7e",
+    "content-hash": "20723c2386b5b27fd6470aa42847bef0",
     "packages": [
         {
             "name": "akaunting/money",
@@ -965,6 +965,60 @@
                 "trusted proxy"
             ],
             "time": "2018-02-07T20:20:57+00:00"
+        },
+        {
+            "name": "grimthorr/laravel-toast",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Grimthorr/laravel-toast.git",
+                "reference": "63e40e4e542e706cf821668cb09f9068d25c6dc9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Grimthorr/laravel-toast/zipball/63e40e4e542e706cf821668cb09f9068d25c6dc9",
+                "reference": "63e40e4e542e706cf821668cb09f9068d25c6dc9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "5.*",
+                "illuminate/database": "5.*",
+                "illuminate/support": "5.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Grimthorr\\LaravelToast\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Toast": "Grimthorr\\LaravelToast\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Grimthorr\\LaravelToast\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Grimthorr",
+                    "email": "phil@hughesbox.co.uk",
+                    "homepage": "http://hughesbox.co.uk"
+                }
+            ],
+            "description": "Simple toast messages for Laravel 5.",
+            "homepage": "https://github.com/Grimthorr/laravel-toast",
+            "time": "2018-04-10T11:00:11+00:00"
         },
         {
             "name": "h4cc/wkhtmltopdf-amd64",

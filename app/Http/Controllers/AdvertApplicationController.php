@@ -40,10 +40,8 @@ class AdvertApplicationController extends Controller
 
         if(AdvertApplication::alreadyApplied(Auth::user(), $advert))
         {
-            return redirect(route('advert.show', [$advert]))
-                        ->with([
-                            'status' => 'You have already applied to this job!'
-                        ]);
+            toast()->error('You have already applied to this job!');
+            return redirect(route('advert.show', [$advert]));
         }
 
         return view('employee.advert.apply')
@@ -54,10 +52,8 @@ class AdvertApplicationController extends Controller
     {
         if(AdvertApplication::alreadyApplied(Auth::user(), $advert))
         {
-            return redirect(route('advert.show', [advert]))
-                        ->with([
-                            'status' => 'You have already applied to this job!'
-                        ]);
+            toast()->error('You have already applied to this job!');
+            return redirect(route('advert.show', [$advert]));
         }
         
         $data = $request->validate($this->getValidateRules(false));
@@ -67,10 +63,8 @@ class AdvertApplicationController extends Controller
         $application->fill($data);
         $advert->applications()->save($application);
 
-        return redirect(route('advert.show', [$advert]))
-            ->with([
-                'status' => 'Applied!'
-            ]);
+        toast()->success('Applied!');
+        return redirect(route('advert.show', [$advert]));
     }
 
     public function update(Request $request, AdvertApplication $application)
@@ -78,9 +72,13 @@ class AdvertApplicationController extends Controller
         if ($request->has('status') || $request->has('notes')) {
             $user = Auth::user();
             if(!$user->isCompany() || $application->advert->company_id !== $user->company_id) {
-                return $request->ajax() ?
-                    response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status'])
-                    : back()->with(['status' => 'You must own the advert to update an application\'s status']);
+                if($request->ajax())
+                {
+                    return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status']);
+                }
+
+                toast()->error('You must own the advert to update an application\'s status');
+                return back();
             } else {
                 $data = $request->validate($this->getValidateRules(true));
 
@@ -98,7 +96,12 @@ class AdvertApplicationController extends Controller
 
         $application->save();
 
-        return $request->ajax() ? response()->json(['success' => true])
-            : back()->with(['status' => 'Success!']);
+        if($request->ajax())
+        {
+            return response()->json(['success' => true]);
+        }
+
+        toast()->success('Updated!');
+        return back();
     }
 }

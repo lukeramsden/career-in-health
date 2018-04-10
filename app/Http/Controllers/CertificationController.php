@@ -56,10 +56,8 @@ class CertificationController extends Controller
         $certification->fill($data);
         $profile->certifications()->save($certification);
 
-        return back()
-            ->with([
-                'status' => 'Created!'
-            ]);
+        toast()->success('Created!');
+        return back();
     }
 
     public function update(Request $request, Certification $certification)
@@ -71,16 +69,12 @@ class CertificationController extends Controller
 
         if($request->query('isCvBuilder', false))
         {
-            return redirect(route('cv-builder.certifications'))
-                ->with([
-                    'status' => 'Updated!'
-                ]);
+            toast()->success('Updated!');
+            return redirect(route('cv-builder.certifications'));
         }
 
-        return redirect(route('profile.certifications.edit'))
-            ->with([
-                'status' => 'Updated!'
-            ]);
+        toast()->success('Updated!');
+        return redirect(route('profile.certifications.edit'));
     }
 
     public function destroy(Certification $certification)
@@ -89,17 +83,13 @@ class CertificationController extends Controller
             Storage::delete($certification->file_path);
             $certification->delete();
         } catch (Exception $e) {
+            toast()->error('Could not delete!');
             return back()
-                ->withInput()
-                ->with([
-                    'status' => 'Could not delete!'
-                ]);
+                ->withInput();
         }
 
-        return back()
-            ->with([
-                'status' => 'Deleted!'
-            ]);
+        toast()->success('Deleted!');
+        return back();
     }
 
     public function download(Certification $certification)

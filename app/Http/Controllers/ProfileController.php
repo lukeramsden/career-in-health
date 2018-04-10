@@ -70,10 +70,9 @@ class ProfileController extends Controller
         $profile->jobTypes()->sync($data['job_types']);
         $profile->save();
 
+        toast()->success('Profile updated!');
+
         return back()
-            ->withInput()
-            ->with([
-                'status' => 'Profile updated!'
-            ]);
+            ->withInput();
     }
 }

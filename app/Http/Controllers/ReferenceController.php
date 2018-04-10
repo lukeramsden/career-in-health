@@ -50,10 +50,8 @@ class ReferenceController extends Controller
         $reference->fill($data);
         Auth::user()->profile->references()->save($reference);
 
-        return back()
-            ->with([
-                'status' => 'Created!'
-            ]);
+        toast()->success('Created!');
+        return back();
     }
 
     public function update(Request $request, Reference $reference)
@@ -65,16 +63,12 @@ class ReferenceController extends Controller
 
         if($request->query('isCvBuilder', false))
         {
-            return redirect(route('cv-builder.references'))
-                ->with([
-                    'status' => 'Updated!'
-                ]);
+            toast()->success('Updated!');
+            return redirect(route('cv-builder.references'));
         }
 
-        return redirect(route('profile.references.edit'))
-            ->with([
-                'status' => 'Updated!'
-            ]);
+        toast()->success('Updated!');
+        return redirect(route('profile.references.edit'));
     }
 
     public function destroy(Reference $reference)
@@ -82,16 +76,12 @@ class ReferenceController extends Controller
         try {
             $reference->delete();
         } catch (Exception $e) {
+            toast()->error('Could not delete!');
             return back()
-                ->withInput()
-                ->with([
-                    'status' => 'Could not delete!'
-                ]);
+                ->withInput();
         }
 
-        return back()
-            ->with([
-                'status' => 'Deleted!'
-            ]);
+        toast()->success('Deleted!');
+        return back();
     }
 }

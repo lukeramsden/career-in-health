@@ -11,6 +11,7 @@
         "barryvdh/laravel-snappy": "^0.4.1",
         "doctrine/dbal": "2.3.5",
         "fideloper/proxy": "~4.0",
+        "grimthorr/laravel-toast": "^1.1",
         "h4cc/wkhtmltopdf-amd64": "0.12.x",
         "laravel/cashier": "~7.0",
         "laravel/framework": "5.5.*",

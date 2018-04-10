@@ -67,10 +67,8 @@ class CompanyProfileController extends Controller
         $company->fill($data);
         $company->save();
 
+        toast()->success('Updated!');
         return back()
-            ->withInput()
-            ->with([
-                'status' => 'Profile updated!'
-            ]);
+            ->withInput();
     }
 }

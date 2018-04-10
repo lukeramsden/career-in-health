@@ -38,7 +38,7 @@ class ProfileWorkExperienceController extends Controller
                 'work' => $profileWorkExperience,
                 'isCvBuilder' => false
             ]);
-    }z
+    }
 
     public function store(Request $request)
     {
@@ -48,10 +48,9 @@ class ProfileWorkExperienceController extends Controller
         $profileWorkExperience->fill($data);
         Auth::user()->profile->work()->save($profileWorkExperience);
 
-        return back()
-            ->with([
-                'status' => 'Created!'
-            ]);
+        toast()->success('Created!');
+
+        return back();
     }
 
     public function update(Request $request, ProfileWorkExperience $profileWorkExperience)
@@ -63,16 +62,12 @@ class ProfileWorkExperienceController extends Controller
 
         if($request->query('isCvBuilder', false))
         {
-            return redirect(route('cv-builder.work-experience'))
-                ->with([
-                    'status' => 'Updated!'
-                ]);
+            toast()->success('Updated!');
+            return redirect(route('cv-builder.work-experience'));
         }
 
-        return redirect(route('profile.work.edit'))
-            ->with([
-                'status' => 'Updated!'
-            ]);
+        toast()->success('Updated');
+        return redirect(route('profile.work.edit'));
     }
 
     public function destroy(ProfileWorkExperience $profileWorkExperience)
@@ -80,16 +75,13 @@ class ProfileWorkExperienceController extends Controller
         try {
             $profileWorkExperience->delete();
         } catch (Exception $e) {
+            toast()->error('Could not delete');
             return back()
-                ->withInput()
-                ->with([
-                    'status' => 'Could not delete!'
-                ]);
+                ->withInput();
         }
 
-        return back()
-            ->with([
-                'status' => 'Deleted!'
-            ]);
+        toast()->success('Deleted!');
+
+        return back();
     }
 }
