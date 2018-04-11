@@ -57,7 +57,7 @@
                                 @endif
                             </div>
                             
-                            <div class="form-group">
+                            <div class="form-group" id="password-group">
                                 <small class="text-muted">Confirm Password (<span class='text-action'>*</span>)</small>
                                 <input required type='password' name="password_confirmation" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="Password">
                                
@@ -66,7 +66,7 @@
                                 @endif
                             </div>
                             
-                            <div class="form-group {{ old('i_am') == 'Employer' ? '' : 'd-none' }}" id="company-name-group">
+                            <div class="form-group" style="{{ old('i_am') == 'Employer' ? '' : 'display:none;' }}" id="company-name-group">
                                 <small class="text-muted">Company Name (<span class='text-action'>*</span>)</small>
                                 <input type="text" name="company_name" class="form-control {{ $errors->has('company_name') ? 'is-invalid' : '' }}" placeholder="Company Name">
                             
@@ -96,7 +96,7 @@
 @section('script')
     <script>
         $( 'input[name="i_am"]:radio' ).change(function() {
-            $('#company-name-group')[this.value === 'Employee' ? 'addClass' : 'removeClass']('d-none');
+            $('#company-name-group')[this.value === 'Employee' ? 'slideUp' : 'slideDown']("slow", "easeInOutExpo");
         });
     </script>
 @endsection

@@ -11118,11 +11118,15 @@ body {
   border: none;
   border-bottom: 2px solid #455782;
   border-radius: 0;
+  -webkit-transition: all 100ms ease-in-out;
+  transition: all 100ms ease-in-out;
 }
 
 #register-container input:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
+  -webkit-transform: scale(1.01, 1.01);
+          transform: scale(1.01, 1.01);
 }
 
 #register-container input.is-invalid {
@@ -11132,6 +11136,15 @@ body {
 #register-container .custom-control-input:focus ~ .custom-control-label::before {
   -webkit-box-shadow: none;
           box-shadow: none;
+}
+
+#register-container #company-name-group {
+  margin-bottom: 0;
+  padding-top: 1rem;
+}
+
+#register-container #password-group {
+  margin-bottom: 0;
 }
 
 .select2-container .select2-selection--single {
