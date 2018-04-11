@@ -10685,6 +10685,10 @@ body {
   color: #fff;
 }
 
+.btn-outline-action:hover {
+  color: #fff;
+}
+
 #app {
   margin-left: 200px;
   width: auto;
@@ -11044,13 +11048,13 @@ body {
 
 #register-container {
   border: 0;
-  -webkit-box-shadow: 26px 62px 162px -51px rgba(0, 0, 0, 0.4);
-  box-shadow: 26px 62px 162px -51px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.19);
+  box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.19);
 }
 
 @media (min-width: 992px) {
   #register-container {
-    width: 70%;
+    width: 65%;
   }
 }
 
@@ -11083,7 +11087,22 @@ body {
 #register-container .col:last-child {
   background-color: #455782;
   color: #fff;
+}
+
+#register-container .col:last-child #register-form-help-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  height: 100%;
+}
+
+#register-container .col:last-child #register-form-help-container #register-form-help-inner {
   text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-bottom: 3rem;
 }
 
 #register-container button {
@@ -11093,6 +11112,26 @@ body {
   min-width: 50%;
   -ms-flex-item-align: center;
       align-self: center;
+}
+
+#register-container input {
+  border: none;
+  border-bottom: 2px solid #455782;
+  border-radius: 0;
+}
+
+#register-container input:focus {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+#register-container input.is-invalid {
+  border: 1px solid #dc3545;
+}
+
+#register-container .custom-control-input:focus ~ .custom-control-label::before {
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .select2-container .select2-selection--single {

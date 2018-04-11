@@ -28,6 +28,10 @@ $navbar-width: 200px;
   color: $white;
 }
 
+.btn-outline-action:hover {
+  color: $white;
+}
+
 #app {
   margin-left: $navbar-width;
   width: auto;
@@ -425,12 +429,12 @@ $navbar-width: 200px;
 #register-container {
   border: 0;
   @include media-breakpoint-up(lg) {
-    width: 70%;
+    width: 65%;
   }
 
-  -webkit-box-shadow: 26px 62px 162px -51px rgba(0,0,0,0.4);
-  -moz-box-shadow: 26px 62px 162px -51px rgba(0,0,0,0.4);
-  box-shadow: 26px 62px 162px -51px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.19);
+  -moz-box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.19);
+  box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.19);
 
   &-parent {
     min-height: 100vh;
@@ -447,14 +451,28 @@ $navbar-width: 200px;
     padding: 4rem;
     padding-bottom: 2.4rem;
 
+    // form
     &:first-child {
       background-color: $white;
     }
 
+    // style text
     &:last-child {
       background-color: $primary;
       color: $white;
-      text-align: center;
+
+      #register-form-help-container {
+        display: flex;
+        align-content: center;
+        height: 100%;
+
+        #register-form-help-inner {
+          text-align: center;
+          margin-top: auto;
+          margin-bottom: auto;
+          padding-bottom: $spacer * 3;
+        }
+      }
     }
   }
 
@@ -464,6 +482,24 @@ $navbar-width: 200px;
     margin: 0 auto;
     min-width: 50%;
     align-self: center;
+  }
+
+  input {
+    border: none;
+    border-bottom: 2px solid $primary;
+    border-radius: 0;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &.is-invalid {
+      border: 1px solid #dc3545;
+    }
+  }
+
+  .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: none;
   }
 }
 
