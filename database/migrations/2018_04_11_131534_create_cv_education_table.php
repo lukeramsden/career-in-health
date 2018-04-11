@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfileWorkExperiencesTable extends Migration
+class CreateCvEducationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateProfileWorkExperiencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profile_work_experiences', function (Blueprint $table) {
+        Schema::create('cv_education', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('profile_id')->unsigned();
-            $table->foreign('profile_id')->references('id')->on('profiles');
-            $table->string('job_title');
-            $table->string('company_name');
+            $table->integer('cv_id')->unsigned();
+            $table->foreign('cv_id')->references('id')->on('cv');
+            $table->string('degree');
+            $table->string('school_name');
+            $table->string('field_of_study');
+            $table->string('location');
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->timestamps();
@@ -32,6 +34,6 @@ class CreateProfileWorkExperiencesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profile_work_experiences');
+        Schema::dropIfExists('cv_education');
     }
 }

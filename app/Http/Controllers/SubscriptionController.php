@@ -15,7 +15,8 @@ class SubscriptionController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function
+    index()
     {
         return view('subscription.index')
             ->with([

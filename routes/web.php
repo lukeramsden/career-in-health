@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', 'HoldingController@index');
 Route::get('/subscribe-thank-you', 'HoldingController@subscribeThankYou');
 Route::post('/', 'HoldingController@subscribe');
@@ -72,57 +61,15 @@ if (env('APP_ENV') == 'local')
         Route::get("/edit", "ProfileController@edit")->name('edit');
         Route::post("/edit", "ProfileController@update")->name('update');
         Route::get("/{user}", "ProfileController@show")->name('show');
-
-        Route::prefix('work-experience')
-            ->name('work-experience.')
-            ->group(function ()
-        {
-            Route::get('/edit', 'ProfileWorkExperienceController@edit')->name('edit');
-            Route::post('/create', 'ProfileWorkExperienceController@store')->name('store');
-            Route::get('/{profileWorkExperience}/edit', 'ProfileWorkExperienceController@edit_single')->name('edit.single');
-            Route::post('/{profileWorkExperience}/edit', 'ProfileWorkExperienceController@update')->name('update');
-            Route::get('/{profileWorkExperience}/destroy', 'ProfileWorkExperienceController@destroy')->name('destroy');
-        });
-
-        Route::prefix('references')
-            ->name('references.')
-            ->group(function ()
-        {
-            Route::get('/edit', 'ReferenceController@edit')->name('edit');
-            Route::post('/create', 'ReferenceController@store')->name('store');
-            Route::get('/{reference}/edit', 'ReferenceController@edit_single')->name('edit.single');
-            Route::post('/{reference}/edit', 'ReferenceController@update')->name('update');
-            Route::get('/{reference}/destroy', 'ReferenceController@destroy')->name('destroy');
-        });
-
-        Route::prefix('certifications')
-            ->name('certifications.')
-            ->group(function ()
-        {
-            Route::get('/edit', 'CertificationController@edit')->name('edit');
-            Route::post('/create', 'CertificationController@store')->name('store');
-            Route::get('/{certification}/edit', 'CertificationController@edit_single')->name('edit.single');
-            Route::post('/{certification}/edit', 'CertificationController@update')->name('update');
-            Route::get('/{certification}/destroy', 'CertificationController@destroy')->name('destroy');
-            Route::get('/{certification}/download', 'CertificationController@download')->name('download');
-        });
     });
 
-    Route::prefix('cv-builder')
-        ->name('cv-builder.')
+    Route::prefix('cv')
+        ->name('cv.')
         ->group(function ()
     {
-        Route::get('/1_profile', 'CVBuilderController@step1_show')->name('profile');
-        Route::post('/1_profile', 'CVBuilderController@step1_save')->name('profile.save');
-
-        Route::get('/2_work-experience', 'CVBuilderController@step2_show')->name('work-experience');
-        Route::post('/2_work-experience', 'CVBuilderController@step2_save')->name('work-experience.save');
-
-        Route::get('/3_references', 'CVBuilderController@step3_show')->name('references');
-        Route::post('/3_references', 'CVBuilderController@step3_save')->name('references.save');
-
-        Route::get('/4_certifications', 'CVBuilderController@step4_show')->name('certifications');
-        Route::post('/4_certifications', 'CVBuilderController@step4_save')->name('certifications.save');
+        Route::resource('education', 'Cv\CvEducationController', ['only' => [
+            'store', 'update', 'destroy'
+        ]]);
     });
 
     Route::prefix('company')

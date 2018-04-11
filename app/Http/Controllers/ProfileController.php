@@ -17,6 +17,7 @@ class ProfileController extends Controller
     static $validation = [
         'first_name' => 'required|string|max:40',
         'last_name' => 'nullable|string|max:40',
+        'phone' => 'nullable|string|max:40',
         'headline' => 'nullable|string|max:80',
         'location' => 'nullable|string|max:80',
         'description' => 'nullable|string|max:500',

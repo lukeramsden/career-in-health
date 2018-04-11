@@ -175,6 +175,6 @@ class JobType extends Model
 
     public function profile()
     {
-        return $this->belongsToMany('App\Profile');
+        return $this->belongsToMany(\App\Profile::class);
     }
 }

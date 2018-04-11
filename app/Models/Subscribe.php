@@ -11,6 +11,6 @@ class Subscribe extends Model
 
     public function plan()
     {
-        return $this->hasOne('App\SubscriptionPlan', 'stripe_plan_id', 'stripe_plan');
+        return $this->hasOne(\App\SubscriptionPlan::class, 'stripe_plan_id', 'stripe_plan');
     }
 }

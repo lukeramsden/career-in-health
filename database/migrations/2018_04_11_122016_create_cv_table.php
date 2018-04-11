@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCertificationsTable extends Migration
+class CreateCvTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateCertificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('certifications', function (Blueprint $table) {
+        Schema::create('cv', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('profile_id')->unsigned();
-            $table->foreign('profile_id')->references('id')->on('profiles');
-            $table->string('name');
-            $table->string('file_path');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateCertificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('certifications');
+        Schema::dropIfExists('cv');
     }
 }

@@ -11,22 +11,22 @@ class Company extends Model
     
     public function adverts()
     {
-        return $this->hasMany('App\Advert');
+        return $this->hasMany(\App\Advert::class);
     }
 
     public function addresses()
     {
-        return $this->hasMany('App\Address');
+        return $this->hasMany(\App\Address::class);
     }
 
     public function users()
     {
-        return $this->hasMany('App\User');
+        return $this->hasMany(\App\User::class);
     }
 
     public function applications()
     {
-        return $this->hasManyThrough('App\AdvertApplication', 'App\Advert');
+        return $this->hasManyThrough(\App\AdvertApplication::class, \App\Advert::class);
     }
 
     public function picture()

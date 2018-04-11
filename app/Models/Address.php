@@ -12,7 +12,7 @@ class Address extends Model
 
     public function location()
     {
-        return $this->hasOne('App\Location', 'id', 'town');
+        return $this->hasOne(\App\Location::class, 'id', 'town');
     }
 
 }

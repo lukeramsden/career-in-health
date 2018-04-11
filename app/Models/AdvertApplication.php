@@ -18,12 +18,12 @@ class AdvertApplication extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(\App\User::class);
     }
     
     public function advert()
     {
-        return $this->belongsTo('App\Advert');
+        return $this->belongsTo(\App\Advert::class);
     }
 
     static public function alreadyApplied(User $user = null, Advert $advert = null)
