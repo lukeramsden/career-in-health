@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -51,7 +52,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $rules = [
-            'i_am' => 'required',
+            'i_am' => ['required', Rule::in(['Employee', 'Employer']),],
             'first_name' => 'required|string|max:255',
             'last_name' => 'string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
