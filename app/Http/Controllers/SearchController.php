@@ -18,7 +18,7 @@ class SearchController extends Controller
         'radius' => 'nullable|integer|min:5|max:50',
         'job_types' => 'array',
         'job_types.*' => 'integer|distinct|exists:job_types,id',
-        'min_salary' => 'nullable|integer|min:0|max:150000',
+        'min_salary' => 'nullable|integer|min:0|max:150000|less_than_field:max_salary',
         'max_salary' => 'nullable|integer|min:1|max:150000|greater_than_field:min_salary',
         'setting_filter' => 'array',
         'setting_filter.*' => 'integer|distinct',

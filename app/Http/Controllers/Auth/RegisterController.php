@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Cv\Cv;
 use App\Profile;
 use App\User;
 use App\Company;
@@ -95,6 +96,8 @@ class RegisterController extends Controller
             $user->company_id = $company->id;
             $this->redirectTo = '/dashboard';
         } else if($data->i_am == 'Employee') {
+            $cv = new Cv();
+            $user->cv()->save($cv);
             $this->redirectTo = route('cv-builder.profile');
         }
 

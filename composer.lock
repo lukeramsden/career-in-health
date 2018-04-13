@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "20723c2386b5b27fd6470aa42847bef0",
+    "content-hash": "2bd6b719385d238307f0849413d93c30",
     "packages": [
         {
             "name": "akaunting/money",
@@ -2213,16 +2213,16 @@
         },
         {
             "name": "rukhsar/laravel-active-route",
-            "version": "v1.3",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Rukhsar/laravel-active-route.git",
-                "reference": "573c3f3396446da147ea58bcf5b143ea7f1893e8"
+                "reference": "3a6d6b7c08c06978bf971d7d2a35733edbbcfac1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Rukhsar/laravel-active-route/zipball/573c3f3396446da147ea58bcf5b143ea7f1893e8",
-                "reference": "573c3f3396446da147ea58bcf5b143ea7f1893e8",
+                "url": "https://api.github.com/repos/Rukhsar/laravel-active-route/zipball/3a6d6b7c08c06978bf971d7d2a35733edbbcfac1",
+                "reference": "3a6d6b7c08c06978bf971d7d2a35733edbbcfac1",
                 "shasum": ""
             },
             "require": {
@@ -2248,7 +2248,7 @@
                 }
             ],
             "description": "A laravel helper package.",
-            "time": "2017-02-11T23:07:02+00:00"
+            "time": "2018-03-03T00:12:37+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -5339,7 +5339,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "rukhsar/laravel-active-route": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\JobType;
+use App\JobType;
 use Illuminate\Database\Seeder;
 
 class JobTypeSeeder extends Seeder

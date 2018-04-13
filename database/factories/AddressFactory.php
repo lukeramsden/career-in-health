@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Address;
+use App\Address;
 use Faker\Generator as Faker;
 
 $locations = \App\Models\Location::getAllLocations();

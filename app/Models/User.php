@@ -67,4 +67,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(\App\Profile::class);
     }
+
+    public function cv()
+    {
+        return $this->hasOne(\App\Cv\Cv::class);
+    }
 }

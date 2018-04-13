@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Advert;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AdvertController extends Controller
 {
@@ -18,18 +19,24 @@ class AdvertController extends Controller
     {
         if ($request->save_for_later !== null) {
             $rules = [
-                'title' => 'required'
+                'title' => 'required|max:160'
             ];
         } else {
             $rules = [
+                // TODO: validation for advert belonging to company creating advert
                 'address_id' => 'required',
                 'title' => 'required|max:160',
                 'description' => 'required|max:3000',
                 'job_type_id' => 'required|integer|exists:job_types,id',
-                'setting' => 'required',
-                'type' => 'required',
+                'setting' => ['required', Rule::in(array_keys(Advert::$settings))],
+                'type' => ['required', Rule::in(array_keys(Advert::$types))],
             ];
         }
+
+        $rules = array_merge($rules, [
+            'min_salary' => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
+            'max_salary' => 'nullable|integer|min:1|max:1000000|greater_than_field:min_salary',
+        ]);
 
         return $rules;
     }   

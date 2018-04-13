@@ -1,8 +1,9 @@
 <?php
 
-use App\Models\Profile;
+use App\Company;
+use App\Cv\Cv;
+use App\Profile;
 use Illuminate\Database\Seeder;
-use App\Models\Company;
 
 class UserSeeder extends Seeder
 {
@@ -42,5 +43,8 @@ class UserSeeder extends Seeder
         $profile2->first_name = 'Luke';
         $profile2->last_name = 'Ramsden';
         $employeeUser->profile()->save($profile2);
+
+        $cv = new Cv();
+        $employeeUser->cv()->save($cv);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Advert;
+use App\Advert;
 use Illuminate\Database\Seeder;
 
 class AdvertSeeder extends Seeder

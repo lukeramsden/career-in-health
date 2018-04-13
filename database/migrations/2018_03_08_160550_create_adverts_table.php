@@ -22,8 +22,8 @@ class CreateAdvertsTable extends Migration
             $table->integer('job_type_id')->nullable();
             $table->integer('setting')->nullable();
             $table->integer('type')->nullable();
-            $table->float('min_salary', 10, 2)->nullable();
-            $table->float('max_salary', 10, 2)->nullable();
+            $table->integer('min_salary')->nullable();
+            $table->integer('max_salary')->nullable();
             $table->integer('address_id')->nullable();
             $table->string('postcode', 10)->nullable();
             $table->timestamp('started_at')->nullable();

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCvTable extends Migration
+class CreateCvPreferencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateCvTable extends Migration
      */
     public function up()
     {
-        Schema::create('cv', function (Blueprint $table) {
+        Schema::create('cv_preferences', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('preferences_id')->nullable()->unsigned();
+            $table->integer('job_type_id')->nullable();
+            $table->integer('setting')->nullable();
+            $table->integer('type')->nullable();
+            $table->integer('salary')->nullable();
+            $table->boolean('willing_to_relocate');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateCvTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cv');
+        Schema::dropIfExists('cv_preferences');
     }
 }

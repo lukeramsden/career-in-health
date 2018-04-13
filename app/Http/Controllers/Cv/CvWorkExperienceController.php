@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class CvWorkExperienceController extends Controller
 {
     /**
-     * CvEducationController constructor.
+     * CvWorkExperienceController constructor.
      */
     public function __construct()
     {

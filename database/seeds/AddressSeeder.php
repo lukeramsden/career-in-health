@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Address;
+use App\Address;
 use Illuminate\Database\Seeder;
 
 class AddressSeeder extends Seeder

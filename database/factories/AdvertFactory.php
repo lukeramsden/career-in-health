@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Advert;
+use App\Advert;
 use Faker\Generator as Faker;
 
 $factory->define(Advert::class, function (Faker $faker) {

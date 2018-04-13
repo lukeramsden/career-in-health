@@ -12,4 +12,19 @@ class Cv extends Model
     {
         return $this->belongsTo(\App\User::class);
     }
+
+    public function education()
+    {
+        return $this->hasMany(CvEducation::class);
+    }
+
+    public function workExperience()
+    {
+        return $this->hasMany(CvWorkExperience::class);
+    }
+
+    public function preferences()
+    {
+        return $this->hasOne(CvPreferences::class);
+    }
 }
