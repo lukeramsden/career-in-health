@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Cv;
 
-use App\Cv\CvEducation;
+use App\Cv\CvWorkExperience;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CvEducationController extends Controller
+class CvWorkExperienceController extends Controller
 {
     /**
      * CvEducationController constructor.
@@ -26,9 +26,9 @@ class CvEducationController extends Controller
     protected function getValidationRules(Request $request)
     {
         return [
-            'degree' => 'required|string|max:150',
-            'school_name' => 'required|string|max:150',
-            'field_of_study' => 'required|string|max:150',
+            'job_title' => 'required|string|max:150',
+            'company_name' => 'required|string|max:150',
+            'description' => 'required|string|max:500',
             'location' => 'required|string|max:150',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date'
@@ -45,7 +45,7 @@ class CvEducationController extends Controller
     {
         $data = $request->validate(self::getValidationRules($request));
 
-        $cvEducation = new CvEducation();
+        $cvEducation = new CvWorkExperience();
         $cvEducation->fill($data);
         $cvEducation->save();
 
@@ -62,15 +62,15 @@ class CvEducationController extends Controller
      * Update model
      *
      * @param Request $request
-     * @param CvEducation $cvEducation
+     * @param CvWorkExperience $cvWorkExperience
      * @return mixed
      */
-    public function update(Request $request, CvEducation $cvEducation)
+    public function update(Request $request, CvWorkExperience $cvWorkExperience)
     {
         $data = $request->validate(self::getValidationRules($request));
 
-        $cvEducation->fill($data);
-        $cvEducation->save();
+        $cvWorkExperience->fill($data);
+        $cvWorkExperience->save();
 
         if(ajax())
         {
@@ -84,13 +84,13 @@ class CvEducationController extends Controller
     /**
      * Delete model
      *
-     * @param CvEducation $cvEducation
+     * @param CvWorkExperience $cvWorkExperience
      * @return mixed
      * @throws \Exception
      */
-    public function destroy(CvEducation $cvEducation)
+    public function destroy(CvWorkExperience $cvWorkExperience)
     {
-        $cvEducation->delete();
+        $cvWorkExperience->delete();
 
         if(ajax())
         {
