@@ -78,9 +78,7 @@
     </div>
 
     <div id="app">
-        <main>
-            @yield('content')
-        </main>
+        @yield('content')
     </div>
 @endsection
 @section('b_stylesheet')

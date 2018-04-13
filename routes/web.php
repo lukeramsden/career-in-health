@@ -9,6 +9,8 @@ if (env('APP_ENV') == 'local')
     Route::view('/', 'home')->name('home');
     Route::view('/pricing', 'pricing')->name('pricing');
 
+    Route::view('/test', 'employee.cv.edit');
+
     Route::get('/search', 'SearchController@search')->name('search');
     Route::get('/advert/{advert}', 'AdvertController@show')->name('advert.show');
 
