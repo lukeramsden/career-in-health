@@ -576,3 +576,28 @@ $navbar-width: 200px;
     border-color: $dark-primary;
   }
 }
+
+.cv-item {
+  background-color: $white;
+  padding: 1rem;
+  margin: 1rem;
+
+  -webkit-box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.09);
+  -moz-box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.09);
+  box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.09);
+
+  &-inner {
+    display: inline-block;
+
+    .cv-item-education & {
+      p:first-child {
+        font-size: 1rem;
+      }
+
+      p:not(first-child) {
+        font-size: 0.85rem;
+      }
+    }
+  }
+}
+

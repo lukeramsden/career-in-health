@@ -11203,3 +11203,23 @@ body {
   border-color: #354968;
 }
 
+.cv-item {
+  background-color: #fff;
+  padding: 1rem;
+  margin: 1rem;
+  -webkit-box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.09);
+  box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.09);
+}
+
+.cv-item-inner {
+  display: inline-block;
+}
+
+.cv-item-education .cv-item-inner p:first-child {
+  font-size: 1rem;
+}
+
+.cv-item-education .cv-item-inner p:not(first-child) {
+  font-size: 0.85rem;
+}
+
