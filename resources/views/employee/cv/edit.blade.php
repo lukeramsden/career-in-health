@@ -14,10 +14,15 @@
     
     @verbatim
         <script type="text/x-template" id="template__cv_builder">
-            <div>
-                <template v-for="(schema, index) in schemas">
-                    <cv-section :schema="schema" :model="model[schema.name]"></cv-section>
-                </template>
+            <div class="row">
+                <div class="col-sm-7">
+                    <template v-for="(schema, index) in schemas">
+                        <cv-section :schema="schema" :model="model[schema.name]"></cv-section>
+                    </template>
+                </div>
+                <div class="col-sm-5">
+                
+                </div>
             </div>
         </script>
         
@@ -43,31 +48,40 @@
             <div class="cv-item">
                 <template v-if="model.editing">
                     <form @submit.prevent="model.editing = !model.editing">
-                        <div class="form-group">
-                            <label for="inputDegree">Degree</label>
-                            <input v-model="model.degree" type="text" id="inputDegree" class="form-control" aria-describedby="degreeHelpBlock" required>
-                            <small id="degreeHelpBlock" class="form-text text-muted">e.g. Diploma, Bachelor's, PhD.</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inputSchoolName">College or University</label>
-                            <input v-model="model.school_name" type="text" id="inputSchoolName" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="inputFieldOfStudy">Field Of Study</label>
-                            <input v-model="model.field_of_study" type="text" id="inputFieldOfStudy" class="form-control" aria-describedby="fieldOfStudyHelpBlock" required>
-                            <small id="fieldOfStudyHelpBlock" class="form-text text-muted">e.g. Biology, Computer Science, Intellectual Property, Nursing, Psychology.</small>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="inputLocation">City</label>
-                            <input v-model="model.location" type="text" id="inputLocation" class="form-control" aria-describedby="locationHelpBlock" required>
-                            <small id="locationHelpBlock" class="form-text text-muted">e.g. London, Manchester, Birmingham.</small>
-                        </div>
+                        <template v-for="(field, index) in schema.fields">
+                            <div class="form-group">
+                                <template v-if="_.get(field, 'type') === 'input'">
+                                    <template v-if="_.get(field, 'label')">
+                                        <label
+                                        :for="fieldId(field)">
+                                            {{ field.label }}
+                                        </label>
+                                    </template>
+                                    <template v-if="_.get(field, 'inputType') === 'text'">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            v-model="model[field.model]"
+                                            :id="fieldId(field)"
+                                            :aria-describedby="fieldId(field) + 'HelpBlock'"
+                                            :required="field.required">
+                                    </template>
+                                    <template v-if="_.get(field, 'helpText')">
+                                        <small
+                                            class="form-text text-muted"
+                                            :id="fieldId(field) + 'HelpBlock'">
+                                            {{ field.helpText }}
+                                        </small>
+                                    </template>
+                                </template>
+                                <template v-else-if="_.get(field, 'type') === 'month-year'">
+                                
+                                </template>
+                            </div>
+                        </template>
                     
                         <button type="submit" class="btn btn-action w-25">Save</button>
-                        <button type="button" class="btn btn-link" @click="model.editing = !model.editing">Cancel</button>
+                        <button type="button" class="btn btn-link" @click="toggledEdit">Cancel</button>
                     </form>
                 </template>
                 <template v-else>
@@ -88,6 +102,7 @@
     {{-- development version, includes helpful console warnings --}}
     <script src="//cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
     
     <script>
         Vue.component('cv-builder', {
@@ -111,9 +126,27 @@
             methods: {
                 formatMonthYear (start) {
                     return start ?
-                          moment().year(this.item.start_year).month(this.item.start_month).date(1).format('MMMM YYYY')
-                        : moment().year(this.item.end_year).month(this.item.end_month).date(1).format('MMMM YYYY');
+                          moment().year(this.model.start_year).month(this.model.start_month).date(1).format('MMMM YYYY')
+                        : moment().year(this.model.end_year).month(this.model.end_month).date(1).format('MMMM YYYY');
                 },
+                toggledEdit () {
+                    // invert editing
+                    this.model.editing = !this.model.editing;
+                    
+                    // all model keys from schema
+                    let fields = _.map(this.schema.fields, 'model');
+                    // all fields that are required
+                    let requiredFields = _.filter(this.schema.fields, ['required', true]);
+                    // get model with only fields that are in schema
+                    // this mean we can store metadata for the form in the model
+                    let model = _.pick(this.model, fields);
+                    
+                    // if less keys in model than required fields
+                    // delete item
+                    if(_.keys(model).length < requiredFields.length)
+                        this.$emit('delete-cv-item', this.index);
+                },
+                fieldId: field => _.camelCase('input_' + field.model),
             },
         });
         
@@ -180,6 +213,12 @@
             },
             schemas: schemas,
         }
+        
+        Vue.mixin({
+            methods: {
+                capitalizeFirstLetter: str => str.charAt(0).toUpperCase() + str.slice(1),
+            }
+        })
         
         const app = new Vue({
             el: '#app',
