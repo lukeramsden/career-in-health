@@ -19,7 +19,7 @@ class CreateCvWorkExperienceTable extends Migration
             $table->foreign('cv_id')->references('id')->on('cv');
             $table->string('job_title');
             $table->string('company_name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('location');
             $table->date('start_date');
             $table->date('end_date')->nullable();

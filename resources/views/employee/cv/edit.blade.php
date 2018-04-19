@@ -63,15 +63,28 @@
                                             class="form-control"
                                             v-model="model[field.model]"
                                             :id="fieldId(field)"
+                                            :name="field.model"
                                             :aria-describedby="fieldId(field) + 'HelpBlock'"
                                             :required="field.required">
+                                
+                                        <template v-if="_.get(field, 'helpText')">
+                                            <small
+                                                class="form-text text-muted"
+                                                :id="fieldId(field) + 'HelpBlock'">
+                                                {{ field.helpText }}
+                                            </small>
+                                        </template>
                                     </template>
-                                    <template v-if="_.get(field, 'helpText')">
-                                        <small
-                                            class="form-text text-muted"
-                                            :id="fieldId(field) + 'HelpBlock'">
-                                            {{ field.helpText }}
-                                        </small>
+                                    <template v-else-if="_.get(field, 'inputType') === 'area'">
+                                        <textarea
+                                            class="form-control"
+                                            cols="30"
+                                            rows="10"
+                                            :id="fieldId(field)"
+                                            :name="field.model"
+                                            :maxlength="field.max"
+                                            :placeholder="_.get(field, 'helpText')"
+                                            :required="field.required">{{ model[field.model] }}</textarea>
                                     </template>
                                 </template>
                                 <template v-else-if="_.get(field, 'type') === 'month-year'">
@@ -124,11 +137,6 @@
             template: '#template__cv_item',
             props: ['schema', 'model', 'index'],
             methods: {
-                formatMonthYear (start) {
-                    return start ?
-                          moment().year(this.model.start_year).month(this.model.start_month).date(1).format('MMMM YYYY')
-                        : moment().year(this.model.end_year).month(this.model.end_month).date(1).format('MMMM YYYY');
-                },
                 toggledEdit () {
                     // invert editing
                     this.model.editing = !this.model.editing;
@@ -197,6 +205,54 @@
                     },
                 ],
             },
+            {
+                name: 'work_experience',
+                label: 'Work Experience',
+                fields: [
+                    {
+                        type: 'input',
+                        inputType: 'text',
+                        label: 'Job Title',
+                        model: 'job_title',
+                        helpText: 'e.g. Manager, Senior Nurse, Midwife.',
+                        required: true,
+                    },
+                    {
+                        type: 'input',
+                        inputType: 'text',
+                        label: 'Company Name',
+                        model: 'company_name',
+                        helpText: 'Name of the company where you worked.',
+                        required: true,
+                    },
+                    {
+                        type: 'input',
+                        inputType: 'area',
+                        max: 500,
+                        label: 'Description',
+                        model: 'description',
+                        helpText: 'A small description of your time there, and your role in the business.',
+                        required: false,
+                    },
+                    {
+                        type: 'input',
+                        inputType: 'text',
+                        label: 'City',
+                        model: 'location',
+                        helpText: 'e.g. London, Manchester, Birmingham.',
+                        required: true,
+                    },
+                    {
+                        type: 'month-year',
+                        model: 'start_date',
+                        required: true,
+                    },
+                    {
+                        type: 'month-year',
+                        model: 'end_date',
+                    },
+                ],
+            },
         ]
         
         let data = {
@@ -209,7 +265,8 @@
                         school_name: 'MIT',
                         location: 'Boston, MA, USA',
                     }
-                ]
+                ],
+                work_experience: [],
             },
             schemas: schemas,
         }

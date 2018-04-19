@@ -28,7 +28,7 @@ class CvWorkExperienceController extends Controller
         return [
             'job_title' => 'required|string|max:150',
             'company_name' => 'required|string|max:150',
-            'description' => 'required|string|max:500',
+            'description' => 'nullable|string|max:500',
             'location' => 'required|string|max:150',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date'
