@@ -5,6 +5,8 @@
     </div>
 @endsection
 @section('stylesheet')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+    
     <style>
 
     </style>
@@ -32,7 +34,7 @@
                     <div class="row align-content-center">
                         <div class="col-12">
                             <h4 class="d-inline-block">{{ schema.label }}</h4>
-                            <button @click="model.push({editing:true})" class="btn btn-link float-right"><span class="oi oi-plus"></span></button>
+                            <button @click="add" class="btn btn-link float-right"><span class="oi oi-plus"></span></button>
                         </div>
                         <div class="col-12">
                             <template v-for="(model, index) in model">
@@ -48,9 +50,9 @@
             <div class="cv-item">
                 <template v-if="model.editing">
                     <form @submit.prevent="model.editing = !model.editing">
-                        <template v-for="(field, index) in schema.fields">
-                            <div class="form-group">
-                                <template v-if="_.get(field, 'type') === 'input'">
+                        <div v-for="(field, index) in schema.fields" :key="fieldId(field)">
+                            <template v-if="_.get(field, 'type') === 'input'">
+                                <div class="form-group">
                                     <template v-if="_.get(field, 'label')">
                                         <label
                                         :for="fieldId(field)">
@@ -59,39 +61,42 @@
                                     </template>
                                     <template v-if="_.get(field, 'inputType') === 'text'">
                                         <input
-                                            type="text"
-                                            class="form-control"
-                                            v-model="model[field.model]"
-                                            :id="fieldId(field)"
-                                            :name="field.model"
-                                            :aria-describedby="fieldId(field) + 'HelpBlock'"
-                                            :required="field.required">
+                                        type="text"
+                                        class="form-control"
+                                        v-model="model[field.model]"
+                                        :id="fieldId(field)"
+                                        :name="field.model"
+                                        :aria-describedby="fieldId(field) + 'HelpBlock'"
+                                        :required="field.required">
                                 
                                         <template v-if="_.get(field, 'helpText')">
                                             <small
-                                                class="form-text text-muted"
-                                                :id="fieldId(field) + 'HelpBlock'">
+                                            class="form-text text-muted"
+                                            :id="fieldId(field) + 'HelpBlock'">
                                                 {{ field.helpText }}
                                             </small>
                                         </template>
                                     </template>
                                     <template v-else-if="_.get(field, 'inputType') === 'area'">
                                         <textarea
-                                            class="form-control"
-                                            cols="30"
-                                            rows="10"
-                                            :id="fieldId(field)"
-                                            :name="field.model"
-                                            :maxlength="field.max"
-                                            :placeholder="_.get(field, 'helpText')"
-                                            :required="field.required">{{ model[field.model] }}</textarea>
+                                        class="form-control"
+                                        cols="30"
+                                        rows="10"
+                                        :id="fieldId(field)"
+                                        :name="field.model"
+                                        :maxlength="field.max"
+                                        :placeholder="_.get(field, 'helpText')"
+                                        :required="field.required">{{ model[field.model] }}</textarea>
                                     </template>
-                                </template>
-                                <template v-else-if="_.get(field, 'type') === 'month-year'">
-                                
-                                </template>
-                            </div>
-                        </template>
+                                </div>
+                            </template>
+                            <template v-else-if="_.get(field, 'type') === 'month-year'">
+                                <date-picker
+                                :id="fieldId(field)"
+                                @update-date="updateDate"
+                                v-once></date-picker>
+                            </template>
+                        </div>
                     
                         <button type="submit" class="btn btn-action w-25">Save</button>
                         <button type="button" class="btn btn-link" @click="toggledEdit">Cancel</button>
@@ -113,9 +118,10 @@
     @endverbatim
     
     {{-- development version, includes helpful console warnings --}}
-    <script src="//cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
     
     <script>
         Vue.component('cv-builder', {
@@ -129,7 +135,10 @@
             methods: {
                 del (i) {
                     this.model.splice(i, 1);
-                }
+                },
+                add () {
+                    this.model.push({editing: true});
+                },
             },
         });
         
@@ -155,8 +164,32 @@
                         this.$emit('delete-cv-item', this.index);
                 },
                 fieldId: field => _.camelCase('input_' + field.model),
+                updateDate (date) {
+                    console.log(arguments);
+                    console.log(this);
+                    console.log(date);
+                }
             },
         });
+        
+        Vue.component('date-picker', {
+            template: '<div></div>',
+            props: [],
+            mounted: function() {
+                var self = this;
+                $(this.$el).datepicker({
+                    format: "MM yyyy",
+                    minViewMode: 1,
+                    maxViewMode: 2,
+                }).on('changeDate', function(e) {
+                    self.$emit('update-date', e.date);
+                });
+            },
+            beforeDestroy: function() {
+                $(this.$el).datepicker('hide').datepicker('destroy');
+            },
+        });
+        
         
         const schemas = [
             {
@@ -198,6 +231,7 @@
                         type: 'month-year',
                         model: 'start_date',
                         required: true,
+                        inline: true,
                     },
                     {
                         type: 'month-year',
@@ -246,6 +280,7 @@
                         type: 'month-year',
                         model: 'start_date',
                         required: true,
+                        inline: true,
                     },
                     {
                         type: 'month-year',
