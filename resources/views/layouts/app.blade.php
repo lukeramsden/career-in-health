@@ -35,28 +35,30 @@
                         
                         <small class="text-muted">Profile</small>
                         
-                        <a class="nav-link {{ active_route('profile.show.me') }}" href="{{ route('profile.show.me') }}">My Profile</a>
+                        <a class="nav-link {{ active_route('profile.show.me') }}" href="{{ route('profile.show.me') }}">View Profile</a>
+                        <a class="nav-link {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Profile</a>
+                        <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
                        
                         
-                        <div class="nav-section-parent">
-                            @php($activeRoute = active_route([
-                                                                'profile.edit',
-                                                                'profile.work-experience.*',
-                                                                'profile.references.*',
-                                                                'profile.certifications.*'
-                                                            ]))
-                            <div class="nav-section {{ $activeRoute }}">
-                                <a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Edit Profile</a>
-                                <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
-                                    <a class="nav-link nav-link-sub {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Personal Details</a>
-                                    <a class="nav-link nav-link-sub {{ active_route('profile.work-experience.*') }}" href="{{ route('profile.work-experience.edit') }}">Edit Work Experience</a>
-                                    <a class="nav-link nav-link-sub {{ active_route('profile.references.*') }}" href="{{ route('profile.references.edit') }}">Edit References</a>
-                                    <a class="nav-link nav-link-sub {{ active_route('profile.certifications.*') }}" href="{{ route('profile.certifications.edit') }}">Edit Certifications</a>
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="nav-section-parent">--}}
+                            {{--@php($activeRoute = active_route([--}}
+                                                                {{--'profile.edit',--}}
+                                                                {{--'profile.work-experience.*',--}}
+                                                                {{--'profile.references.*',--}}
+                                                                {{--'profile.certifications.*'--}}
+                                                            {{--]))--}}
+                            {{--<div class="nav-section {{ $activeRoute }}">--}}
+                                {{--<a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Edit Profile</a>--}}
+                                {{--<div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>--}}
+                                    {{--<a class="nav-link nav-link-sub {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Personal Details</a>--}}
+                                    {{--<a class="nav-link nav-link-sub {{ active_route('profile.work-experience.*') }}" href="{{ route('profile.work-experience.edit') }}">Edit Work Experience</a>--}}
+                                    {{--<a class="nav-link nav-link-sub {{ active_route('profile.references.*') }}" href="{{ route('profile.references.edit') }}">Edit References</a>--}}
+                                    {{--<a class="nav-link nav-link-sub {{ active_route('profile.certifications.*') }}" href="{{ route('profile.certifications.edit') }}">Edit Certifications</a>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
-                        <a class="nav-link {{ active_route('cv-builder.*') }}" href="{{ route('cv-builder.profile') }}">CV Builder</a>
+                        {{--<a class="nav-link {{ active_route('cv-builder.*') }}" href="{{ route('cv-builder.profile') }}">CV Builder</a>--}}
                         
                         {{----}}
                         

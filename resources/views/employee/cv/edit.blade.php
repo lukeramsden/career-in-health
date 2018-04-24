@@ -114,7 +114,7 @@
                             </template>
                         </div>
                     
-                        <button type="submit" class="btn btn-action w-25">Save</button>
+                        <button type="button" class="btn btn-action w-25" @click="save">Save</button>
                         <button type="button" class="btn btn-link" @click="cancel">Cancel</button>
                     </form>
                 </template>
@@ -134,7 +134,7 @@
                         <!-- WORK EXPERIENCE -->
                     </div>
                     <button class="btn btn-link btn-sm float-right" @click="$emit('delete-cv-item', index)"><span class="oi oi-delete"></span></button>
-                    <button class="btn btn-link btn-sm float-right" @click="model.editing = !model.editing"><span class="oi oi-pencil"></span></button>
+                    <button class="btn btn-link btn-sm float-right" @click="edit"><span class="oi oi-pencil"></span></button>
                 </template>
             </div>
         </script>
@@ -145,7 +145,7 @@
                     <div></div>
                 </template>
                 <template v-else>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" :required="_.get(schema, 'required')">
                 </template>
                 <template v-if="_.get(schema, 'label')">
                     <small class="form-text text-muted">{{ schema.label }}</small>
@@ -183,6 +183,11 @@
             template: '#template__cv_item',
             props: ['schema', 'model', 'index'],
             methods: {
+                //
+                save () {
+                    console.log('save')
+                },
+                //
                 cancel () {
                     // invert editing
                     this.model.editing = !this.model.editing;
@@ -200,12 +205,13 @@
                     if(_.keys(model).length < requiredFields.length)
                         this.$emit('delete-cv-item', this.index);
                 },
+                //
+                edit () { this.$set(this.model, 'editing', true) },
                 // turn field model in to pretty Id
                 fieldId: field => _.camelCase('input_' + field.model),
                 // event ($emit) handler for datepicker value changing
-                updateDate (date, model) {
-                    this.model[model] = date
-                },
+                updateDate (date, model) { this.$set(this.model, model, date) },
+                // pretty-print date with momentjs
                 formatDate: (date, format) => moment(date).format(format),
             },
         });
@@ -270,8 +276,9 @@
                                 model: 'start_date',
                                 label: 'Start Date',
                                 required: true,
-                                inline: true,
+                                inline: false,
                                 options: {
+                                    format: 'MM yyyy',
                                     minViewMode: 1,
                                     maxViewMode: 2,
                                 },
@@ -279,8 +286,9 @@
                             {
                                 model: 'end_date',
                                 label: 'End Date (leave empty if you are still here TODO:placeholder)',
-                                inline: true,
+                                inline: false,
                                 options: {
+                                    format: 'MM yyyy',
                                     minViewMode: 1,
                                     maxViewMode: 2,
                                     clearBtn: true,
@@ -335,7 +343,6 @@
             model: {
                 education: [
                     {
-                        editing: false,
                         degree: 'PhD',
                         field_of_study: 'Computer Science',
                         school_name: 'MIT',

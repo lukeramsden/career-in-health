@@ -16,7 +16,7 @@ class CreateCvEducationTable extends Migration
         Schema::create('cv_education', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('cv_id')->unsigned();
-            $table->foreign('cv_id')->references('id')->on('cv');
+            $table->foreign('cv_id')->references('id')->on('cvs');
             $table->string('degree');
             $table->string('school_name');
             $table->string('field_of_study');
