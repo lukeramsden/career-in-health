@@ -71,7 +71,11 @@ if (env('APP_ENV') == 'local')
             'store', 'update', 'destroy'
         ]]);
 
-        Route::view('/', 'employee.cv.edit')->name('builder');
+//        dd(Auth::user());
+
+        Route::view('/', 'employee.cv.edit')
+            ->middleware(['auth', 'only.employee'])
+            ->name('builder');
     });
 
     Route::prefix('company')

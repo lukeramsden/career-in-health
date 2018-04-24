@@ -185,13 +185,32 @@
             methods: {
                 //
                 save () {
-                    console.log('save')
+                    let modelId = _.get(this, 'model.id', null);
+                    const isExisting = !!modelId;
+                    if(isExisting) {
+                        const fields = _
+                            .chain(this.schema.fields)
+                            .flatMap('models')
+                            .concat(this.schema.fields)
+                            .flatMap('model')
+                            .compact()
+                            .value();
+                        
+                        const data = _.pick(this.model, fields);
+                        
+                        axios.put(_.get(this, 'schema.url') + '/' + modelId, data)
+                            .then(function (response) {
+                                console.log(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    } else {
+                    
+                    }
                 },
                 //
                 cancel () {
-                    // invert editing
-                    this.model.editing = !this.model.editing;
-                    
                     // all model keys from schema
                     let fields = _.map(this.schema.fields, 'model');
                     // all fields that are required
@@ -204,6 +223,9 @@
                     // delete item
                     if(_.keys(model).length < requiredFields.length)
                         this.$emit('delete-cv-item', this.index);
+                    
+                    // invert editing
+                    this.$set(this.model, 'editing', false);
                 },
                 //
                 edit () { this.$set(this.model, 'editing', true) },
@@ -236,6 +258,7 @@
             {
                 name: 'education',
                 label: 'Education',
+                url: '{{ route('cv.education.store') }}',
                 fields: [
                     {
                         type: 'input',
@@ -341,25 +364,11 @@
         
         let data = {
             model: {
-                education: [
-                    {
-                        degree: 'PhD',
-                        field_of_study: 'Computer Science',
-                        school_name: 'MIT',
-                        location: 'Boston, MA, USA',
-                        start_date: new Date(2014, 9),
-                    }
-                ],
+                education: {!! Auth::user()->cv->education->toJson() !!},
                 work_experience: [],
             },
             schemas: schemas,
         }
-        
-        Vue.mixin({
-            methods: {
-                capitalizeFirstLetter: str => str.charAt(0).toUpperCase() + str.slice(1),
-            }
-        })
         
         const app = new Vue({
             el: '#app',
