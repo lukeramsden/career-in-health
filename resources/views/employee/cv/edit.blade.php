@@ -29,7 +29,7 @@
         </script>
         
         <script type="text/x-template" id="template__cv_section">
-            <div class="card card-custom">
+            <div class="card card-custom mb-3">
                 <div class="card-body">
                     <div class="row align-content-center">
                         <div class="col-12">
@@ -90,16 +90,32 @@
                                     </template>
                                 </div>
                             </template>
-                            <template v-else-if="_.get(field, 'type') === 'month-year'">
-                                <date-picker
-                                :id="fieldId(field)"
-                                @update-date="updateDate"
-                                v-once></date-picker>
+                            <template v-else-if="_.get(field, 'type') === 'datePicker'">
+                                <template v-if="_.get(field, 'multiple')">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col" v-for="(field, index) in field.models" :key="fieldId(field)">
+                                                <date-picker
+                                                :id="fieldId(field)"
+                                                :schema="field"
+                                                @update-date="updateDate"
+                                                v-once></date-picker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template v-else>
+                                    <date-picker
+                                    :id="fieldId(field)"
+                                    :schema="field"
+                                    @update-date="updateDate"
+                                    v-once></date-picker>
+                                </template>
                             </template>
                         </div>
                     
                         <button type="submit" class="btn btn-action w-25">Save</button>
-                        <button type="button" class="btn btn-link" @click="toggledEdit">Cancel</button>
+                        <button type="button" class="btn btn-link" @click="cancel">Cancel</button>
                     </form>
                 </template>
                 <template v-else>
@@ -108,10 +124,31 @@
                         <template v-if="schema.name === 'education'">
                             <p class="my-1">{{ model.degree }} in {{ model.field_of_study }}</p>
                             <p class="my-1">{{ model.school_name }} - {{ model.location }}</p>
+                            <template v-if="_.isDate(model.end_date)">
+                                <p class="my-1">{{ formatDate(model.start_date, 'MMMM YYYY') }} to {{ formatDate(model.end_date, 'MMMM YYYY') }}</p>
+                            </template>
+                            <template v-else>
+                                <p class="my-1">Started {{ formatDate(model.start_date, 'MMMM YYYY') }}</p>
+                            </template>
                         </template>
+                        <!-- WORK EXPERIENCE -->
                     </div>
                     <button class="btn btn-link btn-sm float-right" @click="$emit('delete-cv-item', index)"><span class="oi oi-delete"></span></button>
                     <button class="btn btn-link btn-sm float-right" @click="model.editing = !model.editing"><span class="oi oi-pencil"></span></button>
+                </template>
+            </div>
+        </script>
+        
+        <script type="text/x-template" id="template__date-picker">
+            <div>
+                <template v-if="_.get(schema, 'inline')">
+                    <div></div>
+                </template>
+                <template v-else>
+                    <input type="text" class="form-control">
+                </template>
+                <template v-if="_.get(schema, 'label')">
+                    <small class="form-text text-muted">{{ schema.label }}</small>
                 </template>
             </div>
         </script>
@@ -146,7 +183,7 @@
             template: '#template__cv_item',
             props: ['schema', 'model', 'index'],
             methods: {
-                toggledEdit () {
+                cancel () {
                     // invert editing
                     this.model.editing = !this.model.editing;
                     
@@ -163,33 +200,31 @@
                     if(_.keys(model).length < requiredFields.length)
                         this.$emit('delete-cv-item', this.index);
                 },
+                // turn field model in to pretty Id
                 fieldId: field => _.camelCase('input_' + field.model),
-                updateDate (date) {
-                    console.log(arguments);
-                    console.log(this);
-                    console.log(date);
-                }
+                // event ($emit) handler for datepicker value changing
+                updateDate (date, model) {
+                    this.model[model] = date
+                },
+                formatDate: (date, format) => moment(date).format(format),
             },
         });
         
         Vue.component('date-picker', {
-            template: '<div></div>',
-            props: [],
+            template: '#template__date-picker',
+            props: ['schema'],
             mounted: function() {
                 var self = this;
-                $(this.$el).datepicker({
-                    format: "MM yyyy",
-                    minViewMode: 1,
-                    maxViewMode: 2,
-                }).on('changeDate', function(e) {
-                    self.$emit('update-date', e.date);
-                });
+                let name = _.get(self, 'schema.model');
+                $(self.$el.children[0])
+                    .datepicker(_.get(self, 'schema.options', {}))
+                    .datepicker('setDate', self.$parent.model[name])
+                    .on('changeDate', (e) => {
+                        self.$emit('update-date', e.date, name);
+                    });
             },
-            beforeDestroy: function() {
-                $(this.$el).datepicker('hide').datepicker('destroy');
-            },
+            beforeDestroy: () => $(this.$el).datepicker('hide').datepicker('destroy'),
         });
-        
         
         const schemas = [
             {
@@ -228,18 +263,34 @@
                         required: true,
                     },
                     {
-                        type: 'month-year',
-                        model: 'start_date',
-                        required: true,
-                        inline: true,
-                    },
-                    {
-                        type: 'month-year',
-                        model: 'end_date',
+                        type: 'datePicker',
+                        multiple: true,
+                        models: [
+                            {
+                                model: 'start_date',
+                                label: 'Start Date',
+                                required: true,
+                                inline: true,
+                                options: {
+                                    minViewMode: 1,
+                                    maxViewMode: 2,
+                                },
+                            },
+                            {
+                                model: 'end_date',
+                                label: 'End Date (leave empty if you are still here TODO:placeholder)',
+                                inline: true,
+                                options: {
+                                    minViewMode: 1,
+                                    maxViewMode: 2,
+                                    clearBtn: true,
+                                },
+                            },
+                        ],
                     },
                 ],
             },
-            {
+            /*{
                 name: 'work_experience',
                 label: 'Work Experience',
                 fields: [
@@ -276,18 +327,8 @@
                         helpText: 'e.g. London, Manchester, Birmingham.',
                         required: true,
                     },
-                    {
-                        type: 'month-year',
-                        model: 'start_date',
-                        required: true,
-                        inline: true,
-                    },
-                    {
-                        type: 'month-year',
-                        model: 'end_date',
-                    },
                 ],
-            },
+            },*/
         ]
         
         let data = {
@@ -299,6 +340,7 @@
                         field_of_study: 'Computer Science',
                         school_name: 'MIT',
                         location: 'Boston, MA, USA',
+                        start_date: new Date(2014, 9),
                     }
                 ],
                 work_experience: [],
