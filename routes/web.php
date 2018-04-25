@@ -71,7 +71,11 @@ if (env('APP_ENV') == 'local')
             'store', 'update', 'destroy'
         ]]);
 
-//        dd(Auth::user());
+        Route::resource('workExperience', 'Cv\CvWorkExperienceController', ['only' => [
+            'store', 'update', 'destroy'
+        ]]);
+
+        Route::put('preferences', 'Cv\CvPreferencesController@update')->name('preferences.update');
 
         Route::view('/', 'employee.cv.edit')
             ->middleware(['auth', 'only.employee'])

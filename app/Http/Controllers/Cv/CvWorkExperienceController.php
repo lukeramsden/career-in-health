@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cv;
 use App\Cv\CvWorkExperience;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CvWorkExperienceController extends Controller
 {
@@ -45,13 +46,14 @@ class CvWorkExperienceController extends Controller
     {
         $data = $request->validate(self::getValidationRules($request));
 
-        $cvEducation = new CvWorkExperience();
-        $cvEducation->fill($data);
-        $cvEducation->save();
+        $workExperience = new CvWorkExperience();
+        $workExperience->cv_id = Auth::user()->cv->id;
+        $workExperience->fill($data);
+        $workExperience->save();
 
         if($request->ajax())
         {
-            return response()->json(['success' => true], 200);
+            return response()->json(['success' => true, 'model' => $workExperience], 200);
         }
 
         toast()->success('Created');
@@ -62,19 +64,22 @@ class CvWorkExperienceController extends Controller
      * Update model
      *
      * @param Request $request
-     * @param CvWorkExperience $cvWorkExperience
+     * @param CvWorkExperience $workExperience
      * @return mixed
      */
-    public function update(Request $request, CvWorkExperience $cvWorkExperience)
+    public function update(Request $request, CvWorkExperience $workExperience)
     {
         $data = $request->validate(self::getValidationRules($request));
 
-        $cvWorkExperience->fill($data);
-        $cvWorkExperience->save();
+        if(!isset($data['end_date']))
+            $data['end_date'] = null;
+
+        $workExperience->fill($data);
+        $workExperience->save();
 
         if(ajax())
         {
-            return response()->json(['success' => true], 200);
+            return response()->json(['success' => true, 'model' => $workExperience], 200);
         }
 
         toast()->success('Updated');
@@ -84,17 +89,17 @@ class CvWorkExperienceController extends Controller
     /**
      * Delete model
      *
-     * @param CvWorkExperience $cvWorkExperience
+     * @param CvWorkExperience $workExperience
      * @return mixed
      * @throws \Exception
      */
-    public function destroy(CvWorkExperience $cvWorkExperience)
+    public function destroy(CvWorkExperience $workExperience)
     {
-        $cvWorkExperience->delete();
+        $workExperience->delete();
 
         if(ajax())
         {
-            return response()->json(['success' => true], 204);
+            return response()->json(['success' => true], 200);
         }
 
         toast()->success('Deleted');

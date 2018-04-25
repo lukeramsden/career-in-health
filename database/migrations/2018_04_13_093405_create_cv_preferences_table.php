@@ -18,8 +18,9 @@ class CreateCvPreferencesTable extends Migration
             $table->integer('job_type_id')->nullable();
             $table->integer('setting')->nullable();
             $table->integer('type')->nullable();
-            $table->integer('salary')->nullable();
-            $table->boolean('willing_to_relocate');
+            $table->double('salary_number')->nullable();
+            $table->integer('salary_type')->nullable();
+            $table->boolean('willing_to_relocate')->nullable();
             $table->timestamps();
         });
     }

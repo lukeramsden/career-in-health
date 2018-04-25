@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <cv-builder :schemas="schemas" :model="model"></cv-builder>
+        <cv-builder class="mt-5" :schemas="schemas" :model="model"></cv-builder>
     </div>
 @endsection
 @section('script')
@@ -12,7 +12,8 @@
             <div class="row">
                 <div class="col-sm-7">
                     <template v-for="(schema, index) in schemas">
-                        <cv-section :schema="schema" :model="model[schema.name]"></cv-section>
+                        <cv-section-multiple v-if="schema.multiple" :schema="schema" :model="model[schema.name]"></cv-section-multiple>
+                        <cv-section-single v-else :schema="schema" :model="model[schema.name]"></cv-section-single>
                     </template>
                 </div>
                 <div class="col-sm-5">
@@ -20,18 +21,35 @@
                 </div>
             </div>
         </script>
-        
-        <script type="text/x-template" id="template__cv_section">
+
+        <script type="text/x-template" id="template__cv_section_single">
             <div class="card card-custom mb-3">
                 <div class="card-body">
                     <div class="row align-content-center">
                         <div class="col-12">
                             <h4 class="d-inline-block">{{ schema.label }}</h4>
+                            <p v-if="schema.sublabel" class="d-inline-block text-muted" style="font-size: 14px;">{{ schema.sublabel }}</p>
+                        </div>
+                        <div class="col-12">
+                            <cv-item :multiple="false" :model="model" :schema="schema"></cv-item>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+        
+        <script type="text/x-template" id="template__cv_section_multiple">
+            <div class="card card-custom mb-3">
+                <div class="card-body">
+                    <div class="row align-content-center">
+                        <div class="col-12">
+                            <h4 class="d-inline-block">{{ schema.label }}</h4>
+                            <p v-if="schema.sublabel" class="d-inline-block text-muted" style="font-size: 14px;">{{ schema.sublabel }}</p>
                             <button @click="add" class="btn btn-link float-right"><span class="oi oi-plus"></span></button>
                         </div>
                         <div class="col-12">
                             <template v-for="(model, index) in model">
-                                <cv-item :model="model" :schema="schema" :index="index" v-on:delete-cv-item="del"></cv-item>
+                                <cv-item :multiple="true" :model="model" :schema="schema" :index="index" v-on:delete-cv-item="del"></cv-item>
                             </template>
                         </div>
                     </div>
@@ -76,6 +94,7 @@
                                         class="form-control"
                                         cols="30"
                                         rows="10"
+                                        v-model="model[field.model]"
                                         :id="fieldId(field)"
                                         :name="field.model"
                                         :maxlength="field.max"
@@ -106,6 +125,24 @@
                                     v-once></date-picker>
                                 </template>
                             </template>
+                            <template v-else-if="_.get(field, 'type') === 'checkbox'">
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        :id="fieldId(field)"
+                                        :name="field.model"
+                                        v-model="model[field.model]">
+                                        <label
+                                        class="form-check-label"
+                                        v-if="_.get(field, 'label')"
+                                        :for="fieldId(field)">
+                                          {{ field.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </template>
                         </div>
                     
                         <button :type="loading ? 'button' : 'submit'" class="btn btn-action w-25">
@@ -117,6 +154,13 @@
                 </template>
                 <template v-else>
                     <div class="cv-item-inner">
+                        <!-- PREFERENCES -->
+                        <template v-if="schema.name === 'preferences'">
+                            <p class="my-1">
+                                <template v-if="model.willing_to_relocate">Willing to relocate</template>
+                                <template v-else>Not willing to relocate</template>
+                            </p>
+                        </template>
                         <!-- EDUCATION -->
                         <template v-if="schema.name === 'education'">
                             <p class="my-1">{{ model.degree }} in {{ model.field_of_study }}</p>
@@ -129,8 +173,19 @@
                             </template>
                         </template>
                         <!-- WORK EXPERIENCE -->
+                        <template v-if="schema.name === 'work_experience'">
+                            <p class="my-1">{{ model.job_title }} at {{ model.company_name }}</p>
+                            <p class="my-1">{{ model.location }}</p>
+                            <template v-if="validDate(model.end_date)">
+                                <p class="my-1">{{ formatDate(model.start_date, 'MMMM YYYY') }} to {{ formatDate(model.end_date, 'MMMM YYYY') }}</p>
+                            </template>
+                            <template v-else>
+                                <p class="my-1">Started {{ formatDate(model.start_date, 'MMMM YYYY') }}</p>
+                            </template>
+                            <p v-if="model.description" class="my-1">{{ model.description | truncate(50) }}</p>
+                        </template>
                     </div>
-                    <button class="btn btn-link btn-sm float-right" @click="$emit('delete-cv-item', index)"><span class="oi oi-delete"></span></button>
+                    <button v-if="multiple" class="btn btn-link btn-sm float-right" @click="$emit('delete-cv-item', index)"><span class="oi oi-delete"></span></button>
                     <button class="btn btn-link btn-sm float-right" @click="edit"><span class="oi oi-pencil"></span></button>
                 </template>
             </div>
@@ -163,8 +218,13 @@
             props: ['schemas', 'model'],
         });
         
-        Vue.component('cv-section', {
-            template: '#template__cv_section',
+        Vue.component('cv-section-single', {
+            template: '#template__cv_section_single',
+            props: ['schema', 'model'],
+        })
+        
+        Vue.component('cv-section-multiple', {
+            template: '#template__cv_section_multiple',
             props: ['schema', 'model'],
             methods: {
                 del (i) {
@@ -183,7 +243,7 @@
                             });
                     } else this.model.splice(i, 1); // deleting create form
                 },
-                add: _.debounce(function() { this.model.push({editing:true}) }, 750, { leading: true, trailing: false }),
+                add: _.debounce(function() { this.model.push({editing:true}) }, 500, { leading: true, trailing: false }),
             },
         });
         
@@ -193,7 +253,7 @@
         
         Vue.component('cv-item', {
             template: '#template__cv_item',
-            props: ['schema', 'model', 'index'],
+            props: ['schema', 'model', 'index', 'multiple'],
             data () {
                 return {
                     loading: false,
@@ -202,9 +262,6 @@
             methods: {
                 //
                 save () {
-                    // get model id
-                    let modelId = _.get(this, 'model.id', null);
-                    
                     // construct schema
                     const fields = _
                         // start chain
@@ -224,29 +281,53 @@
                     const self = this;
                     
                     self.loading =  true;
-                    if(!!modelId) { // updating existing
-                        console.log('Updating model ' + modelId);
-                        axios.put(_.get(this, 'schema.url') + '/' + modelId, data)
+                    
+                    if(!_.get(this, 'schema.url', false)) {
+                        setTimeout(() => {
+                            self.$set(self.model, 'editing', false);
+                            self.loading =  false;
+                        }, 500);
+                        return;
+                    }
+                    
+                    if(_.get(this, 'multiple')) {
+                        // get model id
+                        let modelId = _.get(this, 'model.id', null);
+                        if(!!modelId) { // updating existing
+                            axios.put(_.get(this, 'schema.url') + '/' + modelId, data)
+                                .then((response) => {
+                                    if(response.status == 200)
+                                        self.$set(self.model, 'editing', false);
+                                
+                                    self.loading =  false;
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                    alert(error);
+                                    self.loading =  false;
+                                });
+                        } else { // creating new
+                            axios.post(_.get(this, 'schema.url'), data)
+                                .then((response) => {
+                                    if(response.status == 200) {
+                                        self.$set(self.model, 'editing', false);
+                                        self.$set(self.model, 'id', _.get(response, 'data.model.id'));
+                                    }
+                                
+                                    self.loading =  false;
+                                })
+                                .catch((error) => {
+                                    console.log(error);
+                                    alert(error);
+                                    self.loading =  false;
+                                });
+                        }
+                    } else {
+                        axios.put(_.get(this, 'schema.url'), data)
                             .then((response) => {
                                 if(response.status == 200)
                                     self.$set(self.model, 'editing', false);
-                                
-                                self.loading =  false;
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                                alert(error);
-                                self.loading =  false;
-                            });
-                    } else { // creating new
-                        console.log('Creating new model');
-                        axios.post(_.get(this, 'schema.url'), data)
-                            .then((response) => {
-                                if(response.status == 200) {
-                                    self.$set(self.model, 'editing', false);
-                                    self.$set(self.model, 'id', _.get(response, 'data.model.id'));
-                                }
-                                
+                            
                                 self.loading =  false;
                             })
                             .catch((error) => {
@@ -258,18 +339,20 @@
                 },
                 //
                 cancel () {
-                    // all model keys from schema
-                    let fields = _.map(this.schema.fields, 'model');
-                    // all fields that are required
-                    let requiredFields = _.filter(this.schema.fields, ['required', true]);
-                    // get model with only fields that are in schema
-                    // this mean we can store metadata for the form in the model
-                    let model = _.pick(this.model, fields);
-                    
-                    // if less keys in model than required fields
-                    // delete item
-                    if(_.keys(model).length < requiredFields.length)
-                        this.$emit('delete-cv-item', this.index);
+                    if(_.get(this, 'multiple')) {
+                        // all model keys from schema
+                        let fields = _.map(this.schema.fields, 'model');
+                        // all fields that are required
+                        let requiredFields = _.filter(this.schema.fields, ['required', true]);
+                        // get model with only fields that are in schema
+                        // this mean we can store metadata for the form in the model
+                        let model = _.pick(this.model, fields);
+                        
+                        // if less keys in model than required fields
+                        // delete item
+                        if(_.keys(model).length < requiredFields.length)
+                            this.$emit('delete-cv-item', this.index);
+                    }
                     
                     // invert editing
                     this.loading =  false;
@@ -327,9 +410,48 @@
         
         const schemas = [
             {
+                name: 'preferences',
+                label: 'Desired Job',
+                sublabel: 'Help us match you with your next job',
+                url: '{{ route('cv.preferences.update') }}',
+                multiple: false,
+                fields: [
+                    {
+                        type: 'dropdown',
+                        label: 'Setting',
+                        data: [
+                            @foreach(\App\Advert::$settings as $id => $setting)
+                            {
+                                name: '{{ $setting }}',
+                                value: '{{ $id }}',
+                            },
+                            @endforeach
+                        ]
+                    },
+                    {
+                        type: 'dropdown',
+                        label: 'Type',
+                        data: [
+                            @foreach(\App\Advert::$types as $id => $type)
+                            {
+                                name: '{{ $type }}',
+                                value: '{{ $id }}',
+                            },
+                            @endforeach
+                        ]
+                    },
+                    {
+                        type: 'checkbox',
+                        label: 'I am willing to relocate',
+                        model: 'willing_to_relocate',
+                    },
+                ],
+            },
+            {
                 name: 'education',
                 label: 'Education',
                 url: '{{ route('cv.education.store') }}',
+                multiple: true,
                 fields: [
                     {
                         type: 'input',
@@ -396,9 +518,11 @@
                     },
                 ],
             },
-            /*{
+            {
                 name: 'work_experience',
                 label: 'Work Experience',
+                url: '{{ route('cv.workExperience.store') }}',
+                multiple: true,
                 fields: [
                     {
                         type: 'input',
@@ -407,23 +531,25 @@
                         model: 'job_title',
                         helpText: 'e.g. Manager, Senior Nurse, Midwife.',
                         required: true,
+                        max: 150,
                     },
                     {
                         type: 'input',
                         inputType: 'text',
                         label: 'Company Name',
                         model: 'company_name',
-                        helpText: 'Name of the company where you worked.',
+                        helpText: 'Name of the company.',
                         required: true,
+                        max: 150,
                     },
                     {
                         type: 'input',
                         inputType: 'area',
-                        max: 500,
                         label: 'Description',
                         model: 'description',
-                        helpText: 'A small description of your time there, and your role in the business.',
+                        helpText: 'A small description of your time here.',
                         required: false,
+                        max: 500,
                     },
                     {
                         type: 'input',
@@ -432,18 +558,58 @@
                         model: 'location',
                         helpText: 'e.g. London, Manchester, Birmingham.',
                         required: true,
+                        max: 150,
+                    },
+                    {
+                        type: 'datePicker',
+                        multiple: true,
+                        models: [
+                            {
+                                model: 'start_date',
+                                label: 'Start Date',
+                                required: true,
+                                inline: false,
+                                options: {
+                                    format: 'MM yyyy',
+                                    minViewMode: 1,
+                                    maxViewMode: 2,
+                                },
+                            },
+                            {
+                                model: 'end_date',
+                                label: 'End Date (TODO:explain empty)',
+                                inline: false,
+                                options: {
+                                    format: 'MM yyyy',
+                                    minViewMode: 1,
+                                    maxViewMode: 2,
+                                    clearBtn: true,
+                                },
+                            },
+                        ],
                     },
                 ],
-            },*/
+            },
         ]
         
         let data = {
             model: {
-                education: {!! Auth::user()->cv->education->toJson() !!},
-                work_experience: [],
+                @php($cv = Auth::user()->cv)
+                preferences: {!! $cv->preferences->toJson() !!},
+                education: {!! $cv->education->toJson() !!},
+                work_experience: {!! $cv->workExperience->toJson() !!},
             },
             schemas: schemas,
         }
+        
+        Vue.filter('truncate', (text, length, clamp) => {
+            clamp = clamp || '...';
+            var node = document.createElement('div');
+            node.innerHTML = text;
+            var content = node.textContent;
+            return content.length > length ? content.slice(0, length) + clamp : content;
+        });
+        
         
         const app = new Vue({
             el: '#app',

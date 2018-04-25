@@ -25,6 +25,6 @@ class Cv extends Model
 
     public function preferences()
     {
-        return $this->hasOne(CvPreferences::class);
+        return $this->hasOne(CvPreferences::class, 'id', 'preferences_id');
     }
 }
