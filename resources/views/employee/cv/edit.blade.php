@@ -124,7 +124,7 @@
                         <template v-if="schema.name === 'education'">
                             <p class="my-1">{{ model.degree }} in {{ model.field_of_study }}</p>
                             <p class="my-1">{{ model.school_name }} - {{ model.location }}</p>
-                            <template v-if="_.isDate(model.end_date)">
+                            <template v-if="validDate(model.end_date)">
                                 <p class="my-1">{{ formatDate(model.start_date, 'MMMM YYYY') }} to {{ formatDate(model.end_date, 'MMMM YYYY') }}</p>
                             </template>
                             <template v-else>
@@ -171,7 +171,15 @@
             props: ['schema', 'model'],
             methods: {
                 del (i) {
-                    this.model.splice(i, 1);
+                    axios.delete(_.get(this, 'schema.url') + '/' + _.get(this, ['model', i, 'id']))
+                        .then((response) => {
+                            if(response.status == 200)
+                                this.model.splice(i, 1);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            alert(error);
+                        });
                 },
                 add () {
                     this.model.push({editing: true});
@@ -179,34 +187,61 @@
             },
         });
         
+        /*
+        * TODO: VALIDATION
+        * */
+        
         Vue.component('cv-item', {
             template: '#template__cv_item',
             props: ['schema', 'model', 'index'],
             methods: {
                 //
                 save () {
+                    // get model id
                     let modelId = _.get(this, 'model.id', null);
-                    const isExisting = !!modelId;
-                    if(isExisting) {
-                        const fields = _
-                            .chain(this.schema.fields)
-                            .flatMap('models')
-                            .concat(this.schema.fields)
-                            .flatMap('model')
-                            .compact()
-                            .value();
-                        
-                        const data = _.pick(this.model, fields);
-                        
-                        axios.put(_.get(this, 'schema.url') + '/' + modelId, data)
-                            .then(function (response) {
-                                console.log(response);
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
-                    } else {
                     
+                    // construct schema
+                    const fields = _
+                        // start chain
+                        .chain(this.schema.fields)
+                        // get array of all "models" fields
+                        .flatMap('models')
+                        // add original to prev array
+                        .concat(this.schema.fields)
+                        // get all "model" fields
+                        .flatMap('model')
+                        // end
+                        .value();
+                    
+                    // map internal model to schema
+                    const data = _.pick(this.model, fields);
+                    
+                    const self = this;
+                    
+                    if(!!modelId) { // updating existing
+                        console.log('Updating model ' + modelId);
+                        axios.put(_.get(this, 'schema.url') + '/' + modelId, data)
+                            .then((response) => {
+                                if(response.status == 200)
+                                    self.$set(self.model, 'editing', false);
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                                alert(error);
+                            });
+                    } else { // creating new
+                        console.log('Creating new model');
+                        axios.post(_.get(this, 'schema.url'), data)
+                            .then((response) => {
+                                if(response.status == 200) {
+                                    self.$set(self.model, 'editing', false);
+                                    self.$set(self.model, 'id', _.get(response, 'data.model.id'));
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                                alert(error);
+                            });
                     }
                 },
                 //
@@ -232,9 +267,14 @@
                 // turn field model in to pretty Id
                 fieldId: field => _.camelCase('input_' + field.model),
                 // event ($emit) handler for datepicker value changing
-                updateDate (date, model) { this.$set(this.model, model, date) },
+                updateDate (date, model) {
+                    this.$set(this.model,
+                        model,
+                        !date ? undefined : moment(date || '').format('Y-MM-DD'));
+                },
                 // pretty-print date with momentjs
-                formatDate: (date, format) => moment(date).format(format),
+                formatDate: (date, format) => moment(date || '').format(format),
+                validDate: (date) => moment(date || '')._isValid,
             },
         });
         
@@ -246,7 +286,7 @@
                 let name = _.get(self, 'schema.model');
                 $(self.$el.children[0])
                     .datepicker(_.get(self, 'schema.options', {}))
-                    .datepicker('setDate', self.$parent.model[name])
+                    .datepicker('setDate', moment(self.$parent.model[name] || '').toDate())
                     .on('changeDate', (e) => {
                         self.$emit('update-date', e.date, name);
                     });

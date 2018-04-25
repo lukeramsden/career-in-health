@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cv;
 use App\Cv\CvEducation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CvEducationController extends Controller
 {
@@ -45,13 +46,14 @@ class CvEducationController extends Controller
     {
         $data = $request->validate(self::getValidationRules($request));
 
-        $cvEducation = new CvEducation();
-        $cvEducation->fill($data);
-        $cvEducation->save();
+        $education = new CvEducation();
+        $education->cv_id = Auth::user()->cv->id;
+        $education->fill($data);
+        $education->save();
 
         if($request->ajax())
         {
-            return response()->json(['success' => true], 200);
+            return response()->json(['success' => true, 'model' => $education], 200);
         }
 
         toast()->success('Created');
@@ -62,19 +64,22 @@ class CvEducationController extends Controller
      * Update model
      *
      * @param Request $request
-     * @param CvEducation $cvEducation
+     * @param CvEducation $education
      * @return mixed
      */
-    public function update(Request $request, CvEducation $cvEducation)
+    public function update(Request $request, CvEducation $education)
     {
         $data = $request->validate(self::getValidationRules($request));
 
-        $cvEducation->fill($data);
-        $cvEducation->save();
+        if(!isset($data['end_date']))
+            $data['end_date'] = null;
+
+        $education->fill($data);
+        $education->save();
 
         if(ajax())
         {
-            return response()->json(['success' => true], 200);
+            return response()->json(['success' => true, 'model' => $education], 200);
         }
 
         toast()->success('Updated');
@@ -84,17 +89,17 @@ class CvEducationController extends Controller
     /**
      * Delete model
      *
-     * @param CvEducation $cvEducation
+     * @param CvEducation $education
      * @return mixed
      * @throws \Exception
      */
-    public function destroy(CvEducation $cvEducation)
+    public function destroy(CvEducation $education)
     {
-        $cvEducation->delete();
+        $education->delete();
 
         if(ajax())
         {
-            return response()->json(['success' => true], 204);
+            return response()->json(['success' => true], 200);
         }
 
         toast()->success('Deleted');
