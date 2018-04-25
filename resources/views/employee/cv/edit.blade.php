@@ -143,6 +143,15 @@
                                     </div>
                                 </div>
                             </template>
+                            <template v-else-if="_.get(field, 'type') === 'dropdown'">
+                                <div class="form-group">
+                                    <label v-if="field.label" :for="fieldId(field)">{{ field.label }}</label>
+                                    <select class="custom-select" :id="fieldId(field)" v-model="model[field.model]">
+                                        <option :value="null">-</option>
+                                        <option v-for="item in field.data" :value="item.value">{{ item.name }}</option>
+                                    </select>
+                                </div>
+                            </template>
                         </div>
                     
                         <button :type="loading ? 'button' : 'submit'" class="btn btn-action w-25">
@@ -156,6 +165,15 @@
                     <div class="cv-item-inner">
                         <!-- PREFERENCES -->
                         <template v-if="schema.name === 'preferences'">
+                            <template v-if="model.setting">
+                                <small><b>Job Setting</b></small>
+                                <p class="my-1">{{ schema.fields[0].data[model.setting-1].name }}</p>
+                            </template>
+                            <template v-if="model.type">
+                                <small><b>Job Type</b></small>
+                                <p class="my-1">{{ schema.fields[1].data[model.type-1].name }}</p>
+                            </template>
+                            <small><b>Relocation</b></small>
                             <p class="my-1">
                                 <template v-if="model.willing_to_relocate">Willing to relocate</template>
                                 <template v-else>Not willing to relocate</template>
@@ -419,6 +437,7 @@
                     {
                         type: 'dropdown',
                         label: 'Setting',
+                        model: 'setting',
                         data: [
                             @foreach(\App\Advert::$settings as $id => $setting)
                             {
@@ -431,6 +450,7 @@
                     {
                         type: 'dropdown',
                         label: 'Type',
+                        model: 'type',
                         data: [
                             @foreach(\App\Advert::$types as $id => $type)
                             {
