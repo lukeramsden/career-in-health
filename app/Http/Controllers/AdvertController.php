@@ -6,6 +6,7 @@ use Auth;
 use App\Advert;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Closure;
 
 class AdvertController extends Controller
 {
@@ -13,6 +14,17 @@ class AdvertController extends Controller
     {
         $this->middleware('auth')->except('show');
         $this->middleware('only.employer')->except('show');
+        $this->middleware(function($request, Closure $next) {
+            // TODO: better validation for advert belonging to company creating advert
+            $advert = $request->route()->getParameter('advert');
+            if(isset($advert)) {
+                if($advert->user != Auth::user()) {
+                    redirect(route('advert.index'));
+                }
+            }
+
+            return $next($request);
+        })->except('show');
     }
 
     private function getValidateRules($request)
@@ -23,7 +35,6 @@ class AdvertController extends Controller
             ];
         } else {
             $rules = [
-                // TODO: validation for advert belonging to company creating advert
                 'address_id' => 'required',
                 'title' => 'required|max:160',
                 'description' => 'required|max:3000',
