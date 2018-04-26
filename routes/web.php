@@ -75,6 +75,10 @@ if (env('APP_ENV') == 'local')
             'store', 'update', 'destroy'
         ]]);
 
+        Route::resource('certifications', 'Cv\CvCertsController', ['only' => [
+            'store', 'update', 'destroy'
+        ]]);
+
         Route::put('preferences', 'Cv\CvPreferencesController@update')->name('preferences.update');
 
         Route::view('/', 'employee.cv.edit')

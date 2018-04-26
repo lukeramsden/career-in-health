@@ -11,5 +11,11 @@ let mix = require('laravel-mix');
  |
  */
 
+mix.webpackConfig({
+    resolve: {
+        extensions: ['*', '.js', '.jsx', '.vue', '.json'],
+    },
+});
+
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');

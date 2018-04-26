@@ -23,6 +23,11 @@ class Cv extends Model
         return $this->hasMany(CvWorkExperience::class);
     }
 
+    public function certifications()
+    {
+        return $this->hasMany(CvCert::class);
+    }
+
     public function preferences()
     {
         return $this->hasOne(CvPreferences::class, 'id', 'preferences_id');

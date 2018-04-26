@@ -682,6 +682,67 @@
                     },
                 ],
             },
+            {
+                name: 'certifications',
+                label: 'Certifications and Licenses',
+                url: '{{ route('cv.certifications.store') }}',
+                multiple: true,
+                fields: [
+                    {
+                        type: 'input',
+                        inputType: 'text',
+                        label: 'Title',
+                        model: 'title',
+                        required: true,
+                        max: 150,
+                    },
+                    {
+                        type: 'datePicker',
+                        multiple: true,
+                        models: [
+                            {
+                                model: 'start_date',
+                                label: 'Start Date',
+                                required: true,
+                                inline: false,
+                                options: {
+                                    format: 'MM yyyy',
+                                    minViewMode: 1,
+                                    maxViewMode: 2,
+                                },
+                            },
+                            {
+                                model: 'end_date',
+                                label: 'Expiration Date (leave empty if this certification or license does not expire)',
+                                inline: false,
+                                options: {
+                                    format: 'MM yyyy',
+                                    minViewMode: 1,
+                                    maxViewMode: 2,
+                                    clearBtn: true,
+                                },
+                            },
+                        ],
+                    },
+                    {
+                        type: 'input',
+                        inputType: 'area',
+                        label: 'Description',
+                        model: 'description',
+                        required: false,
+                        max: 500,
+                    },
+                    {
+                        type: 'file',
+                        model: 'file',
+                        label: 'PDF or Picture of Certification/License',
+                        helpText: '(.pdf, .png, .jpg, .jpeg)',
+                        required: true,
+                        max: 1024,
+                        fileTypes: ['pdf', 'png', 'jpg']
+                    },
+                ]
+            },
         ]
         
         let data = {
@@ -690,6 +751,7 @@
                 preferences: {!! optional($cv->preferences)->toJson() ?? '{}'!!},
                 education: {!! optional($cv->education)->toJson() ?? '[]'!!},
                 work_experience: {!! optional($cv->workExperience)->toJson() ?? '[]'!!},
+                certifications: {!! optional($cv->certifications)->toJson() ?? '[]'!!},
             },
             schemas: schemas,
         }
