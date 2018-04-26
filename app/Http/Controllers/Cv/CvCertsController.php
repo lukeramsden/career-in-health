@@ -46,6 +46,18 @@ class CvCertsController extends Controller
         $data = $request->validate(self::getValidationRules($request));
 
         $cert = new CvCert();
+
+        if($path = $request->file('file')->store('certs')) {
+            $cert->file = $path;
+        } else {
+            if(ajax()) {
+                return response()->json(['success' => false, 'message' => 'File invalid'], 400);
+            } else {
+                toast()->error('File invalid');
+                return back();
+            }
+        }
+
         $cert->cv_id = Auth::user()->cv->id;
         $cert->fill($data);
         $cert->save();

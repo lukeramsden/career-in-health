@@ -162,6 +162,18 @@
                                     </template>
                                 </div>
                             </template>
+                            <template v-else-if="_.get(field, 'type') === 'file'">
+                                <div class="form-group">
+                                    <file-upload
+                                    :id="fieldId(field)"
+                                    :label="field.label"
+                                    :helpText="field.helpText"
+                                    :required="field.required"
+                                    :max="field.max"
+                                    :accept="field.fileTypes"
+                                    v-model="model[field.model]" />
+                                </div>
+                            </template>
                         </div>
                     
                         <button :type="loading ? 'button' : 'submit'" class="btn btn-action w-25">
@@ -216,6 +228,18 @@
                             </template>
                             <p v-if="model.description" class="my-1">{{ model.description | truncate(50) }}</p>
                         </template>
+                        <!-- CERTIFICATIONS / LICENSES -->
+                        <template v-if="schema.name === 'certifications'">
+                            <p class="my-1">{{ model.title }}</p>
+                            <template v-if="validDate(model.end_date)">
+                                <p class="my-1">{{ formatDate(model.start_date, 'MMMM YYYY') }} to {{ formatDate(model.end_date, 'MMMM YYYY') }}</p>
+                            </template>
+                            <template v-else>
+                                <p class="my-1">Started {{ formatDate(model.start_date, 'MMMM YYYY') }}</p>
+                            </template>
+                            <p v-if="model.description" class="my-1">{{ model.description | truncate(50) }}</p>
+                            <p v-if="model.file" class="my-1">{{ model.file }}</p>
+                        </template>
                     </div>
                     <button v-if="multiple" class="btn btn-link btn-sm float-right" @click="$emit('delete-cv-item', index)"><span class="oi oi-delete"></span></button>
                     <button class="btn btn-link btn-sm float-right" @click="edit"><span class="oi oi-pencil"></span></button>
@@ -242,6 +266,29 @@
             <slot></slot>
           </select>
         </script>
+
+        <script type="text/x-template" id="template__file_upload">
+            <div>
+                <label v-if="label">{{ label }}</label>
+                <div class="custom-file">
+                    <input
+                    :id="id"
+                    :accept="mimeTypes()"
+                    :required="required"
+                    class="custom-file-input"
+                    type="file"
+                    ref="file"
+                    @change="change()" />
+                
+                    <label class="custom-file-label" v-if="label" :for="id">
+                        <template v-if="file">{{ file.name }}</template>
+                        <template v-else>Choose file...</template>
+                    </label>
+                </div>
+                
+                <small v-if="helpText" class="text-muted">{{ helpText }}</small>
+            </div>
+        </script>
     @endverbatim
     
     {{-- development version, includes helpful console warnings --}}
@@ -250,6 +297,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     
     <script>
         Vue.component('cv-builder', {
@@ -301,24 +349,7 @@
             methods: {
                 //
                 save () {
-                    // construct schema
-                    const fields = _
-                        // start chain
-                        .chain(this.schema.fields)
-                        // get array of all "models" fields
-                        .flatMap('models')
-                        // add original to prev array
-                        .concat(this.schema.fields)
-                        // get all "model" fields
-                        .flatMap('model')
-                        // end
-                        .value();
-                    
-                    // map internal model to schema
-                    const data = _.pick(this.model, fields);
-                    
                     const self = this;
-                    
                     self.loading =  true;
                     
                     if(!_.get(this, 'schema.url', false)) {
@@ -329,52 +360,80 @@
                         return;
                     }
                     
-                    if(_.get(this, 'multiple')) {
+                    // construct schema
+                    const fields = _
+                        // start chain
+                        .chain(this.schema.fields)
+                        // get array of all "models" fields
+                        .flatMap('models')
+                        // add original to prev array
+                        .concat(this.schema.fields);
+                        
+                    const models = fields
+                        // get all "model" fields
+                        .flatMap('model')
+                        // remove empty vals
+                        .compact()
+                        // end
+                        .value();
+                    
+                    const inputTypes = fields
+                        // get all "model" fields
+                        .flatMap('type')
+                        // remove empty vals
+                        .compact()
+                        // remove duplicate values
+                        .uniq()
+                        // end
+                        .value();
+                    
+                    console.log(models);
+                    console.log(inputTypes);
+                    
+                    const multiple      = _.get(this, 'multiple');
+                    const hasFileInput  = inputTypes.includes('file');
+                    let   creatingNew   = false;
+                    let   url           = '';
+                    let   method        = '';
+                    
+                    // map internal model to schema
+                    const data = _.pick(this.model, models);
+                    
+                    // axios request object
+                    let request;
+                    
+                    if(multiple) {
                         // get model id
                         let modelId = _.get(this, 'model.id', null);
-                        if(!!modelId) { // updating existing
-                            axios.put(_.get(this, 'schema.url') + '/' + modelId, data)
-                                .then((response) => {
-                                    if(response.status == 200)
-                                        self.$set(self.model, 'editing', false);
+                        
+                        url = !!modelId ?
+                              _.get(this, 'schema.url') + '/' + modelId // multiple & updating existing
+                            : _.get(this, 'schema.url');                // multiple & creating new
+                        
+                        
+                        method = !!modelId ?
+                                  'put'  // multiple & updating existing
+                                : 'post' // multiple & creating new
+                        
+                        request = axios[method](url, data);
+                    } else request = axios.put(_.get(this, 'schema.url'), data) // updating single
+                    
+                    request
+                        .then((response) => {
+                            if(response.status == 200) {
+                                self.$set(self.model, 'editing', false);
                                 
-                                    self.loading =  false;
-                                })
-                                .catch((error) => {
-                                    console.log(error);
-                                    alert(error);
-                                    self.loading =  false;
-                                });
-                        } else { // creating new
-                            axios.post(_.get(this, 'schema.url'), data)
-                                .then((response) => {
-                                    if(response.status == 200) {
-                                        self.$set(self.model, 'editing', false);
-                                        self.$set(self.model, 'id', _.get(response, 'data.model.id'));
-                                    }
-                                
-                                    self.loading =  false;
-                                })
-                                .catch((error) => {
-                                    console.log(error);
-                                    alert(error);
-                                    self.loading =  false;
-                                });
-                        }
-                    } else {
-                        axios.put(_.get(this, 'schema.url'), data)
-                            .then((response) => {
-                                if(response.status == 200)
-                                    self.$set(self.model, 'editing', false);
-                            
-                                self.loading =  false;
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                                alert(error);
-                                self.loading =  false;
-                            });
-                    }
+                                if(creatingNew)
+                                    self.$set(self.model, 'id', _.get(response, 'data.model.id'));
+                            }
+                        
+                            self.loading =  false;
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                            alert(error);
+                            self.loading =  false;
+                        });
                 },
                 //
                 cancel () {
@@ -480,6 +539,43 @@
           destroyed: function () {
             $(this.$el).off().select2('destroy')
           }
+        })
+        
+        Vue.component('file-upload', {
+            template: '#template__file_upload',
+            props: ['label', 'id', 'accept', 'helpText', 'required', 'max'],
+            data() {
+                return {
+                    file: null
+                }
+            },
+            methods: {
+                change() {
+                    let file = this.$refs.file.files[0];
+                    
+                    if(filesize(file.size).to('KB') > this.max) {
+                        let opt = toastr.options;
+                        toastr.options = {
+                            "closeButton": true,
+                            "newestOnTop": true,
+                            "positionClass": "toast-top-right",
+                            "progressBar": true,
+                      	};
+                        toastr.error('File too big!');
+                        toastr.options = opt;
+                        return;
+                    }
+                    
+                    console.log(file);
+                    this.$emit('input', file);
+                    this.file = file;
+                },
+                mimeTypes() {
+                    return _.map(this.accept, (el) => {
+                       return mime.getType(el);
+                    });
+                },
+            },
         })
         
         const schemas = [
@@ -773,6 +869,7 @@
 @section('stylesheet')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     
     <style>
         .select2 {

@@ -1,8 +1,9 @@
 // import 'jquery-ui';
 
-window._ = require('lodash');
-window.Popper = require('popper.js').default;
-window.mime = require('mime');
+window._        = require('lodash');
+window.Popper   = require('popper.js').default;
+window.mime     = require('mime');
+window.filesize = require('file-size');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

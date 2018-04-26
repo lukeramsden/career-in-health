@@ -74,7 +74,7 @@ class AdvertApplicationController extends Controller
             if(!$user->isCompany() || $application->advert->company_id !== $user->company_id) {
                 if($request->ajax())
                 {
-                    return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status']);
+                    return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status'], 401);
                 }
 
                 toast()->error('You must own the advert to update an application\'s status');
