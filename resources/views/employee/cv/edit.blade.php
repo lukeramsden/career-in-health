@@ -506,6 +506,7 @@
                     },
                     {
                         type: 'dropdown',
+                        handler: 'select2',
                         label: 'Setting',
                         model: 'setting',
                         data: [
@@ -519,6 +520,7 @@
                     },
                     {
                         type: 'dropdown',
+                        handler: 'select2',
                         label: 'Type',
                         model: 'type',
                         data: [
