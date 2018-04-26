@@ -387,38 +387,61 @@
                         // end
                         .value();
                     
+                    console.log('models:')
                     console.log(models);
+                    console.log('inputTypes:')
                     console.log(inputTypes);
                     
                     const multiple      = _.get(this, 'multiple');
                     const hasFileInput  = inputTypes.includes('file');
                     let   creatingNew   = false;
-                    let   url           = '';
-                    let   method        = '';
                     
-                    // map internal model to schema
-                    const data = _.pick(this.model, models);
+                    let options = {}
                     
-                    // axios request object
-                    let request;
+                    if(hasFileInput) {
+                        const files = fields
+                            .flatMap((el) => {
+                                if(el.type === 'file') return el;
+                            })
+                            .value();
+                        
+                        console.log('files:')
+                        console.log(files);
+                        
+                        options.headers = {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                        options.data = new FormData();
+                        
+                        for(file in files)
+                            options.data.append(file.model, model[file.model]);
+                    } else {
+                        // map internal model to schema
+                        options.data = _.pick(this.model, models);
+                    }
                     
                     if(multiple) {
                         // get model id
                         let modelId = _.get(this, 'model.id', null);
                         
-                        url = !!modelId ?
+                        options.url = !!modelId ?
                               _.get(this, 'schema.url') + '/' + modelId // multiple & updating existing
                             : _.get(this, 'schema.url');                // multiple & creating new
                         
-                        
-                        method = !!modelId ?
+                        options.method = !!modelId ?
                                   'put'  // multiple & updating existing
                                 : 'post' // multiple & creating new
                         
-                        request = axios[method](url, data);
-                    } else request = axios.put(_.get(this, 'schema.url'), data) // updating single
+                    } else options = {
+                        method: 'put',
+                        url: _.get(this, 'schema.url'),
+                        data: data,
+                    }
                     
-                    request
+                    console.log('options:');
+                    console.log(options);
+                    
+                    axios(options)
                         .then((response) => {
                             if(response.status == 200) {
                                 self.$set(self.model, 'editing', false);
