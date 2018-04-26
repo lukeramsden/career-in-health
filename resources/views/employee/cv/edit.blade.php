@@ -146,10 +146,20 @@
                             <template v-else-if="_.get(field, 'type') === 'dropdown'">
                                 <div class="form-group">
                                     <label v-if="field.label" :for="fieldId(field)">{{ field.label }}</label>
-                                    <select class="custom-select" :id="fieldId(field)" v-model="model[field.model]">
-                                        <option :value="null">-</option>
-                                        <option v-for="item in field.data" :value="item.value">{{ item.name }}</option>
-                                    </select>
+                                    <template v-if="_.get(field, 'handler') === 'select2'">
+                                        <select2
+                                        :id="fieldId(field)"
+                                        v-model="model[field.model]">
+                                            <option :value="null">-</option>
+                                            <option v-for="item in field.data" :value="item.value">{{ item.name }}</option>
+                                        </select2>
+                                    </template>
+                                    <template v-else>
+                                        <select class="custom-select" :id="fieldId(field)" v-model="model[field.model]">
+                                            <option :value="null">-</option>
+                                            <option v-for="item in field.data" :value="item.value">{{ item.name }}</option>
+                                        </select>
+                                    </template>
                                 </div>
                             </template>
                         </div>
@@ -165,13 +175,17 @@
                     <div class="cv-item-inner">
                         <!-- PREFERENCES -->
                         <template v-if="schema.name === 'preferences'">
+                            <template v-if="model.job_type">
+                                <small><b>Job Role</b></small>
+                                <p class="my-1">{{ schema.fields[0].data[model.job_type-1].name }}</p>
+                            </template>
                             <template v-if="model.setting">
                                 <small><b>Job Setting</b></small>
-                                <p class="my-1">{{ schema.fields[0].data[model.setting-1].name }}</p>
+                                <p class="my-1">{{ schema.fields[1].data[model.setting-1].name }}</p>
                             </template>
                             <template v-if="model.type">
                                 <small><b>Job Type</b></small>
-                                <p class="my-1">{{ schema.fields[1].data[model.type-1].name }}</p>
+                                <p class="my-1">{{ schema.fields[2].data[model.type-1].name }}</p>
                             </template>
                             <small><b>Relocation</b></small>
                             <p class="my-1">
@@ -222,6 +236,12 @@
                 </template>
             </div>
         </script>
+        
+        <script type="text/x-template" id="template__select2">
+          <select>
+            <slot></slot>
+          </select>
+        </script>
     @endverbatim
     
     {{-- development version, includes helpful console warnings --}}
@@ -229,6 +249,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     
     <script>
         Vue.component('cv-builder', {
@@ -426,6 +447,41 @@
             beforeDestroy: () => $(this.$el).datepicker('hide').datepicker('destroy'),
         });
         
+        Vue.component('select2', {
+          template: '#template__select2',
+          props: ['options', 'value'],
+          mounted: function () {
+            var vm = this
+            $(this.$el)
+              // init select2
+              .select2({
+                  dropdownAutoWidth : true,
+                  width: 'auto'
+              })
+              .val(this.value)
+              .trigger('change')
+              // emit event on change.
+              .on('change', function () {
+                vm.$emit('input', this.value)
+              })
+          },
+          watch: {
+            value: function (value) {
+              // update value
+              $(this.$el)
+              	.val(value)
+              	.trigger('change')
+            },
+            options: function (options) {
+              // update options
+              $(this.$el).empty().select2({ data: options })
+            }
+          },
+          destroyed: function () {
+            $(this.$el).off().select2('destroy')
+          }
+        })
+        
         const schemas = [
             {
                 name: 'preferences',
@@ -436,10 +492,24 @@
                 fields: [
                     {
                         type: 'dropdown',
+                        handler: 'select2',
+                        label: 'Job Role',
+                        model: 'job_type',
+                        data: [
+                            @foreach(\App\JobType::all() ?? [] as $job)
+                                {
+                                    name: '{{ $job->name }}',
+                                    value: '{{ $job->id }}',
+                                },
+                            @endforeach
+                        ],
+                    },
+                    {
+                        type: 'dropdown',
                         label: 'Setting',
                         model: 'setting',
                         data: [
-                            @foreach(\App\Advert::$settings as $id => $setting)
+                            @foreach(\App\Advert::$settings ?? [] as $id => $setting)
                             {
                                 name: '{{ $setting }}',
                                 value: '{{ $id }}',
@@ -452,7 +522,7 @@
                         label: 'Type',
                         model: 'type',
                         data: [
-                            @foreach(\App\Advert::$types as $id => $type)
+                            @foreach(\App\Advert::$types ?? [] as $id => $type)
                             {
                                 name: '{{ $type }}',
                                 value: '{{ $id }}',
@@ -615,9 +685,9 @@
         let data = {
             model: {
                 @php($cv = Auth::user()->cv)
-                preferences: {!! $cv->preferences->toJson() !!},
-                education: {!! $cv->education->toJson() !!},
-                work_experience: {!! $cv->workExperience->toJson() !!},
+                preferences: {!! optional($cv->preferences)->toJson() ?? '{}'!!},
+                education: {!! optional($cv->education)->toJson() ?? '[]'!!},
+                work_experience: {!! optional($cv->workExperience)->toJson() ?? '[]'!!},
             },
             schemas: schemas,
         }
@@ -630,7 +700,6 @@
             return content.length > length ? content.slice(0, length) + clamp : content;
         });
         
-        
         const app = new Vue({
             el: '#app',
             data: data,
@@ -639,8 +708,17 @@
 @endsection
 @section('stylesheet')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     
     <style>
+        .select2 {
+            display: block;
+        }
+        
+        .select2-container--default .select2-selection--single {
+            border-color: #ced4da;
+        }
+        
         .sk-fading-circle {
           margin: auto;
           width: 25px;
