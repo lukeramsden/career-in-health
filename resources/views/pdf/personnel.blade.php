@@ -99,7 +99,7 @@
                         <p>Started {{ $workExperience->start_date->format('F Y') }}</p>
                     @endisset
                     @isset($workExperience->description)
-                        <p>{{ $workExperience->description }}</p>
+                        <p>{!! nl2br(e($workExperience->description)) !!}</p>
                     @endisset
                 </div>
             @endforeach
