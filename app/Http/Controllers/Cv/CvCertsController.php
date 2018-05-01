@@ -6,6 +6,7 @@ use App\Cv\CvCert;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CvCertsController extends Controller
 {
@@ -24,15 +25,18 @@ class CvCertsController extends Controller
      * @param Request $request
      * @return array
      */
-    protected function getValidationRules(Request $request)
+    protected function getValidationRules(Request $request, bool $creatingNew)
     {
-        return [
+        $rules = [
             'title' => 'required|string|max:150',
             'description' => 'nullable|string|max:500',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
-            'file' => 'required|file|max:1024|mimes:pdf,jpg,png',
         ];
+
+        return $creatingNew ?
+              array_merge($rules, ['file' => 'required|file|max:1024|mimes:pdf,jpg,jpeg,png'])
+            : $rules;
     }
 
     /**
@@ -43,12 +47,14 @@ class CvCertsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate(self::getValidationRules($request));
+        $data = $request->validate(self::getValidationRules($request, true));
 
-        $cert = new CvCert();
+        $certification = new CvCert();
 
-        if($path = $request->file('file')->store('certs')) {
-            $cert->file = $path;
+        $path = $request->file('file')->store('certs');
+
+        if($path) {
+            $certification->file = $path;
         } else {
             if(ajax()) {
                 return response()->json(['success' => false, 'message' => 'File invalid'], 400);
@@ -58,13 +64,13 @@ class CvCertsController extends Controller
             }
         }
 
-        $cert->cv_id = Auth::user()->cv->id;
-        $cert->fill($data);
-        $cert->save();
+        $certification->cv_id = Auth::user()->cv->id;
+        $certification->fill($data);
+        $certification->save();
 
         if($request->ajax())
         {
-            return response()->json(['success' => true, 'model' => $cert], 200);
+            return response()->json(['success' => true, 'model' => $certification], 200);
         }
 
         toast()->success('Created');
@@ -78,19 +84,19 @@ class CvCertsController extends Controller
      * @param CvCert $cert
      * @return mixed
      */
-    public function update(Request $request, CvCert $cert)
+    public function update(Request $request, CvCert $certification)
     {
-        $data = $request->validate(self::getValidationRules($request));
+        $data = $request->validate(self::getValidationRules($request, false));
 
         if(!isset($data['end_date']))
             $data['end_date'] = null;
 
-        $cert->fill($data);
-        $cert->save();
+        $certification->fill($data);
+        $certification->save();
 
         if(ajax())
         {
-            return response()->json(['success' => true, 'model' => $cert], 200);
+            return response()->json(['success' => true, 'model' => $certification], 200);
         }
 
         toast()->success('Updated');
@@ -104,9 +110,10 @@ class CvCertsController extends Controller
      * @return mixed
      * @throws \Exception
      */
-    public function destroy(CvCert $cert)
+    public function destroy(CvCert $certification)
     {
-        $cert->delete();
+        Storage::delete($certification->file);
+        $certification->delete();
 
         if(ajax())
         {

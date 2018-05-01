@@ -62,117 +62,119 @@
                 <template v-if="model.editing">
                     <form @submit.prevent="save">
                         <div v-for="(field, index) in schema.fields" :key="fieldId(field)">
-                            <template v-if="_.get(field, 'type') === 'input'">
-                                <div class="form-group">
-                                    <template v-if="_.get(field, 'label')">
-                                        <label
-                                        :for="fieldId(field)">
-                                            {{ field.label }}
-                                        </label>
-                                    </template>
-                                    <template v-if="_.get(field, 'inputType') === 'text'">
-                                        <input
-                                        type="text"
-                                        class="form-control"
-                                        v-model="model[field.model]"
-                                        :id="fieldId(field)"
-                                        :name="field.model"
-                                        :maxlength="field.max"
-                                        :aria-describedby="fieldId(field) + 'HelpBlock'"
-                                        :required="field.required">
-                                
-                                        <template v-if="_.get(field, 'helpText')">
-                                            <small
-                                            class="form-text text-muted"
-                                            :id="fieldId(field) + 'HelpBlock'">
-                                                {{ field.helpText }}
-                                            </small>
-                                        </template>
-                                    </template>
-                                    <template v-else-if="_.get(field, 'inputType') === 'area'">
-                                        <textarea
-                                        class="form-control"
-                                        cols="30"
-                                        rows="10"
-                                        v-model="model[field.model]"
-                                        :id="fieldId(field)"
-                                        :name="field.model"
-                                        :maxlength="field.max"
-                                        :placeholder="_.get(field, 'helpText')"
-                                        :required="field.required">{{ model[field.model] }}</textarea>
-                                    </template>
-                                </div>
-                            </template>
-                            <template v-else-if="_.get(field, 'type') === 'datePicker'">
-                                <template v-if="_.get(field, 'multiple')">
+                            <template v-if="!_.isFunction(_.get(field, 'if')) || field.if(field, model)">
+                                <template v-if="_.get(field, 'type') === 'input'">
                                     <div class="form-group">
-                                        <div class="row">
-                                            <div class="col" v-for="(field, index) in field.models" :key="fieldId(field)">
-                                                <date-picker
-                                                :id="fieldId(field)"
-                                                :schema="field"
-                                                @update-date="updateDate"
-                                                v-once></date-picker>
+                                        <template v-if="_.get(field, 'label')">
+                                            <label
+                                            :for="fieldId(field)">
+                                                {{ field.label }}
+                                            </label>
+                                        </template>
+                                        <template v-if="_.get(field, 'inputType') === 'text'">
+                                            <input
+                                            type="text"
+                                            class="form-control"
+                                            v-model="model[field.model]"
+                                            :id="fieldId(field)"
+                                            :name="field.model"
+                                            :maxlength="field.max"
+                                            :aria-describedby="fieldId(field) + 'HelpBlock'"
+                                            :required="field.required">
+                                
+                                            <template v-if="_.get(field, 'helpText')">
+                                                <small
+                                                class="form-text text-muted"
+                                                :id="fieldId(field) + 'HelpBlock'">
+                                                    {{ field.helpText }}
+                                                </small>
+                                            </template>
+                                        </template>
+                                        <template v-else-if="_.get(field, 'inputType') === 'area'">
+                                            <textarea
+                                            class="form-control"
+                                            cols="30"
+                                            rows="10"
+                                            v-model="model[field.model]"
+                                            :id="fieldId(field)"
+                                            :name="field.model"
+                                            :maxlength="field.max"
+                                            :placeholder="_.get(field, 'helpText')"
+                                            :required="field.required">{{ model[field.model] }}</textarea>
+                                        </template>
+                                    </div>
+                                </template>
+                                <template v-else-if="_.get(field, 'type') === 'datePicker'">
+                                    <template v-if="_.get(field, 'multiple')">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col" v-for="(field, index) in field.models" :key="fieldId(field)">
+                                                    <date-picker
+                                                    :id="fieldId(field)"
+                                                    :schema="field"
+                                                    @update-date="updateDate"
+                                                    v-once></date-picker>
+                                                </div>
                                             </div>
+                                        </div>
+                                    </template>
+                                    <template v-else>
+                                        <date-picker
+                                        :id="fieldId(field)"
+                                        :schema="field"
+                                        @update-date="updateDate"
+                                        v-once></date-picker>
+                                    </template>
+                                </template>
+                                <template v-else-if="_.get(field, 'type') === 'checkbox'">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            :id="fieldId(field)"
+                                            :name="field.model"
+                                            v-model="model[field.model]">
+                                            <label
+                                            class="form-check-label"
+                                            v-if="_.get(field, 'label')"
+                                            :for="fieldId(field)">
+                                                {{ field.label }}
+                                            </label>
                                         </div>
                                     </div>
                                 </template>
-                                <template v-else>
-                                    <date-picker
-                                    :id="fieldId(field)"
-                                    :schema="field"
-                                    @update-date="updateDate"
-                                    v-once></date-picker>
-                                </template>
-                            </template>
-                            <template v-else-if="_.get(field, 'type') === 'checkbox'">
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input
-                                        class="form-check-input"
-                                        type="checkbox"
-                                        :id="fieldId(field)"
-                                        :name="field.model"
-                                        v-model="model[field.model]">
-                                        <label
-                                        class="form-check-label"
-                                        v-if="_.get(field, 'label')"
-                                        :for="fieldId(field)">
-                                          {{ field.label }}
-                                        </label>
+                                <template v-else-if="_.get(field, 'type') === 'dropdown'">
+                                    <div class="form-group">
+                                        <label v-if="field.label" :for="fieldId(field)">{{ field.label }}</label>
+                                        <template v-if="_.get(field, 'handler') === 'select2'">
+                                            <select2
+                                            :id="fieldId(field)"
+                                            v-model="model[field.model]">
+                                                <option :value="null">-</option>
+                                                <option v-for="item in field.data" :value="item.value">{{ item.name }}</option>
+                                            </select2>
+                                        </template>
+                                        <template v-else>
+                                            <select class="custom-select" :id="fieldId(field)" v-model="model[field.model]">
+                                                <option :value="null">-</option>
+                                                <option v-for="item in field.data" :value="item.value">{{ item.name }}</option>
+                                            </select>
+                                        </template>
                                     </div>
-                                </div>
-                            </template>
-                            <template v-else-if="_.get(field, 'type') === 'dropdown'">
-                                <div class="form-group">
-                                    <label v-if="field.label" :for="fieldId(field)">{{ field.label }}</label>
-                                    <template v-if="_.get(field, 'handler') === 'select2'">
-                                        <select2
+                                </template>
+                                <template v-else-if="_.get(field, 'type') === 'file'">
+                                    <div class="form-group">
+                                        <file-upload
                                         :id="fieldId(field)"
-                                        v-model="model[field.model]">
-                                            <option :value="null">-</option>
-                                            <option v-for="item in field.data" :value="item.value">{{ item.name }}</option>
-                                        </select2>
-                                    </template>
-                                    <template v-else>
-                                        <select class="custom-select" :id="fieldId(field)" v-model="model[field.model]">
-                                            <option :value="null">-</option>
-                                            <option v-for="item in field.data" :value="item.value">{{ item.name }}</option>
-                                        </select>
-                                    </template>
-                                </div>
-                            </template>
-                            <template v-else-if="_.get(field, 'type') === 'file'">
-                                <div class="form-group">
-                                    <file-upload
-                                    :id="fieldId(field)"
-                                    :label="field.label"
-                                    :helpText="field.helpText"
-                                    :required="field.required"
-                                    :max="field.max"
-                                    :accept="field.fileTypes"
-                                    v-model="model[field.model]" />
-                                </div>
+                                        :label="field.label"
+                                        :helpText="field.helpText"
+                                        :required="field.required"
+                                        :max="field.max"
+                                        :accept="field.fileTypes"
+                                        v-model="model[field.model]" />
+                                    </div>
+                                </template>
                             </template>
                         </div>
                     
@@ -238,7 +240,7 @@
                                 <p class="my-1">Started {{ formatDate(model.start_date, 'MMMM YYYY') }}</p>
                             </template>
                             <p v-if="model.description" class="my-1">{{ model.description | truncate(50) }}</p>
-                            <p v-if="model.file" class="my-1">{{ model.file }}</p>
+                            <!-- TODO: Add link to view file -->
                         </template>
                     </div>
                     <button v-if="multiple" class="btn btn-link btn-sm float-right" @click="$emit('delete-cv-item', index)"><span class="oi oi-delete"></span></button>
@@ -300,6 +302,13 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     
     <script>
+        toastr.options = {
+            "closeButton": true,
+            "newestOnTop": true,
+            "positionClass": "toast-top-right",
+            "progressBar": true,
+      	};
+        
         Vue.component('cv-builder', {
             template: '#template__cv_builder',
             props: ['schemas', 'model'],
@@ -326,17 +335,16 @@
                             })
                             .catch((error) => {
                                 console.log(error);
-                                alert(error);
+                                _.forIn(
+                                    error.response.data.errors,
+                                    (errors, field) => errors.forEach((error) => toastr.error(error, changeCase.titleCase(field)))
+                                );
                             });
                     } else this.model.splice(i, 1); // deleting create form
                 },
-                add: _.debounce(function() { this.model.push({editing:true}) }, 500, { leading: true, trailing: false }),
+                add: _.debounce(function() { this.model.push({ editing: true, new: true }) }, 500, { leading: true, trailing: false }),
             },
         });
-        
-        /*
-        * TODO: VALIDATION
-        * */
         
         Vue.component('cv-item', {
             template: '#template__cv_item',
@@ -367,7 +375,18 @@
                         // get array of all "models" fields
                         .flatMap('models')
                         // add original to prev array
-                        .concat(this.schema.fields);
+                        .concat(this.schema.fields)
+                        .thru((fields) => {
+                            let mappedFields = _.map(fields, (field) => {
+                                if(!field || !_.isFunction(field.if))
+                                    return field;
+                                
+                                if(field.if(field, self.model))
+                                    return field;
+                            });
+                            
+                            return mappedFields;
+                        });
                         
                     const models = fields
                         // get all "model" fields
@@ -387,34 +406,36 @@
                         // end
                         .value();
                     
-                    console.log('models:')
-                    console.log(models);
-                    console.log('inputTypes:')
-                    console.log(inputTypes);
-                    
                     const multiple      = _.get(this, 'multiple');
                     const hasFileInput  = inputTypes.includes('file');
-                    let   creatingNew   = false;
                     
                     let options = {}
                     
                     if(hasFileInput) {
                         const files = fields
-                            .flatMap((el) => {
-                                if(el.type === 'file') return el;
-                            })
+                            .flatMap((el) => _.get(el, 'type') === 'file' ? [el] : [])
+                            .compact()
                             .value();
-                        
-                        console.log('files:')
-                        console.log(files);
-                        
-                        options.headers = {
-                            'Content-Type': 'multipart/form-data'
-                        }
+                            
+                        _.set(options, ['headers', 'Content-Type'], 'multipart/form-data')
                         options.data = new FormData();
                         
                         for(file in files)
-                            options.data.append(file.model, model[file.model]);
+                            options.data.append(file.model, this.model[file.model]);
+                        
+                        // iterate picked models
+                        _.forIn(
+                            _.pick(this.model, models),
+                            // Creates a function that invokes func with its arguments transformed.
+                            (v, k) => _.overArgs(
+                                (k, v) => options.data.append(k, v),
+                                [ // transform args
+                                    // return intact
+                                    (k) => k,
+                                    // JSON encode if its an array
+                                    (v) => _.isArray(v) ? JSON.stringify(v) : v,
+                                ])(k, v) // call
+                        );
                     } else {
                         // map internal model to schema
                         options.data = _.pick(this.model, models);
@@ -438,23 +459,23 @@
                         data: data,
                     }
                     
-                    console.log('options:');
-                    console.log(options);
-                    
                     axios(options)
                         .then((response) => {
                             if(response.status == 200) {
                                 self.$set(self.model, 'editing', false);
                                 
-                                if(creatingNew)
-                                    self.$set(self.model, 'id', _.get(response, 'data.model.id'));
+                                self.$set(self.model, 'id', _.get(response, 'data.model.id'));
                             }
                         
                             self.loading =  false;
+                            self.model.new = false;
                         })
                         .catch((error) => {
                             console.log(error);
-                            alert(error);
+                            _.forIn(
+                                error.response.data.errors,
+                                (errors, field) => errors.forEach((error) => toastr.error(error, changeCase.titleCase(field)))
+                            );
                             self.loading =  false;
                         });
                 },
@@ -577,15 +598,7 @@
                     let file = this.$refs.file.files[0];
                     
                     if(filesize(file.size).to('KB') > this.max) {
-                        let opt = toastr.options;
-                        toastr.options = {
-                            "closeButton": true,
-                            "newestOnTop": true,
-                            "positionClass": "toast-top-right",
-                            "progressBar": true,
-                      	};
                         toastr.error('File too big!');
-                        toastr.options = opt;
                         return;
                     }
                     
@@ -854,6 +867,7 @@
                     {
                         type: 'file',
                         model: 'file',
+                        if: (field, model) => model.new || false,
                         label: 'PDF or Picture of Certification/License',
                         helpText: '(.pdf, .png, .jpg, .jpeg)',
                         required: true,
