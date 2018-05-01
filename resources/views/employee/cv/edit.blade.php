@@ -10,13 +10,13 @@
     @verbatim
         <script type="text/x-template" id="template__cv_builder">
             <div class="row">
-                <div class="col-sm-7">
+                <div class="col-sm-8">
                     <template v-for="(schema, index) in schemas">
                         <cv-section-multiple v-if="schema.multiple" :schema="schema" :model="model[schema.name]"></cv-section-multiple>
                         <cv-section-single v-else :schema="schema" :model="model[schema.name]"></cv-section-single>
                     </template>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                     <button class="btn btn-primary btn-block" @click="show">View CV</button>
                     @endverbatim
                     <a href="{{ route('cv.pdf.download') }}" target="_blank" class="btn btn-primary btn-block">Download CV</a>
