@@ -17,7 +17,12 @@
                     </template>
                 </div>
                 <div class="col-sm-5">
-                
+                    <div class="sticky-top">
+                        <button class="btn btn-primary btn-block" @click="show">View CV</button>
+                        @endverbatim
+                        <a href="{{ route('cv.pdf.download') }}" target="_blank" class="btn btn-primary btn-block">Download CV</a>
+                        @verbatim
+                    </div>
                 </div>
             </div>
         </script>
@@ -312,6 +317,11 @@
         Vue.component('cv-builder', {
             template: '#template__cv_builder',
             props: ['schemas', 'model'],
+            methods: {
+                show() {
+                    lity('{{ route('cv.pdf.view', ['embed' => true]) }}');
+                }
+            }
         });
         
         Vue.component('cv-section-single', {
@@ -907,6 +917,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link href="{{ asset('css/lity.css') }}" rel="stylesheet">
     
     <style>
         .select2 {

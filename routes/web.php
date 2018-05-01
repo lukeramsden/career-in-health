@@ -84,6 +84,9 @@ if (env('APP_ENV') == 'local')
         Route::view('/', 'employee.cv.edit')
             ->middleware(['auth', 'only.employee'])
             ->name('builder');
+
+        Route::get('/pdf/view', 'PersonnelFileController@view')->name('pdf.view');
+        Route::get('/pdf/download', 'PersonnelFileController@download')->name('pdf.download');
     });
 
     Route::prefix('company')

@@ -2,6 +2,7 @@
 
 window._          = require('lodash');
 window.Popper     = require('popper.js').default;
+window.lity       = require('lity');
 window.mime       = require('mime');
 window.filesize   = require('file-size');
 window.changeCase = require('change-case');

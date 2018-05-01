@@ -39,7 +39,7 @@
                         <a class="nav-link {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Profile</a>
                         <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
                        
-                        
+                        {{-- EXAMPLE SUBMENU --}}
                         {{--<div class="nav-section-parent">--}}
                             {{--@php($activeRoute = active_route([--}}
                                                                 {{--'profile.edit',--}}
