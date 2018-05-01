@@ -17,12 +17,10 @@
                     </template>
                 </div>
                 <div class="col-sm-5">
-                    <div class="sticky-top">
-                        <button class="btn btn-primary btn-block" @click="show">View CV</button>
-                        @endverbatim
-                        <a href="{{ route('cv.pdf.download') }}" target="_blank" class="btn btn-primary btn-block">Download CV</a>
-                        @verbatim
-                    </div>
+                    <button class="btn btn-primary btn-block" @click="show">View CV</button>
+                    @endverbatim
+                    <a href="{{ route('cv.pdf.download') }}" target="_blank" class="btn btn-primary btn-block">Download CV</a>
+                    @verbatim
                 </div>
             </div>
         </script>
