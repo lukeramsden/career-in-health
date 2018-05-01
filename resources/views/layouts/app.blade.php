@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('b_content')
-    <div id="navbar">
+    <div id="navbar" class="d-none d-lg-block">
         <img class="logo" src="/images/cih-logo.svg" alt="logo">
         <div id="nav-inner">
             <nav class="nav flex-column">
@@ -78,6 +78,29 @@
             </nav>
         </div>
     </div>
+    
+    <nav class="navbar navbar-dark bg-primary d-block d-lg-none fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Career In Health</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div id="navbarCollapse" class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    @guest
+                        <li class="nav-item {{ active_route('home') }}"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
+                        <li class="nav-item {{ active_route('search') }}"><a class="nav-link" href="{{ route('search') }}">Search</a></li>
+                        <li class="nav-item {{ active_route('login') }}"><a class="nav-link" href="{{ route('login') }}">Log In</a></li>
+                        <li class="nav-item {{ active_route('register') }}"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                    @endguest
+                    
+                    {{-- TODO: flesh out mobile navbar --}}
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <div id="app">
         @yield('content')

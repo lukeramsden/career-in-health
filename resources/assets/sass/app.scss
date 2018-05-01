@@ -33,7 +33,9 @@ $navbar-width: 200px;
 }
 
 #app {
-  margin-left: $navbar-width;
+  @include media-breakpoint-up(lg) {
+    margin-left: $navbar-width;
+  }
   width: auto;
   position: relative;
   overflow: auto;

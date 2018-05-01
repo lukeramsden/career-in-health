@@ -80,7 +80,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col col-12 col-xl-6 order-sm-first order-xl-last">
+                    <div class="col col-12 col-xl-6 order-first order-xl-last">
                         <div id="register-form-help-container">
                             <div id="register-form-help-inner">
                                 <h2>Create a FREE Account</h2>

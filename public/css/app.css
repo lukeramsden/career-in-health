@@ -10690,11 +10690,16 @@ body {
 }
 
 #app {
-  margin-left: 200px;
   width: auto;
   position: relative;
   overflow: auto;
   z-index: 1;
+}
+
+@media (min-width: 992px) {
+  #app {
+    margin-left: 200px;
+  }
 }
 
 #app .container-fluid {

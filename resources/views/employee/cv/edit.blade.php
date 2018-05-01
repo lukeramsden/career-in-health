@@ -16,7 +16,7 @@
                         <cv-section-single v-else :schema="schema" :model="model[schema.name]"></cv-section-single>
                     </template>
                 </div>
-                <div class="col-sm-12 col-md-4 col-xl-3">
+                <div class="col-sm-12 col-md-4 col-xl-3 order-first order-md-last mb-4">
                     <button class="btn btn-primary btn-block" @click="show">View CV</button>
                     @endverbatim
                     <a href="{{ route('cv.pdf.download') }}" target="_blank" class="btn btn-primary btn-block">Download CV</a>
