@@ -16,18 +16,19 @@ class CompanyProfileController extends Controller
     }
 
     static $validation = [
-        'name' => 'required|string',
+        'name' => 'required|string|max:40',
         'headline' => 'nullable|string|max:80',
         'location' => 'nullable|string|max:80',
-        'description' => 'nullable|string|max:500',
-        'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1',
-        'phone' => 'nullable|string',
-        'contact_email' => 'nullable|email'
+        'description' => 'nullable|string|max:1000',
+        'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
+        'phone' => 'nullable|string|max:40',
+        'contact_email' => 'nullable|email|max:80',
+        'remove_avatar' => 'nullable|boolean'
     ];
 
     public function show(Company $company)
     {
-        return view('profile.company.show')
+        return view('company.profile.show')
             ->with([
                 'company' => $company
             ]);
@@ -35,7 +36,7 @@ class CompanyProfileController extends Controller
 
     public function show_me()
     {
-        return view('profile.company.show')
+        return view('company.profile.show')
             ->with([
                 'company' => Auth::user()->company
             ]);
@@ -43,7 +44,7 @@ class CompanyProfileController extends Controller
 
     public function edit()
     {
-        return view('profile.company.edit')
+        return view('company.profile.edit')
             ->with([
                 'company' => Auth::user()->company
             ]);
@@ -51,23 +52,27 @@ class CompanyProfileController extends Controller
 
     public function update(Request $request)
     {
-        $data = $request->validate($this::$validation);
+        $data = $request->validate(self::$validation);
 
         $company = Auth::user()->company;
 
-        $old_avatar_path = $company->avatar_path;
-
-        if($request->hasFile('avatar'))
+        if(isset($data['remove_avatar']) && $data['remove_avatar'])
+        {
+          Storage::delete($company->avatar_path);
+            $company->avatar_path = null;
+        }
+        else if($request->hasFile('avatar'))
         {
             $path = $request->file('avatar')->storePublicly('avatars');
+            Storage::delete($company->avatar_path);
             $company->avatar_path = $path;
-            Storage::delete($old_avatar_path);
         }
 
         $company->fill($data);
         $company->save();
 
-        toast()->success('Updated!');
+        toast()->success('Profile Updated!');
+
         return back()
             ->withInput();
     }

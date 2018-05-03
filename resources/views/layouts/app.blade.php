@@ -20,15 +20,15 @@
                         
                         <small class="text-muted">Profile</small>
                         
-                        <a class="nav-link" href="#">My Profile</a>
-                        <a class="nav-link" href="#">Edit Profile</a>
+                        <a class="nav-link {{ active_route('company.show.me') }}" href="{{ route('company.show.me') }}">My Profile</a>
+                        <a class="nav-link {{ active_route('company.edit') }}" href="{{ route('company.edit') }}">Edit Profile</a>
                         
                         {{----}}
                         
                         <small class="text-muted">Adverts</small>
                         
-                        <a class="nav-link nav-link-action" href="#">Create New Advert</a>
-                        <a class="nav-link" href="#">My Adverts</a>
+                        <a class="nav-link nav-link-action" href="javascript:">Create New Advert</a>
+                        <a class="nav-link" href="javascript:">My Adverts</a>
                     @else
                         
                         {{----}}

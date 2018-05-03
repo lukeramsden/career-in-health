@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -12,6 +13,16 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('only.employee')->except('show');
+        $this->middleware(function($request, Closure $next) {
+            $user = $request->route('user');
+
+            if(isset($user))
+                if($user->isCompany())
+                    return redirect(route('company.show', ['company' => $user->company]));
+
+            return $next($request);
+        })->only('show');
     }
 
     static $validation = [
@@ -53,7 +64,7 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        $data = $request->validate($this::$validation);
+        $data = $request->validate(self::$validation);
 
         $profile = Auth::user()->profile;
 

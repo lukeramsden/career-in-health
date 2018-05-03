@@ -16,7 +16,7 @@ class AdvertController extends Controller
         $this->middleware('only.employer')->except('show');
         $this->middleware(function($request, Closure $next) {
             // TODO: better validation for advert belonging to company creating advert
-            $advert = $request->route()->getParameter('advert');
+            $advert = $request->route('advert');
             if(isset($advert)) {
                 if($advert->user != Auth::user()) {
                     redirect(route('advert.index'));

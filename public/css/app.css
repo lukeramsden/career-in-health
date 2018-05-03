@@ -11229,14 +11229,16 @@ body {
 }
 
 @media (min-width: 576px) {
-  #profile-edit-card-columns {
+  #profile-edit-card-columns,
+  #company-edit-card-columns {
     -webkit-column-count: 1;
             column-count: 1;
   }
 }
 
 @media (min-width: 992px) {
-  #profile-edit-card-columns {
+  #profile-edit-card-columns,
+  #company-edit-card-columns {
     -webkit-column-count: 2;
             column-count: 2;
   }

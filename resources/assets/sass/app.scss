@@ -603,7 +603,7 @@ $navbar-width: 200px;
   }
 }
 
-#profile-edit-card-columns {
+#profile-edit-card-columns, #company-edit-card-columns {
   @include media-breakpoint-up(sm) {
     column-count: 1;
   }

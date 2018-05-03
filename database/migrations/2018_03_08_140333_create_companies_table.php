@@ -16,13 +16,13 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('created_by_user_id');
-            $table->string('name')->unique();
-            $table->string('headline')->nullable();
-            $table->string('location')->nullable();
-            $table->string('description', 500)->nullable();
+            $table->string('name', 40)->unique();
+            $table->string('headline', 80)->nullable();
+            $table->string('location', 80)->nullable();
+            $table->string('description', 1000)->nullable();
             $table->string('avatar_path')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('contact_email')->nullable();
+            $table->string('phone', 40)->nullable();
+            $table->string('contact_email', 80)->nullable();
             // stripe stuff here
             $table->timestamps();
         });
