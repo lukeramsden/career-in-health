@@ -41,6 +41,9 @@
                                     <option :value="null">-</option>
                                     <option v-for="address in addresses" :value="address.id">{{ address.name }}</option>
                                 </select2>
+                                @endverbatim
+                                <p class="text-muted mb-0 mt-2">This will be the address that you want to find staff for. If you haven't created an address yet, <a class="text-action" href='{{ route('address.create') }}'>click here</a> to create one.</p>
+                                @verbatim
                             </div>
                         </div>
                     </template>
