@@ -27,7 +27,7 @@
                         
                         <small class="text-muted">Adverts</small>
                         
-                        <a class="nav-link nav-link-action" href="javascript:">Create New Advert</a>
+                        <a class="nav-link nav-link-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
                         <a class="nav-link" href="javascript:">My Adverts</a>
                     @else
                         

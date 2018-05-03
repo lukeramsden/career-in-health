@@ -51,7 +51,7 @@ class CvEducationController extends Controller
         $education->fill($data);
         $education->save();
 
-        if($request->ajax())
+        if(ajax())
         {
             return response()->json(['success' => true, 'model' => $education], 200);
         }

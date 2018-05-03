@@ -124,9 +124,13 @@
                         </div>
                     </div>
                 </div>
+    
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <button type="submit" class="btn btn-action btn-block">Save</button>
+                    </div>
+                </div>
             </div>
-            
-            <button type="submit" class="btn btn-action px-5 float-right">Save</button>
         </form>
     </div>
 @endsection

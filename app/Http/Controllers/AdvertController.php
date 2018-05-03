@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Closure;
 
+// TODO: Hide advert on save_for_later - middleware for this?
 class AdvertController extends Controller
 {
     public function __construct()
@@ -29,25 +30,22 @@ class AdvertController extends Controller
 
     private function getValidateRules($request)
     {
-        if ($request->save_for_later !== null) {
+        if ($request->has('save_for_later') && $request->save_for_later == true) {
             $rules = [
-                'title' => 'required|max:160'
+                'title' => 'required|max:120'
             ];
         } else {
             $rules = [
                 'address_id' => 'required',
-                'title' => 'required|max:160',
+                'title' => 'required|max:120',
                 'description' => 'required|max:3000',
                 'job_type_id' => 'required|integer|exists:job_types,id',
                 'setting' => ['required', Rule::in(array_keys(Advert::$settings))],
                 'type' => ['required', Rule::in(array_keys(Advert::$types))],
+                'min_salary' => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
+                'max_salary' => 'nullable|integer|min:1|max:1000000|greater_than_field:min_salary',
             ];
         }
-
-        $rules = array_merge($rules, [
-            'min_salary' => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
-            'max_salary' => 'nullable|integer|min:1|max:1000000|greater_than_field:min_salary',
-        ]);
 
         return $rules;
     }   
@@ -75,7 +73,8 @@ class AdvertController extends Controller
         $user = Auth::user();
         if(!$user->isCompany()
             || $advert->company_id !== $user->company_id) {
-            return redirect(route('home'));
+            toast()->error('You must be the advert creator to view this page');
+            return back();
         }
 
         return view('advert.show_internal')
@@ -104,24 +103,36 @@ class AdvertController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate($this->getValidateRules($request));
+        $data = $request->validate(self::getValidateRules($request));
 
         $advert = new Advert();
         $advert->company_id = Auth::user()->company_id;
         $advert->created_by_user_id = Auth::user()->id;
-        $advert->fill($request->all());
+        $advert->fill($data);
         $advert->save();
 
-        return redirect(route('advert.index'));
+        if(ajax())
+        {
+            return response()->json(['success' => true, 'model' => $advert], 200);
+        }
+
+        toast()->success('Created!');
+        return redirect(route('advert.show', ['advert' => $advert]));
     }
 
     public function update(Advert $advert, Request $request)
     {
-        $request->validate($this->getValidateRules($request));
+        $data = $request->validate(self::getValidateRules($request));
 
-        $advert->fill($request->all());
+        $advert->fill($data);
         $advert->save();
 
-        return redirect(route('advert.index'));
+        if(ajax())
+        {
+            return response()->json(['success' => true, 'model' => $advert], 200);
+        }
+
+        toast()->success('Updated!');
+        return back();
     }
 }
