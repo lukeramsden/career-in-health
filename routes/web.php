@@ -46,8 +46,8 @@ if (env('APP_ENV') == 'local')
         Route::prefix('address')
             ->name('address.')
             ->group(function() {
-                Route::get('/address', 'AddressController@create')->name('create');
-                Route::post('/address', 'AddressController@store')->name('store');
+                Route::get('/', 'AddressController@create')->name('create');
+                Route::post('/', 'AddressController@store')->name('store');
             });
 
         Route::get('/plans', 'SubscriptionController@index')->name('plans');
