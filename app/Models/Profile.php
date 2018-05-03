@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Profile extends Model
 {
-    protected $fillable = ["first_name", "last_name", "phone,", "headline", "location", "description"];
+    protected $fillable = ["first_name", "last_name", "phone", "headline", "location", "description"];
 
     public function fullName()
     {

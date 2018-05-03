@@ -21,9 +21,10 @@ class ProfileController extends Controller
         'headline' => 'nullable|string|max:80',
         'location' => 'nullable|string|max:80',
         'description' => 'nullable|string|max:1000',
-        'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1',
-        'job_types' => 'required|array|min:1',
-        'job_types.*' => 'integer|distinct|exists:job_types,id'
+        'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
+        'job_types' => 'nullable|array|min:1',
+        'job_types.*' => 'integer|distinct|exists:job_types,id',
+        'remove_avatar' => 'nullable|boolean'
     ];
 
     public function show(User $user)
@@ -47,8 +48,6 @@ class ProfileController extends Controller
         return view('profile.edit')
             ->with([
                 'profile' => Auth::user()->profile,
-                'action' => route('profile.update'),
-                'isCvBuilder' => false,
             ]);
     }
 
@@ -58,17 +57,23 @@ class ProfileController extends Controller
 
         $profile = Auth::user()->profile;
 
-        $old_avatar_path = $profile->avatar_path;
-
-        if($request->hasFile('avatar'))
+        if(isset($data['remove_avatar']) && $data['remove_avatar'])
+        {
+          Storage::delete($profile->avatar_path);
+          $profile->avatar_path = null;
+        }
+        else if($request->hasFile('avatar'))
         {
             $path = $request->file('avatar')->storePublicly('avatars');
+            Storage::delete($profile->avatar_path);
             $profile->avatar_path = $path;
-            Storage::delete($old_avatar_path);
         }
 
         $profile->fill($data);
-        $profile->jobTypes()->sync($data['job_types']);
+
+        if(isset($data['job_types']))
+            $profile->jobTypes()->sync($data['job_types']);
+
         $profile->save();
 
         toast()->success('Profile updated!');

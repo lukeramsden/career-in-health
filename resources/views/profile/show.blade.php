@@ -3,11 +3,16 @@
     <div class="container mb-5">
         <div class="card card-custom mt-5 mx-auto">
             <div class="card-body">
-                <img src="{{ $profile->picture() ?? 'images/generic.png' }}" alt="Profile picture" width="200" class="img-thumbnail mx-auto d-block">
+                <img src="{{ $profile->picture() ?? '/images/generic.png' }}" alt="Profile picture" width="200" class="img-thumbnail mx-auto d-block">
                 <div class="text-center">
                     <h1 class="mt-3">{{ $profile->fullName() }}</h1>
                     <h5><b>{{ $profile->location }}</b></h5>
                     <h5>{{ $profile->headline }}</h5>
+                    <div class="mt-3">
+                        @foreach($profile->jobTypes as $jobType)
+                            <span class="badge badge-primary badge-pill px-3 py-2">{{ $jobType->name }}</span>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
