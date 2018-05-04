@@ -6,7 +6,7 @@
 	<script type="text/javascript">
 		toastr.options = {
 			"closeButton": true,
-			"newestOnTop": true,
+			"newestOnTop": false,
 			"positionClass": "toast-top-right",
 			"progressBar": true
 		};
