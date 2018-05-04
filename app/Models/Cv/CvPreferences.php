@@ -12,7 +12,7 @@ class CvPreferences extends AbstractCvItemModel
         '5' => 'Hour',
     ];
 
-    protected $fillable = ['job_type', 'setting', 'type', 'salary_number', 'salary_type', 'willing_to_relocate'];
+    protected $fillable = ['job_role', 'setting', 'type', 'salary_number', 'salary_type', 'willing_to_relocate'];
 
     public function cv()
     {

@@ -192,9 +192,9 @@
                     <div class="cv-item-inner">
                         <!-- PREFERENCES -->
                         <template v-if="schema.name === 'preferences'">
-                            <template v-if="model.job_type">
+                            <template v-if="model.job_role">
                                 <small><b>Job Role</b></small>
-                                <p class="my-1">{{ schema.fields[0].data[model.job_type-1].name }}</p>
+                                <p class="my-1">{{ schema.fields[0].data[model.job_role-1].name }}</p>
                             </template>
                             <template v-if="model.setting">
                                 <small><b>Job Setting</b></small>
@@ -462,10 +462,9 @@
                                   'put'  // multiple & updating existing
                                 : 'post' // multiple & creating new
                         
-                    } else options = {
-                        method: 'put',
-                        url: _.get(this, 'schema.url'),
-                        data: data,
+                    } else {
+                        options.method = 'put';
+                        options.url = _.get(this, 'schema.url');
                     }
                     
                     axios(options)
@@ -635,7 +634,7 @@
                         type: 'dropdown',
                         handler: 'select2',
                         label: 'Job Role',
-                        model: 'job_type',
+                        model: 'job_role',
                         data: [
                             @foreach(\App\JobRole::all() ?? [] as $job)
                                 {
