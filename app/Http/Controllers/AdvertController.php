@@ -53,7 +53,7 @@ class AdvertController extends Controller
                 // TODO: validation that user owns this address
                 'address_id' => 'nullable|integer|exists:addresses,id',
                 'description' => 'nullable|max:3000',
-                'job_type_id' => 'nullable|integer|exists:job_types,id',
+                'job_role' => 'nullable|integer|exists:job_roles,id',
                 'setting' => ['nullable', Rule::in(array_keys(Advert::$settings))],
                 'type' => ['nullable', Rule::in(array_keys(Advert::$types))],
                 'min_salary' => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
@@ -65,7 +65,7 @@ class AdvertController extends Controller
                 // TODO: validation that user owns this address
                 'address_id' => 'required|integer|exists:addresses,id',
                 'description' => 'required|max:3000',
-                'job_type_id' => 'required|integer|exists:job_types,id',
+                'job_role' => 'required|integer|exists:job_roles,id',
                 'setting' => ['required', Rule::in(array_keys(Advert::$settings))],
                 'type' => ['required', Rule::in(array_keys(Advert::$types))],
                 'min_salary' => 'required|integer|min:0|max:1000000|less_than_field:max_salary',

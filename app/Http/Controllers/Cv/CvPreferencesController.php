@@ -30,7 +30,7 @@ class CvPreferencesController extends Controller
     protected function getValidationRules(Request $request)
     {
         return [
-            'job_type' => 'nullable|integer|exists:job_types,id',
+            'job_type' => 'nullable|integer|exists:job_roles,id',
             'setting' => ['nullable', Rule::in(array_keys(Advert::$settings))],
             'type' => ['nullable', Rule::in(array_keys(Advert::$types))],
             'salary_number' => 'nullable|required_with:salary_type|numeric|min:0|max:150000',

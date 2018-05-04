@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class JobType extends Model
+class JobRole extends Model
 {
     static $list = [
         "Activities Worker",

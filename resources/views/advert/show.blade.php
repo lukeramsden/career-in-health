@@ -8,7 +8,7 @@
                         <a href="{{ route('company.show', [$advert->company]) }}" class="card-subtitle">
                             {{$advert->company->name}}
                         </a>
-                        <h4 class="card-title">{{$advert->jobType->name}}</h4>
+                        <h4 class="card-title">{{$advert->jobRole->name}}</h4>
                         <h5>{{ $advert->title }}</h5>
                         <h6>{{ $advert->getSetting() }}</h6>
                         <div id="small-details">

@@ -17,10 +17,10 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="search-job-type-control">Job Roles</label>
-                                <select id="search-job-type-control" name="job_types[]" class="custom-select job-type-control" multiple size="1">
-                                    @foreach(\App\JobType::all() as $job)
-                                        <option {{ collect(old('job_types', Request::get('job_types')))->contains($job->id) ? 'selected':'' }} value="{{ $job->id }}">{{ $job->name }}</option>
+                                <label for="search-job-role-control">Job Roles</label>
+                                <select id="search-job-role-control" name="job_roles[]" class="custom-select job-role-control" multiple size="1">
+                                    @foreach(\App\JobRole::all() as $job)
+                                        <option {{ collect(old('job_roles', Request::get('job_roles')))->contains($job->id) ? 'selected':'' }} value="{{ $job->id }}">{{ $job->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -80,7 +80,7 @@
                                         <a href="{{ route('company.show', [$advert->company]) }}" class="card-subtitle">
                                             {{$advert->company->name}}
                                         </a>
-                                        <h4 class="card-title">{{$advert->jobType->name}}</h4>
+                                        <h4 class="card-title">{{$advert->jobRole->name}}</h4>
                                         <h5><a href="{{ route('advert.show', [$advert]) }}">{{ $advert->title }}</a></h5>
                                         <h6>{{ $advert->getSetting() }}</h6>
                                         <div id="small-details">
@@ -115,16 +115,16 @@
                     <form method="get">
                         {{ csrf_field() }}
                         <h6 class="text-muted">I'm a</h6>
-                        <div id="first-search-job-type">
-                            <select id="first-search-job-type-control" name="job_types[]" class="custom-select town-control" multiple size="1">
-                                @foreach(\App\JobType::all() as $job)
-                                    <option {{ collect(old('job_types', Request::get('job_types')))->contains($job->id) ? 'selected':'' }} value="{{ $job->id }}">{{ $job->name }}</option>
+                        <div id="first-search-job-role">
+                            <select id="first-search-job-role-control" name="job_roles[]" class="custom-select town-control" multiple size="1">
+                                @foreach(\App\JobRole::all() as $job)
+                                    <option {{ collect(old('job_roles', Request::get('job_roles')))->contains($job->id) ? 'selected':'' }} value="{{ $job->id }}">{{ $job->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <h6 class="text-muted my-2">in</h6>
                         <div id="first-search-town">
-                            <select id="first-search-town-control" name="town" class="custom-select job-type-control" required>
+                            <select id="first-search-town-control" name="town" class="custom-select job-role-control" required>
                                 <option {{ old('town', Request::get('town')) != null ? '' : 'selected' }} disabled></option>
                                 @foreach (\App\Location::getAllLocations() as $loc)
                                     <option {{ $loc->id == old('town', Request::get('town')) ? 'selected' : '' }} value='{{ $loc->id }}'>{{ $loc->name }}</option>
@@ -175,7 +175,7 @@
                 dropdownAutoWidth : true,
                 width: '100%'
             });
-            $('.job-type-control').select2({
+            $('.job-role-control').select2({
                 dropdownAutoWidth : true,
                 width: '100%'
             });

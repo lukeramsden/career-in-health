@@ -1,16 +1,16 @@
 <?php
 
-use App\JobType;
+use App\JobRole;
 use Illuminate\Database\Seeder;
 
-class JobTypeSeeder extends Seeder
+class JobRoleSeeder extends Seeder
 {
     public function run()
     {
         /** @var string $item */
-        foreach (JobType::$list as $item)
+        foreach (JobRole::$list as $item)
         {
-            $job = new JobType();
+            $job = new JobRole();
             $job->name = $item;
             $job->save();
         }

@@ -24,8 +24,8 @@ class Profile extends Model
         return $this->avatar_path ? Storage::url($this->avatar_path) : null;
     }
 
-    public function jobTypes()
+    public function jobRoles()
     {
-        return $this->belongsToMany(\App\JobType::class);
+        return $this->belongsToMany(\App\JobRole::class);
     }
 }

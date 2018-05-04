@@ -55,9 +55,9 @@
                     @endverbatim
                     <div class="card card-custom">
                         <div class="card-body">
-                            <select2 v-model="model.job_type_id" name="job_type_id" :required="!model.save_for_later">
+                            <select2 v-model="model.job_role" name="job_role" :required="!model.save_for_later">
                                 <option :value="null">-</option>
-                                @foreach(\App\JobType::all() as $job)
+                                @foreach(\App\JobRole::all() as $job)
                                     <option value="{{ $job->id }}">{{ $job->name }}</option>
                                 @endforeach
                             </select2>

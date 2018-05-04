@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobTypeProfilePivotTable extends Migration
+class CreateJobRoleProfilePivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class CreateJobTypeProfilePivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_type_profile', function (Blueprint $table) {
-            $table->integer('job_type_id')->unsigned()->index();
-            $table->foreign('job_type_id')->references('id')->on('job_types')->onDelete('cascade');
+        Schema::create('job_role_profile', function (Blueprint $table) {
+            $table->integer('job_role')->unsigned()->index();
+            $table->foreign('job_role')->references('id')->on('job_roles')->onDelete('cascade');
             $table->integer('profile_id')->unsigned()->index();
             $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
-            $table->primary(['job_type_id', 'profile_id']);
+            $table->primary(['job_role', 'profile_id']);
         });
     }
 
@@ -28,6 +28,6 @@ class CreateJobTypeProfilePivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('job_type_profile');
+        Schema::drop('job_role_profile');
     }
 }

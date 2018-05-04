@@ -36,9 +36,9 @@ class Advert extends Model
         '6' => 'Voluntary',
     ];
 
-    public function jobType()
+    public function jobRole()
     {
-        return $this->hasOne(\App\JobType::class, 'id', 'job_type_id');
+        return $this->hasOne(\App\JobRole::class, 'id', 'job_role');
     }
 
     public function company()

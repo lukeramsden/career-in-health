@@ -33,8 +33,8 @@ class ProfileController extends Controller
         'location' => 'nullable|string|max:80',
         'description' => 'nullable|string|max:1000',
         'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
-        'job_types' => 'nullable|array|min:1',
-        'job_types.*' => 'integer|distinct|exists:job_types,id',
+        'job_roles' => 'nullable|array|min:1',
+        'job_roles.*' => 'integer|distinct|exists:job_roles,id',
         'remove_avatar' => 'nullable|boolean'
     ];
 
@@ -82,8 +82,8 @@ class ProfileController extends Controller
 
         $profile->fill($data);
 
-        if(isset($data['job_types']))
-            $profile->jobTypes()->sync($data['job_types']);
+        if(isset($data['job_roles']))
+            $profile->jobRoles()->sync($data['job_roles']);
 
         $profile->save();
 

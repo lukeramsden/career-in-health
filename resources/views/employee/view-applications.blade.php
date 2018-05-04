@@ -18,7 +18,7 @@
                             <p><a href="{{ route('company.show', [$application->advert->company]) }}">{{ $application->advert->company->name }}</a></p>
                         </td>
                         <td>
-                            <p>{{ $application->advert->jobType->name }}</p>
+                            <p>{{ $application->advert->jobRole->name }}</p>
                         </td>
                         <td>
                             <p>{{ $application->created_at->toFormattedDateString() }}</p>

@@ -637,7 +637,7 @@
                         label: 'Job Role',
                         model: 'job_type',
                         data: [
-                            @foreach(\App\JobType::all() ?? [] as $job)
+                            @foreach(\App\JobRole::all() ?? [] as $job)
                                 {
                                     name: '{{ $job->name }}',
                                     value: '{{ $job->id }}',

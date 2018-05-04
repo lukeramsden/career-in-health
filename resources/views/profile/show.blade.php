@@ -9,8 +9,8 @@
                     <h5><b>{{ $profile->location }}</b></h5>
                     <h5>{{ $profile->headline }}</h5>
                     <div class="mt-3">
-                        @foreach($profile->jobTypes as $jobType)
-                            <span class="badge badge-primary badge-pill px-3 py-2">{{ $jobType->name }}</span>
+                        @foreach($profile->jobRoles as $jobRole)
+                            <span class="badge badge-primary badge-pill px-3 py-2">{{ $jobRole->name }}</span>
                         @endforeach
                     </div>
                 </div>

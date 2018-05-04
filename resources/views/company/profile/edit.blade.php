@@ -120,7 +120,7 @@
     
     <script>
         $(function() {
-            $('.job-type-control').select2({
+            $('.job-role-control').select2({
                 dropdownAutoWidth : true,
                 width: '100%'
             });

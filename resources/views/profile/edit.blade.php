@@ -112,14 +112,14 @@
                         <div class="form-group">
                             <label>Job Roles</label>
                             
-                            <select name="job_types[]" class="form-control job-type-control {{ $errors->has('job_types') ? 'is-invalid' : '' }}" multiple title="Jobs" size="1">
-                                @foreach(\App\JobType::all() as $job)
-                                    <option {{ $profile->jobTypes->contains($job) ? 'selected' : '' }} value="{{ $job->id }}">{{ $job->name }}</option>
+                            <select name="job_roles[]" class="form-control job-role-control {{ $errors->has('job_roles') ? 'is-invalid' : '' }}" multiple title="Jobs" size="1">
+                                @foreach(\App\JobRole::all() as $job)
+                                    <option {{ $profile->jobRoles->contains($job) ? 'selected' : '' }} value="{{ $job->id }}">{{ $job->name }}</option>
                                 @endforeach
                             </select>
                             
-                            @if ($errors->has('job_types'))
-                                <div class="invalid-feedback">{{ $errors->first('job_types') }}</div>
+                            @if ($errors->has('job_roles'))
+                                <div class="invalid-feedback">{{ $errors->first('job_roles') }}</div>
                             @endif
                         </div>
                     </div>
@@ -148,7 +148,7 @@
     
     <script>
         $(function() {
-            $('.job-type-control').select2({
+            $('.job-role-control').select2({
                 dropdownAutoWidth : true,
                 width: '100%'
             });

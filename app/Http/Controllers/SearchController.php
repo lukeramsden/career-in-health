@@ -17,8 +17,8 @@ class SearchController extends Controller
     static $validation = [
         'town' => 'required|integer|exists:locations,id',
         'radius' => 'nullable|integer|min:5|max:50',
-        'job_types' => 'array',
-        'job_types.*' => 'integer|distinct|exists:job_types,id',
+        'job_roles' => 'array',
+        'job_roles.*' => 'integer|distinct|exists:job_roles,id',
         'min_salary' => 'nullable|integer|min:0|max:150000|less_than_field:max_salary',
         'max_salary' => 'nullable|integer|min:1|max:150000|greater_than_field:min_salary',
         'setting_filter' => 'array',
@@ -32,7 +32,7 @@ class SearchController extends Controller
         if($request->has('town')) {
             $data = $request->validate(self::$validation);
             $town = Location::find($data['town']);
-            $results = Advert::with('address', 'address.location', 'jobType', 'company');
+            $results = Advert::with('address', 'address.location', 'jobRole', 'company');
 
             if(isset($data['radius']) && $data['radius'] < 50) {
                 $results = $results->whereHas('address', function($q) use($town, $data) {
@@ -47,8 +47,8 @@ class SearchController extends Controller
                 });
             }
 
-            if(isset($data['job_types']))
-                $results->whereIn('job_type_id', $data['job_types']);
+            if(isset($data['job_roles']))
+                $results->whereIn('job_role', $data['job_roles']);
 
             if(isset($data['min_salary']))
                 $results->where('max_salary', '>', $data['min_salary']);
