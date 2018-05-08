@@ -24,12 +24,12 @@ body {
 
 $navbar-width: 200px;
 
-.btn-action {
-  color: $white;
+.btn-action, .btn-action:hover {
+  color: $white !important;
 }
 
 .btn-outline-action:hover {
-  color: $white;
+  color: $white !important;
 }
 
 #app {

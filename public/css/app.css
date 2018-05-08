@@ -10861,12 +10861,13 @@ body {
   background-color: #f2f2f2;
 }
 
-.btn-action {
-  color: #fff;
+.btn-action,
+.btn-action:hover {
+  color: #fff !important;
 }
 
 .btn-outline-action:hover {
-  color: #fff;
+  color: #fff !important;
 }
 
 #app {

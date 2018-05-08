@@ -87,9 +87,10 @@ class ProfileController extends Controller
 
         $profile->save();
 
-        toast()->success('Profile updated!');
+        toast()
+            ->success('Profile updated!')
+            ->info('<a href=\'' . route('profile.show.me') . '\' class=\'btn btn-action btn-sm mt-1\'>View Profile</a>');
 
-        return back()
-            ->withInput();
+        return back();
     }
 }
