@@ -274,14 +274,6 @@ $navbar-width: 200px;
 .pagination {
   margin: 0;
 
-  .page-link {
-    color: $primary;
-
-    &:hover {
-      background-color: $gray-300;
-    }
-  }
-
   .page-item {
     .page-link {
       background: transparent;
@@ -289,9 +281,14 @@ $navbar-width: 200px;
       color: $gray-800;
     }
 
+    &:hover {
+      background-color: $gray-300;
+    }
+
+    border-radius: 0.25rem;
+
     &-active {
       background-color: $primary;
-      border-radius: 0.25rem;
 
       .page-link {
         color: white;
@@ -313,6 +310,7 @@ $navbar-width: 200px;
     }
 
   }
+
   .page-item {
     &-previous,
     &-next {
@@ -576,6 +574,100 @@ $navbar-width: 200px;
     color: $white;
     background-color: $primary;
     border-color: $dark-primary;
+  }
+}
+
+#adverts {
+  margin-bottom: 0.7rem;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  th {
+    color: $white;
+    background-color: $primary;
+    border-color: $dark-primary;
+  }
+
+  &_wrapper {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    select {
+      @extend .custom-select;
+      width: auto;
+    }
+
+    input {
+      @extend .form-control;
+      width: auto;
+      display: inline;
+    }
+  }
+
+  &_length, &_filter {
+    margin-bottom: 0.7rem;
+  }
+
+  &_length {
+
+  }
+
+  &_filter {
+
+  }
+
+  & ~ &_paginate {
+    .paginate_button {
+      padding: 0.5rem 0.75rem;
+      color: $primary;
+
+      &:hover {
+        background-color: $gray-300;
+      }
+
+      &.previous, &.next {
+        margin-left: 6px;
+        margin-right: 6px;
+        border: 1px solid $gray-600;
+        border-radius: 0.25rem;
+        color: $gray-600 !important;
+
+        &:not(.disabled):hover {
+          border-color: darken($gray-500, 8%);
+          background: $gray-200;
+        }
+
+        &.disabled {
+          border-color: $gray-500;
+        }
+      }
+    }
+
+    span {
+      .paginate_button {
+        background: transparent;
+        border: none;
+        color: $gray-800;
+        padding: 0.5rem 0.75rem;
+
+        &:hover {
+          color: $gray-800 !important;
+          background-color: $gray-300 !important;
+        }
+
+        &.current {
+          background-color: $primary;
+          border-radius: 0.25rem;
+          color: white !important;
+
+          &:hover {
+            background-color: $dark-primary !important;
+          }
+        }
+      }
+    }
   }
 }
 

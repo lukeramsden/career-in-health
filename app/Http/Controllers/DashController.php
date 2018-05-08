@@ -21,7 +21,7 @@ class DashController extends Controller
                 ->orderBy('updated_at', 'desc')
                 ->get();
 
-            return view('company.dashboard')
+            return view('kitchen-sink')
                 ->with(['applications' => $applications]);
         }
 
