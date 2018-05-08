@@ -31,6 +31,12 @@ class AdvertApplicationController extends Controller
             ->with(['applications' => Auth::user()->applications()->with('user', 'advert', 'advert.company', 'advert.jobRole')->orderBy('created_at', 'desc')->paginate(15)]);
     }
 
+    public function show(AdvertApplication $application)
+    {
+        return view('employee.advert.view-application')
+            ->with(['application' => $application]);
+    }
+
     public function create(Advert $advert)
     {
         if(Auth::guest()) {
@@ -69,12 +75,12 @@ class AdvertApplicationController extends Controller
 
     public function update(Request $request, AdvertApplication $application)
     {
+        $user = Auth::user();
         if ($request->has('status') || $request->has('notes')) {
-            $user = Auth::user();
-            if(!$user->isCompany() || $application->advert->company_id !== $user->company_id) {
+            if(!$user->isCompany() || $application->advert->company !== $user->company) {
                 if($request->ajax())
                 {
-                    return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status'], 401);
+                    return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status or notes.'], 401);
                 }
 
                 toast()->error('You must own the advert to update an application\'s status');
@@ -82,10 +88,10 @@ class AdvertApplicationController extends Controller
             } else {
                 $data = $request->validate($this->getValidateRules(true));
 
-                if($request->has('status'))
+                if(isset($data['status']))
                     $application->status = $data['status'];
 
-                if($request->has('notes'))
+                if(isset($data['notes']))
                     $application->notes = $data['notes'];
             }
         } else {

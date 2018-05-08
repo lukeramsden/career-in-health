@@ -20,16 +20,15 @@ class AdvertController extends Controller
             $user = Auth::user();
             $advert = $request->route('advert');
 
-            if(!isset($advert))
-                return $next($request);
-
-            if($user->isCompany())
-                return $next($request);
-
             if($user->company === $advert->company)
                 return $next($request);
 
-            toast()->error("You cannot edit an advert you don't own");
+            if(ajax())
+            {
+                return response()->json(['success' => false, 'message' => 'You cannot edit an advert you don\'t own'], 401);
+            }
+
+            toast()->error('You cannot edit an advert you don\'t own');
             return redirect(route('advert.show', ['advert' => $advert]));
         })->except('show');
         // not draft

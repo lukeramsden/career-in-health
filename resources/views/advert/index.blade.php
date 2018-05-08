@@ -50,7 +50,7 @@
         $(function() {
             $('#adverts').DataTable({
                 responsive: true,
-                stateSave: false,
+                stateSave: true,
                 pageLength: 15,
                 lengthMenu: [15, 15 * 2, 15 * 3, 15 * 4, 15 * 5],
                 stateDuration: 60 * 5, // 5 minutes

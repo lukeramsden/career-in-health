@@ -38,8 +38,11 @@ if (env('APP_ENV') == 'local')
                     Route::get('/all', 'AdvertApplicationController@index')->name('index');
 
                     Route::post('/{application}/update', 'AdvertApplicationController@update')->name('update');
-                    Route::get('/{advert}', 'AdvertApplicationController@create')->name('create');
-                    Route::post('/{advert}', 'AdvertApplicationController@store')->name('store');
+
+                    Route::get('/{advert}/create', 'AdvertApplicationController@create')->name('create');
+                    Route::post('/{advert}/create', 'AdvertApplicationController@store')->name('store');
+
+                    Route::get('/{advert}', 'AdvertApplicationController@show')->name('show');
                 });
         });
 
