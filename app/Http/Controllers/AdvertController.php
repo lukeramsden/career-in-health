@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Closure;
 
-// TODO: Hide advert on save_for_later - middleware for this?
 class AdvertController extends Controller
 {
     public function __construct()
