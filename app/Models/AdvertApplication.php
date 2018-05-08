@@ -15,6 +15,7 @@ class AdvertApplication extends Model
     ];
 
     protected $fillable = ['custom_cover_letter'];
+    protected $dates = ['created_at', 'updated_at'];
 
     public function user()
     {

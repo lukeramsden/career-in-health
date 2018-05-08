@@ -17,6 +17,8 @@ class Advert extends Model
 
     protected $guarded = ['_token', 'id', 'save_for_later'];
 
+    protected $dates = ['created_at', 'updated_at', 'started_at', 'end_at'];
+
     static $settings = [
         '1' => 'Care Home / Nursing Home',
         '2' => 'Housing with Care',
