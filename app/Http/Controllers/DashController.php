@@ -29,6 +29,8 @@ class DashController extends Controller
     {
         $user = Auth::user();
 
+        $user->load(['cv', 'cv.preferences']);
+
         $applications = $user
             ->applications()
             ->get()
@@ -39,8 +41,18 @@ class DashController extends Controller
         
         $adverts = Advert
             ::where('company_id', '1')
-            ->with(['applications', 'jobRole', 'company', 'address'])
-            ->get()
+            ->with(['applications', 'jobRole', 'company', 'address']);
+
+        if(isset(optional($user)->cv->preferences->job_role))
+            $adverts->where('job_role', $user->cv->preferences->job_role);
+
+        if(isset(optional($user)->cv->preferences->setting))
+            $adverts->where('setting', $user->cv->preferences->setting);
+
+        if(isset(optional($user)->cv->preferences->type))
+            $adverts->where('type', $user->cv->preferences->type);
+
+        $adverts = $adverts->get()
             ->map(function ($item, $key) {
                 $item['_feed_type'] = 'advert';
                 return $item;
