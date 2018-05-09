@@ -23,12 +23,6 @@
             float: right;
         }
         
-        /*.logo {*/
-            /*width: 250px;*/
-            /*opacity: 0.5;*/
-            /*filter: alpha(opacity=50);*/
-        /*}*/
-        
         .button {
             font-weight: 400;
             text-align: center;
@@ -62,7 +56,6 @@
 </head>
 <body>
     <div class="right">
-        {{--<img class="logo" src="{{ asset('/images/cih-logo.svg') }}" alt="logo">--}}
         @unless($embed || $download)
             <a class="button" href="{{ route('cv.pdf.download') }}">Download</a>
         @endunless
