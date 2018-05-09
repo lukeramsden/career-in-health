@@ -37,12 +37,11 @@ if (env('APP_ENV') == 'local')
                 ->group(function() {
                     Route::get('/all', 'AdvertApplicationController@index')->name('index');
 
-                    Route::post('/{application}/update', 'AdvertApplicationController@update')->name('update');
-
                     Route::get('/{advert}/create', 'AdvertApplicationController@create')->name('create');
                     Route::post('/{advert}/create', 'AdvertApplicationController@store')->name('store');
 
-                    Route::get('/{advert}', 'AdvertApplicationController@show')->name('show');
+                    Route::post('/{application}/update', 'AdvertApplicationController@update')->name('update');
+                    Route::get('/{application}', 'AdvertApplicationController@show')->name('show');
                 });
         });
 
