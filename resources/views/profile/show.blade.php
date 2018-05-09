@@ -51,7 +51,6 @@
                 @if($cv->workExperience->count() > 0)
                     <div class="card card-custom mb-4">
                         <div class="card-body">
-                    
                             <h4 class="mb-4"><em>Work Experience</em></h4>
                     
                             @foreach($cv->workExperience as $workExperience)
@@ -70,6 +69,27 @@
                                 @if(!$loop->last)
                                     <hr class="my-4">
                                 @endif
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+                @if($cv->certifications->count() > 0)
+                    <div class="card card-custom mb-4">
+                        <div class="card-body">
+                            <h4 class="mb-4"><em>Certifications/Licenses</em></h4>
+                        
+                            @foreach($cv->certifications as $certification)
+                                <div>
+                                    <p class="my-1"><b>{{ $certification->title }}</b></p>
+                                    @isset($certification->end_date)
+                                        <p class="my-1">Awarded {{ $certification->start_date->format('F Y') }} - Expires {{ $certification->end_date->format('F Y') }}</p>
+                                    @else
+                                        <p class="my-1">Awarded {{ $certification->start_date->format('F Y') }} (Doesn't Expire)</p>
+                                    @endisset
+                                    @isset($certification->description)
+                                        <p class="my-1">{!! nl2br(e($certification->description)) !!}</p>
+                                    @endisset
+                                </div>
                             @endforeach
                         </div>
                     </div>
