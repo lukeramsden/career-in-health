@@ -36,8 +36,10 @@ class DashController extends Controller
                 $item['_feed_type'] = 'application';
                 return $item;
             });
+        
         $adverts = Advert
             ::where('company_id', '1')
+            ->with(['applications', 'jobRole', 'company', 'address'])
             ->get()
             ->map(function ($item, $key) {
                 $item['_feed_type'] = 'advert';
