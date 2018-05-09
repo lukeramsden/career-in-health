@@ -28,6 +28,7 @@ if (env('APP_ENV') == 'local')
             Route::post('/new', 'AdvertController@store')->name('store');
 
             Route::get('/{advert}/view', 'AdvertController@show_internal')->name('show.internal');
+            Route::get('/{advert}/view/applications', 'AdvertController@show_applications')->name('show.applications');
 
             Route::get('/{advert}/edit', 'AdvertController@edit')->name('edit');
             Route::post('/{advert}/edit', 'AdvertController@update')->name('update');

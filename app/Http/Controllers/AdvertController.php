@@ -20,7 +20,7 @@ class AdvertController extends Controller
             $user = Auth::user();
             $advert = $request->route('advert');
 
-            if($user->company === $advert->company)
+            if($user->isCompany() && $user->company_id === $advert->company_id)
                 return $next($request);
 
             if(ajax())
@@ -30,7 +30,7 @@ class AdvertController extends Controller
 
             toast()->error('You cannot edit an advert you don\'t own');
             return redirect(route('advert.show', ['advert' => $advert]));
-        })->except('show');
+        })->only(['edit', 'updated', 'show_internal', 'show_applications']);
         // not draft
         $this->middleware(function($request, Closure $next) {
             $advert = $request->route('advert');
@@ -95,6 +95,14 @@ class AdvertController extends Controller
     public function show_internal(Advert $advert)
     {
         return view('advert.show_internal')
+            ->with([
+                'advert' => $advert
+            ]);
+    }
+
+    public function show_applications(Advert $advert)
+    {
+        return view('advert.view-applications')
             ->with([
                 'advert' => $advert
             ]);

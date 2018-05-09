@@ -28,7 +28,7 @@
                         <small class="text-muted">Adverts</small>
                         
                         <a class="nav-link nav-link-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
-                        <a class="nav-link {{ active_route(['advert.index', 'advert.edit']) }}" href="{{ route('advert.index') }}">My Adverts</a>
+                        <a class="nav-link {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">My Adverts</a>
                     @else
                         
                         {{----}}

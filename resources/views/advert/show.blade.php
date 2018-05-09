@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    @php($isOwner = Auth::user()->isCompany() && Auth::user()->company_id === $advert->company_id)
     <div class="container-fluid p-0 m-0">
         <div class="row m-0 p-4" id="advert-show-row">
             <div class="col-12">
@@ -47,7 +48,9 @@
                             <a href="{{ route('register') }}" class="btn btn-block btn-action">Sign Up To Apply</a>
                         @endguest
                         @auth
-                            @if(Auth::user()->isCompany())
+                            @if($isOwner)
+                                <a href="{{ route('advert.show.applications', [$advert]) }}" class="btn btn-block btn-link">View Applications</a>
+                            @elseif(Auth::user()->isCompany())
                                 <button type="button" disabled class="btn btn-block btn-secondary">You can't apply</button>
                             @else
                                 @if(!\App\AdvertApplication::alreadyApplied(Auth::user(), $advert))
