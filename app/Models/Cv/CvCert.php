@@ -8,7 +8,7 @@ class CvCert extends AbstractCvItemModel
 
     protected $fillable = ['title', 'description', 'start_date', 'end_date'];
 
-    protected $hidden = ['cv_id', 'file'];
+    protected $hidden = ['cv_id'];
 
     protected $dates = [
         'created_at',

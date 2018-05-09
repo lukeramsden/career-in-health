@@ -9,10 +9,10 @@
             color: black;
             margin: 0 auto;
             padding: 15px;
-            @if(!$download)
+            @unless($embed || $download)
                 max-width: 1000px;
                 padding-top: 50px;
-            @endif
+            @endunless
         }
         
         .section {
@@ -23,11 +23,11 @@
             float: right;
         }
         
-        .logo {
-            width: 250px;
-            opacity: 0.5;
-            filter: alpha(opacity=50);
-        }
+        /*.logo {*/
+            /*width: 250px;*/
+            /*opacity: 0.5;*/
+            /*filter: alpha(opacity=50);*/
+        /*}*/
         
         .button {
             font-weight: 400;
@@ -53,21 +53,28 @@
             background-color: #384669;
             border-color: #334161;
         }
+        
+        .page {
+        	page-break-after: avoid;
+        	page-break-inside: avoid;
+        }
     </style>
 </head>
 <body>
     <div class="right">
-        <img class="logo" src="/images/cih-logo.svg" alt="logo">
-        @if(!$download)
+        {{--<img class="logo" src="{{ asset('/images/cih-logo.svg') }}" alt="logo">--}}
+        @unless($embed || $download)
             <a class="button" href="{{ route('cv.pdf.download') }}">Download</a>
-        @endif
+        @endunless
     </div>
-    <div class="container">
-        <h1 style="margin: 0;">{{ $profile->fullName() }}</h1>
-        <p><b>{{ $profile->location }}</b></p>
-        <p>{{ $profile->headline }}</p>
-        <p>{{ $profile->description }}</p>
-        <p>{{ $profile->user->email }}</p>
+    <div class="container page">
+        <div class="section">
+            <h1 style="margin: 0;">{{ $profile->fullName() }}</h1>
+            <p><b>{{ $profile->location }}</b></p>
+            <p>{{ $profile->headline }}</p>
+            <p>{{ $profile->description }}</p>
+            <p>{{ $profile->user->email }}</p>
+        </div>
         <hr>
         @php($cv = $profile->user->cv)
         @if($cv->education->count() > 0)
@@ -105,7 +112,25 @@
             @endforeach
             <hr>
         @endif
-        {{-- TODO: add certs/licenses plus file appending --}}
+        @if($cv->certifications->count() > 0)
+            <h4><em>Certifications/Licenses</em></h4>
+        
+            @foreach($cv->certifications as $certification)
+                <div class="section">
+                    <p><b>{{ $certification->title }}</b></p>
+                    @isset($certification->end_date)
+                        <p>Awarded {{ $certification->start_date->format('F Y') }} - Expires {{ $certification->end_date->format('F Y') }}</p>
+                    @else
+                        <p>Awarded {{ $certification->start_date->format('F Y') }} (Doesn't Expire)</p>
+                    @endisset
+                    @isset($certification->description)
+                        <p>{!! nl2br(e($certification->description)) !!}</p>
+                    @endisset
+                </div>
+            @endforeach
+            
+            <hr>
+        @endif
     </div>
 </body>
 </html>
