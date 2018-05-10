@@ -2,6 +2,8 @@
 
 namespace App\Cv;
 
+use Illuminate\Support\Facades\Storage;
+
 class CvCert extends AbstractCvItemModel
 {
     protected $table = 'cv_certs';
@@ -16,4 +18,13 @@ class CvCert extends AbstractCvItemModel
         'start_date',
         'end_date',
     ];
+
+    protected $appends = [
+        'url',
+    ];
+
+    public function getUrlAttribute()
+    {
+        return Storage::url($this->file);
+    }
 }

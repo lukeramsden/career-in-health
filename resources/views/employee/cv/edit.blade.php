@@ -243,7 +243,7 @@
                                 <p class="my-1">Started {{ formatDate(model.start_date, 'MMMM YYYY') }}</p>
                             </template>
                             <p v-if="model.description" class="my-1">{{ model.description | truncate(50) }}</p>
-                            <!-- TODO: Add link to view file -->
+                            <a :href="model.url" class="btn btn-link">View File</a>
                         </template>
                     </div>
                     <button v-if="multiple" class="btn btn-link btn-sm float-right" @click="$emit('delete-cv-item', index)"><span class="oi oi-delete"></span></button>
