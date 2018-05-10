@@ -2,14 +2,13 @@
 @section('content')
     <div class="container-fluid mt-4">
         <div class="grid">
-            @each('employee._dash-item', $results->items(), 'item')
+            @include('employee._dash-collection', ['items' => $items])
         </div>
-        @if($results->hasPages())
+        @if($items->hasPages())
             <div class="row">
                 <div class="col"></div>
                 <div class="col-auto">
-                    {{-- TODO: Make this do something --}}
-                    <button class="btn btn-action px-5 my-5">Load More</button>
+                    <button class="btn btn-action px-5 my-5 load-more" onclick="loadMore()">Load More</button>
                 </div>
                 <div class="col"></div>
             </div>
@@ -22,6 +21,38 @@
         $(function() {
             $('.grid').masonry();
         });
+
+        var page = 1;
+        const lastPage = {{ $items->lastPage() }}
+
+        function loadMore() {
+            let $load = $('.load-more');
+            
+            if($load.hasClass('disabled'))
+                return false;
+            
+            $load.addClass('disabled');
+            
+            axios.post('{{ route('dashboard.get') }}', { page: page += 1 })
+                .then((resp) => {
+                    const $items = $(resp.data);
+                    
+                    // append items to grid
+                    $('.grid').append( $items )
+                      // add and lay out newly appended items
+                      .masonry( 'appended', $items );
+                    
+                    if(page >= lastPage) {
+                        $load.removeClass('btn-action');
+                        $load.addClass('btn-secondary');
+                        $load.addClass('disabled');
+                        $load.text('Nothing Else To Load!');
+                    } else  $load.removeClass('disabled');
+                })
+                .catch((err) => console.log(err));
+            
+            return false;
+        }
     </script>
 @endsection
 @section('stylesheet')

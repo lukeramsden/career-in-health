@@ -16,6 +16,7 @@ if (env('APP_ENV') == 'local')
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout.get');
 
     Route::get('/dashboard', 'DashController@index')->name('dashboard');
+    Route::post('/dashboard', 'DashController@get')->name('dashboard.get');
 
     Route::prefix('account')->group(function() {
         Route::prefix('advert')

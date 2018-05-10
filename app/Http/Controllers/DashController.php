@@ -19,14 +19,7 @@ class DashController extends Controller
 
     private function employer_dash(Request $request)
     {
-        $user = Auth::user();
-        $applications = $user->company
-            ->applications()
-            ->orderBy('updated_at', 'desc')
-            ->get();
-
-        return view('kitchen-sink')
-            ->with(['applications' => $applications]);
+        return [];
     }
 
     private function employee_dash(Request $request)
@@ -75,18 +68,39 @@ class DashController extends Controller
             if($item['_feed_type'] === 'advert')
                 $item->increment('recommended_impressions');
 
-        if(ajax())
-            return response()->json($paginator->items(), 200);
-
-        return view('employee.dashboard', ['results' => $paginator]);
+        return $paginator;
     }
 
     public function index(Request $request)
     {
         $user = Auth::user();
 
-        return $user->isCompany()
-            ? $this->employer_dash($request)
-            : $this->employee_dash($request);
+        if($user->isCompany())
+        {
+            $paginator = $this->employer_dash($request);
+            return view('company.dashboard');
+        } else {
+            $paginator = $this->employee_dash($request);
+            return view('employee.dashboard', ['items' => $paginator]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     * @throws \Throwable
+     */
+    public function get(Request $request)
+    {
+        $user = Auth::user();
+
+        if($user->isCompany())
+        {
+            $paginator = $this->employer_dash($request);
+        } else {
+            $paginator = $this->employee_dash($request);
+        }
+
+        return view('employee._dash-collection', ['items' => $paginator->items()])->render();
     }
 }
