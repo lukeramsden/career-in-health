@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AdvertStatus;
 use Auth;
 use App\Advert;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Closure;
@@ -24,9 +25,7 @@ class AdvertController extends Controller
                 return $next($request);
 
             if(ajax())
-            {
                 return response()->json(['success' => false, 'message' => 'You cannot edit an advert you don\'t own'], 401);
-            }
 
             toast()->error('You cannot edit an advert you don\'t own');
             return redirect(route('advert.show', ['advert' => $advert]));
@@ -48,7 +47,6 @@ class AdvertController extends Controller
         if ($request->has('save_for_later') && $request->save_for_later == true) {
             $rules = [
                 'title' => 'required|max:120',
-                // TODO: validation that user owns this address
                 'address_id' => 'nullable|integer|exists:addresses,id',
                 'description' => 'nullable|max:3000',
                 'job_role' => 'nullable|integer|exists:job_roles,id',
@@ -60,7 +58,6 @@ class AdvertController extends Controller
         } else {
             $rules = [
                 'title' => 'required|max:120',
-                // TODO: validation that user owns this address
                 'address_id' => 'required|integer|exists:addresses,id',
                 'description' => 'required|max:3000',
                 'job_role' => 'required|integer|exists:job_roles,id',
@@ -140,7 +137,9 @@ class AdvertController extends Controller
             : AdvertStatus::Public;
 
         $advert->fill($data);
+        $advert->last_edited = Carbon::now();;
         $advert->save();
+
 
         if(ajax())
         {
@@ -169,20 +168,19 @@ class AdvertController extends Controller
             AdvertStatus::Draft
             : AdvertStatus::Public;
 
+        $advert->last_edited = Carbon::now();;
         $advert->save();
 
+
         if(ajax())
-        {
             return response()->json(['success' => true, 'model' => $advert], 200);
-        }
 
         toast()->success('Updated!');
 
-        if($save_for_later) {
+        if($save_for_later)
             toast()->info('This advert is not public.');
-        } else {
+        else
             toast()->info('This advert has been published successfully.<br><a href="' . route('advert.show', ['advert' => $advert]) . '" class="btn btn-action btn-sm mt-1">View Advert</a>');
-        }
 
         return back();
     }

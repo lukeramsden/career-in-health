@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Advert;
 use App\AdvertApplication;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,7 +68,9 @@ class AdvertApplicationController extends Controller
         $application = new AdvertApplication();
         $application->user_id = Auth::user()->id;
         $application->fill($data);
+        $application->last_edited = Carbon::now();;
         $advert->applications()->save($application);
+
 
         toast()->success('Applied!');
         return redirect(route('advert.show', [$advert]));
@@ -100,6 +103,7 @@ class AdvertApplicationController extends Controller
             $application->fill($data);
         }
 
+        $application->last_edited = Carbon::now();;
         $application->save();
 
         if($request->ajax())

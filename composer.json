@@ -7,10 +7,12 @@
     "require": {
         "php": ">=7.0.0",
         "akaunting/money": "^1.0",
+        "appstract/laravel-blade-directives": "^1.0",
         "barryvdh/laravel-ide-helper": "v2.4.3",
         "barryvdh/laravel-snappy": "^0.4.1",
         "doctrine/dbal": "2.3.5",
         "fideloper/proxy": "~4.0",
+        "genealabs/laravel-caffeine": "^0.6.8",
         "grimthorr/laravel-toast": "^1.1",
         "h4cc/wkhtmltopdf-amd64": "0.12.x",
         "laravel/cashier": "~7.0",

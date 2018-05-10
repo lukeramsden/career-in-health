@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Advert;
 use App\AdvertStatus;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 
 class DashController extends Controller
@@ -14,7 +17,7 @@ class DashController extends Controller
         $this->middleware('auth');
     }
 
-    private function employer_dash()
+    private function employer_dash(Request $request)
     {
         $user = Auth::user();
         $applications = $user->company
@@ -26,7 +29,7 @@ class DashController extends Controller
             ->with(['applications' => $applications]);
     }
 
-    private function employee_dash()
+    private function employee_dash(Request $request)
     {
         $user = Auth::user();
 
@@ -60,16 +63,30 @@ class DashController extends Controller
             });
 
         $feed = collect($applications)->merge(collect($adverts));
+        $feed = $feed->sortByDesc('last_edited');
+        $perPage = 10;
+        $currentPage = $request->get('page', 1);
+        $items = array_slice($feed->all(), ($currentPage * $perPage) - $perPage, $perPage, true);
+        $paginator = new LengthAwarePaginator($items, $feed->count(), $perPage, $currentPage, [
+                'path' => $request->path()
+            ]);
 
-        return view('employee.dashboard', ['feed' => $feed->sortByDesc('updated_at')]);
+        foreach ($paginator->items() as $item)
+            if($item['_feed_type'] === 'advert')
+                $item->increment('recommended_impressions');
+
+        if(ajax())
+            return response()->json($paginator->items(), 200);
+
+        return view('employee.dashboard', ['results' => $paginator]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
         return $user->isCompany()
-            ? $this->employer_dash()
-            : $this->employee_dash();
+            ? $this->employer_dash($request)
+            : $this->employee_dash($request);
     }
 }

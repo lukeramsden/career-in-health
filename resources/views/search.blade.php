@@ -96,7 +96,7 @@
                                                 </p>
                                             </div>
                                             <div>
-                                                <a href="{{ route('advert.show', [$advert]) }}"
+                                                <a href="{{ route('tracking.advert.search.click', [$advert]) }}"
                                                    class="btn btn-outline-primary">View</a>
                                             </div>
                                         </div>

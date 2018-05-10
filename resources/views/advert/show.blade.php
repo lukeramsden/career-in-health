@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @php($isOwner = Auth::user()->isCompany() && Auth::user()->company_id === $advert->company_id)
+    @php($isOwner = optional(Auth::user())->isCompany() && Auth::user()->company_id === $advert->company_id)
     <div class="container-fluid p-0 m-0">
         <div class="row m-0 p-4" id="advert-show-row">
             <div class="col-12">

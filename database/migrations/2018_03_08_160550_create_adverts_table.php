@@ -28,10 +28,14 @@ class CreateAdvertsTable extends Migration
             $table->string('postcode', 10)->nullable();
             $table->timestamp('started_at')->nullable();
             $table->timestamp('end_at')->nullable();
-            $table->integer('impressions')->default(0);
-            $table->integer('clicks')->default(0);
-            $table->integer('conversions')->default(0);
+            $table->integer('search_impressions')->default(0);
+            $table->integer('search_clicks')->default(0);
+            $table->integer('search_conversions')->default(0);
+            $table->integer('recommended_impressions')->default(0);
+            $table->integer('recommended_clicks')->default(0);
+            $table->integer('recommended_conversions')->default(0);
             $table->integer('status')->default(0);
+            $table->timestamp('last_edited')->nullable();
             $table->timestamps();
         });
     }

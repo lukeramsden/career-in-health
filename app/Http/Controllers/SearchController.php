@@ -64,6 +64,10 @@ class SearchController extends Controller
 
             $results = $results->where('status', AdvertStatus::Public)->orderBy('max_salary', 'desc')->paginate(10);
 
+            // impressions tracking
+            foreach($results->items() as $advert)
+                $advert->increment('search_impressions');
+
             return view('search')
                 ->with([
                     'results' => $results,
