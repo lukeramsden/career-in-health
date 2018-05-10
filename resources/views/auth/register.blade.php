@@ -77,6 +77,7 @@
                             
                             <div class="form-group text-center mt-5">
                                 <button type="submit" class="btn btn-action">Sign Up</button>
+                                <a href="{{ route('login') }}" class="btn btn-link btn-sm btn-block mt-3">Already Have An Account?</a>
                             </div>
                         </form>
                     </div>

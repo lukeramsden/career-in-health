@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row align-items-center justify-content-center">
-            <div class="col-auto" id="login-container">
+            <div class="col-4" id="login-container">
                 <div class="card card-custom">
                     <div class="card-body">
                         <form action="{{ route('login') }}" method="post">
@@ -29,7 +29,8 @@
                             </div>
 
                             <div class="form-group">
-                                <button class='btn btn-action'>Login</button>
+                                <button class='btn btn-action px-5 float-right'>Login</button>
+                                <a href="{{ route('register') }}" class='btn btn-sm btn-link float-right'>Sign Up</a>
                             </div>
                             
                         </form>

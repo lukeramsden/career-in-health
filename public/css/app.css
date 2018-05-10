@@ -11042,6 +11042,74 @@ body {
   margin: 25px;
 }
 
+#home .banners {
+  width: 100%;
+  height: 400px;
+}
+
+#home .banners .banner {
+  width: 100%;
+  height: 400px;
+  position: relative;
+}
+
+#home .banners .banner img {
+  width: 100%;
+  height: 400px;
+}
+
+#home .banners .banner .text {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+#home .banners .banner .text .container {
+  height: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#home .banners .banner .text .container h1 {
+  color: white;
+  font-size: 54px;
+  font-weight: 600;
+}
+
+#home .banners .banner .text .container h2 {
+  font-size: 32px;
+  font-weight: 300;
+  color: #cccccc;
+}
+
+#home .banners .banner .text .container .buttons {
+  padding-top: 20px;
+  width: 100%;
+  height: 50px;
+}
+
+#home .banners .banner .text .container .buttons .btn {
+  padding: 0px 50px;
+  height: 50px;
+  line-height: 52px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+#home .banners .banner .text .container .buttons .btn + .btn {
+  margin-left: 30px;
+}
+
+#home .banners .banner .text .container.left {
+  padding-left: 360px;
+}
+
 .card-custom {
   position: relative;
   border-radius: 0;
@@ -11223,7 +11291,7 @@ body {
 
 @media (min-width: 768px) {
   #login-container .card {
-    margin-top: 100%;
+    margin-top: 40%;
   }
 }
 
