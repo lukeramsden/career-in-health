@@ -76,7 +76,7 @@ class JobRole extends Model
         "Foster Carer",
         "Gardener",
         "Geneticist",
-        "Gp",
+        "GP",
         "Grants Officer",
         "Health Play Specialist",
         "Health Promotion Specialist",
