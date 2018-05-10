@@ -252,8 +252,8 @@
                 const self = this;
                 
                 salarySlider.noUiSlider.on('change', function(values, handle) {
-                    self.model.min_salary = moneyFormatter.from(values[0]);
-                    self.model.max_salary = moneyFormatter.from(values[1]);
+                    self.$set(self.model, 'min_salary', moneyFormatter.from(values[0]));
+                    self.$set(self.model, 'max_salary', moneyFormatter.from(values[1]));
                 });
         
                 $('#salary-slider').find('div.noUi-value:nth-child(30)').html('£150,000+');
@@ -261,7 +261,7 @@
         });
 
         let data = {
-            model: {!! $advert !!},
+            model: {!! $edit ? $advert : '{}' !!},
             url: '{{ $edit ? route('advert.update', ['advert' => $advert]) : route('advert.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
         };

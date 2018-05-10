@@ -95,4 +95,14 @@ class Advert extends Model
     {
         return $this->getDistanceToLocation($address->location);
     }
+
+    public function isDraft()
+    {
+        return $this->status === AdvertStatus::Draft;
+    }
+
+    public function isPublished()
+    {
+        return $this->status === AdvertStatus::Public;
+    }
 }

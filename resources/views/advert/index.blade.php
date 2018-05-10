@@ -10,6 +10,7 @@
                     <th scope="col" data-searchable="false" data-orderable="true">Last Updated</th>
                     <th scope="col" data-searchable="true"  data-orderable="true">Title</th>
                     <th scope="col" data-searchable="true"  data-orderable="true">Address</th>
+                    <th scope="col" data-searchable="true"  data-orderable="true">Status</th>
                     <th scope="col" data-searchable="false" data-orderable="false" data-width="100px"></th>
                 </tr>
             </thead>
@@ -25,14 +26,21 @@
                         <td data-search="{{ $advert->title }}">
                             <p>{{ $advert->title }}</p>
                         </td>
-                        <td data-search="{{ $advert->address->name }}">
-                            <p>{{ $advert->address->name }}</p>
+                        <td data-search="{{ optional($advert->address)->name }}">
+                            <p>{{ optional($advert->address)->name }}</p>
+                        </td>
+                        <td data-search="{{ $advert->isPublished() ? 'Published' : 'Draft' }}" data-order="{{ $advert->status }}">
+                            <p>{{ $advert->isPublished() ? 'Published' : 'Draft' }}</p>
                         </td>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group">
-                                <a href="{{ route('advert.show', [$advert]) }}" class="btn btn-link">View</a>
-                                <a href="{{ route('advert.edit', [$advert]) }}" class="btn btn-link">Edit</a>
-                            </div>
+                            @if($advert->isPublished())
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="{{ route('advert.show', [$advert]) }}" class="btn btn-link">View</a>
+                                    <a href="{{ route('advert.edit', [$advert]) }}" class="btn btn-link">Edit</a>
+                                </div>
+                            @else
+                                <a href="{{ route('advert.edit', [$advert]) }}" class="btn btn-sm btn-block btn-link">Edit</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
