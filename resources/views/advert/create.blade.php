@@ -232,6 +232,7 @@
                     ],
                     step: 500,
                     tooltips: true,
+                    margin: 1000,
                     range: {
                         'min': 0,
                         'max': 150000
@@ -264,6 +265,7 @@
             model: {!! $edit ? $advert : '{}' !!},
             url: '{{ $edit ? route('advert.update', ['advert' => $advert]) : route('advert.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
+            {{--old: {{ json_encode(Session::getOldInput()) }},--}}
         };
         
         @if($advert->status == \App\AdvertStatus::Draft)
