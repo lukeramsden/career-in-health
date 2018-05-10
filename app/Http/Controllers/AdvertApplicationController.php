@@ -38,7 +38,7 @@ class AdvertApplicationController extends Controller
             ->with(['application' => $application]);
     }
 
-    public function create(Advert $advert)
+    public function create(Request $request, Advert $advert)
     {
         if(Auth::guest()) {
             session(['apply_to_job_id' => $advert->id]);
@@ -50,6 +50,8 @@ class AdvertApplicationController extends Controller
             toast()->error('You have already applied to this job!');
             return redirect(route('advert.show', [$advert]));
         }
+
+        $request->session()->keep('click_thru');
 
         return view('employee.advert.apply')
             ->with(['advert' => $advert]);
@@ -71,6 +73,14 @@ class AdvertApplicationController extends Controller
         $application->last_edited = Carbon::now();;
         $advert->applications()->save($application);
 
+        switch (session()->get('click_thru', 'search')) {
+            case 'search':
+                $advert->increment('search_conversions');
+                break;
+            case 'recommended':
+                $advert->increment('recommended_conversions');
+                break;
+        }
 
         toast()->success('Applied!');
         return redirect(route('advert.show', [$advert]));
@@ -82,9 +92,7 @@ class AdvertApplicationController extends Controller
         if ($request->has('status') || $request->has('notes')) {
             if(!$user->isCompany() || $application->advert->company !== $user->company) {
                 if($request->ajax())
-                {
                     return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status or notes.'], 401);
-                }
 
                 toast()->error('You must own the advert to update an application\'s status');
                 return back();
@@ -107,9 +115,7 @@ class AdvertApplicationController extends Controller
         $application->save();
 
         if($request->ajax())
-        {
             return response()->json(['success' => true]);
-        }
 
         toast()->success('Updated!');
         return back();

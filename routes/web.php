@@ -105,11 +105,13 @@ if (env('APP_ENV') == 'local')
                 ->group(function() {
                     Route::get('/{advert}/search/click', function(\App\Advert $advert) {
                         $advert->increment('search_clicks');
+                        session()->flash('click_thru', 'search');
                         return redirect()->action('AdvertController@show', [$advert]);
                     })->name('search.click');
 
                     Route::get('/{advert}/recommended/click', function(\App\Advert $advert) {
                         $advert->increment('recommended_clicks');
+                        session()->flash('click_thru', 'recommended');
                         return redirect()->action('AdvertController@show', [$advert]);
                     })->name('recommended.click');
                 });

@@ -83,6 +83,7 @@ class AdvertController extends Controller
 
     public function show(Advert $advert)
     {
+        session()->keep('click_thru');
         return view('advert.show')
             ->with([
                 'advert' => $advert
@@ -140,11 +141,8 @@ class AdvertController extends Controller
         $advert->last_edited = Carbon::now();;
         $advert->save();
 
-
         if(ajax())
-        {
             return response()->json(['success' => true, 'model' => $advert], 200);
-        }
 
         if($save_for_later) {
             toast()->success('Created!');
@@ -170,7 +168,6 @@ class AdvertController extends Controller
 
         $advert->last_edited = Carbon::now();;
         $advert->save();
-
 
         if(ajax())
             return response()->json(['success' => true, 'model' => $advert], 200);
