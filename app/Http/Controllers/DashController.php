@@ -19,8 +19,29 @@ class DashController extends Controller
 
     private function employer_dash(Request $request)
     {
-        return [];
-    }
+        $user = Auth::user();
+
+        $user->load(['company', 'company.applications']);
+
+        $applications = $user
+            ->company
+            ->applications()
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(function ($item, $key) {
+                $item['_feed_type'] = 'application';
+                return $item;
+            });
+
+        $feed = collect($applications);
+        $perPage = 10;
+        $currentPage = $request->get('page', 1);
+        $items = array_slice($feed->all(), ($currentPage * $perPage) - $perPage, $perPage, true);
+        $paginator = new LengthAwarePaginator($items, $feed->count(), $perPage, $currentPage, [
+                'path' => $request->path()
+            ]);
+
+        return $paginator;    }
 
     private function employee_dash(Request $request)
     {
@@ -78,7 +99,7 @@ class DashController extends Controller
         if($user->isCompany())
         {
             $paginator = $this->employer_dash($request);
-            return view('company.dashboard');
+            return view('company.dashboard', ['items' => $paginator]);
         } else {
             $paginator = $this->employee_dash($request);
             return view('employee.dashboard', ['items' => $paginator]);
