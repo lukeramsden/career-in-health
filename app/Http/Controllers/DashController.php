@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Advert;
+use App\AdvertStatus;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,7 +41,7 @@ class DashController extends Controller
             });
         
         $adverts = Advert
-            ::where('company_id', '1')
+            ::where('status', AdvertStatus::Public)
             ->with(['applications', 'jobRole', 'company', 'address']);
 
         if(isset(optional($user)->cv->preferences->job_role))
