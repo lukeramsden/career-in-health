@@ -20,8 +20,8 @@
                         <td>
                             <p>{{ $advert->id }}</p>
                         </td>
-                        <td data-order="{{ $advert->updated_at->timestamp }}">
-                            <p>{{ $advert->updated_at->diffForHumans() }}</p>
+                        <td data-order="{{ $advert->last_edited->timestamp }}">
+                            <p>{{ $advert->last_edited->diffForHumans() }}</p>
                         </td>
                         <td data-search="{{ $advert->title }}">
                             <p>{{ $advert->title }}</p>
