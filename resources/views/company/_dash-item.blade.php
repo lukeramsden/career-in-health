@@ -13,7 +13,7 @@
                     </p>
                     <a href="{{ route('advert.show.applications', ['advert' => $item->advert]) }}" class="btn btn-primary btn-sm px-4">View</a>
                 </div>
-                <div class="card-footer">{{ $item->updated_at->diffForHumans() }}</div>
+                <div class="card-footer">{{ $item->created_at->diffForHumans() }}</div>
             </div>
         </div>
         @break

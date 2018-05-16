@@ -36,11 +36,37 @@
                     @foreach($advert->applications as $application)
                         <div class="card card-custom">
                             <div class="card-body">
-                                @if($application->custom_cover_letter)
-                                    {{ $application->custom_cover_letter }}
-                                @else
-                                    <span class="text-muted font-italic">No cover letter</span>
-                                @endif
+                                <p>
+                                    @if($application->custom_cover_letter)
+                                        {{ $application->custom_cover_letter }}
+                                    @else
+                                        <span class="text-muted font-italic">No cover letter</span>
+                                    @endif
+                                </p>
+    
+                                <hr>
+                                
+                                <form action="{{ route('advert.application.update', [$application]) }}" method="post">
+                                    {{ csrf_field() }}
+                                    
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select class="custom-select" name="status" id="status">
+                                            <option {{ !isset($application->status) ? 'selected' : '' }} disabled>-</option>
+                                            @foreach(App\AdvertApplication::$statuses as $id => $status)
+                                                <option {{ $application->status == $id ? 'selected' : '' }} value="{{ $id }}">{{ $status }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="notes">Notes</label>
+                                        <textarea name="notes" id="notes" cols="30" rows="8" class="form-control">{{ old('notes', $application->notes) }}</textarea>
+                                        <small class="text-muted">Not shown to applicant.</small>
+                                    </div>
+                                    
+                                    <button class="btn btn-action px-4">Save</button>
+                                </form>
                             </div>
                             <div class="card-footer">
                                 {{ $application->updated_at->diffForHumans() }}

@@ -90,11 +90,11 @@ class AdvertApplicationController extends Controller
     {
         $user = Auth::user();
         if ($request->has('status') || $request->has('notes')) {
-            if(!$user->isCompany() || $application->advert->company !== $user->company) {
+            if(!$user->isCompany() || $application->advert->company->id !== $user->company->id) {
                 if($request->ajax())
                     return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status or notes.'], 401);
 
-                toast()->error('You must own the advert to update an application\'s status');
+                toast()->error('You must own the advert to update an application\'s status or notes.');
                 return back();
             } else {
                 $data = $request->validate($this->getValidateRules(true));
@@ -105,13 +105,9 @@ class AdvertApplicationController extends Controller
                 if(isset($data['notes']))
                     $application->notes = $data['notes'];
             }
-        } else {
-            $data = $request->validate($this->getValidateRules(false));
+        } else $application->fill($request->validate($this->getValidateRules(false)));
 
-            $application->fill($data);
-        }
-
-        $application->last_edited = Carbon::now();;
+        $application->last_edited = Carbon::now();
         $application->save();
 
         if($request->ajax())
