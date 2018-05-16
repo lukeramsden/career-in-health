@@ -23,6 +23,7 @@ class DashController extends Controller
 
         $user->load(['company', 'company.applications']);
 
+        // same issue as employee dashboard
         $applications = $user
             ->company
             ->applications()
@@ -56,7 +57,7 @@ class DashController extends Controller
                 $item['_feed_type'] = 'application';
                 return $item;
             });
-        
+
         $adverts = Advert
             ::where('status', AdvertStatus::Public)
             ->with(['applications', 'jobRole', 'company', 'address']);
@@ -70,14 +71,27 @@ class DashController extends Controller
         if(isset(optional($user)->cv->preferences->type))
             $adverts->where('type', $user->cv->preferences->type);
 
-        $adverts = $adverts->get()
+
+        $adverts = $adverts
+            ->get()
             ->map(function ($item, $key) {
                 $item['_feed_type'] = 'advert';
                 return $item;
             });
 
-        $feed = collect($applications)->merge(collect($adverts));
-        $feed = $feed->sortByDesc('last_edited');
+        /**
+         * Note:
+         *
+         * Better way would be to find 10 random adverts that match job preferences,
+         * and then scatter them throughout the data.
+         *
+         * Currently we're just loading every advert in to memory as an array, then splicing it.
+         * This isn't a good idea because if we have gigabytes of adverts everything will break
+         *
+         * TODO: find out a way of doing this without loading every fucking item in to memory
+         **/
+
+        $feed = collect($applications->sortByDesc('last_edited'))->merge(collect($adverts));
         $perPage = 10;
         $currentPage = $request->get('page', 1);
         $items = array_slice($feed->all(), ($currentPage * $perPage) - $perPage, $perPage, true);
@@ -85,6 +99,7 @@ class DashController extends Controller
                 'path' => $request->path()
             ]);
 
+        // TODO: batch this
         foreach ($paginator->items() as $item)
             if($item['_feed_type'] === 'advert')
                 $item->increment('recommended_impressions');
@@ -97,13 +112,9 @@ class DashController extends Controller
         $user = Auth::user();
 
         if($user->isCompany())
-        {
-            $paginator = $this->employer_dash($request);
-            return view('company.dashboard', ['items' => $paginator]);
-        } else {
-            $paginator = $this->employee_dash($request);
-            return view('employee.dashboard', ['items' => $paginator]);
-        }
+            return view('company.dashboard', ['items' => $this->employer_dash($request)]);
+        else
+            return view('employee.dashboard', ['items' => $this->employee_dash($request)]);
     }
 
     /**
@@ -116,11 +127,9 @@ class DashController extends Controller
         $user = Auth::user();
 
         if($user->isCompany())
-        {
             $paginator = $this->employer_dash($request);
-        } else {
+        else
             $paginator = $this->employee_dash($request);
-        }
 
         return view('employee._dash-collection', ['items' => $paginator->items()])->render();
     }
