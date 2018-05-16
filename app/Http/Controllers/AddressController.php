@@ -14,17 +14,9 @@ class AddressController extends Controller
         $this->middleware('only.employer');
     }
 
-    public function create()
+    private function getValidationRules($request)
     {
-        return view('address.create')
-            ->with([
-                'address' => new Address()
-            ]);
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
+        return [
             'name' => 'required|max:100',
             'address_line_1' => 'max:60',
             'address_line_2' => 'max:60',
@@ -32,11 +24,34 @@ class AddressController extends Controller
             'town' => 'required',
             'county' => 'max:40',
             'postcode' => 'max:10'
-        ]);
+        ];
+    }
+
+    public function create()
+    {
+        return view('address.create')
+            ->with([
+                'address' => new Address(),
+                'edit' => false
+            ]);
+    }
+
+    public function edit(Address $address)
+    {
+        return view('address.create')
+            ->with([
+                'address' => $address,
+                'edit' => true
+            ]);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate(self::getValidationRules($request));
 
         $address = new Address();
         $address->company_id = Auth::user()->company_id;
-        $address->fill($request->all());
+        $address->fill($data);
         $address->save();
 
         return redirect('/home');

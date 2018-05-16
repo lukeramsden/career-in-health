@@ -3,10 +3,9 @@
 use App\Address;
 use Faker\Generator as Faker;
 
-$locations = \App\Location::getAllLocations();
-$factory->define(Address::class, function (Faker $faker) use($locations) {
+$factory->define(Address::class, function (Faker $faker) {
     return [
         'name' => $faker->streetName,
-        'town' => $faker->randomElement($locations)->id
+        'location_id' => $faker->randomElement(\App\Location::getAllLocations())->id
     ];
 });

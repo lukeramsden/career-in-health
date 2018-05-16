@@ -15,4 +15,8 @@ class Address extends Model
         return $this->hasOne(\App\Location::class, 'id', 'town');
     }
 
+    public function company()
+    {
+        return $this->belongsTo(\App\Company::class, 'company_id', 'id');
+    }
 }

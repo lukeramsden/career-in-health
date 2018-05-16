@@ -20,7 +20,7 @@ class CreateAddressesTable extends Migration
             $table->string('address_line_1', 60)->nullable();
             $table->string('address_line_2', 60)->nullable();
             $table->string('address_line_3', 60)->nullable();
-            $table->integer('town')->nullable();
+            $table->integer('location_id')->nullable();
             $table->string('county', 40)->nullable();
             $table->string('postcode', 10)->nullable();
             $table->timestamp('canceled_at')->nullable();

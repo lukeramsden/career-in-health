@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Address;
 use App\AdvertStatus;
 use Auth;
 use App\Advert;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Closure;
@@ -16,10 +18,14 @@ class AdvertController extends Controller
     {
         $this->middleware('auth')->except('show');
         $this->middleware('only.employer')->except('show');
+
         // ownership for editing
         $this->middleware(function($request, Closure $next) {
             $user = Auth::user();
             $advert = $request->route('advert');
+
+            if(!isset($advert))
+                return $next($request);
 
             if($user->isCompany() && $user->company_id === $advert->company_id)
                 return $next($request);
@@ -29,7 +35,27 @@ class AdvertController extends Controller
 
             toast()->error('You cannot edit an advert you don\'t own');
             return redirect(route('advert.show', ['advert' => $advert]));
-        })->only(['edit', 'updated', 'show_internal', 'show_applications']);
+        })->only(['edit', 'update', 'show_internal', 'show_applications']);
+
+        // address ownership
+        $this->middleware(function($request, Closure $next) {
+            $user = Auth::user();
+            try {
+                $address  = Address::findOrFail($request->get('address_id', -1));
+            } catch (ModelNotFoundException $exception) {
+                return $next($request);
+            }
+
+            if($user->isCompany() && $user->company_id === $address->company_id)
+                return $next($request);
+
+            if(ajax())
+                return response()->json(['success' => false, 'message' => 'You cannot use an address you don\'t own'], 401);
+
+            toast()->error('You cannot use an address you don\'t own');
+            return back()->withInput();
+        })->only(['store', 'updated']);
+
         // not draft
         $this->middleware(function($request, Closure $next) {
             $advert = $request->route('advert');
@@ -42,7 +68,7 @@ class AdvertController extends Controller
         })->only('show');
     }
 
-    private function getValidateRules($request)
+    private function getValidationRules($request)
     {
         if ($request->has('save_for_later') && $request->save_for_later == true) {
             $rules = [
@@ -126,7 +152,7 @@ class AdvertController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate(self::getValidateRules($request));
+        $data = $request->validate(self::getValidationRules($request));
 
         $advert = new Advert();
         $advert->company_id = Auth::user()->company_id;
@@ -157,7 +183,7 @@ class AdvertController extends Controller
 
     public function update(Advert $advert, Request $request)
     {
-        $data = $request->validate(self::getValidateRules($request));
+        $data = $request->validate(self::getValidationRules($request));
 
         $advert->fill($data);
 
@@ -166,7 +192,7 @@ class AdvertController extends Controller
             AdvertStatus::Draft
             : AdvertStatus::Public;
 
-        $advert->last_edited = Carbon::now();;
+        $advert->last_edited = Carbon::now();
         $advert->save();
 
         if(ajax())

@@ -16,7 +16,7 @@ class AdvertApplicationController extends Controller
         $this->middleware('only.employee')->except('update');
     }
 
-    private function getValidateRules(bool $internal)
+    private function getValidationRules(bool $internal)
     {
         return $internal ? [
                     'status' => 'nullable|integer',
@@ -65,7 +65,7 @@ class AdvertApplicationController extends Controller
             return redirect(route('advert.show', [$advert]));
         }
         
-        $data = $request->validate($this->getValidateRules(false));
+        $data = $request->validate($this->getValidationRules(false));
 
         $application = new AdvertApplication();
         $application->user_id = Auth::user()->id;
@@ -97,7 +97,7 @@ class AdvertApplicationController extends Controller
                 toast()->error('You must own the advert to update an application\'s status or notes.');
                 return back();
             } else {
-                $data = $request->validate($this->getValidateRules(true));
+                $data = $request->validate($this->getValidationRules(true));
 
                 if(isset($data['status']))
                     $application->status = $data['status'];
@@ -105,7 +105,7 @@ class AdvertApplicationController extends Controller
                 if(isset($data['notes']))
                     $application->notes = $data['notes'];
             }
-        } else $application->fill($request->validate($this->getValidateRules(false)));
+        } else $application->fill($request->validate($this->getValidationRules(false)));
 
         $application->last_edited = Carbon::now();
         $application->save();

@@ -29,7 +29,17 @@
                         
                         <a class="nav-link nav-link-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
                         <a class="nav-link {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">My Adverts</a>
-                    @else
+                    
+                        {{----}}
+                        
+                        <small class="text-muted">Addresses</small>
+            
+                        <a class="nav-link nav-link-action {{ active_route('address.create') }}" href="{{ route('address.create') }}">Create New Address</a>
+                        <a class="nav-link {{ active_route(['address.index', 'address.edit', 'address.show.*']) }}" href="{{ route('address.index') }}">My Addresses</a>
+                        
+                        {{----}}
+                        
+                        @else
                         
                         {{----}}
                         

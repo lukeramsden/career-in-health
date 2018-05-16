@@ -48,8 +48,12 @@ if (env('APP_ENV') == 'local')
         Route::prefix('address')
             ->name('address.')
             ->group(function() {
-                Route::get('/', 'AddressController@create')->name('create');
-                Route::post('/', 'AddressController@store')->name('store');
+                Route::get('/', 'AddressController@index')->name('index');
+                Route::get('/new', 'AddressController@create')->name('create');
+                Route::post('/new', 'AddressController@store')->name('store');
+
+                Route::get('/{advert}/edit', 'AddressController@edit')->name('edit');
+                Route::post('/{advert}/edit', 'AddressController@update')->name('update');
             });
 
         Route::get('/plans', 'SubscriptionController@index')->name('plans');
