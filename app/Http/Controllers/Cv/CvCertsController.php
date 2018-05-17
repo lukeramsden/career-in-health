@@ -112,13 +112,10 @@ class CvCertsController extends Controller
      */
     public function destroy(CvCert $certification)
     {
-        Storage::delete($certification->file);
         $certification->delete();
 
         if(ajax())
-        {
             return response()->json(['success' => true], 200);
-        }
 
         toast()->success('Deleted');
         return back();

@@ -23,6 +23,14 @@ class CvCert extends AbstractCvItemModel
         'url',
     ];
 
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function(CvCert $cert) {
+            Storage::delete($cert->file);
+        });
+    }
+
     public function getUrlAttribute()
     {
         return Storage::url($this->file);

@@ -38,6 +38,14 @@ class Advert extends Model
         '6' => 'Voluntary',
     ];
 
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function(Advert $advert) {
+             $advert->applications()->delete();
+        });
+    }
+
     public function jobRole()
     {
         return $this->hasOne(\App\JobRole::class, 'id', 'job_role');
