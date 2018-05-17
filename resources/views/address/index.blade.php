@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <table class="table table-striped table-hover" id="addresses"
-               data-order="[[ 1, &quot;desc&quot; ]]">
+               data-order="[[ 0, &quot;asc&quot; ]]">
             <thead>
                 <tr>
                     <th scope="col" data-searchable="false" data-orderable="false" data-visible="false">ID</th>

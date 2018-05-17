@@ -31,6 +31,7 @@ if (env('APP_ENV') == 'local')
 
                 Route::get('/{advert}/edit', 'AdvertController@edit')->name('edit');
                 Route::post('/{advert}/edit', 'AdvertController@update')->name('update');
+                Route::any('/{advert}/delete', 'AdvertController@destroy')->name('destroy');
 
                 Route::prefix('application')
                     ->name('application.')
@@ -54,6 +55,7 @@ if (env('APP_ENV') == 'local')
 
                 Route::get('/{address}/edit', 'AddressController@edit')->name('edit');
                 Route::post('/{address}/edit', 'AddressController@update')->name('update');
+                Route::any('/{address}/delete', 'AddressController@destroy')->name('destroy');
             });
 
         Route::get('/plans', 'SubscriptionController@index')->name('plans');

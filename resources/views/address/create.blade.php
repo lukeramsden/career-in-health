@@ -70,6 +70,12 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-action btn-block">{{ createNew ? 'Create' : 'Save' }}</button>
+                            
+                                @endverbatim
+                                @if($edit)
+                                    <a href="{{ route('address.destroy', [$address]) }}" class="btn btn-danger btn-block">Delete</a>
+                                @endif
+                                @verbatim
                             </div>
                         </div>
                     </div>

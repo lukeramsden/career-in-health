@@ -207,4 +207,20 @@ class AdvertController extends Controller
 
         return back();
     }
+
+    /**
+     * @param Advert $advert
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Advert $advert)
+    {
+        $advert->delete();
+
+        if(ajax())
+            return response()->json(['success' => true], 200);
+
+        toast()->success('Deleted');
+        return redirect(route('advert.index'));
+    }
 }
