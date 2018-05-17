@@ -34,7 +34,7 @@
                         
                         <small class="text-muted">Addresses</small>
             
-                        <a class="nav-link nav-link-action {{ active_route('address.create') }}" href="{{ route('address.create') }}">Create New Address</a>
+                        <a class="nav-link {{ active_route('address.create') }}" href="{{ route('address.create') }}">Create New Address</a>
                         <a class="nav-link {{ active_route(['address.index', 'address.edit', 'address.show.*']) }}" href="{{ route('address.index') }}">My Addresses</a>
                         
                         {{----}}
