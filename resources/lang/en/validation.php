@@ -87,8 +87,9 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
-    'less_than_field'      => 'The :attribute must be less than :field',
-    'greater_than_field'   => 'The :attribute must be greater than :field',
+    'less_than_field'      => 'The :attribute must be less than :field.',
+    'greater_than_field'   => 'The :attribute must be greater than :field.',
+    'postcode'             => 'The :attribute format is invalid.',
 
     /*
     |--------------------------------------------------------------------------

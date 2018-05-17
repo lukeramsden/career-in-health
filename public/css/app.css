@@ -10875,6 +10875,7 @@ body {
   position: relative;
   overflow: auto;
   z-index: 1;
+  min-height: 100vh;
 }
 
 @media (min-width: 992px) {
@@ -11597,7 +11598,8 @@ body {
 @media (min-width: 576px) {
   #profile-edit-card-columns,
   #company-edit-card-columns,
-  #advert-edit-card-columns {
+  #advert-edit-card-columns,
+  #address-edit-card-columns {
     -webkit-column-count: 1;
             column-count: 1;
   }
@@ -11606,7 +11608,8 @@ body {
 @media (min-width: 992px) {
   #profile-edit-card-columns,
   #company-edit-card-columns,
-  #advert-edit-card-columns {
+  #advert-edit-card-columns,
+  #address-edit-card-columns {
     -webkit-column-count: 2;
             column-count: 2;
   }

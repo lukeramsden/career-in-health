@@ -40,6 +40,7 @@ $navbar-width: 200px;
   position: relative;
   overflow: auto;
   z-index: 1;
+  min-height: 100vh;
 
   .container-fluid {
     padding-left: 30px;
@@ -751,7 +752,10 @@ $navbar-width: 200px;
   }
 }
 
-#profile-edit-card-columns, #company-edit-card-columns, #advert-edit-card-columns {
+#profile-edit-card-columns,
+#company-edit-card-columns,
+#advert-edit-card-columns,
+#address-edit-card-columns {
   @include media-breakpoint-up(sm) {
     column-count: 1;
   }

@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
+    /**
+     * Returns all locations that match type 'City' or 'Town'
+     *
+     * @return array
+     */
     public static function getAllLocations()
     {
         $locations = Location::select(['id', 'name', 'county'])
@@ -24,6 +29,16 @@ class Location extends Model
         $locs = collect($locs)->unique('name')->all();
 
         return $locs;
+    }
+
+    /**
+     * Returns flat array of all unique counties
+     *
+     * @return string[]
+     */
+    public static function getCounties()
+    {
+        return Location::distinct()->get(['county'])->pluck('county');
     }
 
     public static function LoadCSV()

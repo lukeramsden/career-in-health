@@ -52,8 +52,8 @@ if (env('APP_ENV') == 'local')
                 Route::get('/new', 'AddressController@create')->name('create');
                 Route::post('/new', 'AddressController@store')->name('store');
 
-                Route::get('/{advert}/edit', 'AddressController@edit')->name('edit');
-                Route::post('/{advert}/edit', 'AddressController@update')->name('update');
+                Route::get('/{address}/edit', 'AddressController@edit')->name('edit');
+                Route::post('/{address}/edit', 'AddressController@update')->name('update');
             });
 
         Route::get('/plans', 'SubscriptionController@index')->name('plans');

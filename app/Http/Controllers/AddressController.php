@@ -17,13 +17,13 @@ class AddressController extends Controller
     private function getValidationRules($request)
     {
         return [
-            'name' => 'required|max:100',
-            'address_line_1' => 'max:60',
-            'address_line_2' => 'max:60',
-            'address_line_3' => 'max:60',
-            'town' => 'required',
-            'county' => 'max:40',
-            'postcode' => 'max:10'
+            'name' => 'required|max:120',
+            'location_id' => 'required|integer|exists:locations,id',
+            'address_line_1' => 'required|max:60',
+            'address_line_2' => 'nullable|max:60',
+            'address_line_3' => 'nullable|max:60',
+            'county' => 'required|max:40',
+            'postcode' => 'required|max:10|postcode',
         ];
     }
 
@@ -54,7 +54,25 @@ class AddressController extends Controller
         $address->fill($data);
         $address->save();
 
-        return redirect('/home');
+        if(ajax())
+            return response()->json(['success' => true, 'model' => $address], 200);
+
+        toast()->success('Created!');
+        return redirect(route('address.edit', ['address' => $address]));
+    }
+
+    public function update(Address $address, Request $request)
+    {
+        $data = $request->validate(self::getValidationRules($request));
+
+        $address->fill($data);
+        $address->save();
+
+        if(ajax())
+            return response()->json(['success' => true, 'model' => $address], 200);
+
+        toast()->success('Updated!');
+        return back();
     }
 
 }

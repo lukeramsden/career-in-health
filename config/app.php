@@ -217,4 +217,6 @@ return [
         'Active' =>  Rukhsar\ActiveRoute\Facades\Active::class,
     ],
 
+    'faker_locale' => 'en_GB',
+
 ];

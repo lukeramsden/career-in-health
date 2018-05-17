@@ -178,7 +178,7 @@
                     })
                         .then((response) => {
                             console.log(response);
-                            if(response.status == 200) {
+                            if(response.status === 200) {
                                 toastr.success('Updated!')
                                 switch (_.get(response, 'data.model.status', {{ \App\AdvertStatus::Public }})) {
                                     case {{ \App\AdvertStatus::Draft }}:
@@ -265,7 +265,7 @@
             model: {!! $edit ? $advert : '{}' !!},
             url: '{{ $edit ? route('advert.update', ['advert' => $advert]) : route('advert.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
-            {{--old: {{ json_encode(Session::getOldInput()) }},--}}
+            {{-- TODO: old: {{ json_encode(Session::getOldInput()) }},--}}
         };
         
         @if($advert->status == \App\AdvertStatus::Draft)
