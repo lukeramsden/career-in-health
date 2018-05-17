@@ -73,7 +73,7 @@
                             
                                 @endverbatim
                                 @if($edit)
-                                    <a href="{{ route('address.destroy', [$address]) }}" class="btn btn-danger btn-block">Delete</a>
+                                    <a href="{{ route('address.destroy', [$address]) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-block">Delete</a>
                                 @endif
                                 @verbatim
                             </div>

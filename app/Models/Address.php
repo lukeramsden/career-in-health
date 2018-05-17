@@ -30,7 +30,7 @@ class Address extends Model
 
     public function location()
     {
-        return $this->hasOne(\App\Location::class, 'id', 'town');
+        return $this->hasOne(\App\Location::class, 'id', 'location_id');
     }
 
     public function company()

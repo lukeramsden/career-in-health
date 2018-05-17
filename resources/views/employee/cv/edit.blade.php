@@ -333,6 +333,7 @@
             props: ['schema', 'model'],
             methods: {
                 del (i) {
+                    if(!confirm('Are you sure?')) return;
                     let modelId = _.get(this, ['model', i, 'id']);
                     
                     // deleting real

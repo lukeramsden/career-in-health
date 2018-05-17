@@ -109,7 +109,7 @@
                                 
                                 @endverbatim
                                 @if($edit)
-                                    <a href="{{ route('advert.destroy', [$advert]) }}" class="btn btn-danger btn-block">Delete</a>
+                                    <a href="{{ route('advert.destroy', [$advert]) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-block">Delete</a>
                                 @endif
                                 @verbatim
                             </div>
