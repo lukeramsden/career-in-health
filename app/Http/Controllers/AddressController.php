@@ -27,6 +27,16 @@ class AddressController extends Controller
         ];
     }
 
+    public function index()
+    {
+        $user = Auth::user();
+        $addresses = $user->company->addresses()->get();
+        return view('address.index')
+            ->with([
+                'addresses' => $addresses
+            ]);
+    }
+
     public function create()
     {
         return view('address.create')

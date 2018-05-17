@@ -2252,7 +2252,8 @@ pre code {
 
 .form-control,
 #adverts_wrapper input,
-#applications_wrapper input {
+#applications_wrapper input,
+#addresses_wrapper input {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
@@ -2271,14 +2272,16 @@ pre code {
 
 .form-control::-ms-expand,
 #adverts_wrapper input::-ms-expand,
-#applications_wrapper input::-ms-expand {
+#applications_wrapper input::-ms-expand,
+#addresses_wrapper input::-ms-expand {
   background-color: transparent;
   border: 0;
 }
 
 .form-control:focus,
 #adverts_wrapper input:focus,
-#applications_wrapper input:focus {
+#applications_wrapper input:focus,
+#addresses_wrapper input:focus {
   color: #495057;
   background-color: #fff;
   border-color: #8798bf;
@@ -2289,28 +2292,32 @@ pre code {
 
 .form-control::-webkit-input-placeholder,
 #adverts_wrapper input::-webkit-input-placeholder,
-#applications_wrapper input::-webkit-input-placeholder {
+#applications_wrapper input::-webkit-input-placeholder,
+#addresses_wrapper input::-webkit-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
 
 .form-control:-ms-input-placeholder,
 #adverts_wrapper input:-ms-input-placeholder,
-#applications_wrapper input:-ms-input-placeholder {
+#applications_wrapper input:-ms-input-placeholder,
+#addresses_wrapper input:-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
 
 .form-control::-ms-input-placeholder,
 #adverts_wrapper input::-ms-input-placeholder,
-#applications_wrapper input::-ms-input-placeholder {
+#applications_wrapper input::-ms-input-placeholder,
+#addresses_wrapper input::-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
 
 .form-control::placeholder,
 #adverts_wrapper input::placeholder,
-#applications_wrapper input::placeholder {
+#applications_wrapper input::placeholder,
+#addresses_wrapper input::placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -2318,9 +2325,11 @@ pre code {
 .form-control:disabled,
 #adverts_wrapper input:disabled,
 #applications_wrapper input:disabled,
+#addresses_wrapper input:disabled,
 .form-control[readonly],
 #adverts_wrapper input[readonly],
-#applications_wrapper input[readonly] {
+#applications_wrapper input[readonly],
+#addresses_wrapper input[readonly] {
   background-color: #e9ecef;
   opacity: 1;
 }
@@ -2378,6 +2387,7 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .form-control-plaintext.form-control,
 #adverts_wrapper .input-group-sm > input.form-control-plaintext,
 #applications_wrapper .input-group-sm > input.form-control-plaintext,
+#addresses_wrapper .input-group-sm > input.form-control-plaintext,
 .input-group-sm > .input-group-prepend > .form-control-plaintext.input-group-text,
 .input-group-sm > .input-group-append > .form-control-plaintext.input-group-text,
 .input-group-sm > .input-group-prepend > .form-control-plaintext.btn,
@@ -2386,6 +2396,7 @@ select.form-control:focus::-ms-value {
 .input-group-lg > .form-control-plaintext.form-control,
 #adverts_wrapper .input-group-lg > input.form-control-plaintext,
 #applications_wrapper .input-group-lg > input.form-control-plaintext,
+#addresses_wrapper .input-group-lg > input.form-control-plaintext,
 .input-group-lg > .input-group-prepend > .form-control-plaintext.input-group-text,
 .input-group-lg > .input-group-append > .form-control-plaintext.input-group-text,
 .input-group-lg > .input-group-prepend > .form-control-plaintext.btn,
@@ -2398,6 +2409,7 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .form-control,
 #adverts_wrapper .input-group-sm > input,
 #applications_wrapper .input-group-sm > input,
+#addresses_wrapper .input-group-sm > input,
 .input-group-sm > .input-group-prepend > .input-group-text,
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,
@@ -2421,6 +2433,7 @@ select.form-control-sm:not([size]):not([multiple]),
 .input-group-lg > .form-control,
 #adverts_wrapper .input-group-lg > input,
 #applications_wrapper .input-group-lg > input,
+#addresses_wrapper .input-group-lg > input,
 .input-group-lg > .input-group-prepend > .input-group-text,
 .input-group-lg > .input-group-append > .input-group-text,
 .input-group-lg > .input-group-prepend > .btn,
@@ -2531,17 +2544,23 @@ select.form-control-lg:not([size]):not([multiple]),
 #adverts_wrapper .was-validated input:valid,
 .was-validated #applications_wrapper input:valid,
 #applications_wrapper .was-validated input:valid,
+.was-validated #addresses_wrapper input:valid,
+#addresses_wrapper .was-validated input:valid,
 .form-control.is-valid,
 #adverts_wrapper input.is-valid,
 #applications_wrapper input.is-valid,
+#addresses_wrapper input.is-valid,
 .was-validated .custom-select:valid,
 .was-validated #adverts_wrapper select:valid,
 #adverts_wrapper .was-validated select:valid,
 .was-validated #applications_wrapper select:valid,
 #applications_wrapper .was-validated select:valid,
+.was-validated #addresses_wrapper select:valid,
+#addresses_wrapper .was-validated select:valid,
 .custom-select.is-valid,
 #adverts_wrapper select.is-valid,
-#applications_wrapper select.is-valid {
+#applications_wrapper select.is-valid,
+#addresses_wrapper select.is-valid {
   border-color: #28a745;
 }
 
@@ -2550,17 +2569,23 @@ select.form-control-lg:not([size]):not([multiple]),
 #adverts_wrapper .was-validated input:valid:focus,
 .was-validated #applications_wrapper input:valid:focus,
 #applications_wrapper .was-validated input:valid:focus,
+.was-validated #addresses_wrapper input:valid:focus,
+#addresses_wrapper .was-validated input:valid:focus,
 .form-control.is-valid:focus,
 #adverts_wrapper input.is-valid:focus,
 #applications_wrapper input.is-valid:focus,
+#addresses_wrapper input.is-valid:focus,
 .was-validated .custom-select:valid:focus,
 .was-validated #adverts_wrapper select:valid:focus,
 #adverts_wrapper .was-validated select:valid:focus,
 .was-validated #applications_wrapper select:valid:focus,
 #applications_wrapper .was-validated select:valid:focus,
+.was-validated #addresses_wrapper select:valid:focus,
+#addresses_wrapper .was-validated select:valid:focus,
 .custom-select.is-valid:focus,
 #adverts_wrapper select.is-valid:focus,
-#applications_wrapper select.is-valid:focus {
+#applications_wrapper select.is-valid:focus,
+#addresses_wrapper select.is-valid:focus {
   border-color: #28a745;
   -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
           box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
@@ -2571,33 +2596,45 @@ select.form-control-lg:not([size]):not([multiple]),
 #adverts_wrapper .was-validated input:valid ~ .valid-feedback,
 .was-validated #applications_wrapper input:valid ~ .valid-feedback,
 #applications_wrapper .was-validated input:valid ~ .valid-feedback,
+.was-validated #addresses_wrapper input:valid ~ .valid-feedback,
+#addresses_wrapper .was-validated input:valid ~ .valid-feedback,
 .was-validated .form-control:valid ~ .valid-tooltip,
 .was-validated #adverts_wrapper input:valid ~ .valid-tooltip,
 #adverts_wrapper .was-validated input:valid ~ .valid-tooltip,
 .was-validated #applications_wrapper input:valid ~ .valid-tooltip,
 #applications_wrapper .was-validated input:valid ~ .valid-tooltip,
+.was-validated #addresses_wrapper input:valid ~ .valid-tooltip,
+#addresses_wrapper .was-validated input:valid ~ .valid-tooltip,
 .form-control.is-valid ~ .valid-feedback,
 #adverts_wrapper input.is-valid ~ .valid-feedback,
 #applications_wrapper input.is-valid ~ .valid-feedback,
+#addresses_wrapper input.is-valid ~ .valid-feedback,
 .form-control.is-valid ~ .valid-tooltip,
 #adverts_wrapper input.is-valid ~ .valid-tooltip,
 #applications_wrapper input.is-valid ~ .valid-tooltip,
+#addresses_wrapper input.is-valid ~ .valid-tooltip,
 .was-validated .custom-select:valid ~ .valid-feedback,
 .was-validated #adverts_wrapper select:valid ~ .valid-feedback,
 #adverts_wrapper .was-validated select:valid ~ .valid-feedback,
 .was-validated #applications_wrapper select:valid ~ .valid-feedback,
 #applications_wrapper .was-validated select:valid ~ .valid-feedback,
+.was-validated #addresses_wrapper select:valid ~ .valid-feedback,
+#addresses_wrapper .was-validated select:valid ~ .valid-feedback,
 .was-validated .custom-select:valid ~ .valid-tooltip,
 .was-validated #adverts_wrapper select:valid ~ .valid-tooltip,
 #adverts_wrapper .was-validated select:valid ~ .valid-tooltip,
 .was-validated #applications_wrapper select:valid ~ .valid-tooltip,
 #applications_wrapper .was-validated select:valid ~ .valid-tooltip,
+.was-validated #addresses_wrapper select:valid ~ .valid-tooltip,
+#addresses_wrapper .was-validated select:valid ~ .valid-tooltip,
 .custom-select.is-valid ~ .valid-feedback,
 #adverts_wrapper select.is-valid ~ .valid-feedback,
 #applications_wrapper select.is-valid ~ .valid-feedback,
+#addresses_wrapper select.is-valid ~ .valid-feedback,
 .custom-select.is-valid ~ .valid-tooltip,
 #adverts_wrapper select.is-valid ~ .valid-tooltip,
-#applications_wrapper select.is-valid ~ .valid-tooltip {
+#applications_wrapper select.is-valid ~ .valid-tooltip,
+#addresses_wrapper select.is-valid ~ .valid-tooltip {
   display: block;
 }
 
@@ -2692,17 +2729,23 @@ select.form-control-lg:not([size]):not([multiple]),
 #adverts_wrapper .was-validated input:invalid,
 .was-validated #applications_wrapper input:invalid,
 #applications_wrapper .was-validated input:invalid,
+.was-validated #addresses_wrapper input:invalid,
+#addresses_wrapper .was-validated input:invalid,
 .form-control.is-invalid,
 #adverts_wrapper input.is-invalid,
 #applications_wrapper input.is-invalid,
+#addresses_wrapper input.is-invalid,
 .was-validated .custom-select:invalid,
 .was-validated #adverts_wrapper select:invalid,
 #adverts_wrapper .was-validated select:invalid,
 .was-validated #applications_wrapper select:invalid,
 #applications_wrapper .was-validated select:invalid,
+.was-validated #addresses_wrapper select:invalid,
+#addresses_wrapper .was-validated select:invalid,
 .custom-select.is-invalid,
 #adverts_wrapper select.is-invalid,
-#applications_wrapper select.is-invalid {
+#applications_wrapper select.is-invalid,
+#addresses_wrapper select.is-invalid {
   border-color: #dc3545;
 }
 
@@ -2711,17 +2754,23 @@ select.form-control-lg:not([size]):not([multiple]),
 #adverts_wrapper .was-validated input:invalid:focus,
 .was-validated #applications_wrapper input:invalid:focus,
 #applications_wrapper .was-validated input:invalid:focus,
+.was-validated #addresses_wrapper input:invalid:focus,
+#addresses_wrapper .was-validated input:invalid:focus,
 .form-control.is-invalid:focus,
 #adverts_wrapper input.is-invalid:focus,
 #applications_wrapper input.is-invalid:focus,
+#addresses_wrapper input.is-invalid:focus,
 .was-validated .custom-select:invalid:focus,
 .was-validated #adverts_wrapper select:invalid:focus,
 #adverts_wrapper .was-validated select:invalid:focus,
 .was-validated #applications_wrapper select:invalid:focus,
 #applications_wrapper .was-validated select:invalid:focus,
+.was-validated #addresses_wrapper select:invalid:focus,
+#addresses_wrapper .was-validated select:invalid:focus,
 .custom-select.is-invalid:focus,
 #adverts_wrapper select.is-invalid:focus,
-#applications_wrapper select.is-invalid:focus {
+#applications_wrapper select.is-invalid:focus,
+#addresses_wrapper select.is-invalid:focus {
   border-color: #dc3545;
   -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
           box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
@@ -2732,33 +2781,45 @@ select.form-control-lg:not([size]):not([multiple]),
 #adverts_wrapper .was-validated input:invalid ~ .invalid-feedback,
 .was-validated #applications_wrapper input:invalid ~ .invalid-feedback,
 #applications_wrapper .was-validated input:invalid ~ .invalid-feedback,
+.was-validated #addresses_wrapper input:invalid ~ .invalid-feedback,
+#addresses_wrapper .was-validated input:invalid ~ .invalid-feedback,
 .was-validated .form-control:invalid ~ .invalid-tooltip,
 .was-validated #adverts_wrapper input:invalid ~ .invalid-tooltip,
 #adverts_wrapper .was-validated input:invalid ~ .invalid-tooltip,
 .was-validated #applications_wrapper input:invalid ~ .invalid-tooltip,
 #applications_wrapper .was-validated input:invalid ~ .invalid-tooltip,
+.was-validated #addresses_wrapper input:invalid ~ .invalid-tooltip,
+#addresses_wrapper .was-validated input:invalid ~ .invalid-tooltip,
 .form-control.is-invalid ~ .invalid-feedback,
 #adverts_wrapper input.is-invalid ~ .invalid-feedback,
 #applications_wrapper input.is-invalid ~ .invalid-feedback,
+#addresses_wrapper input.is-invalid ~ .invalid-feedback,
 .form-control.is-invalid ~ .invalid-tooltip,
 #adverts_wrapper input.is-invalid ~ .invalid-tooltip,
 #applications_wrapper input.is-invalid ~ .invalid-tooltip,
+#addresses_wrapper input.is-invalid ~ .invalid-tooltip,
 .was-validated .custom-select:invalid ~ .invalid-feedback,
 .was-validated #adverts_wrapper select:invalid ~ .invalid-feedback,
 #adverts_wrapper .was-validated select:invalid ~ .invalid-feedback,
 .was-validated #applications_wrapper select:invalid ~ .invalid-feedback,
 #applications_wrapper .was-validated select:invalid ~ .invalid-feedback,
+.was-validated #addresses_wrapper select:invalid ~ .invalid-feedback,
+#addresses_wrapper .was-validated select:invalid ~ .invalid-feedback,
 .was-validated .custom-select:invalid ~ .invalid-tooltip,
 .was-validated #adverts_wrapper select:invalid ~ .invalid-tooltip,
 #adverts_wrapper .was-validated select:invalid ~ .invalid-tooltip,
 .was-validated #applications_wrapper select:invalid ~ .invalid-tooltip,
 #applications_wrapper .was-validated select:invalid ~ .invalid-tooltip,
+.was-validated #addresses_wrapper select:invalid ~ .invalid-tooltip,
+#addresses_wrapper .was-validated select:invalid ~ .invalid-tooltip,
 .custom-select.is-invalid ~ .invalid-feedback,
 #adverts_wrapper select.is-invalid ~ .invalid-feedback,
 #applications_wrapper select.is-invalid ~ .invalid-feedback,
+#addresses_wrapper select.is-invalid ~ .invalid-feedback,
 .custom-select.is-invalid ~ .invalid-tooltip,
 #adverts_wrapper select.is-invalid ~ .invalid-tooltip,
-#applications_wrapper select.is-invalid ~ .invalid-tooltip {
+#applications_wrapper select.is-invalid ~ .invalid-tooltip,
+#addresses_wrapper select.is-invalid ~ .invalid-tooltip {
   display: block;
 }
 
@@ -2877,7 +2938,9 @@ select.form-control-lg:not([size]):not([multiple]),
   .form-inline #adverts_wrapper input,
   #adverts_wrapper .form-inline input,
   .form-inline #applications_wrapper input,
-  #applications_wrapper .form-inline input {
+  #applications_wrapper .form-inline input,
+  .form-inline #addresses_wrapper input,
+  #addresses_wrapper .form-inline input {
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -4211,9 +4274,11 @@ tbody.collapse.show {
 .input-group > .form-control,
 #adverts_wrapper .input-group > input,
 #applications_wrapper .input-group > input,
+#addresses_wrapper .input-group > input,
 .input-group > .custom-select,
 #adverts_wrapper .input-group > select,
 #applications_wrapper .input-group > select,
+#addresses_wrapper .input-group > select,
 .input-group > .custom-file {
   position: relative;
   -webkit-box-flex: 1;
@@ -4226,9 +4291,11 @@ tbody.collapse.show {
 .input-group > .form-control:focus,
 #adverts_wrapper .input-group > input:focus,
 #applications_wrapper .input-group > input:focus,
+#addresses_wrapper .input-group > input:focus,
 .input-group > .custom-select:focus,
 #adverts_wrapper .input-group > select:focus,
 #applications_wrapper .input-group > select:focus,
+#addresses_wrapper .input-group > select:focus,
 .input-group > .custom-file:focus {
   z-index: 3;
 }
@@ -4236,43 +4303,59 @@ tbody.collapse.show {
 .input-group > .form-control + .form-control,
 #adverts_wrapper .input-group > input + .form-control,
 #applications_wrapper .input-group > input + .form-control,
+#addresses_wrapper .input-group > input + .form-control,
 #adverts_wrapper .input-group > .form-control + input,
 #adverts_wrapper .input-group > input + input,
 #applications_wrapper .input-group > .form-control + input,
 #applications_wrapper .input-group > input + input,
+#addresses_wrapper .input-group > .form-control + input,
+#addresses_wrapper .input-group > input + input,
 .input-group > .form-control + .custom-select,
 #adverts_wrapper .input-group > input + .custom-select,
 #applications_wrapper .input-group > input + .custom-select,
+#addresses_wrapper .input-group > input + .custom-select,
 #adverts_wrapper .input-group > .form-control + select,
 #adverts_wrapper .input-group > input + select,
 #applications_wrapper .input-group > .form-control + select,
 #applications_wrapper .input-group > input + select,
+#addresses_wrapper .input-group > .form-control + select,
+#addresses_wrapper .input-group > input + select,
 .input-group > .form-control + .custom-file,
 #adverts_wrapper .input-group > input + .custom-file,
 #applications_wrapper .input-group > input + .custom-file,
+#addresses_wrapper .input-group > input + .custom-file,
 .input-group > .custom-select + .form-control,
 #adverts_wrapper .input-group > select + .form-control,
 #applications_wrapper .input-group > select + .form-control,
+#addresses_wrapper .input-group > select + .form-control,
 #adverts_wrapper .input-group > .custom-select + input,
 #adverts_wrapper .input-group > select + input,
 #applications_wrapper .input-group > .custom-select + input,
 #applications_wrapper .input-group > select + input,
+#addresses_wrapper .input-group > .custom-select + input,
+#addresses_wrapper .input-group > select + input,
 .input-group > .custom-select + .custom-select,
 #adverts_wrapper .input-group > select + .custom-select,
 #applications_wrapper .input-group > select + .custom-select,
+#addresses_wrapper .input-group > select + .custom-select,
 #adverts_wrapper .input-group > .custom-select + select,
 #adverts_wrapper .input-group > select + select,
 #applications_wrapper .input-group > .custom-select + select,
 #applications_wrapper .input-group > select + select,
+#addresses_wrapper .input-group > .custom-select + select,
+#addresses_wrapper .input-group > select + select,
 .input-group > .custom-select + .custom-file,
 #adverts_wrapper .input-group > select + .custom-file,
 #applications_wrapper .input-group > select + .custom-file,
+#addresses_wrapper .input-group > select + .custom-file,
 .input-group > .custom-file + .form-control,
 #adverts_wrapper .input-group > .custom-file + input,
 #applications_wrapper .input-group > .custom-file + input,
+#addresses_wrapper .input-group > .custom-file + input,
 .input-group > .custom-file + .custom-select,
 #adverts_wrapper .input-group > .custom-file + select,
 #applications_wrapper .input-group > .custom-file + select,
+#addresses_wrapper .input-group > .custom-file + select,
 .input-group > .custom-file + .custom-file {
   margin-left: -1px;
 }
@@ -4280,9 +4363,11 @@ tbody.collapse.show {
 .input-group > .form-control:not(:last-child),
 #adverts_wrapper .input-group > input:not(:last-child),
 #applications_wrapper .input-group > input:not(:last-child),
+#addresses_wrapper .input-group > input:not(:last-child),
 .input-group > .custom-select:not(:last-child),
 #adverts_wrapper .input-group > select:not(:last-child),
-#applications_wrapper .input-group > select:not(:last-child) {
+#applications_wrapper .input-group > select:not(:last-child),
+#addresses_wrapper .input-group > select:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -4290,9 +4375,11 @@ tbody.collapse.show {
 .input-group > .form-control:not(:first-child),
 #adverts_wrapper .input-group > input:not(:first-child),
 #applications_wrapper .input-group > input:not(:first-child),
+#addresses_wrapper .input-group > input:not(:first-child),
 .input-group > .custom-select:not(:first-child),
 #adverts_wrapper .input-group > select:not(:first-child),
-#applications_wrapper .input-group > select:not(:first-child) {
+#applications_wrapper .input-group > select:not(:first-child),
+#addresses_wrapper .input-group > select:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -4517,7 +4604,8 @@ tbody.collapse.show {
 
 .custom-select,
 #adverts_wrapper select,
-#applications_wrapper select {
+#applications_wrapper select,
+#addresses_wrapper select {
   display: inline-block;
   width: 100%;
   height: calc(2.25rem + 2px);
@@ -4536,7 +4624,8 @@ tbody.collapse.show {
 
 .custom-select:focus,
 #adverts_wrapper select:focus,
-#applications_wrapper select:focus {
+#applications_wrapper select:focus,
+#addresses_wrapper select:focus {
   border-color: #8798bf;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(135, 152, 191, 0.5);
@@ -4545,7 +4634,8 @@ tbody.collapse.show {
 
 .custom-select:focus::-ms-value,
 #adverts_wrapper select:focus::-ms-value,
-#applications_wrapper select:focus::-ms-value {
+#applications_wrapper select:focus::-ms-value,
+#addresses_wrapper select:focus::-ms-value {
   color: #495057;
   background-color: #fff;
 }
@@ -4553,9 +4643,11 @@ tbody.collapse.show {
 .custom-select[multiple],
 #adverts_wrapper select[multiple],
 #applications_wrapper select[multiple],
+#addresses_wrapper select[multiple],
 .custom-select[size]:not([size="1"]),
 #adverts_wrapper select[size]:not([size="1"]),
-#applications_wrapper select[size]:not([size="1"]) {
+#applications_wrapper select[size]:not([size="1"]),
+#addresses_wrapper select[size]:not([size="1"]) {
   height: auto;
   padding-right: 0.75rem;
   background-image: none;
@@ -4563,14 +4655,16 @@ tbody.collapse.show {
 
 .custom-select:disabled,
 #adverts_wrapper select:disabled,
-#applications_wrapper select:disabled {
+#applications_wrapper select:disabled,
+#addresses_wrapper select:disabled {
   color: #6c757d;
   background-color: #e9ecef;
 }
 
 .custom-select::-ms-expand,
 #adverts_wrapper select::-ms-expand,
-#applications_wrapper select::-ms-expand {
+#applications_wrapper select::-ms-expand,
+#addresses_wrapper select::-ms-expand {
   opacity: 0;
 }
 
@@ -11448,35 +11542,41 @@ body {
 }
 
 #adverts,
-#applications {
+#applications,
+#addresses {
   margin-bottom: 0.7rem;
 }
 
 #adverts p,
-#applications p {
+#applications p,
+#addresses p {
   margin-bottom: 0;
 }
 
 #adverts th,
-#applications th {
+#applications th,
+#addresses th {
   color: #fff;
   background-color: #455782;
   border-color: #354968;
 }
 
 #adverts_wrapper,
-#applications_wrapper {
+#applications_wrapper,
+#addresses_wrapper {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
 #adverts_wrapper select,
-#applications_wrapper select {
+#applications_wrapper select,
+#addresses_wrapper select {
   width: auto;
 }
 
 #adverts_wrapper input,
-#applications_wrapper input {
+#applications_wrapper input,
+#addresses_wrapper input {
   width: auto;
   display: inline;
 }
@@ -11484,22 +11584,46 @@ body {
 #adverts_length,
 #adverts_filter,
 #applications_length,
-#applications_filter {
+#applications_filter,
+#addresses_length,
+#addresses_filter {
   margin-bottom: 0.7rem;
 }
 
 #adverts ~ #adverts_paginate .paginate_button,
 #applications ~ #adverts_paginate .paginate_button,
-#adverts ~ #applications_paginate .paginate_button,
-#applications ~ #applications_paginate .paginate_button {
+#addresses ~ #adverts_paginate .paginate_button,
+#adverts ~
+#applications_paginate .paginate_button,
+#applications ~
+#applications_paginate .paginate_button,
+#addresses ~
+#applications_paginate .paginate_button,
+#adverts ~
+#addresses_paginate .paginate_button,
+#applications ~
+#addresses_paginate .paginate_button,
+#addresses ~
+#addresses_paginate .paginate_button {
   padding: 0.5rem 0.75rem;
   color: #455782;
 }
 
 #adverts ~ #adverts_paginate .paginate_button:hover,
 #applications ~ #adverts_paginate .paginate_button:hover,
-#adverts ~ #applications_paginate .paginate_button:hover,
-#applications ~ #applications_paginate .paginate_button:hover {
+#addresses ~ #adverts_paginate .paginate_button:hover,
+#adverts ~
+#applications_paginate .paginate_button:hover,
+#applications ~
+#applications_paginate .paginate_button:hover,
+#addresses ~
+#applications_paginate .paginate_button:hover,
+#adverts ~
+#addresses_paginate .paginate_button:hover,
+#applications ~
+#addresses_paginate .paginate_button:hover,
+#addresses ~
+#addresses_paginate .paginate_button:hover {
   background-color: #dee2e6;
 }
 
@@ -11507,10 +11631,32 @@ body {
 #adverts ~ #adverts_paginate .paginate_button.next,
 #applications ~ #adverts_paginate .paginate_button.previous,
 #applications ~ #adverts_paginate .paginate_button.next,
-#adverts ~ #applications_paginate .paginate_button.previous,
-#adverts ~ #applications_paginate .paginate_button.next,
-#applications ~ #applications_paginate .paginate_button.previous,
-#applications ~ #applications_paginate .paginate_button.next {
+#addresses ~ #adverts_paginate .paginate_button.previous,
+#addresses ~ #adverts_paginate .paginate_button.next,
+#adverts ~
+#applications_paginate .paginate_button.previous,
+#adverts ~
+#applications_paginate .paginate_button.next,
+#applications ~
+#applications_paginate .paginate_button.previous,
+#applications ~
+#applications_paginate .paginate_button.next,
+#addresses ~
+#applications_paginate .paginate_button.previous,
+#addresses ~
+#applications_paginate .paginate_button.next,
+#adverts ~
+#addresses_paginate .paginate_button.previous,
+#adverts ~
+#addresses_paginate .paginate_button.next,
+#applications ~
+#addresses_paginate .paginate_button.previous,
+#applications ~
+#addresses_paginate .paginate_button.next,
+#addresses ~
+#addresses_paginate .paginate_button.previous,
+#addresses ~
+#addresses_paginate .paginate_button.next {
   margin-left: 6px;
   margin-right: 6px;
   border: 1px solid #6c757d;
@@ -11522,10 +11668,32 @@ body {
 #adverts ~ #adverts_paginate .paginate_button.next:not(.disabled):hover,
 #applications ~ #adverts_paginate .paginate_button.previous:not(.disabled):hover,
 #applications ~ #adverts_paginate .paginate_button.next:not(.disabled):hover,
-#adverts ~ #applications_paginate .paginate_button.previous:not(.disabled):hover,
-#adverts ~ #applications_paginate .paginate_button.next:not(.disabled):hover,
-#applications ~ #applications_paginate .paginate_button.previous:not(.disabled):hover,
-#applications ~ #applications_paginate .paginate_button.next:not(.disabled):hover {
+#addresses ~ #adverts_paginate .paginate_button.previous:not(.disabled):hover,
+#addresses ~ #adverts_paginate .paginate_button.next:not(.disabled):hover,
+#adverts ~
+#applications_paginate .paginate_button.previous:not(.disabled):hover,
+#adverts ~
+#applications_paginate .paginate_button.next:not(.disabled):hover,
+#applications ~
+#applications_paginate .paginate_button.previous:not(.disabled):hover,
+#applications ~
+#applications_paginate .paginate_button.next:not(.disabled):hover,
+#addresses ~
+#applications_paginate .paginate_button.previous:not(.disabled):hover,
+#addresses ~
+#applications_paginate .paginate_button.next:not(.disabled):hover,
+#adverts ~
+#addresses_paginate .paginate_button.previous:not(.disabled):hover,
+#adverts ~
+#addresses_paginate .paginate_button.next:not(.disabled):hover,
+#applications ~
+#addresses_paginate .paginate_button.previous:not(.disabled):hover,
+#applications ~
+#addresses_paginate .paginate_button.next:not(.disabled):hover,
+#addresses ~
+#addresses_paginate .paginate_button.previous:not(.disabled):hover,
+#addresses ~
+#addresses_paginate .paginate_button.next:not(.disabled):hover {
   border-color: #96a1ab;
   background: #e9ecef;
 }
@@ -11534,17 +11702,50 @@ body {
 #adverts ~ #adverts_paginate .paginate_button.next.disabled,
 #applications ~ #adverts_paginate .paginate_button.previous.disabled,
 #applications ~ #adverts_paginate .paginate_button.next.disabled,
-#adverts ~ #applications_paginate .paginate_button.previous.disabled,
-#adverts ~ #applications_paginate .paginate_button.next.disabled,
-#applications ~ #applications_paginate .paginate_button.previous.disabled,
-#applications ~ #applications_paginate .paginate_button.next.disabled {
+#addresses ~ #adverts_paginate .paginate_button.previous.disabled,
+#addresses ~ #adverts_paginate .paginate_button.next.disabled,
+#adverts ~
+#applications_paginate .paginate_button.previous.disabled,
+#adverts ~
+#applications_paginate .paginate_button.next.disabled,
+#applications ~
+#applications_paginate .paginate_button.previous.disabled,
+#applications ~
+#applications_paginate .paginate_button.next.disabled,
+#addresses ~
+#applications_paginate .paginate_button.previous.disabled,
+#addresses ~
+#applications_paginate .paginate_button.next.disabled,
+#adverts ~
+#addresses_paginate .paginate_button.previous.disabled,
+#adverts ~
+#addresses_paginate .paginate_button.next.disabled,
+#applications ~
+#addresses_paginate .paginate_button.previous.disabled,
+#applications ~
+#addresses_paginate .paginate_button.next.disabled,
+#addresses ~
+#addresses_paginate .paginate_button.previous.disabled,
+#addresses ~
+#addresses_paginate .paginate_button.next.disabled {
   border-color: #adb5bd;
 }
 
 #adverts ~ #adverts_paginate span .paginate_button,
 #applications ~ #adverts_paginate span .paginate_button,
-#adverts ~ #applications_paginate span .paginate_button,
-#applications ~ #applications_paginate span .paginate_button {
+#addresses ~ #adverts_paginate span .paginate_button,
+#adverts ~
+#applications_paginate span .paginate_button,
+#applications ~
+#applications_paginate span .paginate_button,
+#addresses ~
+#applications_paginate span .paginate_button,
+#adverts ~
+#addresses_paginate span .paginate_button,
+#applications ~
+#addresses_paginate span .paginate_button,
+#addresses ~
+#addresses_paginate span .paginate_button {
   background: transparent;
   border: none;
   color: #343a40;
@@ -11553,16 +11754,38 @@ body {
 
 #adverts ~ #adverts_paginate span .paginate_button:hover,
 #applications ~ #adverts_paginate span .paginate_button:hover,
-#adverts ~ #applications_paginate span .paginate_button:hover,
-#applications ~ #applications_paginate span .paginate_button:hover {
+#addresses ~ #adverts_paginate span .paginate_button:hover,
+#adverts ~
+#applications_paginate span .paginate_button:hover,
+#applications ~
+#applications_paginate span .paginate_button:hover,
+#addresses ~
+#applications_paginate span .paginate_button:hover,
+#adverts ~
+#addresses_paginate span .paginate_button:hover,
+#applications ~
+#addresses_paginate span .paginate_button:hover,
+#addresses ~
+#addresses_paginate span .paginate_button:hover {
   color: #343a40 !important;
   background-color: #dee2e6 !important;
 }
 
 #adverts ~ #adverts_paginate span .paginate_button.current,
 #applications ~ #adverts_paginate span .paginate_button.current,
-#adverts ~ #applications_paginate span .paginate_button.current,
-#applications ~ #applications_paginate span .paginate_button.current {
+#addresses ~ #adverts_paginate span .paginate_button.current,
+#adverts ~
+#applications_paginate span .paginate_button.current,
+#applications ~
+#applications_paginate span .paginate_button.current,
+#addresses ~
+#applications_paginate span .paginate_button.current,
+#adverts ~
+#addresses_paginate span .paginate_button.current,
+#applications ~
+#addresses_paginate span .paginate_button.current,
+#addresses ~
+#addresses_paginate span .paginate_button.current {
   background-color: #455782;
   border-radius: 0.25rem;
   color: white !important;
@@ -11570,8 +11793,19 @@ body {
 
 #adverts ~ #adverts_paginate span .paginate_button.current:hover,
 #applications ~ #adverts_paginate span .paginate_button.current:hover,
-#adverts ~ #applications_paginate span .paginate_button.current:hover,
-#applications ~ #applications_paginate span .paginate_button.current:hover {
+#addresses ~ #adverts_paginate span .paginate_button.current:hover,
+#adverts ~
+#applications_paginate span .paginate_button.current:hover,
+#applications ~
+#applications_paginate span .paginate_button.current:hover,
+#addresses ~
+#applications_paginate span .paginate_button.current:hover,
+#adverts ~
+#addresses_paginate span .paginate_button.current:hover,
+#applications ~
+#addresses_paginate span .paginate_button.current:hover,
+#addresses ~
+#addresses_paginate span .paginate_button.current:hover {
   background-color: #354968 !important;
 }
 

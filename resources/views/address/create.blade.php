@@ -36,7 +36,7 @@
                             
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input class="awesomplete form-control" v-model="model.county" list="counties" name="county" placeholder="County" required />
+                                    <input class="awesomplete form-control" v-model="model.county" list="counties" name="county" placeholder="County" maxlength="60" required />
                                     <datalist id="counties">
                                         @endverbatim
                                             @foreach(\App\Location::getCounties() as $county)
@@ -69,7 +69,7 @@
                     <div class="card card-custom">
                         <div class="card-body">
                             <div class="form-group">
-                                <button type=   "submit" class="btn btn-action btn-block">{{ createNew ? 'Create' : 'Save' }}</button>
+                                <button type="submit" class="btn btn-action btn-block">{{ createNew ? 'Create' : 'Save' }}</button>
                             </div>
                         </div>
                     </div>
