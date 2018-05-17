@@ -118,6 +118,15 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
+        if($address->adverts()->count() > 0)
+        {
+            if(ajax())
+                return response()->json(['success' => false], 409);
+
+            toast()->error('There are still adverts for this address, please remove them first.');
+            return back();
+        }
+
         $address->delete();
 
         if(ajax())
