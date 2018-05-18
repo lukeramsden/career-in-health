@@ -10969,7 +10969,6 @@ body {
   position: relative;
   overflow: auto;
   z-index: 1;
-  min-height: 100vh;
 }
 
 @media (min-width: 992px) {

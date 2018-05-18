@@ -10,7 +10,6 @@ if (env('APP_ENV') == 'local')
     Route::view('/pricing', 'pricing')->name('pricing');
 
     Route::get('/search', 'SearchController@search')->name('search');
-    Route::get('/advert/{advert}', 'AdvertController@show')->name('advert.show');
 
     Auth::routes();
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout.get');
@@ -31,6 +30,8 @@ if (env('APP_ENV') == 'local')
             Route::get('/{advert}/edit', 'AdvertController@edit')->name('edit');
             Route::post('/{advert}/edit', 'AdvertController@update')->name('update');
             Route::any('/{advert}/delete', 'AdvertController@destroy')->name('destroy');
+
+            Route::get('/{advert}', 'AdvertController@show')->name('show');
 
             Route::prefix('application')
                 ->name('application.')
