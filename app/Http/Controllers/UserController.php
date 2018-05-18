@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -31,6 +32,27 @@ class UserController extends Controller
         $user->save();
 
         toast()->success('Email Updated!');
+        return back();
+    }
+    
+    public function showPassword()
+    {
+        return view('account.manage-password')
+            ->with(['user' => Auth::user()]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $data = $request->validate([
+            'password' => ['required', 'string', 'confirmed', 'min:6']
+        ]);
+
+        $user->password = Hash::make($data['password']);
+        $user->save();
+
+        toast()->success('Password Updated!');
         return back();
     }
 }

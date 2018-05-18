@@ -65,6 +65,8 @@ if (env('APP_ENV') == 'local')
 
             Route::get('/email', 'UserController@showEmail')->name('manage.email');
             Route::post('/email', 'UserController@updateEmail')->name('manage.email');
+            Route::get('/password', 'UserController@showPassword')->name('manage.password');
+            Route::post('/password', 'UserController@updatePassword')->name('manage.password');
     });
 
     Route::prefix('profile')

@@ -13,7 +13,7 @@
                 
                 @auth
                     <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
-                
+                    
                     @if(Auth::user()->isCompany())
                         
                         {{----}}
@@ -29,17 +29,17 @@
                         
                         <a class="nav-link nav-link-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
                         <a class="nav-link {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">My Adverts</a>
-                    
+                        
                         {{----}}
                         
                         <small class="text-muted">Addresses</small>
-            
+                        
                         <a class="nav-link {{ active_route('address.create') }}" href="{{ route('address.create') }}">Create New Address</a>
                         <a class="nav-link {{ active_route(['address.index', 'address.edit', 'address.show.*']) }}" href="{{ route('address.index') }}">My Addresses</a>
                         
                         {{----}}
-                        
-                        @else
+                    
+                    @else
                         
                         {{----}}
                         
@@ -48,27 +48,6 @@
                         <a class="nav-link {{ active_route('profile.show.me') }}" href="{{ route('profile.show.me') }}">View Profile</a>
                         <a class="nav-link {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Profile</a>
                         <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
-                       
-                        {{-- EXAMPLE SUBMENU --}}
-                        {{--<div class="nav-section-parent">--}}
-                            {{--@php($activeRoute = active_route([--}}
-                                                                {{--'profile.edit',--}}
-                                                                {{--'profile.work-experience.*',--}}
-                                                                {{--'profile.references.*',--}}
-                                                                {{--'profile.certifications.*'--}}
-                                                            {{--]))--}}
-                            {{--<div class="nav-section {{ $activeRoute }}">--}}
-                                {{--<a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Edit Profile</a>--}}
-                                {{--<div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>--}}
-                                    {{--<a class="nav-link nav-link-sub {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Personal Details</a>--}}
-                                    {{--<a class="nav-link nav-link-sub {{ active_route('profile.work-experience.*') }}" href="{{ route('profile.work-experience.edit') }}">Edit Work Experience</a>--}}
-                                    {{--<a class="nav-link nav-link-sub {{ active_route('profile.references.*') }}" href="{{ route('profile.references.edit') }}">Edit References</a>--}}
-                                    {{--<a class="nav-link nav-link-sub {{ active_route('profile.certifications.*') }}" href="{{ route('profile.certifications.edit') }}">Edit Certifications</a>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-
-                        {{--<a class="nav-link {{ active_route('cv-builder.*') }}" href="{{ route('cv-builder.profile') }}">CV Builder</a>--}}
                         
                         {{----}}
                         
@@ -78,17 +57,18 @@
                         
                         <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
                     @endif
-                  
+                    
                     {{----}}
                     
                     <small class="text-muted">Account</small>
-        
+                    
                     <div class="nav-section-parent">
                         @php($activeRoute = active_route('account.manage.*'))
                         <div class="nav-section {{ $activeRoute }}">
                             <a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Settings</a>
                             <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
-                                <a class="nav-link nav-link-sub {{ active_route('account.manage.email') }}" href="{{ route('account.manage.email') }}">Manage Email</a>
+                                <a class="nav-link nav-link-sub {{ active_route('account.manage.email') }}" href="{{ route('account.manage.email') }}">Change Email</a>
+                                <a class="nav-link nav-link-sub {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
                             </div>
                         </div>
                     </div>
@@ -106,7 +86,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-    
+            
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto"></ul>
                 <ul class="navbar-nav">
@@ -116,13 +96,11 @@
                         <li class="nav-item {{ active_route('login') }}"><a class="nav-link" href="{{ route('login') }}">Log In</a></li>
                         <li class="nav-item {{ active_route('register') }}"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     @endguest
-                    
-                    {{-- TODO: flesh out mobile navbar --}}
                 </ul>
             </div>
         </div>
     </nav>
-
+    
     <div id="app">
         @yield('content')
     </div>
@@ -135,7 +113,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script>
         function navSectionClick(t) {
-            $(t).next().slideToggle("slow", "easeInOutExpo");
+            $(t).next().slideToggle("fast", "easeInOutExpo");
         }
     </script>
     @yield('script')
