@@ -11102,7 +11102,7 @@ body {
 }
 
 #navbar nav .nav-section .nav-link-sub:nth-last-child(1) {
-  border-bottom-left-radius: 10px;
+  border-bottom-left-radius: 4px;
 }
 
 #navbar nav .nav-section.active .nav-section-title:hover:after {
