@@ -83,7 +83,15 @@
                     
                     <small class="text-muted">Account</small>
         
-                    <a class="nav-link" href="javascript:">Settings</a>
+                    <div class="nav-section-parent">
+                        @php($activeRoute = active_route('account.manage.*'))
+                        <div class="nav-section {{ $activeRoute }}">
+                            <a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Settings</a>
+                            <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
+                                <a class="nav-link nav-link-sub {{ active_route('account.manage.email') }}" href="{{ route('account.manage.email') }}">Manage Email</a>
+                            </div>
+                        </div>
+                    </div>
                     <a class="nav-link" href="{{ route('logout.get') }}">Log Out</a>
                     
                     {{----}}

@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('verification_code', 4)->nullable();
             $table->string('stripe_id')->nullable();
             $table->string('card_brand')->nullable();
-            $table->string('card_last_four')->nullable();
+            $table->string('card_last_four', 4)->nullable();
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('verified_at')->nullable();
             $table->timestamps();

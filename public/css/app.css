@@ -11105,6 +11105,10 @@ body {
   border-bottom-left-radius: 10px;
 }
 
+#navbar nav .nav-section.active .nav-section-title:hover:after {
+  border-bottom-color: #354968;
+}
+
 #navbar nav .nav-section.active .nav-link {
   color: #fff;
   background-color: #455782;

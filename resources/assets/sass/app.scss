@@ -36,6 +36,11 @@ $navbar-width: 200px;
   @include media-breakpoint-up(lg) {
     margin-left: $navbar-width;
   }
+
+  @include media-breakpoint-down(md) {
+    // TODO: margin for movile nav
+  }
+
   width: auto;
   position: relative;
   overflow: auto;
@@ -181,6 +186,14 @@ $navbar-width: 200px;
       }
 
       &.active {
+        .nav-section-title {
+          &:hover {
+            &:after {
+              border-bottom-color: $dark-primary;
+            }
+          }
+        }
+
         .nav-link {
           color: $white;
           background-color: $primary;

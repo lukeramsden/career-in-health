@@ -18,47 +18,53 @@ if (env('APP_ENV') == 'local')
     Route::get('/dashboard', 'DashController@index')->name('dashboard');
     Route::post('/dashboard', 'DashController@get')->name('dashboard.get');
 
-    Route::prefix('account')->group(function() {
-        Route::prefix('advert')
-            ->name('advert.')
-            ->group(function() {
-                Route::get('/', 'AdvertController@index')->name('index');
-                Route::get('/new', 'AdvertController@create')->name('create');
-                Route::post('/new', 'AdvertController@store')->name('store');
+    Route::prefix('advert')
+        ->name('advert.')
+        ->group(function() {
+            Route::get('/', 'AdvertController@index')->name('index');
+            Route::get('/new', 'AdvertController@create')->name('create');
+            Route::post('/new', 'AdvertController@store')->name('store');
 
-                Route::get('/{advert}/view', 'AdvertController@show_internal')->name('show.internal');
-                Route::get('/{advert}/view/applications', 'AdvertController@show_applications')->name('show.applications');
+            Route::get('/{advert}/view', 'AdvertController@show_internal')->name('show.internal');
+            Route::get('/{advert}/view/applications', 'AdvertController@show_applications')->name('show.applications');
 
-                Route::get('/{advert}/edit', 'AdvertController@edit')->name('edit');
-                Route::post('/{advert}/edit', 'AdvertController@update')->name('update');
-                Route::any('/{advert}/delete', 'AdvertController@destroy')->name('destroy');
+            Route::get('/{advert}/edit', 'AdvertController@edit')->name('edit');
+            Route::post('/{advert}/edit', 'AdvertController@update')->name('update');
+            Route::any('/{advert}/delete', 'AdvertController@destroy')->name('destroy');
 
-                Route::prefix('application')
-                    ->name('application.')
-                    ->group(function() {
-                        Route::get('/all', 'AdvertApplicationController@index')->name('index');
+            Route::prefix('application')
+                ->name('application.')
+                ->group(function() {
+                    Route::get('/all', 'AdvertApplicationController@index')->name('index');
 
-                        Route::get('/{advert}/create', 'AdvertApplicationController@create')->name('create');
-                        Route::post('/{advert}/create', 'AdvertApplicationController@store')->name('store');
+                    Route::get('/{advert}/create', 'AdvertApplicationController@create')->name('create');
+                    Route::post('/{advert}/create', 'AdvertApplicationController@store')->name('store');
 
-                        Route::post('/{application}/update', 'AdvertApplicationController@update')->name('update');
-                        Route::get('/{application}', 'AdvertApplicationController@show')->name('show');
-                    });
-            });
+                    Route::post('/{application}/update', 'AdvertApplicationController@update')->name('update');
+                    Route::get('/{application}', 'AdvertApplicationController@show')->name('show');
+                });
+        });
 
-        Route::prefix('address')
-            ->name('address.')
-            ->group(function() {
-                Route::get('/', 'AddressController@index')->name('index');
-                Route::get('/new', 'AddressController@create')->name('create');
-                Route::post('/new', 'AddressController@store')->name('store');
+    Route::prefix('address')
+        ->name('address.')
+        ->group(function() {
+            Route::get('/', 'AddressController@index')->name('index');
+            Route::get('/new', 'AddressController@create')->name('create');
+            Route::post('/new', 'AddressController@store')->name('store');
 
-                Route::get('/{address}/edit', 'AddressController@edit')->name('edit');
-                Route::post('/{address}/edit', 'AddressController@update')->name('update');
-                Route::any('/{address}/delete', 'AddressController@destroy')->name('destroy');
-            });
+            Route::get('/{address}/edit', 'AddressController@edit')->name('edit');
+            Route::post('/{address}/edit', 'AddressController@update')->name('update');
+            Route::any('/{address}/delete', 'AddressController@destroy')->name('destroy');
+        });
 
-        Route::get('/plans', 'SubscriptionController@index')->name('plans');
+    Route::get('/plans', 'SubscriptionController@index')->name('plans');
+
+    Route::prefix('account')
+        ->name('account.')
+        ->group(function() {
+
+            Route::get('/email', 'UserController@showEmail')->name('manage.email');
+            Route::post('/email', 'UserController@updateEmail')->name('manage.email');
     });
 
     Route::prefix('profile')
