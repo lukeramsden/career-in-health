@@ -66,5 +66,18 @@
         .grid-item--width-full {
             width: 100%;
         }
+        
+        @media (max-width: 850px) {
+            .grid-sizer,
+            .grid-item {
+                width: 100%;
+                padding: 0;
+                padding-bottom: 1rem;
+            }
+            
+            .grid-item--width-full {
+                width: 100%;
+            }
+        }
     </style>
 @endsection
