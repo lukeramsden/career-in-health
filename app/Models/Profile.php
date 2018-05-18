@@ -9,6 +9,14 @@ class Profile extends Model
 {
     protected $fillable = ["first_name", "last_name", "phone", "headline", "location", "description"];
 
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function(Profile $profile) {
+            Storage::delete($profile->avatar_path);
+        });
+    }
+
     public function fullName()
     {
         return $this->first_name . ' ' . $this->last_name;

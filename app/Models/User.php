@@ -21,14 +21,23 @@ class User extends Authenticatable
 
     protected $with = ['profile'];
 
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function(User $user) {
+             $user->profile()->delete();
+
+             if($user->isCompany())
+                 $user->company()->delete();
+             else $user->cv()->delete();
+
+             $user->applications()->delete();
+        });
+    }
+
     public function isCompany()
     {
         return $this->company_id !== null ? true : false; // not sure why you don't just return the expression james
-    }
-
-    public function company()
-    {
-        return $this->belongsTo(\App\Company::class);
     }
 
     public function stripePlan()
@@ -61,6 +70,11 @@ class User extends Authenticatable
         }
 
         return $user;
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(\App\Company::class);
     }
 
     public function profile()

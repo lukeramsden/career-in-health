@@ -69,9 +69,7 @@ class CvCertsController extends Controller
         $certification->save();
 
         if($request->ajax())
-        {
             return response()->json(['success' => true, 'model' => $certification], 200);
-        }
 
         toast()->success('Created');
         return back();
@@ -95,9 +93,7 @@ class CvCertsController extends Controller
         $certification->save();
 
         if(ajax())
-        {
             return response()->json(['success' => true, 'model' => $certification], 200);
-        }
 
         toast()->success('Updated');
         return back();

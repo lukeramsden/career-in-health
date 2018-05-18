@@ -25,18 +25,21 @@ class ProfileController extends Controller
         })->only('show');
     }
 
-    static $validation = [
-        'first_name' => 'required|string|max:40',
-        'last_name' => 'nullable|string|max:40',
-        'phone' => 'nullable|string|max:40',
-        'headline' => 'nullable|string|max:80',
-        'location' => 'nullable|string|max:80',
-        'description' => 'nullable|string|max:1000',
-        'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
-        'job_roles' => 'nullable|array|min:1',
-        'job_roles.*' => 'integer|distinct|exists:job_roles,id',
-        'remove_avatar' => 'nullable|boolean'
-    ];
+    public function getValidationRules(Request $request)
+    {
+        return [
+            'first_name' => 'required|string|max:40',
+            'last_name' => 'nullable|string|max:40',
+            'phone' => 'nullable|string|max:40',
+            'headline' => 'nullable|string|max:80',
+            'location' => 'nullable|string|max:80',
+            'description' => 'nullable|string|max:1000',
+            'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
+            'job_roles' => 'nullable|array|min:1',
+            'job_roles.*' => 'integer|distinct|exists:job_roles,id',
+            'remove_avatar' => 'nullable|boolean'
+        ];
+    }
 
     public function show(User $user)
     {
@@ -64,7 +67,7 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        $data = $request->validate(self::$validation);
+        $data = $request->validate(self::getValidationRules($request));
 
         $profile = Auth::user()->profile;
 

@@ -82,8 +82,11 @@
                     {{----}}
                     
                     <small class="text-muted">Account</small>
+        
+                    <a class="nav-link" href="javascript:">Settings</a>
                     <a class="nav-link" href="{{ route('logout.get') }}">Log Out</a>
                     
+                    {{----}}
                 @endauth
             </nav>
         </div>

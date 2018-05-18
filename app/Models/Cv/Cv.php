@@ -8,6 +8,17 @@ class Cv extends Model
 {
     protected $fillable = [];
 
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function(Cv $cv) {
+            $cv->education()     ->delete();
+            $cv->workExperience()->delete();
+            $cv->certifications()->delete();
+            $cv->preferences()   ->delete();
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(\App\User::class);

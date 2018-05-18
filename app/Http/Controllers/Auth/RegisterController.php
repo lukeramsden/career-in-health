@@ -94,11 +94,11 @@ class RegisterController extends Controller
             $company->save();
 
             $user->company_id = $company->id;
-            $this->redirectTo = '/dashboard';
+//            $this->redirectTo = route('dashboard');
         } else if($data->i_am == 'Employee') {
             $cv = new Cv();
             $user->cv()->save($cv);
-            $this->redirectTo = route('cv-builder.profile');
+//            $this->redirectTo = route('cv-builder.profile');
         }
 
         $user->save();

@@ -8,7 +8,16 @@ use Illuminate\Support\Facades\Storage;
 class Company extends Model
 {
     protected $fillable = ['name', 'headline', 'location', 'description', 'phone', 'contact_email'];
-    
+
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function(Company $company) {
+            $company->adverts()->delete();
+            $company->addresses()->delete();
+        });
+    }
+
     public function adverts()
     {
         return $this->hasMany(\App\Advert::class);
