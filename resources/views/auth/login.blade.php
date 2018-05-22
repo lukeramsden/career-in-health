@@ -5,25 +5,33 @@
                 <div class="card-body">
                     <form action="{{ route('login') }}" method="post">
                         {{ csrf_field() }}
+                        @if($errors->has('email'))
+                            <div class="form-group">
+                                <div class="alert alert-danger" role="alert">
+                                    {{ $errors->first('email') }}
+                                </div>
+                            </div>
+                        @endif
+                        
+                        @if($errors->has('password'))
+                            <div class="form-group">
+                                <div class="alert alert-danger" role="alert">
+                                    {{ $errors->first('password') }}
+                                </div>
+                            </div>
+                        @endif
+                        
                         <div class="form-group">
                             <label>Email Address (<span class='text-action'>*</span>)</label>
-                            <input type="email" name='email' class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                            <input type="email" name='email' class="form-control {{ $errors->has('email') || $errors->has('password') ? 'is-invalid' : '' }}"
                                    placeholder="Email Address" value='{{ old('email') }}'>
-                            
-                            @if ($errors->has('email'))
-                                <div class="invalid-feedback">{{ $errors->first('email') }}</div>
-                            @endif
                         </div>
                         
                         <div class="form-group">
                             <label>Password (<span class='text-action'>*</span>)</label>
                             <input type="password" name='password'
-                                   class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                                   class="form-control {{ $errors->has('email') || $errors->has('password') ? 'is-invalid' : '' }}"
                                    placeholder="Password">
-                            
-                            @if ($errors->has('password'))
-                                <div class="invalid-feedback">{{ $errors->first('password') }}</div>
-                            @endif
                         </div>
                         
                         <div class="form-group">
