@@ -44,15 +44,16 @@ class CompanyProfileController extends Controller
     {
         $company = Auth::user()->company;
         $data = $request->validate([
-                'name' => ['required', 'string', 'max:40', Rule::unique('companies')->ignore($company->id)],
-                'headline' => 'nullable|string|max:80',
-                'location' => 'nullable|string|max:80',
-                'description' => 'nullable|string|max:1000',
-                'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
-                'phone' => 'nullable|string|max:40',
-                'contact_email' => 'nullable|email|max:80',
-                'remove_avatar' => 'nullable|boolean'
-            ]);
+            // TODO: should we allow companies to change their name? probably yes
+            'name' => ['required', 'string', 'max:40', Rule::unique('companies')->ignore($company->id)],
+            'headline' => 'nullable|string|max:80',
+            'location' => 'nullable|string|max:80',
+            'description' => 'nullable|string|max:1000',
+            'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
+            'phone' => 'nullable|string|max:40',
+            'contact_email' => 'nullable|email|max:80',
+            'remove_avatar' => 'nullable|boolean'
+        ]);
 
         if(isset($data['remove_avatar']) && $data['remove_avatar'])
         {
