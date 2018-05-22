@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "7.0.*",
+        "php": ">=7.0.0",
         "akaunting/money": "^1.0",
         "appstract/laravel-blade-directives": "^1.0",
         "barryvdh/laravel-snappy": "^0.4.1",

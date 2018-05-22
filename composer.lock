@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c11cae99a2c308923a8027c38f2820b",
+    "content-hash": "e2424324277de4239d1e5081cf3262d6",
     "packages": [
         {
             "name": "akaunting/money",
@@ -4014,7 +4014,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "7.0.*"
+        "php": ">=7.0.0"
     },
     "platform-dev": []
 }
