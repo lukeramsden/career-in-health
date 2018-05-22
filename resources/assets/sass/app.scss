@@ -577,7 +577,14 @@ $navbar-width: 200px;
     }
 
     &.is-invalid {
-      border: 1px solid #dc3545;
+      border-bottom-color: #dc3545;
+    }
+
+    &:-moz-submit-invalid, &:-moz-ui-invalid {
+      box-shadow: none;
+      border: none;
+      border-bottom: 2px solid #dc3545;
+      border-radius: 0;
     }
   }
 
@@ -592,15 +599,6 @@ $navbar-width: 200px;
 
   .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
     background-color: $primary;
-  }
-
-  #company-name-group {
-    margin-bottom: 0;
-    padding-top: 1rem;
-  }
-
-  #password-group {
-    margin-bottom: 0;
   }
 }
 

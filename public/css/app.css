@@ -11481,7 +11481,15 @@ body {
 }
 
 #register-container input.is-invalid {
-  border: 1px solid #dc3545;
+  border-bottom-color: #dc3545;
+}
+
+#register-container input:-moz-submit-invalid,
+#register-container input:-moz-ui-invalid {
+  box-shadow: none;
+  border: none;
+  border-bottom: 2px solid #dc3545;
+  border-radius: 0;
 }
 
 #register-container .custom-control-input:focus ~ .custom-control-label::before {
@@ -11496,15 +11504,6 @@ body {
 
 #register-container .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
   background-color: #455782;
-}
-
-#register-container #company-name-group {
-  margin-bottom: 0;
-  padding-top: 1rem;
-}
-
-#register-container #password-group {
-  margin-bottom: 0;
 }
 
 .select2-container .select2-selection--single {

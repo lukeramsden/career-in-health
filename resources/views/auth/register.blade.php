@@ -38,8 +38,12 @@
                             
                             <div class="form-group">
                                 <small class="text-muted">First Name (<span class='text-action'>*</span>)</small>
-                                <input required name="first_name" class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}"
-                                    placeholder="First Name" value='{{ old('first_name') }}'>
+                                <input
+                                required
+                                name="first_name"
+                                class="form-control {{ $errors->has('first_name') ? 'is-invalid' : '' }}"
+                                placeholder="First Name"
+                                value="{{ old('first_name') }}">
                             
                                 @if ($errors->has('first_name'))
                                     <div class="invalid-feedback">{{ $errors->first('first_name') }}</div>
@@ -48,9 +52,12 @@
                             
                             <div class="form-group">
                                 <small class="text-muted">Password (<span class='text-action'>*</span>)</small>
-                                <input required type="password" name='password'
-                                    class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
-                                    placeholder="Password">
+                                <input
+                                required
+                                type="password"
+                                name="password"
+                                class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                                placeholder="Password">
                                 
                                 @if ($errors->has('password'))
                                     <div class="invalid-feedback">{{ $errors->first('password') }}</div>
@@ -59,7 +66,12 @@
                             
                             <div class="form-group" id="password-group">
                                 <small class="text-muted">Confirm Password (<span class='text-action'>*</span>)</small>
-                                <input required type='password' name="password_confirmation" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" placeholder="Password">
+                                <input
+                                required
+                                type="password"
+                                name="password_confirmation"
+                                class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                                placeholder="Password">
                                
                                 @if ($errors->has('password'))
                                     <div class="invalid-feedback">{{ $errors->first('password') }}</div>
@@ -68,11 +80,34 @@
                             
                             <div class="form-group" style="{{ old('i_am') == 'Employer' ? '' : 'display:none;' }}" id="company-name-group">
                                 <small class="text-muted">Company Name (<span class='text-action'>*</span>)</small>
-                                <input type="text" name="company_name" class="form-control {{ $errors->has('company_name') ? 'is-invalid' : '' }}" placeholder="Company Name">
+                                <input
+                                type="text"
+                                name="company_name"
+                                class="form-control {{ $errors->has('company_name') ? 'is-invalid' : '' }}"
+                                placeholder="Company Name"
+                                value="{{ old('company_name') }}">
                             
                                 @if ($errors->has('company_name'))
                                     <div class="invalid-feedback">{{ $errors->first('company_name') }}</div>
                                 @endif
+                            </div>
+    
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    value="1"
+                                    id="terms"
+                                    name="terms"
+                                    required>
+                                    <label class="form-check-label" for="terms">
+                                        I agree to the <a href="javascript:" class="text-action">Terms and Conditions</a>
+                                    </label>
+                                    @if ($errors->has('terms'))
+                                        <div class="invalid-feedback">{{ $errors->first('terms') }}</div>
+                                    @endif
+                                </div>
                             </div>
                             
                             <div class="form-group text-center mt-5">
