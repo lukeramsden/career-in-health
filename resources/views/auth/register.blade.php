@@ -85,7 +85,9 @@
                                 name="company_name"
                                 class="form-control {{ $errors->has('company_name') ? 'is-invalid' : '' }}"
                                 placeholder="Company Name"
-                                value="{{ old('company_name') }}">
+                                value="{{ old('company_name') }}"
+                                {{-- TODO: make this field required when its displayed --}}
+                                >
                             
                                 @if ($errors->has('company_name'))
                                     <div class="invalid-feedback">{{ $errors->first('company_name') }}</div>
