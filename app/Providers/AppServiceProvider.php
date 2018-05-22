@@ -15,6 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if ($this->app->environment() !== 'production')
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+
         Schema::defaultStringLength(191);
 
         Validator::extend('greater_than_field', function($attribute, $value, $parameters, $validator) {
