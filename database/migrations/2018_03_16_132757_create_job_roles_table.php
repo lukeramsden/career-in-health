@@ -1,5 +1,6 @@
 <?php
 
+use App\JobRole;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -18,6 +19,13 @@ class CreateJobRolesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        foreach (JobRole::$list as $item)
+        {
+            $job = new JobRole();
+            $job->name = $item;
+            $job->save();
+        }
     }
 
     /**
