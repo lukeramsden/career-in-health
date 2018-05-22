@@ -1,20 +1,15 @@
-## Project Care (working title)
+## Career in Health (project care)
 
 ### General Ideas
 - Post Jobs (care home)
 - Find Jobs (person)
 - CV Builder
-- Personel file generator
+- Personnel file generator
 - Care home employment history
-- Stripe intergration for payment
+- Stripe for payment
 - On new job upload, look for persons that can do job
-- On adding job referances look to see if it is in the system, if not email / sms them?
-- Facebook / Google / Twitter logins?
-
-### Data we need to collect
-- CV's so we can design the database and how it might function at ui level
-- A list of all job positions that we want to use in the system
-
+- On adding job references look to see if it is in the system, if not email / sms them?
+- Facebook / Google / Twitter logins (maybe?)
 
 ### Potential Competitors
 https://jobs.communitycare.co.uk/?intcmp=Jobs-Navbar
