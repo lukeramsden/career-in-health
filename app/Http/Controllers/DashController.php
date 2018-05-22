@@ -12,11 +12,17 @@ use Illuminate\Support\Facades\Auth;
 
 class DashController extends Controller
 {
+    protected static $perPage = 10;
+
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @param Request $request
+     * @return LengthAwarePaginator
+     */
     private function employer_dash(Request $request)
     {
         $user = Auth::user();
@@ -35,20 +41,33 @@ class DashController extends Controller
             });
 
         $feed = collect($applications);
-        $perPage = 10;
         $currentPage = $request->get('page', 1);
-        $items = array_slice($feed->all(), ($currentPage * $perPage) - $perPage, $perPage, true);
-        $paginator = new LengthAwarePaginator($items, $feed->count(), $perPage, $currentPage, [
+        $items = array_slice($feed->all(), ($currentPage * self::$perPage) - self::$perPage, self::$perPage, true);
+        $paginator = new LengthAwarePaginator($items, $feed->count(), self::$perPage, $currentPage, [
                 'path' => $request->path()
             ]);
 
         return $paginator;    }
 
+    /**
+     * @param Request $request
+     * @return LengthAwarePaginator
+     */
     private function employee_dash(Request $request)
     {
-        $user = Auth::user();
+        /**
+         * Note:
+         *
+         * Better way would be to find 10 random adverts that match job preferences,
+         * and then scatter them throughout the data.
+         *
+         * Currently we're just loading every advert in to memory as an array, then splicing it.
+         * This isn't a good idea because if we have gigabytes of adverts everything will break
+         *
+         * TODO: find out a way of doing this without loading every fucking item in to memory
+         **/
 
-        $user->load(['cv', 'cv.preferences']);
+        $user = Auth::user()->load(['cv', 'cv.preferences']);
 
         $applications = $user
             ->applications()
@@ -71,25 +90,12 @@ class DashController extends Controller
         if(isset(optional($user)->cv->preferences->type))
             $adverts->where('type', $user->cv->preferences->type);
 
-
         $adverts = $adverts
             ->get()
             ->map(function ($item, $key) {
                 $item['_feed_type'] = 'advert';
                 return $item;
             });
-
-        /**
-         * Note:
-         *
-         * Better way would be to find 10 random adverts that match job preferences,
-         * and then scatter them throughout the data.
-         *
-         * Currently we're just loading every advert in to memory as an array, then splicing it.
-         * This isn't a good idea because if we have gigabytes of adverts everything will break
-         *
-         * TODO: find out a way of doing this without loading every fucking item in to memory
-         **/
 
         $feed = collect($applications->sortByDesc('last_edited'))->merge(collect($adverts));
         $perPage = 10;
@@ -99,14 +105,26 @@ class DashController extends Controller
                 'path' => $request->path()
             ]);
 
-        // TODO: batch this
-        foreach ($paginator->items() as $item)
-            if($item['_feed_type'] === 'advert')
-                $item->increment('recommended_impressions');
+        $advert_ids = array_map(
+            function($item) {
+                return $item->id;
+            },
+            array_filter($paginator->items(),
+                function($item) {
+                    return $item['_feed_type'] === 'advert';
+                }
+            )
+        );
+
+        Advert::whereIn('id', $advert_ids)->increment('recommended_impressions');
 
         return $paginator;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $user = Auth::user();
