@@ -112,29 +112,38 @@
         @else
             <div id="first-search-row" class="row justify-content-center">
                 <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-                    <form method="get">
-                        {{ csrf_field() }}
-                        <h6 class="text-muted">I'm a</h6>
-                        <div id="first-search-job-role">
-                            <select id="first-search-job-role-control" name="job_roles[]" class="custom-select town-control" multiple size="1">
-                                @foreach(\App\JobRole::all() as $job)
-                                    <option {{ collect(old('job_roles', Request::get('job_roles')))->contains($job->id) ? 'selected':'' }} value="{{ $job->id }}">{{ $job->name }}</option>
-                                @endforeach
-                            </select>
+                    <div class="card card-custom">
+                        <div class="card-body">
+                            <form method="get">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <h6 class="text-muted">I'm a</h6>
+                                    <div id="first-search-job-role">
+                                        <select id="first-search-job-role-control" name="job_roles[]" class="custom-select town-control" multiple size="1">
+                                            @foreach(\App\JobRole::all() as $job)
+                                                <option {{ collect(old('job_roles', Request::get('job_roles')))->contains($job->id) ? 'selected':'' }} value="{{ $job->id }}">{{ $job->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <h6 class="text-muted my-2">in</h6>
+                                    <div id="first-search-town">
+                                        <select id="first-search-town-control" name="town" class="custom-select job-role-control" required>
+                                            <option {{ old('town', Request::get('town')) != null ? '' : 'selected' }} disabled></option>
+                                            @foreach (\App\Location::getAllLocations() as $loc)
+                                                <option {{ $loc->id == old('town', Request::get('town')) ? 'selected' : '' }} value='{{ $loc->id }}'>{{ $loc->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            
+                                <button class="btn btn-block btn-action my-3" type="submit">Search</button>
+                                <a href="{{ route('search', ['advanced' => true]) }}" class="btn btn-block btn sm btn-link my-2">Advanced</a>
+                            </form>
                         </div>
-                        <h6 class="text-muted my-2">in</h6>
-                        <div id="first-search-town">
-                            <select id="first-search-town-control" name="town" class="custom-select job-role-control" required>
-                                <option {{ old('town', Request::get('town')) != null ? '' : 'selected' }} disabled></option>
-                                @foreach (\App\Location::getAllLocations() as $loc)
-                                    <option {{ $loc->id == old('town', Request::get('town')) ? 'selected' : '' }} value='{{ $loc->id }}'>{{ $loc->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <button class="btn btn-block btn-action my-3" type="submit">Search</button>
-                        <a href="{{ route('search', ['advanced' => true]) }}" class="btn btn-block btn sm btn-link my-2">Advanced</a>
-                    </form>
+                    </div>
                 </div>
             </div>
         @endif
