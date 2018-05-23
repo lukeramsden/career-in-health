@@ -11,15 +11,15 @@
                             <div class="form-group mb-5" id="i_am">
                                 <div class="row">
                                     <div class="col-auto">
-                                        <label class="text-muted">I am an</label>
+                                        <label class="text-muted">I am a(n)</label>
                                     </div>
                                     <div class="col-auto">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" autocomplete="off" id="i_am-1" name="i_am" class="custom-control-input" value="Employer" required {{ old('i_am') == 'Employer' ? 'checked' : '' }}>
-                                            <label class="custom-control-label text-sm" for="i_am-1">Employer</label>
+                                            <input type="radio" autocomplete="off" id="i_am-1" name="i_am" class="custom-control-input" value="{{ \App\Enum\IAm::Company }}" required {{ old('i_am') == 'Employer' ? 'checked' : '' }}>
+                                            <label class="custom-control-label text-sm" for="i_am-1">Company</label>
                                         </div>
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" autocomplete="off" id="i_am-2" name="i_am" class="custom-control-input" value="Employee" required {{ old('i_am') == 'Employee' ? 'checked' : '' }}>
+                                            <input type="radio" autocomplete="off" id="i_am-2" name="i_am" class="custom-control-input" value="{{ \App\Enum\IAm::Employee }}" required {{ old('i_am') == 'Employee' ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="i_am-2">Employee</label>
                                         </div>
                                     </div>

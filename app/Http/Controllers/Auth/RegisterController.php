@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Cv\Cv;
+use App\Enum\IAm;
 use App\Profile;
 use App\User;
 use App\Company;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Validation\Rule;
+
 
 class RegisterController extends Controller
 {
@@ -53,7 +55,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $rules = [
-            'i_am' => ['required', Rule::in(['Employee', 'Employer']),],
+            'i_am' => ['required', 'integer', Rule::in([IAm::Employee, IAm::Company]),],
             'first_name' => 'required|string|max:255',
             'last_name' => 'string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -61,7 +63,7 @@ class RegisterController extends Controller
             'terms' => 'required'
         ];
 
-        if (isset($data['i_am']) && $data['i_am'] == 'Employer') {
+        if (isset($data['i_am']) && $data['i_am'] == IAm::Company) {
             $rules['company_name'] = 'required|string|max:255|unique:companies,name';
         }
 
@@ -89,7 +91,7 @@ class RegisterController extends Controller
 
         $user->profile()->save($profile);
 
-        if ($data['i_am'] == 'Employer') {
+        if ($data['i_am'] == IAm::Company) {
             $company = new Company();
             $company->name = ucwords($data['company_name']);
             $company->created_by_user_id = $user->id;
@@ -97,7 +99,7 @@ class RegisterController extends Controller
 
             $user->company_id = $company->id;
 //            $this->redirectTo = route('dashboard');
-        } else if($data['i_am'] == 'Employee') {
+        } else if($data['i_am'] == IAm::Employee) {
             $cv = new Cv();
             $user->cv()->save($cv);
 //            $this->redirectTo = route('cv-builder.profile');

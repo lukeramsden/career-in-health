@@ -186,11 +186,12 @@
                             console.log(response);
                             if(response.status === 200) {
                                 toastr.success('Updated!')
-                                switch (_.get(response, 'data.model.status', {{ \App\AdvertStatus::Public }})) {
-                                    case {{ \App\AdvertStatus::Draft }}:
+                                switch (_.get(response, 'data.model.status', {{ \App\Enum\AdvertStatus::Public }})) {
+                                    case {{ \App\Enum\AdvertStatus::Draft }}:
                                         toastr.info('This advert is not public.')
                                         break;
-                                    case {{ \App\AdvertStatus::Public }}:
+                                    case {{ \App\Enum\AdvertStatus::Public }}:
+                                    case {{ \App\Enum\AdvertStatus::Public }}:
                                         toastr.info('This advert has been published successfully.<br><a href="{{ route('advert.show', ['advert' => $advert]) }}" class="btn btn-action btn-sm mt-1">View Advert</a>');
                                         break;
                                 }
@@ -274,7 +275,7 @@
             {{-- TODO: old: {{ json_encode(Session::getOldInput()) }},--}}
         };
         
-        @if($advert->status == \App\AdvertStatus::Draft)
+        @if($advert->isDraft())
             data.model.save_for_later = true;
         @else
             data.model.save_for_later = false;

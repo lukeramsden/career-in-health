@@ -2,14 +2,9 @@
 
 namespace App;
 
+use App\Enum\AdvertStatus;
 use App\Location;
 use Illuminate\Database\Eloquent\Model;
-
-abstract class AdvertStatus
-{
-    const Draft = 0;
-    const Public = 1;
-}
 
 class Advert extends Model
 {
