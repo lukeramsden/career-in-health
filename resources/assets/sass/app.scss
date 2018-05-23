@@ -38,7 +38,7 @@ $navbar-width: 200px;
   }
 
   @include media-breakpoint-down(md) {
-    // TODO: margin for movile nav
+    margin-top: 56px;
   }
 
   width: auto;
@@ -50,6 +50,12 @@ $navbar-width: 200px;
     padding-left: 30px;
     padding-right: 30px;
     height: 100%;
+  }
+}
+
+.w-lg-50 {
+  @include media-breakpoint-up(lg) {
+    width: 50% !important;
   }
 }
 

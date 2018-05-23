@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container-fluid mt-4">
+    <div class="container-fluid mt-lg-4">
         <div class="grid">
             @include('company._dash-collection', ['items' => $items])
         </div>

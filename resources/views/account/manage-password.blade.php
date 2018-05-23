@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container mt-5">
-        <div class="card card-custom w-50 mx-auto">
+    <div class="container mt-lg-5">
+        <div class="card card-custom w-lg-50 mx-auto">
             <div class="card-body">
                 <form action="{{ route('account.manage.password') }}" method="post">
                     {{ csrf_field() }}

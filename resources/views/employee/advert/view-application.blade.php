@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container mt-3">
+    <div class="container mt-lg-3">
         <div class="card card-custom">
             <div class="card-body">
                 <form action="{{ route('advert.application.update', [$application]) }}" method="post">

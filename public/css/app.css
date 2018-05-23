@@ -10977,10 +10977,22 @@ body {
   }
 }
 
+@media (max-width: 991.98px) {
+  #app {
+    margin-top: 56px;
+  }
+}
+
 #app .container-fluid {
   padding-left: 30px;
   padding-right: 30px;
   height: 100%;
+}
+
+@media (min-width: 992px) {
+  .w-lg-50 {
+    width: 50% !important;
+  }
 }
 
 #navbar {

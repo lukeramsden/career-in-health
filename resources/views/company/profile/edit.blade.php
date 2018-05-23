@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container my-5">
+    <div class="container mt-lg-5 mb-5">
         <form action="{{ route('company.update') }}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             
