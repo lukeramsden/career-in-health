@@ -736,7 +736,7 @@
                             },
                             {
                                 model: 'end_date',
-                                label: 'End Date (TODO:explain empty)',
+                                label: 'End Date (or expected graduation date)',
                                 inline: false,
                                 options: {
                                     format: 'MM yyyy',
@@ -808,7 +808,7 @@
                             },
                             {
                                 model: 'end_date',
-                                label: 'End Date (TODO:explain empty)',
+                                label: 'End Date (leave empty if you still work here)',
                                 inline: false,
                                 options: {
                                     format: 'MM yyyy',
