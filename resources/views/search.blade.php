@@ -226,6 +226,7 @@
                 ],
                 step: 500,
                 tooltips: true,
+                margin: 2000,
                 range: {
                     'min': 0,
                     'max': 150000
