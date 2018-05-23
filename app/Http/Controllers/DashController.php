@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Advert;
-use App\AdvertStatus;
+use App\Enum\AdvertStatus;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;

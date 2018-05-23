@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Address;
-use App\AdvertStatus;
+use App\Enum\AdvertStatus;
 use Auth;
 use App\Advert;
 use Carbon\Carbon;
