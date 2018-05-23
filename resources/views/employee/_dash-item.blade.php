@@ -1,4 +1,4 @@
-@switch($item->_feed_type)
+@switch(optional($item)->_feed_type)
     @case('advert')
         <div class="grid-item">
             <div class="card card-custom card-advert">

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Advert;
-use App\AdvertStatus;
+use App\Enum\AdvertStatus;
 use App\Location;
 use Illuminate\Http\Request;
 

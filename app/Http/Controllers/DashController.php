@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DashController extends Controller
 {
-    protected static $perPage = 10;
+    protected static $perPage = 12;
 
     public function __construct()
     {
@@ -25,27 +25,37 @@ class DashController extends Controller
      */
     private function employer_dash(Request $request)
     {
-        $user = Auth::user();
-
-        $user->load(['company', 'company.applications']);
-
-        // same issue as employee dashboard
-        $applications = $user
-            ->company
-            ->applications()
-            ->orderByDesc('created_at')
-            ->get()
-            ->map(function ($item, $key) {
-                $item['_feed_type'] = 'application';
-                return $item;
-            });
-
-        $feed = collect($applications);
+        $user = Auth::user()->load(['company', 'company.applications']);
         $currentPage = $request->get('page', 1);
-        $items = array_slice($feed->all(), ($currentPage * self::$perPage) - self::$perPage, self::$perPage, true);
-        $paginator = new LengthAwarePaginator($items, $feed->count(), self::$perPage, $currentPage, [
-                'path' => $request->path()
-            ]);
+
+        $applicationsCount =
+            $user
+                ->company
+                ->applications()
+                ->count();
+        $applications =
+            $user
+                ->company
+                ->applications()
+                ->orderByDesc('created_at')
+                ->skip(self::$perPage * ($currentPage - 1))
+                ->take(self::$perPage)
+                ->get()
+                ->map(function ($item, $key) {
+                    $item['_feed_type'] = 'application';
+                    return $item;
+                });
+
+        $feed        = collect($applications);
+        $paginator   = new LengthAwarePaginator(
+            // items
+            array_slice($feed->all(), 0, self::$perPage, true),
+            // total
+            $applicationsCount,
+            self::$perPage,
+            $currentPage,
+            [ 'path' => $request->path() ]
+        );
 
         return $paginator;    }
 
@@ -55,31 +65,28 @@ class DashController extends Controller
      */
     private function employee_dash(Request $request)
     {
-        /**
-         * Note:
-         *
-         * Better way would be to find 10 random adverts that match job preferences,
-         * and then scatter them throughout the data.
-         *
-         * Currently we're just loading every advert in to memory as an array, then splicing it.
-         * This isn't a good idea because if we have gigabytes of adverts everything will break
-         *
-         * TODO: find out a way of doing this without loading every fucking item in to memory
-         **/
-
         $user = Auth::user()->load(['cv', 'cv.preferences']);
+        $currentPage = $request->get('page', 1);
 
-        $applications = $user
-            ->applications()
-            ->get()
-            ->map(function ($item, $key) {
-                $item['_feed_type'] = 'application';
-                return $item;
-            });
+        $applicationsCount =
+            $user
+                ->applications()
+                ->count();
+        $applications =
+            $user
+                ->applications()
+                ->skip(self::$perPage * ($currentPage - 1))
+                ->take(self::$perPage)
+                ->get()
+                ->map(function ($item, $key) {
+                    $item['_feed_type'] = 'application';
+                    return $item;
+                });
 
-        $adverts = Advert
-            ::where('status', AdvertStatus::Public)
-            ->with(['applications', 'jobRole', 'company', 'address']);
+        $adverts =
+            Advert
+                ::where('status', AdvertStatus::Public)
+                ->with(['jobRole', 'company', 'address']);
 
         if(isset(optional($user)->cv->preferences->job_role))
             $adverts->where('job_role', $user->cv->preferences->job_role);
@@ -90,20 +97,38 @@ class DashController extends Controller
         if(isset(optional($user)->cv->preferences->type))
             $adverts->where('type', $user->cv->preferences->type);
 
-        $adverts = $adverts
-            ->get()
-            ->map(function ($item, $key) {
-                $item['_feed_type'] = 'advert';
-                return $item;
-            });
+        $advertsCount = $adverts->count();
+        $adverts =
+            $adverts
+                ->inRandomOrder()
+                ->skip(self::$perPage * ($currentPage - 1))
+                ->take(self::$perPage)
+                ->get()
+                ->map(function ($item, $key) {
+                    $item['_feed_type'] = 'advert';
+                    return $item;
+                });
 
-        $feed = collect($applications->sortByDesc('last_edited'))->merge(collect($adverts));
-        $perPage = 10;
-        $currentPage = $request->get('page', 1);
-        $items = array_slice($feed->all(), ($currentPage * $perPage) - $perPage, $perPage, true);
-        $paginator = new LengthAwarePaginator($items, $feed->count(), $perPage, $currentPage, [
-                'path' => $request->path()
-            ]);
+        $applications = collect($applications->sortByDesc('last_edited'));
+        $adverts      = collect($adverts);
+        $feed         = collect([]);
+
+        $loadedItemsCount = $applications->count() + $adverts->count();
+        for ($i = 0; $i < $loadedItemsCount; $i++)
+        {
+            if($i % 5) $feed->push($applications->shift());
+            else $feed->push($adverts->shift());
+        }
+
+        $paginator = new LengthAwarePaginator(
+            // items
+            array_slice($feed->all(), 0, self::$perPage,true),
+            // total
+            $applicationsCount + $advertsCount,
+            self::$perPage,
+            $currentPage,
+            [ 'path' => $request->path() ]
+        );
 
         $advert_ids = array_map(
             function($item) {

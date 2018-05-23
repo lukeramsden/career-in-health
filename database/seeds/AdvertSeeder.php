@@ -1,7 +1,7 @@
 <?php
 
 use App\Advert;
-use App\AdvertStatus;
+use App\Enum\AdvertStatus;
 use Illuminate\Database\Seeder;
 
 class AdvertSeeder extends Seeder
