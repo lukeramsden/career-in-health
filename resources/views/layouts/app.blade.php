@@ -1,7 +1,14 @@
 @extends('layouts.base')
 @section('b_content')
     <div id="navbar" class="d-none d-lg-block">
-        <img class="logo" src="/images/cih-logo.svg" alt="logo">
+        @guest
+            <a href="{{ route('home') }}">
+        @endguest
+        @auth
+            <a href="{{ route('dashboard') }}">
+        @endauth
+            <img class="logo" src="/images/cih-logo.svg" alt="logo">
+        </a>
         <div id="nav-inner">
             <nav class="nav flex-column">
                 @guest
