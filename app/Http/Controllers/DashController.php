@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DashController extends Controller
 {
-    protected static $perPage = 12;
+    protected static $perPage = 8;
 
     public function __construct()
     {
@@ -75,6 +75,7 @@ class DashController extends Controller
         $applications =
             $user
                 ->applications()
+                ->orderByDesc('updated_at')
                 ->skip(self::$perPage * ($currentPage - 1))
                 ->take(self::$perPage)
                 ->get()
@@ -109,15 +110,15 @@ class DashController extends Controller
                     return $item;
                 });
 
-        $applications = collect($applications->sortByDesc('last_edited'));
+        $applications = collect($applications);
         $adverts      = collect($adverts);
-        $feed         = collect([]);
+        $feed         = collect([$applications->shift()]);
 
         $loadedItemsCount = $applications->count() + $adverts->count();
         for ($i = 0; $i < $loadedItemsCount; $i++)
         {
-            if($i % 5) $feed->push($applications->shift());
-            else $feed->push($adverts->shift());
+            if(!($i % random_int(3, 4))) $feed->push($adverts->shift());
+            else $feed->push($applications->shift());
         }
 
         $paginator = new LengthAwarePaginator(
