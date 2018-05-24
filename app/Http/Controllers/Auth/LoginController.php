@@ -50,10 +50,9 @@ class LoginController extends Controller
         if(!$user->confirmed)
         {
             $this->guard()->logout();
-            // TODO: error message saying that you need to confirm your account
-            // maybe make this the same page as the "please confirm your email" page
             toast()->error('You need to confirm your account. We have sent you an activation code, please check your email.');
-            return back();
+            session()->flash('user_id', $user->id);
+            return redirect(route('prompt-confirm-email'));
         }
 
         return null;

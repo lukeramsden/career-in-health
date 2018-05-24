@@ -131,8 +131,9 @@ class RegisterController extends Controller
 
         $this->guard()->logout();
         Mail::to($user)->send(new EmailConfirmation($user));
-        // TODO: "please confirm your email" page
-        return redirect(route('home'));
+        toast()->success('Your account has been created! You need confirm your email to log in.');
+        session()->flash('user_id', $user->id);
+        return redirect(route('prompt-confirm-email'));
     }
 
     /**
@@ -156,5 +157,28 @@ class RegisterController extends Controller
         toast()->success('You have successfully confirmed your email!');
         toast()->info('You are now logged in.');
         return redirect(route('dashboard'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function prompt()
+    {
+        session()->reflash();
+        return view('auth.confirm-email');
+    }
+
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function resend(Request $request, User $user)
+    {
+        Mail::to($user)->send(new EmailConfirmation($user));
+
+        toast()->success('Sent!');
+        session()->reflash();
+        return back();
     }
 }
