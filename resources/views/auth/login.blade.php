@@ -36,7 +36,7 @@
                         
                         <div class="form-group">
                             <button class='btn btn-action px-5 float-right'>Login</button>
-                            <a href="{{ route('register') }}" class='btn btn-sm btn-link float-right'>Sign Up</a>
+                            <a href="{{ route('password.request') }}" class='btn btn-sm btn-link float-right'>Forgot your password?</a>
                         </div>
                     
                     </form>

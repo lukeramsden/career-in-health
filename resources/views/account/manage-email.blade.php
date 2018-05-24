@@ -14,7 +14,7 @@
                             name="email"
                             id="email"
                             value="{{ old('email', $user->email) }}"
-                            placeholder="joebloggs@email.com"
+                            placeholder="joebloggs@example.com"
                             autocomplete="off"
                             required>
                         
