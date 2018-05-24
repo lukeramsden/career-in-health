@@ -39,20 +39,24 @@ class LoginController extends Controller
     }
 
     /**
-     * Get the needed authorization credentials from the request.
+     * The user has been authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return array
+     * @param  mixed  $user
+     * @return mixed
      */
-    protected function credentials(Request $request)
+    protected function authenticated(Request $request, $user)
     {
-        // TODO: error message saying that you need to confirm your account
-        // maybe make this the same page as the "please confirm your email" page
-        return [
-            $this->username() => $request->input($this->username()),
-            'password'        => $request->input('password'),
-            'confirmed'       => 1
-        ];
+        if(!$user->confirmed)
+        {
+            $this->guard()->logout();
+            // TODO: error message saying that you need to confirm your account
+            // maybe make this the same page as the "please confirm your email" page
+            toast()->error('You need to confirm your account. We have sent you an activation code, please check your email.');
+            return back();
+        }
+
+        return null;
     }
 
     /**
