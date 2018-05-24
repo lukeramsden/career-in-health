@@ -28,7 +28,7 @@ class SubscriptionController extends Controller
 
     public function payment($plan)
     {
-        $plan = SubscriptionPlan::where('stripe_plan_id', $plan)
+        $plan = SubscriptionPlan::whereStripePlanId($plan)
             ->first();
 
         return view('subscription.payment')
@@ -55,8 +55,7 @@ class SubscriptionController extends Controller
 
         $user = Auth::user()->getSubscriptionUser();
 
-        $plan = SubscriptionPlan::where('stripe_plan_id', $plan)
-            ->first();
+        $plan = SubscriptionPlan::whereStripePlanId($plan)->first();
 
         Stripe::setApiKey(env('STRIPE_KEY'));
 

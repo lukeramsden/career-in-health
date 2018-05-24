@@ -86,17 +86,17 @@ class DashController extends Controller
 
         $adverts =
             Advert
-                ::where('status', AdvertStatus::Public)
+                ::whereStatus(AdvertStatus::Public)
                 ->with(['jobRole', 'company', 'address']);
 
         if(isset(optional($user)->cv->preferences->job_role))
-            $adverts->where('job_role', $user->cv->preferences->job_role);
+            $adverts->whereJobRole($user->cv->preferences->job_role);
 
         if(isset(optional($user)->cv->preferences->setting))
-            $adverts->where('setting', $user->cv->preferences->setting);
+            $adverts->whereSetting($user->cv->preferences->setting);
 
         if(isset(optional($user)->cv->preferences->type))
-            $adverts->where('type', $user->cv->preferences->type);
+            $adverts->whereType($user->cv->preferences->type);
 
         $advertsCount = $adverts->count();
         $adverts =

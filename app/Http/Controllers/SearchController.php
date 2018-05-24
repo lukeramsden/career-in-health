@@ -62,7 +62,10 @@ class SearchController extends Controller
             if(isset($data['type_filter']))
                 $results->whereIn('type', $data['type_filter']);
 
-            $results = $results->where('status', AdvertStatus::Public)->orderBy('max_salary', 'desc')->paginate(10);
+            $results = $results
+                ->whereStatus(AdvertStatus::Public)
+                ->orderBy('max_salary', 'desc')
+                ->paginate(10);
 
             // impressions tracking
             foreach($results->items() as $advert)
