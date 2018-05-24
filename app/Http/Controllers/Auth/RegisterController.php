@@ -4,14 +4,19 @@ namespace App\Http\Controllers\Auth;
 
 use App\Cv\Cv;
 use App\Enum\IAm;
+use App\Mail\EmailConfirmation;
 use App\Profile;
 use App\User;
 use App\Company;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Validation\Rule;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class RegisterController extends Controller
@@ -78,8 +83,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $this->redirectTo = route('dashboard');
+
         $user = new User();
         $user->email = $data['email'];
+        $user->confirmation_code = str_random(30);
         $user->password = Hash::make($data['password']);
         $user->save();
 
@@ -98,14 +106,55 @@ class RegisterController extends Controller
             $company->save();
 
             $user->company_id = $company->id;
-//            $this->redirectTo = route('dashboard');
         } else if($data['i_am'] == IAm::Employee) {
             $cv = new Cv();
             $user->cv()->save($cv);
-//            $this->redirectTo = route('cv-builder.profile');
+            // TODO: step by step signup
+            // $this->redirectTo = route('step by step signup');
         }
 
         $user->save();
         return $user;
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        if($user->confirmed)
+            return null;
+
+        $this->guard()->logout();
+        Mail::to($user)->send(new EmailConfirmation($user));
+        // TODO: "please confirm your email" page
+        return redirect(route('home'));
+    }
+
+    /**
+     * @param $confirmation_code
+     */
+    public function confirm($confirmation_code)
+    {
+        if(!$confirmation_code)
+            abort(400); // bad request
+
+        $user = User::whereConfirmationCode($confirmation_code)->first();
+
+        if (!$user)
+            abort(404); // not found
+
+        $user->confirmed = 1;
+        $user->confirmation_code = null;
+        $user->save();
+
+        $this->guard()->login($user);
+        toast()->success('You have successfully verified your email!');
+        toast()->info('You are now logged in.');
+        return redirect(route('dashboard'));
     }
 }

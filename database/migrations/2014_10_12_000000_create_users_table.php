@@ -24,8 +24,10 @@ class CreateUsersTable extends Migration
             $table->string('card_last_four', 4)->nullable();
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('verified_at')->nullable();
-            $table->timestamps();
+            $table->boolean('confirmed')->default(0);
+            $table->string('confirmation_code')->nullable();
             $table->rememberToken();
+            $table->timestamps();
         });
     }
 

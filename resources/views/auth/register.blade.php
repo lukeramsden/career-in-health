@@ -15,11 +15,11 @@
                                     </div>
                                     <div class="col-auto">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" autocomplete="off" id="i_am-1" name="i_am" class="custom-control-input" value="{{ \App\Enum\IAm::Company }}" required {{ old('i_am') == 'Employer' ? 'checked' : '' }}>
+                                            <input type="radio" autocomplete="off" id="i_am-1" name="i_am" class="custom-control-input" value="{{ \App\Enum\IAm::Company }}" required {{ old('i_am') == \App\Enum\IAm::Company ? 'checked' : '' }}>
                                             <label class="custom-control-label text-sm" for="i_am-1">Company</label>
                                         </div>
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" autocomplete="off" id="i_am-2" name="i_am" class="custom-control-input" value="{{ \App\Enum\IAm::Employee }}" required {{ old('i_am') == 'Employee' ? 'checked' : '' }}>
+                                            <input type="radio" autocomplete="off" id="i_am-2" name="i_am" class="custom-control-input" value="{{ \App\Enum\IAm::Employee }}" required {{ old('i_am') == \App\Enum\IAm::Employee ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="i_am-2">Employee</label>
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
                                 @endif
                             </div>
                             
-                            <div class="form-group" style="{{ old('i_am') == 'Employer' ? '' : 'display:none;' }}" id="company-name-group">
+                            <div class="form-group" style="{{ old('i_am') == \App\Enum\IAm::Company ? '' : 'display:none;' }}" id="company-name-group">
                                 <small class="text-muted">Company Name (<span class='text-action'>*</span>)</small>
                                 <input
                                 type="text"
@@ -134,7 +134,7 @@
 @section('script')
     <script>
         $( 'input[name="i_am"]:radio' ).change(function() {
-            $('#company-name-group')[this.value === 'Employee' ? 'slideUp' : 'slideDown']("slow", "easeInOutExpo");
+            $('#company-name-group')[this.value === '{{ \App\Enum\IAm::Company }}' ? 'slideDown' : 'slideUp']("slow", "easeInOutExpo");
         });
     </script>
 @endsection

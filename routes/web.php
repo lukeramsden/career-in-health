@@ -7,6 +7,7 @@ Route::get('/search', 'SearchController@search')->name('search');
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout.get');
+Route::get('register/verify/{confirmationCode}', 'Auth\RegisterController@confirm')->name('confirm-email');
 
 Route::get('/dashboard', 'DashController@index')->name('dashboard');
 Route::post('/dashboard', 'DashController@get')->name('dashboard.get');

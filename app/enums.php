@@ -3,8 +3,8 @@
 namespace App\Enum;
 abstract class IAm
 {
-    const Employee = 0;
-    const Company = 1;
+    const Employee = 1;
+    const Company = 2;
 }
 
 abstract class AdvertStatus
