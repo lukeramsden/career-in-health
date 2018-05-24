@@ -46,6 +46,8 @@ class LoginController extends Controller
      */
     protected function credentials(Request $request)
     {
+        // TODO: error message saying that you need to confirm your account
+        // maybe make this the same page as the "please confirm your email" page
         return [
             $this->username() => $request->input($this->username()),
             'password'        => $request->input('password'),
