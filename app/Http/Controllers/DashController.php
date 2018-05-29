@@ -143,7 +143,8 @@ class DashController extends Controller
             )
         );
 
-        Advert::whereIn('id', $advert_ids)->increment('recommended_impressions');
+        if(count($advert_ids) > 0)
+            Advert::whereIn('id', $advert_ids)->increment('recommended_impressions');
 
         return $paginator;
     }
