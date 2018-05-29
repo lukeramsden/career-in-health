@@ -5,6 +5,10 @@ Route::view('/pricing', 'pricing')->name('pricing');
 
 Route::get('/search', 'SearchController@search')->name('search');
 
+Route::get('/test', function() {
+    return new App\Mail\EmailConfirmation(\App\User::find(1));
+});
+
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout.get');
 Route::get('/register/verify/{confirmationCode}', 'Auth\RegisterController@confirm')->name('confirm-email');

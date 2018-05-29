@@ -48,7 +48,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')->except('confirm', 'prompt', 'resend');
     }
 
     /**
@@ -60,12 +60,12 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $rules = [
-            'i_am' => ['required', 'integer', Rule::in([IAm::Employee, IAm::Company]),],
+            'i_am'       => ['required', 'integer', Rule::in([IAm::Employee, IAm::Company]),],
             'first_name' => 'required|string|max:255',
-            'last_name' => 'string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'terms' => 'required'
+            'last_name'  => 'string|max:255',
+            'email'      => 'required|string|email|max:255|unique:users',
+            'password'   => 'required|string|min:6|confirmed',
+            'terms'      => 'required'
         ];
 
         if (isset($data['i_am']) && $data['i_am'] == IAm::Company) {
