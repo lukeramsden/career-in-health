@@ -1,5 +1,21 @@
 ## Career in Health (project care)
 
+### Installation
+#### Dependencies
+- PHP 7.0
+- NPM
+
+```bash
+npm install
+npm run # 'dev' or 'prod'
+composer install
+php artisan symlink
+php artisan migrate
+cp .env.example .env
+vi .env # config to match environment
+```
+
+
 ### General Ideas
 - Post Jobs (care home)
 - Find Jobs (person)

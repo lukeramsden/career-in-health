@@ -2542,20 +2542,25 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:valid,
 .was-validated #adverts_wrapper input:valid,
 #adverts_wrapper .was-validated input:valid,
-.was-validated #applications_wrapper input:valid,
+.was-validated
+#applications_wrapper input:valid,
 #applications_wrapper .was-validated input:valid,
-.was-validated #addresses_wrapper input:valid,
+.was-validated
+#addresses_wrapper input:valid,
 #addresses_wrapper .was-validated input:valid,
 .form-control.is-valid,
 #adverts_wrapper input.is-valid,
 #applications_wrapper input.is-valid,
 #addresses_wrapper input.is-valid,
-.was-validated .custom-select:valid,
+.was-validated
+.custom-select:valid,
 .was-validated #adverts_wrapper select:valid,
 #adverts_wrapper .was-validated select:valid,
-.was-validated #applications_wrapper select:valid,
+.was-validated
+#applications_wrapper select:valid,
 #applications_wrapper .was-validated select:valid,
-.was-validated #addresses_wrapper select:valid,
+.was-validated
+#addresses_wrapper select:valid,
 #addresses_wrapper .was-validated select:valid,
 .custom-select.is-valid,
 #adverts_wrapper select.is-valid,
@@ -2567,20 +2572,25 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:valid:focus,
 .was-validated #adverts_wrapper input:valid:focus,
 #adverts_wrapper .was-validated input:valid:focus,
-.was-validated #applications_wrapper input:valid:focus,
+.was-validated
+#applications_wrapper input:valid:focus,
 #applications_wrapper .was-validated input:valid:focus,
-.was-validated #addresses_wrapper input:valid:focus,
+.was-validated
+#addresses_wrapper input:valid:focus,
 #addresses_wrapper .was-validated input:valid:focus,
 .form-control.is-valid:focus,
 #adverts_wrapper input.is-valid:focus,
 #applications_wrapper input.is-valid:focus,
 #addresses_wrapper input.is-valid:focus,
-.was-validated .custom-select:valid:focus,
+.was-validated
+.custom-select:valid:focus,
 .was-validated #adverts_wrapper select:valid:focus,
 #adverts_wrapper .was-validated select:valid:focus,
-.was-validated #applications_wrapper select:valid:focus,
+.was-validated
+#applications_wrapper select:valid:focus,
 #applications_wrapper .was-validated select:valid:focus,
-.was-validated #addresses_wrapper select:valid:focus,
+.was-validated
+#addresses_wrapper select:valid:focus,
 #addresses_wrapper .was-validated select:valid:focus,
 .custom-select.is-valid:focus,
 #adverts_wrapper select.is-valid:focus,
@@ -2594,17 +2604,24 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:valid ~ .valid-feedback,
 .was-validated #adverts_wrapper input:valid ~ .valid-feedback,
 #adverts_wrapper .was-validated input:valid ~ .valid-feedback,
-.was-validated #applications_wrapper input:valid ~ .valid-feedback,
+.was-validated
+#applications_wrapper input:valid ~ .valid-feedback,
 #applications_wrapper .was-validated input:valid ~ .valid-feedback,
-.was-validated #addresses_wrapper input:valid ~ .valid-feedback,
+.was-validated
+#addresses_wrapper input:valid ~ .valid-feedback,
 #addresses_wrapper .was-validated input:valid ~ .valid-feedback,
 .was-validated .form-control:valid ~ .valid-tooltip,
 .was-validated #adverts_wrapper input:valid ~ .valid-tooltip,
-#adverts_wrapper .was-validated input:valid ~ .valid-tooltip,
-.was-validated #applications_wrapper input:valid ~ .valid-tooltip,
-#applications_wrapper .was-validated input:valid ~ .valid-tooltip,
-.was-validated #addresses_wrapper input:valid ~ .valid-tooltip,
-#addresses_wrapper .was-validated input:valid ~ .valid-tooltip,
+#adverts_wrapper
+.was-validated input:valid ~ .valid-tooltip,
+.was-validated
+#applications_wrapper input:valid ~ .valid-tooltip,
+#applications_wrapper
+.was-validated input:valid ~ .valid-tooltip,
+.was-validated
+#addresses_wrapper input:valid ~ .valid-tooltip,
+#addresses_wrapper
+.was-validated input:valid ~ .valid-tooltip,
 .form-control.is-valid ~ .valid-feedback,
 #adverts_wrapper input.is-valid ~ .valid-feedback,
 #applications_wrapper input.is-valid ~ .valid-feedback,
@@ -2613,20 +2630,29 @@ select.form-control-lg:not([size]):not([multiple]),
 #adverts_wrapper input.is-valid ~ .valid-tooltip,
 #applications_wrapper input.is-valid ~ .valid-tooltip,
 #addresses_wrapper input.is-valid ~ .valid-tooltip,
-.was-validated .custom-select:valid ~ .valid-feedback,
+.was-validated
+.custom-select:valid ~ .valid-feedback,
 .was-validated #adverts_wrapper select:valid ~ .valid-feedback,
 #adverts_wrapper .was-validated select:valid ~ .valid-feedback,
-.was-validated #applications_wrapper select:valid ~ .valid-feedback,
+.was-validated
+#applications_wrapper select:valid ~ .valid-feedback,
 #applications_wrapper .was-validated select:valid ~ .valid-feedback,
-.was-validated #addresses_wrapper select:valid ~ .valid-feedback,
+.was-validated
+#addresses_wrapper select:valid ~ .valid-feedback,
 #addresses_wrapper .was-validated select:valid ~ .valid-feedback,
-.was-validated .custom-select:valid ~ .valid-tooltip,
+.was-validated
+.custom-select:valid ~ .valid-tooltip,
 .was-validated #adverts_wrapper select:valid ~ .valid-tooltip,
-#adverts_wrapper .was-validated select:valid ~ .valid-tooltip,
-.was-validated #applications_wrapper select:valid ~ .valid-tooltip,
-#applications_wrapper .was-validated select:valid ~ .valid-tooltip,
-.was-validated #addresses_wrapper select:valid ~ .valid-tooltip,
-#addresses_wrapper .was-validated select:valid ~ .valid-tooltip,
+#adverts_wrapper
+.was-validated select:valid ~ .valid-tooltip,
+.was-validated
+#applications_wrapper select:valid ~ .valid-tooltip,
+#applications_wrapper
+.was-validated select:valid ~ .valid-tooltip,
+.was-validated
+#addresses_wrapper select:valid ~ .valid-tooltip,
+#addresses_wrapper
+.was-validated select:valid ~ .valid-tooltip,
 .custom-select.is-valid ~ .valid-feedback,
 #adverts_wrapper select.is-valid ~ .valid-feedback,
 #applications_wrapper select.is-valid ~ .valid-feedback,
@@ -2727,20 +2753,25 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:invalid,
 .was-validated #adverts_wrapper input:invalid,
 #adverts_wrapper .was-validated input:invalid,
-.was-validated #applications_wrapper input:invalid,
+.was-validated
+#applications_wrapper input:invalid,
 #applications_wrapper .was-validated input:invalid,
-.was-validated #addresses_wrapper input:invalid,
+.was-validated
+#addresses_wrapper input:invalid,
 #addresses_wrapper .was-validated input:invalid,
 .form-control.is-invalid,
 #adverts_wrapper input.is-invalid,
 #applications_wrapper input.is-invalid,
 #addresses_wrapper input.is-invalid,
-.was-validated .custom-select:invalid,
+.was-validated
+.custom-select:invalid,
 .was-validated #adverts_wrapper select:invalid,
 #adverts_wrapper .was-validated select:invalid,
-.was-validated #applications_wrapper select:invalid,
+.was-validated
+#applications_wrapper select:invalid,
 #applications_wrapper .was-validated select:invalid,
-.was-validated #addresses_wrapper select:invalid,
+.was-validated
+#addresses_wrapper select:invalid,
 #addresses_wrapper .was-validated select:invalid,
 .custom-select.is-invalid,
 #adverts_wrapper select.is-invalid,
@@ -2752,20 +2783,25 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:invalid:focus,
 .was-validated #adverts_wrapper input:invalid:focus,
 #adverts_wrapper .was-validated input:invalid:focus,
-.was-validated #applications_wrapper input:invalid:focus,
+.was-validated
+#applications_wrapper input:invalid:focus,
 #applications_wrapper .was-validated input:invalid:focus,
-.was-validated #addresses_wrapper input:invalid:focus,
+.was-validated
+#addresses_wrapper input:invalid:focus,
 #addresses_wrapper .was-validated input:invalid:focus,
 .form-control.is-invalid:focus,
 #adverts_wrapper input.is-invalid:focus,
 #applications_wrapper input.is-invalid:focus,
 #addresses_wrapper input.is-invalid:focus,
-.was-validated .custom-select:invalid:focus,
+.was-validated
+.custom-select:invalid:focus,
 .was-validated #adverts_wrapper select:invalid:focus,
 #adverts_wrapper .was-validated select:invalid:focus,
-.was-validated #applications_wrapper select:invalid:focus,
+.was-validated
+#applications_wrapper select:invalid:focus,
 #applications_wrapper .was-validated select:invalid:focus,
-.was-validated #addresses_wrapper select:invalid:focus,
+.was-validated
+#addresses_wrapper select:invalid:focus,
 #addresses_wrapper .was-validated select:invalid:focus,
 .custom-select.is-invalid:focus,
 #adverts_wrapper select.is-invalid:focus,
@@ -2779,17 +2815,24 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:invalid ~ .invalid-feedback,
 .was-validated #adverts_wrapper input:invalid ~ .invalid-feedback,
 #adverts_wrapper .was-validated input:invalid ~ .invalid-feedback,
-.was-validated #applications_wrapper input:invalid ~ .invalid-feedback,
+.was-validated
+#applications_wrapper input:invalid ~ .invalid-feedback,
 #applications_wrapper .was-validated input:invalid ~ .invalid-feedback,
-.was-validated #addresses_wrapper input:invalid ~ .invalid-feedback,
+.was-validated
+#addresses_wrapper input:invalid ~ .invalid-feedback,
 #addresses_wrapper .was-validated input:invalid ~ .invalid-feedback,
 .was-validated .form-control:invalid ~ .invalid-tooltip,
 .was-validated #adverts_wrapper input:invalid ~ .invalid-tooltip,
-#adverts_wrapper .was-validated input:invalid ~ .invalid-tooltip,
-.was-validated #applications_wrapper input:invalid ~ .invalid-tooltip,
-#applications_wrapper .was-validated input:invalid ~ .invalid-tooltip,
-.was-validated #addresses_wrapper input:invalid ~ .invalid-tooltip,
-#addresses_wrapper .was-validated input:invalid ~ .invalid-tooltip,
+#adverts_wrapper
+.was-validated input:invalid ~ .invalid-tooltip,
+.was-validated
+#applications_wrapper input:invalid ~ .invalid-tooltip,
+#applications_wrapper
+.was-validated input:invalid ~ .invalid-tooltip,
+.was-validated
+#addresses_wrapper input:invalid ~ .invalid-tooltip,
+#addresses_wrapper
+.was-validated input:invalid ~ .invalid-tooltip,
 .form-control.is-invalid ~ .invalid-feedback,
 #adverts_wrapper input.is-invalid ~ .invalid-feedback,
 #applications_wrapper input.is-invalid ~ .invalid-feedback,
@@ -2798,20 +2841,29 @@ select.form-control-lg:not([size]):not([multiple]),
 #adverts_wrapper input.is-invalid ~ .invalid-tooltip,
 #applications_wrapper input.is-invalid ~ .invalid-tooltip,
 #addresses_wrapper input.is-invalid ~ .invalid-tooltip,
-.was-validated .custom-select:invalid ~ .invalid-feedback,
+.was-validated
+.custom-select:invalid ~ .invalid-feedback,
 .was-validated #adverts_wrapper select:invalid ~ .invalid-feedback,
 #adverts_wrapper .was-validated select:invalid ~ .invalid-feedback,
-.was-validated #applications_wrapper select:invalid ~ .invalid-feedback,
+.was-validated
+#applications_wrapper select:invalid ~ .invalid-feedback,
 #applications_wrapper .was-validated select:invalid ~ .invalid-feedback,
-.was-validated #addresses_wrapper select:invalid ~ .invalid-feedback,
+.was-validated
+#addresses_wrapper select:invalid ~ .invalid-feedback,
 #addresses_wrapper .was-validated select:invalid ~ .invalid-feedback,
-.was-validated .custom-select:invalid ~ .invalid-tooltip,
+.was-validated
+.custom-select:invalid ~ .invalid-tooltip,
 .was-validated #adverts_wrapper select:invalid ~ .invalid-tooltip,
-#adverts_wrapper .was-validated select:invalid ~ .invalid-tooltip,
-.was-validated #applications_wrapper select:invalid ~ .invalid-tooltip,
-#applications_wrapper .was-validated select:invalid ~ .invalid-tooltip,
-.was-validated #addresses_wrapper select:invalid ~ .invalid-tooltip,
-#addresses_wrapper .was-validated select:invalid ~ .invalid-tooltip,
+#adverts_wrapper
+.was-validated select:invalid ~ .invalid-tooltip,
+.was-validated
+#applications_wrapper select:invalid ~ .invalid-tooltip,
+#applications_wrapper
+.was-validated select:invalid ~ .invalid-tooltip,
+.was-validated
+#addresses_wrapper select:invalid ~ .invalid-tooltip,
+#addresses_wrapper
+.was-validated select:invalid ~ .invalid-tooltip,
 .custom-select.is-invalid ~ .invalid-feedback,
 #adverts_wrapper select.is-invalid ~ .invalid-feedback,
 #applications_wrapper select.is-invalid ~ .invalid-feedback,
@@ -2937,9 +2989,11 @@ select.form-control-lg:not([size]):not([multiple]),
   .form-inline .form-control,
   .form-inline #adverts_wrapper input,
   #adverts_wrapper .form-inline input,
-  .form-inline #applications_wrapper input,
+  .form-inline
+  #applications_wrapper input,
   #applications_wrapper .form-inline input,
-  .form-inline #addresses_wrapper input,
+  .form-inline
+  #addresses_wrapper input,
   #addresses_wrapper .form-inline input {
     display: inline-block;
     width: auto;
@@ -4276,9 +4330,12 @@ tbody.collapse.show {
 #applications_wrapper .input-group > input,
 #addresses_wrapper .input-group > input,
 .input-group > .custom-select,
-#adverts_wrapper .input-group > select,
-#applications_wrapper .input-group > select,
-#addresses_wrapper .input-group > select,
+#adverts_wrapper
+.input-group > select,
+#applications_wrapper
+.input-group > select,
+#addresses_wrapper
+.input-group > select,
 .input-group > .custom-file {
   position: relative;
   -webkit-box-flex: 1;
@@ -4293,9 +4350,12 @@ tbody.collapse.show {
 #applications_wrapper .input-group > input:focus,
 #addresses_wrapper .input-group > input:focus,
 .input-group > .custom-select:focus,
-#adverts_wrapper .input-group > select:focus,
-#applications_wrapper .input-group > select:focus,
-#addresses_wrapper .input-group > select:focus,
+#adverts_wrapper
+.input-group > select:focus,
+#applications_wrapper
+.input-group > select:focus,
+#addresses_wrapper
+.input-group > select:focus,
 .input-group > .custom-file:focus {
   z-index: 3;
 }
@@ -4311,51 +4371,90 @@ tbody.collapse.show {
 #addresses_wrapper .input-group > .form-control + input,
 #addresses_wrapper .input-group > input + input,
 .input-group > .form-control + .custom-select,
-#adverts_wrapper .input-group > input + .custom-select,
-#applications_wrapper .input-group > input + .custom-select,
-#addresses_wrapper .input-group > input + .custom-select,
-#adverts_wrapper .input-group > .form-control + select,
-#adverts_wrapper .input-group > input + select,
-#applications_wrapper .input-group > .form-control + select,
-#applications_wrapper .input-group > input + select,
-#addresses_wrapper .input-group > .form-control + select,
-#addresses_wrapper .input-group > input + select,
+#adverts_wrapper
+.input-group > input + .custom-select,
+#applications_wrapper
+.input-group > input + .custom-select,
+#addresses_wrapper
+.input-group > input + .custom-select,
+#adverts_wrapper
+.input-group > .form-control + select,
+#adverts_wrapper
+.input-group > input + select,
+#applications_wrapper
+.input-group > .form-control + select,
+#applications_wrapper
+.input-group > input + select,
+#addresses_wrapper
+.input-group > .form-control + select,
+#addresses_wrapper
+.input-group > input + select,
 .input-group > .form-control + .custom-file,
-#adverts_wrapper .input-group > input + .custom-file,
-#applications_wrapper .input-group > input + .custom-file,
-#addresses_wrapper .input-group > input + .custom-file,
+#adverts_wrapper
+.input-group > input + .custom-file,
+#applications_wrapper
+.input-group > input + .custom-file,
+#addresses_wrapper
+.input-group > input + .custom-file,
 .input-group > .custom-select + .form-control,
-#adverts_wrapper .input-group > select + .form-control,
-#applications_wrapper .input-group > select + .form-control,
-#addresses_wrapper .input-group > select + .form-control,
-#adverts_wrapper .input-group > .custom-select + input,
-#adverts_wrapper .input-group > select + input,
-#applications_wrapper .input-group > .custom-select + input,
-#applications_wrapper .input-group > select + input,
-#addresses_wrapper .input-group > .custom-select + input,
-#addresses_wrapper .input-group > select + input,
+#adverts_wrapper
+.input-group > select + .form-control,
+#applications_wrapper
+.input-group > select + .form-control,
+#addresses_wrapper
+.input-group > select + .form-control,
+#adverts_wrapper
+.input-group > .custom-select + input,
+#adverts_wrapper
+.input-group > select + input,
+#applications_wrapper
+.input-group > .custom-select + input,
+#applications_wrapper
+.input-group > select + input,
+#addresses_wrapper
+.input-group > .custom-select + input,
+#addresses_wrapper
+.input-group > select + input,
 .input-group > .custom-select + .custom-select,
-#adverts_wrapper .input-group > select + .custom-select,
-#applications_wrapper .input-group > select + .custom-select,
-#addresses_wrapper .input-group > select + .custom-select,
-#adverts_wrapper .input-group > .custom-select + select,
-#adverts_wrapper .input-group > select + select,
-#applications_wrapper .input-group > .custom-select + select,
-#applications_wrapper .input-group > select + select,
-#addresses_wrapper .input-group > .custom-select + select,
-#addresses_wrapper .input-group > select + select,
+#adverts_wrapper
+.input-group > select + .custom-select,
+#applications_wrapper
+.input-group > select + .custom-select,
+#addresses_wrapper
+.input-group > select + .custom-select,
+#adverts_wrapper
+.input-group > .custom-select + select,
+#adverts_wrapper
+.input-group > select + select,
+#applications_wrapper
+.input-group > .custom-select + select,
+#applications_wrapper
+.input-group > select + select,
+#addresses_wrapper
+.input-group > .custom-select + select,
+#addresses_wrapper
+.input-group > select + select,
 .input-group > .custom-select + .custom-file,
-#adverts_wrapper .input-group > select + .custom-file,
-#applications_wrapper .input-group > select + .custom-file,
-#addresses_wrapper .input-group > select + .custom-file,
+#adverts_wrapper
+.input-group > select + .custom-file,
+#applications_wrapper
+.input-group > select + .custom-file,
+#addresses_wrapper
+.input-group > select + .custom-file,
 .input-group > .custom-file + .form-control,
-#adverts_wrapper .input-group > .custom-file + input,
-#applications_wrapper .input-group > .custom-file + input,
-#addresses_wrapper .input-group > .custom-file + input,
+#adverts_wrapper
+.input-group > .custom-file + input,
+#applications_wrapper
+.input-group > .custom-file + input,
+#addresses_wrapper
+.input-group > .custom-file + input,
 .input-group > .custom-file + .custom-select,
-#adverts_wrapper .input-group > .custom-file + select,
-#applications_wrapper .input-group > .custom-file + select,
-#addresses_wrapper .input-group > .custom-file + select,
+#adverts_wrapper
+.input-group > .custom-file + select,
+#applications_wrapper
+.input-group > .custom-file + select,
+#addresses_wrapper
+.input-group > .custom-file + select,
 .input-group > .custom-file + .custom-file {
   margin-left: -1px;
 }
@@ -4365,9 +4464,12 @@ tbody.collapse.show {
 #applications_wrapper .input-group > input:not(:last-child),
 #addresses_wrapper .input-group > input:not(:last-child),
 .input-group > .custom-select:not(:last-child),
-#adverts_wrapper .input-group > select:not(:last-child),
-#applications_wrapper .input-group > select:not(:last-child),
-#addresses_wrapper .input-group > select:not(:last-child) {
+#adverts_wrapper
+.input-group > select:not(:last-child),
+#applications_wrapper
+.input-group > select:not(:last-child),
+#addresses_wrapper
+.input-group > select:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -4377,9 +4479,12 @@ tbody.collapse.show {
 #applications_wrapper .input-group > input:not(:first-child),
 #addresses_wrapper .input-group > input:not(:first-child),
 .input-group > .custom-select:not(:first-child),
-#adverts_wrapper .input-group > select:not(:first-child),
-#applications_wrapper .input-group > select:not(:first-child),
-#addresses_wrapper .input-group > select:not(:first-child) {
+#adverts_wrapper
+.input-group > select:not(:first-child),
+#applications_wrapper
+.input-group > select:not(:first-child),
+#addresses_wrapper
+.input-group > select:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
