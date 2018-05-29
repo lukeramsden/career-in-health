@@ -57,7 +57,8 @@ class DashController extends Controller
             [ 'path' => $request->path() ]
         );
 
-        return $paginator;    }
+        return $paginator;
+    }
 
     /**
      * @param Request $request
