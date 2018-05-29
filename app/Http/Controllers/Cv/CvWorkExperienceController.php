@@ -9,88 +9,59 @@ use Illuminate\Support\Facades\Auth;
 
 class CvWorkExperienceController extends Controller
 {
-    /**
-     * CvWorkExperienceController constructor.
-     */
-    public function __construct()
+    protected $request;
+
+    public function __construct(Request $request)
     {
+        $this->request = $request;
+
         $this->middleware('auth');
         $this->middleware('only.employee');
     }
 
-    /**
-     * Get validation rules for request
-     *
-     * @param Request $request
-     * @return array
-     */
-    protected function rules(Request $request)
+    protected function rules()
     {
         return [
-            'job_title' => 'required|string|max:150',
+            'job_title'    => 'required|string|max:150',
             'company_name' => 'required|string|max:150',
-            'description' => 'nullable|string|max:500',
-            'location' => 'required|string|max:150',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date'
+            'description'  => 'nullable|string|max:500',
+            'location'     => 'required|string|max:150',
+            'start_date'   => 'required|date',
+            'end_date'     => 'nullable|date'
         ];
     }
 
-    /**
-     * Store model
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function store(Request $request)
+    public function store()
     {
-        $data = $request->validate(self::rules($request));
+        $data = $this->request->validate(self::rules());
 
         $workExperience = new CvWorkExperience();
         $workExperience->cv_id = Auth::user()->cv->id;
         $workExperience->fill($data);
         $workExperience->save();
 
-        if($request->ajax())
-        {
+        if(ajax())
             return response()->json(['success' => true, 'model' => $workExperience], 200);
-        }
 
         toast()->success('Created');
         return back();
     }
 
-    /**
-     * Update model
-     *
-     * @param Request $request
-     * @param CvWorkExperience $workExperience
-     * @return mixed
-     */
-    public function update(Request $request, CvWorkExperience $workExperience)
+    public function update(CvWorkExperience $workExperience)
     {
-        $data = $request->validate(self::rules($request));
-
-        if(!isset($data['end_date']))
-            $data['end_date'] = null;
+        $data = $this->request->validate(self::rules());
 
         $workExperience->fill($data);
         $workExperience->save();
 
         if(ajax())
-        {
             return response()->json(['success' => true, 'model' => $workExperience], 200);
-        }
 
         toast()->success('Updated');
         return back();
     }
 
     /**
-     * Delete model
-     *
-     * @param CvWorkExperience $workExperience
-     * @return mixed
      * @throws \Exception
      */
     public function destroy(CvWorkExperience $workExperience)
@@ -98,9 +69,7 @@ class CvWorkExperienceController extends Controller
         $workExperience->delete();
 
         if(ajax())
-        {
             return response()->json(['success' => true], 200);
-        }
 
         toast()->success('Deleted');
         return back();

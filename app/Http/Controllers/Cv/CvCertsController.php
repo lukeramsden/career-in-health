@@ -6,52 +6,41 @@ use App\Cv\CvCert;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class CvCertsController extends Controller
 {
-    /**
-     * CvCertsController constructor.
-     */
-    public function __construct()
+    protected $request;
+
+    public function __construct(Request $request)
     {
+        $this->request = $request;
+
         $this->middleware('auth');
         $this->middleware('only.employee');
     }
 
-    /**
-     * Get validation rules for request
-     *
-     * @param Request $request
-     * @return array
-     */
-    protected function rules(Request $request, bool $creatingNew)
+    protected function rules(bool $creatingNew)
     {
         $rules = [
-            'title' => 'required|string|max:150',
+            'title'       => 'required|string|max:150',
             'description' => 'nullable|string|max:500',
-            'start_date' => 'required|date',
-            'end_date' => 'nullable|date',
+            'start_date'  => 'required|date',
+            'end_date'    => 'nullable|date',
         ];
 
-        return $creatingNew ?
-              array_merge($rules, ['file' => 'required|file|max:1024|mimes:pdf,jpg,jpeg,png'])
-            : $rules;
+        if($creatingNew)
+            $rules['file'] = 'required|file|max:1024|mimes:pdf,jpg,jpeg,png';
+
+        return $rules;
     }
 
-    /**
-     * Store model
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function store(Request $request)
+    public function store()
     {
-        $data = $request->validate(self::rules($request, true));
+        $data = $this->request->validate(self::rules(true));
 
         $certification = new CvCert();
 
-        $path = $request->file('file')->store('certs');
+        $path = $this->request->file('file')->store('certs');
 
         if($path) {
             $certification->file = $path;
@@ -68,23 +57,16 @@ class CvCertsController extends Controller
         $certification->fill($data);
         $certification->save();
 
-        if($request->ajax())
+        if(ajax())
             return response()->json(['success' => true, 'model' => $certification], 200);
 
         toast()->success('Created');
         return back();
     }
 
-    /**
-     * Update model
-     *
-     * @param Request $request
-     * @param CvCert $cert
-     * @return mixed
-     */
-    public function update(Request $request, CvCert $certification)
+    public function update(CvCert $certification)
     {
-        $data = $request->validate(self::rules($request, false));
+        $data = $this->request->validate(self::rules(false));
 
         if(!isset($data['end_date']))
             $data['end_date'] = null;
@@ -100,10 +82,6 @@ class CvCertsController extends Controller
     }
 
     /**
-     * Delete model
-     *
-     * @param CvCert $cert
-     * @return mixed
      * @throws \Exception
      */
     public function destroy(CvCert $certification)
