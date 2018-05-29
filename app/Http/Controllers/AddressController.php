@@ -8,35 +8,29 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
-    /**
-     * AddressController constructor.
-     */
-    public function __construct()
+    protected $request;
+
+    public function __construct(Request $request)
     {
+        $this->request = $request;
+
         $this->middleware('auth');
         $this->middleware('only.employer');
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     */
-    private function getValidationRules(Request $request)
+    protected function rules()
     {
         return [
-            'name' => 'required|max:120',
-            'location_id' => 'required|integer|exists:locations,id',
+            'name'           => 'required|max:120',
+            'location_id'    => 'required|integer|exists:locations,id',
             'address_line_1' => 'required|max:60',
             'address_line_2' => 'nullable|max:60',
             'address_line_3' => 'nullable|max:60',
-            'county' => 'required|max:40',
-            'postcode' => 'required|max:10|postcode',
+            'county'         => 'required|max:40',
+            'postcode'       => 'required|max:10|postcode',
         ];
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function index()
     {
         $user = Auth::user();
@@ -47,9 +41,6 @@ class AddressController extends Controller
             ]);
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function create()
     {
         return view('address.create')
@@ -59,10 +50,6 @@ class AddressController extends Controller
             ]);
     }
 
-    /**
-     * @param Address $address
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function edit(Address $address)
     {
         return view('address.create')
@@ -72,13 +59,9 @@ class AddressController extends Controller
             ]);
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(Request $request)
+    public function store()
     {
-        $data = $request->validate(self::getValidationRules($request));
+        $data = $this->request->validate(self::rules());
 
         $address = new Address();
         $address->company_id = Auth::user()->company_id;
@@ -92,14 +75,9 @@ class AddressController extends Controller
         return redirect(route('address.edit', ['address' => $address]));
     }
 
-    /**
-     * @param Address $address
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function update(Address $address, Request $request)
+    public function update(Address $address)
     {
-        $data = $request->validate(self::getValidationRules($request));
+        $data = $this->request->validate(self::rules());
 
         $address->fill($data);
         $address->save();
@@ -112,8 +90,6 @@ class AddressController extends Controller
     }
 
     /**
-     * @param Address $address
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
     public function destroy(Address $address)

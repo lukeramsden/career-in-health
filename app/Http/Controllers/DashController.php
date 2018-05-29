@@ -4,35 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Advert;
 use App\Enum\AdvertStatus;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 
 class DashController extends Controller
 {
+    protected $request;
     protected static $perPage = 8;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
+        $this->request = $request;
+
         $this->middleware('auth');
     }
 
-    /**
-     * @param Request $request
-     * @return LengthAwarePaginator
-     */
-    private function employer_dash(Request $request)
+    protected function dashCompany()
     {
         $user = Auth::user()->load(['company', 'company.applications']);
-        $currentPage = $request->get('page', 1);
+        $currentPage = $this->request->get('page', 1);
 
         $applicationsCount =
             $user
                 ->company
                 ->applications()
                 ->count();
+
         $applications =
             $user
                 ->company
@@ -46,33 +44,31 @@ class DashController extends Controller
                     return $item;
                 });
 
-        $feed        = collect($applications);
-        $paginator   = new LengthAwarePaginator(
+        $feed = collect($applications);
+
+        $paginator = new LengthAwarePaginator(
             // items
             array_slice($feed->all(), 0, self::$perPage, true),
             // total
             $applicationsCount,
             self::$perPage,
             $currentPage,
-            [ 'path' => $request->path() ]
+            [ 'path' => $this->request->path() ]
         );
 
         return $paginator;
     }
 
-    /**
-     * @param Request $request
-     * @return LengthAwarePaginator
-     */
-    private function employee_dash(Request $request)
+    protected function dashEmployee()
     {
         $user = Auth::user()->load(['cv', 'cv.preferences']);
-        $currentPage = $request->get('page', 1);
+        $currentPage = $this->request->get('page', 1);
 
         $applicationsCount =
             $user
                 ->applications()
                 ->count();
+
         $applications =
             $user
                 ->applications()
@@ -129,10 +125,10 @@ class DashController extends Controller
             $applicationsCount + $advertsCount,
             self::$perPage,
             $currentPage,
-            [ 'path' => $request->path() ]
+            [ 'path' => $this->request->path() ]
         );
 
-        $advert_ids = array_map(
+        $advertIds = array_map(
             function($item) {
                 return $item->id;
             },
@@ -143,39 +139,33 @@ class DashController extends Controller
             )
         );
 
-        if(count($advert_ids) > 0)
-            Advert::whereIn('id', $advert_ids)->increment('recommended_impressions');
+        if(count($advertIds) > 0)
+            Advert::whereIn('id', $advertIds)->increment('recommended_impressions');
 
         return $paginator;
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index(Request $request)
+    public function index()
     {
         $user = Auth::user();
 
         if($user->isCompany())
-            return view('company.dashboard', ['items' => $this->employer_dash($request)]);
+            return view('company.dashboard', ['items' => $this->dashCompany()]);
         else
-            return view('employee.dashboard', ['items' => $this->employee_dash($request)]);
+            return view('employee.dashboard', ['items' => $this->dashEmployee()]);
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse|string
      * @throws \Throwable
      */
-    public function get(Request $request)
+    public function get()
     {
         $user = Auth::user();
 
         if($user->isCompany())
-            $paginator = $this->employer_dash($request);
+            $paginator = $this->dashCompany();
         else
-            $paginator = $this->employee_dash($request);
+            $paginator = $this->dashEmployee();
 
         return view('employee._dash-collection', ['items' => $paginator->items()])->render();
     }

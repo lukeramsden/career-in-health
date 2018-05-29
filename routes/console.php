@@ -14,5 +14,5 @@ use Illuminate\Foundation\Inspiring;
 */
 
 Artisan::command('load:locations', function () {
-    echo App\Models\Location::LoadCSV();
-})->describe('load locations from csv');
+    echo App\Location::loadCsv();
+})->describe('load locations from CSV (NOTE: Doesn\'t drop previous entries, MAKE SURE TO CLEAR THE LOCATIONS TABLE BEFORE RUNNING THIS');

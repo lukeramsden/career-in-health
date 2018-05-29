@@ -31,7 +31,7 @@ class AdvertApplication extends Model
     {
         if($user == null || $advert == null) return false;
 
-        return AdvertApplication::where([
+        return static::where([
             ['user_id', $user->id],
             ['advert_id', $advert->id]
         ])->count() > 0 ? true : false;

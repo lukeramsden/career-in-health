@@ -14,14 +14,18 @@ use Closure;
 
 class AdvertController extends Controller
 {
-    public function __construct()
+    protected $request;
+
+    public function __construct(Request $request)
     {
+        $this->request = $request;
+
         $this->middleware('auth')->except('show');
         $this->middleware('only.employer')->except('show');
 
-        // ownership for editing
+        // editor ownership
         $this->middleware(function($request, Closure $next) {
-            $user = Auth::user();
+            $user   = Auth::user();
             $advert = $request->route('advert');
 
             if(!isset($advert))
@@ -35,11 +39,12 @@ class AdvertController extends Controller
 
             toast()->error('You cannot edit an advert you don\'t own');
             return redirect(route('advert.show', ['advert' => $advert]));
-        })->only(['edit', 'update', 'show_internal', 'show_applications']);
+        })->only(['edit', 'update', 'showInternal', 'showApplications']);
 
         // address ownership
         $this->middleware(function($request, Closure $next) {
             $user = Auth::user();
+
             try {
                 $address  = Address::findOrFail($request->get('address_id', -1));
             } catch (ModelNotFoundException $exception) {
@@ -56,7 +61,7 @@ class AdvertController extends Controller
             return back()->withInput();
         })->only(['store', 'updated']);
 
-        // not draft
+        // public status
         $this->middleware(function($request, Closure $next) {
             $advert = $request->route('advert');
 
@@ -68,21 +73,22 @@ class AdvertController extends Controller
         })->only('show');
     }
 
-    private function getValidationRules($request)
+    protected function rules()
     {
-        if ($request->has('save_for_later') && $request->save_for_later == true) {
-            $rules = [
-                'title' => 'required|max:120',
-                'address_id' => 'nullable|integer|exists:addresses,id',
+        if ($this->request->has('savingForLater')
+            && $this->request->savingForLater == true)
+            return [
+                'title'       => 'required|max:120',
+                'address_id'  => 'nullable|integer|exists:addresses,id',
                 'description' => 'nullable|max:3000',
-                'job_role' => 'nullable|integer|exists:job_roles,id',
-                'setting' => ['nullable', Rule::in(array_keys(Advert::$settings))],
-                'type' => ['nullable', Rule::in(array_keys(Advert::$types))],
-                'min_salary' => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
-                'max_salary' => 'nullable|integer|min:1|max:1000000|greater_than_field:min_salary',
+                'job_role'    => 'nullable|integer|exists:job_roles,id',
+                'setting'     => ['nullable', Rule::in(array_keys(Advert::$settings))],
+                'type'        => ['nullable', Rule::in(array_keys(Advert::$types))],
+                'min_salary'  => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
+                'max_salary'  => 'nullable|integer|min:1|max:1000000|greater_than_field:min_salary',
             ];
-        } else {
-            $rules = [
+
+        return [
                 'title' => 'required|max:120',
                 'address_id' => 'required|integer|exists:addresses,id',
                 'description' => 'required|max:3000',
@@ -92,39 +98,40 @@ class AdvertController extends Controller
                 'min_salary' => 'required|integer|min:0|max:1000000|less_than_field:max_salary',
                 'max_salary' => 'required|integer|min:1|max:1000000|greater_than_field:min_salary',
             ];
-        }
-
-        return $rules;
-    }   
+    }
 
     public function index()
     {
-        $user = Auth::user();
-        $adverts = $user->company->adverts()->with('applications')->get();
         return view('advert.index')
             ->with([
-                'adverts' => $adverts
+                'adverts' =>
+                    Auth
+                        ::user()
+                        ->company
+                        ->adverts()
+                        ->with('applications')
+                        ->get()
             ]);
     }
 
     public function show(Advert $advert)
     {
-        session()->keep('click_thru');
+        session()->keep('clickThrough');
         return view('advert.show')
             ->with([
                 'advert' => $advert
             ]);
     }
 
-    public function show_internal(Advert $advert)
+    public function showInternal(Advert $advert)
     {
-        return view('advert.show_internal')
+        return view('advert.show-internal')
             ->with([
                 'advert' => $advert
             ]);
     }
 
-    public function show_applications(Advert $advert)
+    public function showApplications(Advert $advert)
     {
         return view('advert.view-applications')
             ->with([
@@ -150,48 +157,43 @@ class AdvertController extends Controller
             ]);
     }
 
-    public function store(Request $request)
+    public function store()
     {
-        $data = $request->validate(self::getValidationRules($request));
+        $data = $this->request->validate(self::rules());
+
+        $savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater;
 
         $advert = new Advert();
+        $advert->fill($data);
         $advert->company_id = Auth::user()->company_id;
         $advert->created_by_user_id = Auth::user()->id;
-
-        $save_for_later = $request->has('save_for_later') && $request->save_for_later == true;
-        $advert->status = $save_for_later ?
-            AdvertStatus::Draft
-            : AdvertStatus::Public;
-
-        $advert->fill($data);
+        $advert->status = $savingForLater ? AdvertStatus::Draft : AdvertStatus::Public;
         $advert->last_edited = Carbon::now();;
         $advert->save();
 
         if(ajax())
             return response()->json(['success' => true, 'model' => $advert], 200);
 
-        if($save_for_later) {
-            toast()->success('Created!');
-            toast()->info('This advert is not public yet.');
+        if($savingForLater) {
+            toast()
+                ->success('Created!')
+                ->info('This advert is not public yet.');
             return redirect(route('advert.edit', ['advert' => $advert]));
         }
 
-        toast()->success('Created!');
-        toast()->info('This advert has been published.');
+        toast()
+            ->success('Created!')
+            ->info('This advert has been published.');
         return redirect(route('advert.show', ['advert' => $advert]));
     }
 
-    public function update(Advert $advert, Request $request)
+    public function update(Advert $advert)
     {
-        $data = $request->validate(self::getValidationRules($request));
+        $data = $this->request->validate(self::rules());
+        $savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater == true;
 
         $advert->fill($data);
-
-        $save_for_later = $request->has('save_for_later') && $request->save_for_later == true;
-        $advert->status = $save_for_later ?
-            AdvertStatus::Draft
-            : AdvertStatus::Public;
-
+        $advert->status = $savingForLater ? AdvertStatus::Draft : AdvertStatus::Public;
         $advert->last_edited = Carbon::now();
         $advert->save();
 
@@ -200,7 +202,7 @@ class AdvertController extends Controller
 
         toast()->success('Updated!');
 
-        if($save_for_later)
+        if($savingForLater)
             toast()->info('This advert is not public.');
         else
             toast()->info('This advert has been published successfully.<br><a href="' . route('advert.show', ['advert' => $advert]) . '" class="btn btn-action btn-sm mt-1">View Advert</a>');

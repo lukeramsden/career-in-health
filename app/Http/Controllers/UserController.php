@@ -9,23 +9,32 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    public function __construct()
+    protected $request;
+
+    public function __construct(Request $request)
     {
+        $this->request = $request;
+
         $this->middleware('auth');
     }
 
     public function showEmail()
     {
         return view('account.manage-email')
-            ->with(['user' => Auth::user()]);
+            ->with([
+                'user' => Auth::user()
+            ]);
     }
 
-    public function updateEmail(Request $request)
+    public function updateEmail()
     {
         $user = Auth::user();
 
-        $data = $request->validate([
-            'email' => ['required', 'string', 'confirmed', 'email', 'max:255', Rule::unique('users')->ignore($user->id)]
+        $data = $this->request->validate([
+            'email' => [
+                'required', 'string', 'confirmed',
+                'email', 'max:255', Rule::unique('users')->ignore($user->id)
+            ]
         ]);
 
         $user->email = $data['email'];
@@ -38,14 +47,16 @@ class UserController extends Controller
     public function showPassword()
     {
         return view('account.manage-password')
-            ->with(['user' => Auth::user()]);
+            ->with([
+                'user' => Auth::user()
+            ]);
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword()
     {
         $user = Auth::user();
 
-        $data = $request->validate([
+        $data = $this->request->validate([
             'password' => ['required', 'string', 'confirmed', 'min:6']
         ]);
 

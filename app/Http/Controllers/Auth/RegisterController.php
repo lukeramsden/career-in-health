@@ -154,8 +154,9 @@ class RegisterController extends Controller
         $user->save();
 
         $this->guard()->login($user);
-        toast()->success('You have successfully confirmed your email!');
-        toast()->info('You are now logged in.');
+        toast()
+            ->success('You have successfully confirmed your email!')
+            ->info('You are now logged in.');
         return redirect(route('dashboard'));
     }
 

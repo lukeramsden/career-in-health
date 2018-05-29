@@ -17,9 +17,7 @@ class OnlyEmployee
     public function handle($request, Closure $next)
     {
         if(Auth::check() && Auth::user()->isCompany())
-        {
             return redirect(route('home'));
-        }
 
         return $next($request);
     }

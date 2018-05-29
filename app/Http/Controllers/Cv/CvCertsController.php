@@ -25,7 +25,7 @@ class CvCertsController extends Controller
      * @param Request $request
      * @return array
      */
-    protected function getValidationRules(Request $request, bool $creatingNew)
+    protected function rules(Request $request, bool $creatingNew)
     {
         $rules = [
             'title' => 'required|string|max:150',
@@ -47,7 +47,7 @@ class CvCertsController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate(self::getValidationRules($request, true));
+        $data = $request->validate(self::rules($request, true));
 
         $certification = new CvCert();
 
@@ -84,7 +84,7 @@ class CvCertsController extends Controller
      */
     public function update(Request $request, CvCert $certification)
     {
-        $data = $request->validate(self::getValidationRules($request, false));
+        $data = $request->validate(self::rules($request, false));
 
         if(!isset($data['end_date']))
             $data['end_date'] = null;

@@ -10,8 +10,12 @@ use Illuminate\Validation\Rule;
 
 class CompanyProfileController extends Controller
 {
-    public function __construct()
+    protected $request;
+
+    public function __construct(Request $request)
     {
+        $this->request = $request;
+
         $this->middleware('auth');
         $this->middleware('only.employer')->except('show');
     }
@@ -24,7 +28,7 @@ class CompanyProfileController extends Controller
             ]);
     }
 
-    public function show_me()
+    public function showMe()
     {
         return view('company.profile.show')
             ->with([
@@ -40,10 +44,10 @@ class CompanyProfileController extends Controller
             ]);
     }
 
-    public function update(Request $request)
+    public function update()
     {
         $company = Auth::user()->company;
-        $data = $request->validate([
+        $data = $this->request->validate([
             // TODO: should we allow companies to change their name? probably yes
             'name' => ['required', 'string', 'max:40', Rule::unique('companies')->ignore($company->id)],
             'headline' => 'nullable|string|max:80',
@@ -55,14 +59,13 @@ class CompanyProfileController extends Controller
             'remove_avatar' => 'nullable|boolean'
         ]);
 
-        if(isset($data['remove_avatar']) && $data['remove_avatar'])
+        if($data['remove_avatar'])
         {
-          Storage::delete($company->avatar_path);
+            Storage::delete($company->avatar_path);
             $company->avatar_path = null;
-        }
-        else if($request->hasFile('avatar'))
+        } else if($this->request->hasFile('avatar'))
         {
-            $path = $request->file('avatar')->storePublicly('avatars');
+            $path = $this->request->file('avatar')->storePublicly('avatars');
             Storage::delete($company->avatar_path);
             $company->avatar_path = $path;
         }
@@ -71,8 +74,6 @@ class CompanyProfileController extends Controller
         $company->save();
 
         toast()->success('Profile Updated!');
-
-        return back()
-            ->withInput();
+        return back();
     }
 }

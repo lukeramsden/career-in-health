@@ -34,14 +34,14 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea v-model="model.description" class="form-control" name="description" rows="25" maxlength="3000" :required="!model.save_for_later"></textarea>
+                                <textarea v-model="model.description" class="form-control" name="description" rows="25" maxlength="3000" :required="!model.savingForLater"></textarea>
                             </div>
                         </div>
                     </div>
     
                     <div class="card card-custom">
                         <div class="card-body">
-                            <select2 v-model="model.address_id" name="address_id" :required="!model.save_for_later">
+                            <select2 v-model="model.address_id" name="address_id" :required="!model.savingForLater">
                                 <option :value="null">-</option>
                                 <option v-for="address in addresses" :value="address.id">{{ address.name }}</option>
                             </select2>
@@ -54,7 +54,7 @@
                     @endverbatim
                     <div class="card card-custom">
                         <div class="card-body">
-                            <select2 v-model="model.job_role" name="job_role" :required="!model.save_for_later">
+                            <select2 v-model="model.job_role" name="job_role" :required="!model.savingForLater">
                                 <option :value="null">-</option>
                                 @foreach(\App\JobRole::all() as $job)
                                     <option value="{{ $job->id }}">{{ $job->name }}</option>
@@ -67,7 +67,7 @@
                         <div class="card-body">
                             @foreach(\App\Advert::$settings as $id => $setting)
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" value="{{ $id }}" name="setting" v-model="model.setting" id="setting-{{ $id }}" :required="!model.save_for_later">
+                                    <input type="radio" class="custom-control-input" value="{{ $id }}" name="setting" v-model="model.setting" id="setting-{{ $id }}" :required="!model.savingForLater">
                                     <label class="custom-control-label" for="setting-{{ $id }}">{{ $setting }}</label>
                                 </div>
                             @endforeach
@@ -78,7 +78,7 @@
                         <div class="card-body">
                             @foreach(\App\Advert::$types as $id => $type)
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" value="{{ $id }}" name="type" v-model="model.type" id="type-{{ $id }}" :required="!model.save_for_later">
+                                    <input type="radio" class="custom-control-input" value="{{ $id }}" name="type" v-model="model.type" id="type-{{ $id }}" :required="!model.savingForLater">
                                     <label class="custom-control-label" for="type-{{ $id }}">{{ $type }}</label>
                                 </div>
                             @endforeach
@@ -99,7 +99,7 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="inputSaveForLater" name="save_for_later" v-model="model.save_for_later">
+                                    <input type="checkbox" class="custom-control-input" id="inputSaveForLater" name="savingForLater" v-model="model.savingForLater">
                                     <label class="custom-control-label" for="inputSaveForLater">Save For Later?</label>
                                 </div>
                             </div>
@@ -275,9 +275,9 @@
         };
         
         @if($advert->isDraft())
-            data.model.save_for_later = true;
+            data.model.savingForLater = true;
         @else
-            data.model.save_for_later = false;
+            data.model.savingForLater = false;
         @endif
         
         const app = new Vue({

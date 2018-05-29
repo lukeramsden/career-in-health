@@ -10,25 +10,50 @@ use App\SubscriptionPlan;
 
 class SubscriptionController extends Controller
 {   
+    protected $request;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
+        $this->request;
+
         $this->middleware('auth');
+        $this->middleware('only.employer');
     }
-    public function
-    index()
+
+    protected function rules()
+    {
+        if ($this->request->select_card == 1) {
+            return [
+                'number'    => 'required',
+                'exp_month' => 'required',
+                'exp_year'  => 'required',
+                'ccv'       => 'required',
+            ];
+        }
+
+        return [];
+    }
+
+    public function index()
     {
         return view('subscription.index')
             ->with([
-                'plans' => SubscriptionPlan::orderBy('amount', 'ASC')
-                    ->get(),
-                'current_plan' => Auth::user()->getSubscriptionUser()->activeStripePlan()
+                'plans' =>
+                    SubscriptionPlan
+                        ::orderBy('amount', 'ASC')
+                        ->get(),
+                'current_plan' =>
+                    Auth
+                        ::user()
+                        ->getSubscriptionUser()
+                        ->activeStripePlan()
             ]);
     }
 
-    public function payment($plan)
+    public function payment(SubscriptionPlan $plan)
     {
-        $plan = SubscriptionPlan::whereStripePlanId($plan)
+        $plan = SubscriptionPlan
+            ::whereStripePlanId($plan)
             ->first();
 
         return view('subscription.payment')
@@ -38,42 +63,29 @@ class SubscriptionController extends Controller
             ]);
     }
 
-    public function makePayment($plan, Request $request)
+    public function makePayment(SubscriptionPlan $plan)
     {
-        $rules = [];
-
-        if ($request->select_card == 1) {
-            $rules = [
-                'number' => 'required',
-                'exp_month' => 'required',
-                'exp_year' => 'required',
-                'ccv' => 'required',
-            ];
-        }
-
-        $request->validate($rules);
+        $this->request->validate(self::rules());
 
         $user = Auth::user()->getSubscriptionUser();
-
         $plan = SubscriptionPlan::whereStripePlanId($plan)->first();
 
         Stripe::setApiKey(env('STRIPE_KEY'));
 
-        if ($request->select_card == 1) {
+        if ($this->request->select_card == 1) {
             $token = Token::create([
                 'card' => [
-                    'number' => $request->number,
-                    'exp_month' => $request->exp_month,
-                    'exp_year' => $request->exp_year,
-                    'cvc' => $request->ccv,
-                    'currency' => 'GBP',
+                    'number'    => $this->request->number,
+                    'exp_month' => $this->request->exp_month,
+                    'exp_year'  => $this->request->exp_year,
+                    'cvc'       => $this->request->ccv,
+                    'currency'  => 'GBP',
                 ]
             ]);
         }
 
-        if ($request->select_card == 1 && $user->stripe_id != null) {
+        if ($this->request->select_card == 1 && $user->stripe_id != null)
             $user->updateCard($token->id);
-        }
 
         // noProrate()
         
@@ -87,7 +99,7 @@ class SubscriptionController extends Controller
                 ]);
         }
         
-        return redirect('/home');
+        return redirect(route('dashboard'));
     }
 
 }

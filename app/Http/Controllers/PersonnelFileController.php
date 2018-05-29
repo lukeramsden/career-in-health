@@ -4,30 +4,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use mikehaertl\pdftk\Pdf as PDFTk;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 class PersonnelFileController extends Controller
 {
-    private $filesForDeletion = [];
+    protected $request;
+    protected $filesForDeletion = [];
 
-    public function __construct()
+    public function __construct(Request $request)
     {
+        $this->request = $request;
+
         $this->middleware('auth');
         $this->middleware('only.employee');
     }
 
     public function __destruct()
     {
-        // delete temp files
         foreach($this->filesForDeletion as $del)
             if(isset($del) && realpath($del))
                 unlink($del);
     }
 
-    public function view(Request $request) {
-        return view('pdf.personnel', ['profile' => Auth::user()->profile, 'download' => false, 'embed' => $request->query('embed', false)]);
+    public function view() {
+        return view('pdf.personnel')
+            ->with([
+                'profile' => Auth::user()->profile,
+                'download' => false,
+                'embed' => $this->request->query('embed', false)
+            ]);
     }
 
     public function download()
@@ -72,11 +78,11 @@ class PersonnelFileController extends Controller
                     continue 2;
             }
 
-            $certFilesArray
-                // PDFTk only accepts A-Z for some reason
-                // MD5 hash id+time, uppercase, then only A-Z
-            [preg_replace("/[^A-Z]+/", "", strtoupper(md5($certification['id'].time())))]
-                = $path;
+            $certFilesArray[
+            // PDFTk only accepts A-Z for some reason
+            // MD5 hash id+time, uppercase, then only A-Z
+            preg_replace("/[^A-Z]+/", "", strtoupper(md5($certification['id'].time())))
+            ] = $path;
         }
 
         // create PDFTk object with view-generated PDF and cert files
@@ -94,7 +100,7 @@ class PersonnelFileController extends Controller
         // Check for errors
         if (!$appended->saveAs($appendedName))
         {
-            $error = $appended->getError();
+            //$error = $appended->getError();
             abort(500);
         }
 
@@ -122,7 +128,7 @@ class PersonnelFileController extends Controller
         // Check for errors
         if (!$stamped->saveAs($stampedName))
         {
-            $error = $stamped->getError();
+            //$error = $stamped->getError();
             abort(500);
         }
 

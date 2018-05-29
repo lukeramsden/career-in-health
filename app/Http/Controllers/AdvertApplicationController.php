@@ -10,38 +10,52 @@ use Illuminate\Support\Facades\Auth;
 
 class AdvertApplicationController extends Controller
 {
-    public function __construct()
+    protected $request;
+
+    public function __construct(Request $request)
     {
+        $this->request = $request;
+
         $this->middleware('auth')->except('create');
         $this->middleware('only.employee')->except('update');
     }
 
-    private function getValidationRules(bool $internal)
+    protected function rules(bool $internal)
     {
         return $internal ? [
-                    'status' => 'nullable|integer',
-                    'notes' => 'nullable|string|max:500'
-                ] : [
-                    'custom_cover_letter' => 'nullable|string|max:3000',
-                ];
+            'status' => 'nullable|integer',
+            'notes'  => 'nullable|string|max:500'
+        ] : [
+            'custom_cover_letter' => 'nullable|string|max:3000',
+        ];
     }
 
     public function index()
     {
         return view('employee.view-applications')
-            ->with(['applications' => Auth::user()->applications()->with('user', 'advert', 'advert.company', 'advert.jobRole')->orderBy('created_at', 'desc')->paginate(15)]);
+            ->with([
+                'applications' =>
+                    Auth
+                        ::user()
+                        ->applications()
+                        ->with('user', 'advert', 'advert.company', 'advert.jobRole')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(15)
+            ]);
     }
 
     public function show(AdvertApplication $application)
     {
         return view('employee.advert.view-application')
-            ->with(['application' => $application]);
+            ->with([
+                'application' => $application
+            ]);
     }
 
-    public function create(Request $request, Advert $advert)
+    public function create(Advert $advert)
     {
         if(Auth::guest()) {
-            session(['apply_to_job_id' => $advert->id]);
+            session(['jobApplyId' => $advert->id]);
             return redirect(route('register'));
         }
 
@@ -51,13 +65,13 @@ class AdvertApplicationController extends Controller
             return redirect(route('advert.show', [$advert]));
         }
 
-        $request->session()->keep('click_thru');
+        session()->keep('clickThrough');
 
         return view('employee.advert.apply')
             ->with(['advert' => $advert]);
     }
 
-    public function store(Request $request, Advert $advert)
+    public function store(Advert $advert)
     {
         if(AdvertApplication::alreadyApplied(Auth::user(), $advert))
         {
@@ -65,15 +79,15 @@ class AdvertApplicationController extends Controller
             return redirect(route('advert.show', [$advert]));
         }
         
-        $data = $request->validate($this->getValidationRules(false));
+        $data = $this->request->validate(self::rules(false));
 
         $application = new AdvertApplication();
-        $application->user_id = Auth::user()->id;
         $application->fill($data);
+        $application->user_id = Auth::user()->id;
         $application->last_edited = Carbon::now();;
         $advert->applications()->save($application);
 
-        switch (session()->get('click_thru', 'search')) {
+        switch (session()->get('clickThrough', 'search')) {
             case 'search':
                 $advert->increment('search_conversions');
                 break;
@@ -86,18 +100,20 @@ class AdvertApplicationController extends Controller
         return redirect(route('advert.show', [$advert]));
     }
 
-    public function update(Request $request, AdvertApplication $application)
+    public function update(AdvertApplication $application)
     {
         $user = Auth::user();
-        if ($request->has('status') || $request->has('notes')) {
+        // if editing status or notes
+        if ($this->request->has('status') || $this->request->has('notes')) {
+            // dont let non-owners edit status or notes for applications for adverts they dont own
             if(!$user->isCompany() || $application->advert->company->id !== $user->company->id) {
-                if($request->ajax())
+                if(ajax())
                     return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status or notes.'], 401);
 
                 toast()->error('You must own the advert to update an application\'s status or notes.');
                 return back();
             } else {
-                $data = $request->validate($this->getValidationRules(true));
+                $data = $this->request->validate(self::rules(true));
 
                 if(isset($data['status']))
                     $application->status = $data['status'];
@@ -105,12 +121,13 @@ class AdvertApplicationController extends Controller
                 if(isset($data['notes']))
                     $application->notes = $data['notes'];
             }
-        } else $application->fill($request->validate($this->getValidationRules(false)));
+        } else
+            $application->fill($this->request->validate(self::rules(false)));
 
         $application->last_edited = Carbon::now();
         $application->save();
 
-        if($request->ajax())
+        if(ajax())
             return response()->json(['success' => true]);
 
         toast()->success('Updated!');

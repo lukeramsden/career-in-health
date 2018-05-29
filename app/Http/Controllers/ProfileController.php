@@ -10,10 +10,16 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    public function __construct()
+    protected $request;
+
+    public function __construct(Request $request)
     {
+        $this->request = $request;
+
         $this->middleware('auth');
         $this->middleware('only.employee')->except('show');
+
+        // if user is a company, redirect to company show page
         $this->middleware(function($request, Closure $next) {
             $user = $request->route('user');
 
@@ -25,18 +31,18 @@ class ProfileController extends Controller
         })->only('show');
     }
 
-    public function getValidationRules(Request $request)
+    protected function rules()
     {
         return [
-            'first_name' => 'required|string|max:40',
-            'last_name' => 'nullable|string|max:40',
-            'phone' => 'nullable|string|max:40',
-            'headline' => 'nullable|string|max:80',
-            'location' => 'nullable|string|max:80',
-            'description' => 'nullable|string|max:1000',
-            'avatar' => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
-            'job_roles' => 'nullable|array|min:1',
-            'job_roles.*' => 'integer|distinct|exists:job_roles,id',
+            'first_name'    => 'required|string|max:40',
+            'last_name'     => 'nullable|string|max:40',
+            'phone'         => 'nullable|string|max:40',
+            'headline'      => 'nullable|string|max:80',
+            'location'      => 'nullable|string|max:80',
+            'description'   => 'nullable|string|max:1000',
+            'avatar'        => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
+            'job_roles'     => 'nullable|array|min:1',
+            'job_roles.*'   => 'integer|distinct|exists:job_roles,id',
             'remove_avatar' => 'nullable|boolean'
         ];
     }
@@ -49,7 +55,7 @@ class ProfileController extends Controller
             ]);
     }
 
-    public function show_me()
+    public function showMe()
     {
         return view('profile.show')
             ->with([
@@ -65,20 +71,19 @@ class ProfileController extends Controller
             ]);
     }
 
-    public function update(Request $request)
+    public function update()
     {
-        $data = $request->validate(self::getValidationRules($request));
+        $data = $this->request->validate(self::rules());
 
         $profile = Auth::user()->profile;
 
-        if(isset($data['remove_avatar']) && $data['remove_avatar'])
+        if($data['remove_avatar'])
         {
           Storage::delete($profile->avatar_path);
           $profile->avatar_path = null;
-        }
-        else if($request->hasFile('avatar'))
+        } else if($this->request->hasFile('avatar'))
         {
-            $path = $request->file('avatar')->storePublicly('avatars');
+            $path = $this->request->file('avatar')->storePublicly('avatars');
             Storage::delete($profile->avatar_path);
             $profile->avatar_path = $path;
         }

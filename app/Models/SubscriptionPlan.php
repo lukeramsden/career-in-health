@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class SubscriptionPlan extends Model
 {
-    private $vat = 0;
+    protected $vat = 0;
 
+    /**
+     * @throws \Exception
+     */
     public function getPlansFromStripe()
     {
-        SubscriptionPlan::where('id', '>', 0)->delete();
+        static::where('id', '>', 0)->delete();
 
         Stripe::setApiKey(env('STRIPE_SECRET'));
 

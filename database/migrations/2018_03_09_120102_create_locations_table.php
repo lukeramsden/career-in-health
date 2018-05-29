@@ -31,7 +31,7 @@ class CreateLocationsTable extends Migration
             $table->timestamps();
         });
 
-        App\Location::LoadCSV();
+        App\Location::loadCsv();
     }
 
     /**

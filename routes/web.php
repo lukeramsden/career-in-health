@@ -21,8 +21,8 @@ Route::prefix('advert')
         Route::get('/new', 'AdvertController@create')->name('create');
         Route::post('/new', 'AdvertController@store')->name('store');
 
-        Route::get('/{advert}/view', 'AdvertController@show_internal')->name('show.internal');
-        Route::get('/{advert}/view/applications', 'AdvertController@show_applications')->name('show.applications');
+        Route::get('/{advert}/view', 'AdvertController@showInternal')->name('show.internal');
+        Route::get('/{advert}/view/applications', 'AdvertController@showApplications')->name('show.applications');
 
         Route::get('/{advert}/edit', 'AdvertController@edit')->name('edit');
         Route::post('/{advert}/edit', 'AdvertController@update')->name('update');
@@ -70,7 +70,7 @@ Route::prefix('account')
 Route::prefix('profile')
     ->name('profile.')
     ->group(function () {
-        Route::get("/", "ProfileController@show_me")->name('show.me');
+        Route::get("/", "ProfileController@showMe")->name('show.me');
         Route::get("/edit", "ProfileController@edit")->name('edit');
         Route::post("/edit", "ProfileController@update")->name('update');
         Route::get("/{user}", "ProfileController@show")->name('show');
@@ -104,7 +104,7 @@ Route::prefix('cv')
 Route::prefix('company')
     ->name('company.')
     ->group(function () {
-        Route::get("/", "CompanyProfileController@show_me")->name('show.me');
+        Route::get("/", "CompanyProfileController@showMe")->name('show.me');
         Route::post("/edit", "CompanyProfileController@update")->name('update');
         Route::get("/edit", "CompanyProfileController@edit")->name('edit');
         Route::get("/{company}", "CompanyProfileController@show")->name('show');
@@ -118,13 +118,13 @@ Route::prefix('tracking')
             ->group(function() {
                 Route::get('/{advert}/search/click', function(\App\Advert $advert) {
                     $advert->increment('search_clicks');
-                    session()->flash('click_thru', 'search');
+                    session()->flash('clickThrough', 'search');
                     return redirect()->action('AdvertController@show', [$advert]);
                 })->name('search.click');
 
                 Route::get('/{advert}/recommended/click', function(\App\Advert $advert) {
                     $advert->increment('recommended_clicks');
-                    session()->flash('click_thru', 'recommended');
+                    session()->flash('clickThrough', 'recommended');
                     return redirect()->action('AdvertController@show', [$advert]);
                 })->name('recommended.click');
             });

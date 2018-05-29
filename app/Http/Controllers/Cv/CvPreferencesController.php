@@ -27,7 +27,7 @@ class CvPreferencesController extends Controller
      * @param Request $request
      * @return array
      */
-    protected function getValidationRules(Request $request)
+    protected function rules(Request $request)
     {
         return [
             'job_role' => 'nullable|integer|exists:job_roles,id',
@@ -48,7 +48,7 @@ class CvPreferencesController extends Controller
      */
     public function update(Request $request)
     {
-        $data = $request->validate(self::getValidationRules($request));
+        $data = $request->validate(self::rules($request));
 
         if(!isset($data['willing_to_relocate']))
             $data['willing_to_relocate'] = false;
