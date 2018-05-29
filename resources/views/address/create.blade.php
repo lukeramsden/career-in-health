@@ -174,10 +174,9 @@
         });
 
         let data = {
-            model: {!! $edit ? $address : '{}' !!},
+            model: {!! $edit ? $address : json_encode(Session::getOldInput()) ?: '{}' !!},
             url: '{{ $edit ? route('address.update', ['address' => $address]) : route('address.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
-            {{-- TODO: old: {{ json_encode(Session::getOldInput()) }},--}}
         };
         
         const app = new Vue({
