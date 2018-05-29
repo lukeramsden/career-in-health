@@ -7,5 +7,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => bcrypt('letmein'), // secret
         'remember_token' => str_random(10),
+        'confirmed' => 1,
+        'confirmation_code' => null,
     ];
 });
