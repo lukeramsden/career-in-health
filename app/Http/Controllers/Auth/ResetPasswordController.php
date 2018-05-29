@@ -39,6 +39,18 @@ class ResetPasswordController extends Controller
     }
 
     /**
+     * Get the response for a successful password reset.
+     *
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetResponse($response)
+    {
+        toast()->success(trans($response));
+        return redirect(route('dashboard'));
+    }
+
+    /**
      * Get the response for a failed password reset.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -47,9 +59,7 @@ class ResetPasswordController extends Controller
      */
     protected function sendResetFailedResponse(Request $request, $response)
     {
-        return redirect()->back()
-                    ->withInput($request->only('email'))
-                    ->withErrors(['password' => trans($response)]);
+        return back()->withErrors(['password' => trans($response)]);
     }
 
     /**
