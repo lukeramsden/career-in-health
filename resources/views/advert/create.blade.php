@@ -268,10 +268,10 @@
         });
 
         let data = {
-            model: {!! $edit ? $advert : '{}' !!},
+            model: {!! $edit ? $advert : json_encode(Session::getOldInput()) ?: '{}' !!},
             url: '{{ $edit ? route('advert.update', ['advert' => $advert]) : route('advert.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
-            {{-- TODO: old: {{ json_encode(Session::getOldInput()) }},--}}
+            {{-- TODO: old: {{  }},--}}
         };
         
         @if($advert->isDraft())
