@@ -39,6 +39,20 @@ class ResetPasswordController extends Controller
     }
 
     /**
+     * Get the response for a failed password reset.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetFailedResponse(Request $request, $response)
+    {
+        return redirect()->back()
+                    ->withInput($request->only('email'))
+                    ->withErrors(['password' => trans($response)]);
+    }
+
+    /**
      * Get the password reset credentials from the request.
      *
      * @param  \Illuminate\Http\Request  $request
