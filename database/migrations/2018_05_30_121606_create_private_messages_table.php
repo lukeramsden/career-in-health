@@ -15,6 +15,11 @@ class CreatePrivateMessagesTable extends Migration
     {
         Schema::create('private_messages', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
+            $table->integer('advert_id');
+            $table->string('body', 1000);
+            $table->boolean('read')->default(0);
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
     }
