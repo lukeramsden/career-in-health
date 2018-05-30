@@ -5,14 +5,6 @@ Route::view('/pricing', 'pricing')->name('pricing');
 
 Route::get('/search', 'SearchController@search')->name('search');
 
-Route::get('/test', function() {
-    $message = (new \Illuminate\Auth\Notifications\ResetPassword("token13163123"))->toMail('test@email.com');
-
-    $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
-
-    return $markdown->render('vendor.notifications.email', $message->toArray());
-});
-
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout.get');
 Route::get('/register/verify/{confirmationCode}', 'Auth\RegisterController@confirm')->name('confirm-email');

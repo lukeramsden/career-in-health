@@ -5,7 +5,6 @@ namespace App;
 use Laravel\Cashier\Billable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 
 class User extends Authenticatable
 {
@@ -36,15 +35,14 @@ class User extends Authenticatable
         });
     }
 
-    /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
-     */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ResetPasswordNotification($token));
+        $this->notify(new \App\Notifications\ResetPassword($token));
+    }
+
+    public function sendEmailConfirmationNotification()
+    {
+        $this->notify(new \App\Notifications\ConfirmEmail($this));
     }
 
     public function isCompany()

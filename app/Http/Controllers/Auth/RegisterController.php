@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Cv\Cv;
 use App\Enum\IAm;
-use App\Mail\EmailConfirmation;
 use App\Profile;
 use App\User;
 use App\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -130,7 +130,7 @@ class RegisterController extends Controller
             return null;
 
         $this->guard()->logout();
-        Mail::to($user)->send(new EmailConfirmation($user));
+        $user->sendEmailConfirmationNotification();
         toast()->success('Your account has been created! You need confirm your email to log in.');
         session()->flash('user_id', $user->id);
         return redirect(route('prompt-confirm-email'));
@@ -160,11 +160,14 @@ class RegisterController extends Controller
         return redirect(route('dashboard'));
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function prompt()
     {
+        if(Auth::check() && Auth::user()->confirmed)
+        {
+            toast()->info('You have already confirmed your email');
+            return redirect(route('dashboard'));
+        }
+
         session()->reflash();
         return view('auth.confirm-email');
     }
@@ -176,7 +179,7 @@ class RegisterController extends Controller
      */
     public function resend(Request $request, User $user)
     {
-        Mail::to($user)->send(new EmailConfirmation($user));
+        $user->sendEmailConfirmationNotification();
 
         toast()->success('Sent!');
         session()->reflash();
