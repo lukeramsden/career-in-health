@@ -64,6 +64,8 @@ class DashController extends Controller
         $user = Auth::user()->load(['cv', 'cv.preferences']);
         $currentPage = $this->request->get('page', 1);
 
+        // Applications
+
         $applicationsCount =
             $user
                 ->applications()
@@ -80,6 +82,8 @@ class DashController extends Controller
                     $item['_feed_type'] = 'application';
                     return $item;
                 });
+
+        // Adverts
 
         $adverts =
             Advert
@@ -107,21 +111,56 @@ class DashController extends Controller
                     return $item;
                 });
 
-        $applications = collect($applications);
-        $adverts      = collect($adverts);
-        $feed         = collect([$applications->shift() ?? $adverts->shift()]);
+        // Private Message
+
+        $privateMessagesCount = $user->unreadMessages();
+        $privateMessages =
+            $user
+                ->messages()
+                ->where('read', false)
+                ->orderByDesc('created_at')
+                ->skip(self::$perPage * ($currentPage - 1))
+                ->take(self::$perPage)
+                ->get()
+                ->map(function ($item, $key) {
+                    $item['_feed_type'] = 'privateMessage';
+                    return $item;
+                });
+
+        // collect all together
+
+        $applications    = collect($applications);
+        $adverts         = collect($adverts);
+        $privateMessages = collect($privateMessages);
+        $feed            = collect([]);
+
+        $count  = $applicationsCount;
+        $count += $advertsCount;
+        $count += $privateMessagesCount;
 
         while($feed->count() < self::$perPage)
-            if(random_int(0, 9) % 3)
-                $feed->push($adverts->shift());
-            else
-                $feed->push($applications->shift() ?? $adverts->shift());
+        {
+            $item = null;
+            switch(random_int(0, 2)) {
+                case 0:
+                    $item = $adverts->shift();
+                    break;
+                case 1:
+                    $item = $applications->shift();
+                    break;
+                case 2:
+                    $item = $privateMessages->shift();
+                    break;
+            }
+            if($item !== null)
+                $feed->push($item);
+        }
 
         $paginator = new LengthAwarePaginator(
             // items
             array_slice($feed->all(), 0, self::$perPage,true),
             // total
-            $applicationsCount + $advertsCount,
+            $count,
             self::$perPage,
             $currentPage,
             [ 'path' => $this->request->path() ]
