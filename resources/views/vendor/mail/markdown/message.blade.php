@@ -2,7 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            {{ config('app.name') }}
+            ![{{ config('app.name') }}]( {{ url('/images/cih-logo.svg') }} "Logo" )
         @endcomponent
     @endslot
 
