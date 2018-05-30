@@ -121,6 +121,6 @@ class Advert extends Model
      */
     public function unreadMessages()
     {
-        return $this->messages()->where('read', false)->count();
+        return $this->messages()->where('read', false);
     }
 }

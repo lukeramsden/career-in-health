@@ -48,13 +48,8 @@ class Company extends Model
         return $this->hasManyThrough(PrivateMessage::class, Advert::class);
     }
 
-    /**
-     * Number of unread messages
-     *
-     * @return integer
-     */
     public function unreadMessages()
     {
-        return $this->messages()->where('read', false)->count();
+        return $this->messages()->where('read', false);
     }
 }

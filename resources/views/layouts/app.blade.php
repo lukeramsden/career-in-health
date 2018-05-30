@@ -1,19 +1,14 @@
 @extends('layouts.base')
 @section('b_content')
     <div id="navbar" class="d-none d-lg-block">
-        @guest
-            <a href="{{ route('home') }}">
-        @endguest
-        @auth
-            <a href="{{ route('dashboard') }}">
-        @endauth
+        <a href="{{ route(Auth::check() ? 'dashboard' : 'home') }}">
             <img class="logo" src="/images/cih-logo.svg" alt="logo">
         </a>
         <div id="nav-inner">
             <nav class="nav flex-column">
                 @guest
                     <a class="nav-link {{ active_route('home') }}" href="{{ route('home') }}">Home</a>
-                    <a class="nav-link {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
+                    <a class="nav-link nav-link-action {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
                     <a class="nav-link {{ active_route('login') }}" href="{{ route('login') }}">Log In</a>
                     <a class="nav-link {{ active_route('register') }}" href="{{ route('register') }}">Register</a>
                 @endguest
@@ -60,7 +55,7 @@
                         
                         <small class="text-muted">Get Hired</small>
                         
-                        <a class="nav-link {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
+                        <a class="nav-link nav-link-action {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
                         
                         <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
                     @endif
@@ -68,6 +63,15 @@
                     {{----}}
                     
                     <small class="text-muted">Account</small>
+        
+                    <a href="javascript:" class="nav-link">
+                        Messages
+                        @if(Auth::user()->unreadMessages()->count() > 0)
+                            <span class="badge badge-danger p-2">
+                                {{Auth::user()->unreadMessages()->count()}}
+                            </span>
+                        @endif
+                    </a>
                     
                     <div class="nav-section-parent">
                         @php($activeRoute = active_route('account.manage.*'))
@@ -190,6 +194,17 @@
                         {{----}}
                         
                         <small class="text-light">Account</small>
+                        
+                        <li class="nav-item">
+                            <a href="javascript:" class="nav-link">
+                                Messages
+                                @if(Auth::user()->unreadMessages()->count() > 0)
+                                    <span class="badge badge-danger p-2">
+                                        {{Auth::user()->unreadMessages()->count()}}
+                                    </span>
+                                @endif
+                            </a>
+                        </li>
                         
                         <li class="nav-item">
                             <div class="nav-section-parent">

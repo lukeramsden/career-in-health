@@ -113,11 +113,10 @@ class DashController extends Controller
 
         // Private Message
 
-        $privateMessagesCount = $user->unreadMessages();
+        $privateMessagesCount = $user->unreadMessages()->count();
         $privateMessages =
             $user
-                ->messages()
-                ->where('read', false)
+                ->unreadMessages()
                 ->orderByDesc('created_at')
                 ->skip(self::$perPage * ($currentPage - 1))
                 ->take(self::$perPage)
