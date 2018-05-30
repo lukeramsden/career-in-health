@@ -52,12 +52,12 @@ class User extends Authenticatable
 
     public function stripePlan()
     {
-        return $this->hasMany(\App\Subscribe::class);
+        return $this->hasMany(Subscribe::class);
     }
 
     public function applications()
     {
-        return $this->hasMany(\App\AdvertApplication::class);
+        return $this->hasMany(AdvertApplication::class);
     }
 
     public function activeStripePlan()
@@ -84,16 +84,31 @@ class User extends Authenticatable
 
     public function company()
     {
-        return $this->belongsTo(\App\Company::class);
+        return $this->belongsTo(Company::class);
     }
 
     public function profile()
     {
-        return $this->hasOne(\App\Profile::class);
+        return $this->hasOne(Profile::class);
     }
 
     public function cv()
     {
-        return $this->hasOne(\App\Cv\Cv::class);
+        return $this->hasOne(Cv\Cv::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(PrivateMessage::class);
+    }
+
+    /**
+     * Number of unread messages
+     *
+     * @return integer
+     */
+    public function unreadMessages()
+    {
+        return $this->messages()->where('read', false)->count();
     }
 }

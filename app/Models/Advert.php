@@ -108,4 +108,19 @@ class Advert extends Model
     {
         return $this->status === AdvertStatus::Public;
     }
+
+    public function messages()
+    {
+        return $this->hasMany(PrivateMessage::class);
+    }
+
+    /**
+     * Number of unread messages
+     *
+     * @return integer
+     */
+    public function unreadMessages()
+    {
+        return $this->messages()->where('read', false)->count();
+    }
 }
