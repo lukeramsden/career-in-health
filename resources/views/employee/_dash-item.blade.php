@@ -55,6 +55,11 @@
         <div class="card card-custom">
             <div class="card-header"><span class="font-italic">You have an unread message...</span></div>
             <div class="card-body">
+                <p>
+                    <b>From:</b> <a href="{{ route('company.show', [$item->advert->company]) }}">{{ $item->advert->company->name }}</a>
+                    <br>
+                    <b>Advert:</b> <a href="{{ route('advert.show', [$item->advert]) }}">{{ $item->advert->title }}</a>
+                </p>
                 <p>{{ $item->body }}</p>
             </div>
             <div class="card-footer">{{ $item->created_at->diffForHumans() }}</div>
