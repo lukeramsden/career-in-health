@@ -112,10 +112,10 @@ class DashController extends Controller
         $feed         = collect([$applications->shift() ?? $adverts->shift()]);
 
         while($feed->count() < self::$perPage)
-        {
-            if(random_int(0, 9) % 3) $feed->push($adverts->shift());
-            else $feed->push($applications->shift() ?? $adverts->shift());
-        }
+            if(random_int(0, 9) % 3)
+                $feed->push($adverts->shift());
+            else
+                $feed->push($applications->shift() ?? $adverts->shift());
 
         $paginator = new LengthAwarePaginator(
             // items
