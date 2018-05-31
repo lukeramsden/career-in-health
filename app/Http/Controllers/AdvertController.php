@@ -89,14 +89,14 @@ class AdvertController extends Controller
             ];
 
         return [
-                'title' => 'required|max:120',
-                'address_id' => 'required|integer|exists:addresses,id',
+                'title'       => 'required|max:120',
+                'address_id'  => 'required|integer|exists:addresses,id',
                 'description' => 'required|max:3000',
-                'job_role' => 'required|integer|exists:job_roles,id',
-                'setting' => ['required', Rule::in(array_keys(Advert::$settings))],
-                'type' => ['required', Rule::in(array_keys(Advert::$types))],
-                'min_salary' => 'required|integer|min:0|max:1000000|less_than_field:max_salary',
-                'max_salary' => 'required|integer|min:1|max:1000000|greater_than_field:min_salary',
+                'job_role'    => 'required|integer|exists:job_roles,id',
+                'setting'     => ['required', Rule::in(array_keys(Advert::$settings))],
+                'type'        => ['required', Rule::in(array_keys(Advert::$types))],
+                'min_salary'  => 'required|integer|min:0|max:1000000|less_than_field:max_salary',
+                'max_salary'  => 'required|integer|min:1|max:1000000|greater_than_field:min_salary',
             ];
     }
 
