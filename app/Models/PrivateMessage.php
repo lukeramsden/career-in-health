@@ -17,4 +17,18 @@ class PrivateMessage extends Model
     {
         return $this->belongsTo(Advert::class);
     }
+
+    public function markAsRead()
+    {
+        $this->read = true;
+        $this->read_at = now();
+        $this->save();
+    }
+
+    public function markAsUnread()
+    {
+        $this->read = false;
+        $this->read_at = null;
+        $this->save();
+    }
 }

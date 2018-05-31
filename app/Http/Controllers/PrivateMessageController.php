@@ -17,7 +17,7 @@ class PrivateMessageController extends Controller
 
     public function index()
     {
-        return view('account.messages')
+        return view('account.message-index')
             ->with([
                 'messages' => Auth::user()
                     ->messages()
@@ -28,15 +28,14 @@ class PrivateMessageController extends Controller
 
     public function show(PrivateMessage $message)
     {
-        toast()->warning('not yet');
-        return back();
+        $message->markAsRead();
+        return view('account.message-show')
+            ->with(['message' => $message]);
     }
 
     public function markAsRead(PrivateMessage $message)
     {
-        $message->read = true;
-        $message->read_at = now();
-        $message->save();
+        $message->markAsRead();
 
         if(ajax())
             return response()->json(['success' => true], 204);
@@ -47,9 +46,7 @@ class PrivateMessageController extends Controller
 
     public function markAsUnread(PrivateMessage $message)
     {
-        $message->read = false;
-        $message->read_at = null;
-        $message->save();
+        $message->markAsUnread();
 
         if(ajax())
             return response()->json(['success' => true], 204);
