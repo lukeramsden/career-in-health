@@ -117,6 +117,7 @@ class AdvertController extends Controller
     public function show(Advert $advert)
     {
         session()->keep('clickThrough');
+        $advert->increment('page_views');
         return view('advert.show')
             ->with([
                 'advert' => $advert

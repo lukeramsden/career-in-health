@@ -28,6 +28,7 @@ class CreateAdvertsTable extends Migration
             $table->string('postcode', 10)->nullable();
             $table->timestamp('started_at')->nullable();
             $table->timestamp('end_at')->nullable();
+            $table->integer('page_views')->default(0);
             $table->integer('search_impressions')->default(0);
             $table->integer('search_clicks')->default(0);
             $table->integer('search_conversions')->default(0);
@@ -35,7 +36,7 @@ class CreateAdvertsTable extends Migration
             $table->integer('recommended_clicks')->default(0);
             $table->integer('recommended_conversions')->default(0);
             $table->integer('status')->default(0);
-            // NOTE: this defaults to the current time in the DATABASE's tz, the app's tz
+            // NOTE: this defaults to the current time in the DATABASE's tz, NOT the app's tz
             $table->timestamp('last_edited')->nullable()->useCurrent();
             $table->timestamps();
         });
