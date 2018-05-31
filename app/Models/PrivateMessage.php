@@ -20,6 +20,8 @@ class PrivateMessage extends Model
 
     public function markAsRead()
     {
+        if($this->read) return; // don't execute query if it does nothing
+
         $this->read = true;
         $this->read_at = now();
         $this->save();
@@ -27,6 +29,8 @@ class PrivateMessage extends Model
 
     public function markAsUnread()
     {
+        if(!$this->read) return;
+
         $this->read = false;
         $this->read_at = null;
         $this->save();
