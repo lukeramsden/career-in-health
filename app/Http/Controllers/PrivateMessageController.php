@@ -18,13 +18,18 @@ class PrivateMessageController extends Controller
     public function index()
     {
         $messages = Auth::user()
-            ->messages()
+            ->messages();
+
+        if($this->request->get('filterRead'))
+            $messages->where('read', false);
+
+        $messages
             ->orderBy('created_at')
             ->with('user', 'advert', 'advert.company');
 
         return view('account.message-index')
             ->with([
-                'messages' => $messages->get()
+                'messages' => $messages->paginate(10)
             ]);
     }
 
