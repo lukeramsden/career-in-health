@@ -25,7 +25,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <button class="btn btn-action btn-big px-5">Apply</button>
+                        <button class="btn btn-action btn-big px-5">Save</button>
                     </div>
                 </form>
             </div>
