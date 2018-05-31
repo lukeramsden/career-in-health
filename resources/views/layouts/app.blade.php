@@ -64,10 +64,10 @@
                     
                     <small class="text-muted">Account</small>
         
-                    <a href="javascript:" class="nav-link">
+                    <a href="{{ route('account.private-message.index') }}" class="nav-link {{ active_route('account.private-message.*') }}">
                         Messages
                         @if(Auth::user()->unreadMessages()->count() > 0)
-                            <span class="badge badge-danger p-2">
+                            <span class="badge badge-danger p-1">
                                 {{Auth::user()->unreadMessages()->count()}}
                             </span>
                         @endif
@@ -196,10 +196,10 @@
                         <small class="text-light">Account</small>
                         
                         <li class="nav-item">
-                            <a href="javascript:" class="nav-link">
+                            <a href="{{ route('account.private-message.index') }}" class="nav-link {{ active_route('account.private-message.*') }}">
                                 Messages
                                 @if(Auth::user()->unreadMessages()->count() > 0)
-                                    <span class="badge badge-danger p-2">
+                                    <span class="badge badge-danger p-1">
                                         {{Auth::user()->unreadMessages()->count()}}
                                     </span>
                                 @endif
