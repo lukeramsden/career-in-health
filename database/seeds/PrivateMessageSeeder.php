@@ -11,16 +11,34 @@ class PrivateMessageSeeder extends Seeder
      */
     public function run()
     {
-        $messages1to2 = factory(\App\PrivateMessage::class, 20)->create([
-            'from_user_id' => 1,
-            'to_user_id'   => 2,
-            'advert_id'    => random_int(1, 150)
-        ]);
+        // bunch of back-and-forth conversation
+        foreach(range(1,4) as $index)
+        {
+            factory(\App\PrivateMessage::class, 1)->create([
+                'from_user_id' => 1,
+                'to_user_id' => 2,
+                'advert_id' => 1,
+            ]);
+            factory(\App\PrivateMessage::class, 1)->create([
+                'from_user_id' => 2,
+                'to_user_id' => 1,
+                'advert_id' => 1,
+            ]);
+        }
 
-        $messages2to1 = factory(\App\PrivateMessage::class, 20)->create([
-            'from_user_id' => 2,
-            'to_user_id'   => 1,
-            'advert_id'    => random_int(1, 150)
-        ]);
+        // same but for a different advert
+        foreach(range(1,4) as $index)
+        {
+            factory(\App\PrivateMessage::class, 1)->create([
+                'from_user_id' => 1,
+                'to_user_id' => 2,
+                'advert_id' => 2,
+            ]);
+            factory(\App\PrivateMessage::class, 1)->create([
+                'from_user_id' => 2,
+                'to_user_id' => 1,
+                'advert_id' => 2,
+            ]);
+        }
     }
 }
