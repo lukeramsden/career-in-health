@@ -113,43 +113,43 @@ class DashController extends Controller
 
         // Private Message
 
-        $privateMessagesCount = $user->unreadMessages()->count();
-        $privateMessages =
-            $user
-                ->unreadMessages()
-                ->orderByDesc('created_at')
-                ->skip(self::$perPage * ($currentPage - 1))
-                ->take(self::$perPage)
-                ->get()
-                ->map(function ($item, $key) {
-                    $item['_feed_type'] = 'privateMessage';
-                    return $item;
-                });
+//        $privateMessagesCount = $user->unreadMessages()->count();
+//        $privateMessages =
+//            $user
+//                ->unreadMessages()
+//                ->orderByDesc('created_at')
+//                ->skip(self::$perPage * ($currentPage - 1))
+//                ->take(self::$perPage)
+//                ->get()
+//                ->map(function ($item, $key) {
+//                    $item['_feed_type'] = 'privateMessage';
+//                    return $item;
+//                });
 
         // collect all together
 
         $applications    = collect($applications);
         $adverts         = collect($adverts);
-        $privateMessages = collect($privateMessages);
+//        $privateMessages = collect($privateMessages);
         $feed            = collect([]);
 
         $count  = $applicationsCount;
         $count += $advertsCount;
-        $count += $privateMessagesCount;
+//        $count += $privateMessagesCount;
 
         while($feed->count() < self::$perPage)
         {
             $item = null;
-            switch(random_int(0, 2)) {
+            switch(random_int(0, 1)) {
                 case 0:
                     $item = $adverts->shift();
                     break;
                 case 1:
                     $item = $applications->shift();
                     break;
-                case 2:
-                    $item = $privateMessages->shift();
-                    break;
+//                case 2:
+//                    $item = $privateMessages->shift();
+//                    break;
             }
             if($item !== null)
                 $feed->push($item);

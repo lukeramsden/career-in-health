@@ -42,14 +42,4 @@ class Company extends Model
     {
         return $this->avatar_path ? Storage::url($this->avatar_path) : null;
     }
-
-    public function messages()
-    {
-        return $this->hasManyThrough(PrivateMessage::class, Advert::class);
-    }
-
-    public function unreadMessages()
-    {
-        return $this->messages()->where('read', false);
-    }
 }

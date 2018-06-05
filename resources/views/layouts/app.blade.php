@@ -1,8 +1,5 @@
 @extends('layouts.base')
 @section('b_content')
-    @auth
-        @php($msgCount = Auth::user()->unreadMessages()->count() ?? 0)
-    @endauth
     <div id="navbar" class="d-none d-lg-block">
         <a href="{{ route(Auth::check() ? 'dashboard' : 'home') }}">
             <img class="logo" src="/images/cih-logo.svg" alt="logo">
@@ -67,11 +64,9 @@
                     
                     <small class="text-muted">Account</small>
         
-                    <a href="{{ route('account.private-message.index') }}" class="nav-link {{ active_route('account.private-message.*') }}">
+                    <a href="javascript:" class="nav-link">
                         Messages
-                        @if($msgCount > 0)
-                            <span class="badge badge-danger p-1">{{ $msgCount }}</span>
-                        @endif
+                        <span class="badge badge-danger p-1">15</span>
                     </a>
                     
                     <div class="nav-section-parent">
@@ -197,11 +192,9 @@
                         <small class="text-light">Account</small>
                         
                         <li class="nav-item">
-                            <a href="{{ route('account.private-message.index') }}" class="nav-link {{ active_route('account.private-message.*') }}">
+                            <a href="javascript:" class="nav-link">
                                 Messages
-                                @if($msgCount > 0)
-                                    <span class="badge badge-danger p-1">{{ $msgCount }}</span>
-                                @endif
+                                <span class="badge badge-danger p-1">15</span>
                             </a>
                         </li>
                         
