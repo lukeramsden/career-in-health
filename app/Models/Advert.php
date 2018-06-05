@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Enum\AdvertStatus;
 use App\Location;
 use Illuminate\Database\Eloquent\Model;
 
@@ -101,11 +100,11 @@ class Advert extends Model
 
     public function isDraft()
     {
-        return $this->status === AdvertStatus::Draft;
+        return !$this->published;
     }
 
     public function isPublished()
     {
-        return $this->status === AdvertStatus::Public;
+        return $this->published;
     }
 }

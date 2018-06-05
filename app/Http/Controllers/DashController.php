@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Advert;
-use App\Enum\AdvertStatus;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
@@ -87,7 +86,7 @@ class DashController extends Controller
 
         $adverts =
             Advert
-                ::whereStatus(AdvertStatus::Public)
+                ::wherePublished(true)
                 ->with(['jobRole', 'company', 'address']);
 
         if(isset(optional($user)->cv->preferences->job_role))

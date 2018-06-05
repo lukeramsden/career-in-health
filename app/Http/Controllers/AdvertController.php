@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Address;
-use App\Enum\AdvertStatus;
 use Auth;
 use App\Advert;
 use Carbon\Carbon;
@@ -65,7 +64,7 @@ class AdvertController extends Controller
         $this->middleware(function($request, Closure $next) {
             $advert = $request->route('advert');
 
-            if(isset($advert) && $advert->status === AdvertStatus::Draft)
+            if(isset($advert) && $advert->isDraft())
                 return back();
 
             return $next($request);
@@ -168,7 +167,7 @@ class AdvertController extends Controller
         $advert->fill($data);
         $advert->company_id = Auth::user()->company_id;
         $advert->created_by_user_id = Auth::user()->id;
-        $advert->status = $savingForLater ? AdvertStatus::Draft : AdvertStatus::Public;
+        $advert->published = !$savingForLater;
         $advert->last_edited = Carbon::now();;
         $advert->save();
 
@@ -194,7 +193,7 @@ class AdvertController extends Controller
         $savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater == true;
 
         $advert->fill($data);
-        $advert->status = $savingForLater ? AdvertStatus::Draft : AdvertStatus::Public;
+        $advert->published = !$savingForLater;
         $advert->last_edited = Carbon::now();
         $advert->save();
 

@@ -1,7 +1,6 @@
 <?php
 
 use App\Advert;
-use App\Enum\AdvertStatus;
 use Illuminate\Database\Seeder;
 
 class AdvertSeeder extends Seeder
@@ -16,7 +15,7 @@ class AdvertSeeder extends Seeder
         $adverts = factory(Advert::class, 150)->create([
             'company_id' => 1,
             'created_by_user_id' => 1,
-            'status' => AdvertStatus::Public,
+            'published' => true,
         ]);
     }
 }

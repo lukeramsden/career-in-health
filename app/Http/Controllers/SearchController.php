@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Advert;
-use App\Enum\AdvertStatus;
 use App\Location;
 use Illuminate\Http\Request;
 
@@ -78,7 +77,7 @@ class SearchController extends Controller
             $results->whereIn('type', $data['type_filter']);
 
         $results = $results
-            ->whereStatus(AdvertStatus::Public)
+            ->wherePublished(true)
             ->orderBy('max_salary', 'desc')
             ->paginate(10);
 

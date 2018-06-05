@@ -35,7 +35,7 @@ class CreateAdvertsTable extends Migration
             $table->integer('recommended_impressions')->default(0);
             $table->integer('recommended_clicks')->default(0);
             $table->integer('recommended_conversions')->default(0);
-            $table->integer('status')->default(0);
+            $table->boolean('published')->default(false);
             // NOTE: this defaults to the current time in the DATABASE's tz, NOT the app's tz
             $table->timestamp('last_edited')->nullable()->useCurrent();
             $table->timestamps();

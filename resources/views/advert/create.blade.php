@@ -185,15 +185,10 @@
                             console.log(response);
                             if(response.status === 200) {
                                 toastr.success('Updated!')
-                                switch (_.get(response, 'data.model.status', {{ \App\Enum\AdvertStatus::Public }})) {
-                                    case {{ \App\Enum\AdvertStatus::Draft }}:
-                                        toastr.info('This advert is not public.')
-                                        break;
-                                    case {{ \App\Enum\AdvertStatus::Public }}:
-                                    case {{ \App\Enum\AdvertStatus::Public }}:
-                                        toastr.info('This advert has been published successfully.<br><a href="{{ route('advert.show', ['advert' => $advert]) }}" class="btn btn-action btn-sm mt-1">View Advert</a>');
-                                        break;
-                                }
+                                if (_.get(response, 'data.model.published', false))
+                                    toastr.info('This advert has been published successfully.<br><a href="{{ route('advert.show', ['advert' => $advert]) }}" class="btn btn-action btn-sm mt-1">View Advert</a>');
+                                else
+                                    toastr.info('This advert is not public.')
                             }
                         })
                         .catch((error) => {
