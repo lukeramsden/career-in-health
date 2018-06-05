@@ -4,7 +4,7 @@
         {!! $messages->appends(Request::capture()->except('page'))->render('vendor.pagination') !!}
         <p class="font-italic">{{ $messages->total() }} {{ str_plural('message', $messages->total()) }}</p>
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="unreadCheck" {{ Request::query('filterRead') ? 'checked' : '' }}>
+          <input type="checkbox" class="custom-control-input" id="unreadCheck" {{ Request::query('filterRead') ? 'checked' : '' }} disabled>
           <label class="custom-control-label" for="unreadCheck">Only show unread</label>
         </div>
     </div>
@@ -42,7 +42,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.19.1/URI.min.js"></script>
     <script>
         $(function() {
-            $('#unreadCheck').change(function() {
+            let $unreadCheck = $('#unreadCheck');
+            $unreadCheck.prop("disabled", false);
+            $unreadCheck.change(function() {
                 window.location.href = URI(window.location.href)
                     .search({
                         page: 1,
