@@ -164,7 +164,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Rukhsar\ActiveRoute\ActiveRouteServiceProvider::class,
-
+        Radic\BladeExtensions\BladeExtensionsServiceProvider::class
     ],
 
     /*

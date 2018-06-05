@@ -66,6 +66,7 @@ Route::prefix('account')
         Route::post('/password', 'UserController@updatePassword')->name('manage.password');
 
         Route::get('/private-messages', 'PrivateMessageController@index')->name('private-message.index');
+        Route::get('/private-messages/sent', 'PrivateMessageController@indexSent')->name('private-message.index.sent');
         Route::get('/private-message/{message}', 'PrivateMessageController@show')->name('private-message.show');
         Route::any('/private-message/{message}/mark-as-read', 'PrivateMessageController@markAsRead')->name('private-message.mark-as-read');
         Route::any('/private-message/{message}/mark-as-unread', 'PrivateMessageController@markAsUnread')->name('private-message.mark-as-unread');

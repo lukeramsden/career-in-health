@@ -66,17 +66,28 @@
                     {{----}}
                     
                     <small class="text-muted">Account</small>
-        
-                    <a href="{{ route('account.private-message.index') }}"
-                       class="nav-link {{ active_route('account.private-message.*') }}">
-                        Messages
-                        @if($msgCount > 0)
-                            <span class="badge badge-danger p-1">{{ $msgCount }}</span>
-                        @endif
-                    </a>
                     
                     <div class="nav-section-parent">
-                        @php($activeRoute = active_route('account.manage.*'))
+                        @set('activeRoute', active_route('account.private-message.*'))
+                        <div class="nav-section {{ $activeRoute }}">
+                            <a class="nav-link nav-section-title"
+                               onclick="navSectionClick(this)"
+                               href="javascript:">
+                                Messages
+                                @if($msgCount > 0)
+                                    <span class="badge badge-danger p-1">{{ $msgCount }}</span>
+                                @endif
+                            </a>
+                            <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
+                                <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
+                                <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>
+                            </div>
+                        </div>
+                        @unset($activeRoute)
+                    </div>
+                    
+                    <div class="nav-section-parent">
+                        @set('activeRoute', active_route('account.manage.*'))
                         <div class="nav-section {{ $activeRoute }}">
                             <a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Settings</a>
                             <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
@@ -84,6 +95,7 @@
                                 <a class="nav-link nav-link-sub {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
                             </div>
                         </div>
+                        @unset($activeRoute)
                     </div>
                     <a class="nav-link" href="{{ route('logout.get') }}">Log Out</a>
                     
@@ -198,18 +210,29 @@
                         <small class="text-light">Account</small>
                         
                         <li class="nav-item">
-                            <a href="{{ route('account.private-message.index') }}"
-                               class="nav-link {{ active_route('account.private-message.*') }}">
-                                Messages
-                                @if($msgCount > 0)
-                                    <span class="badge badge-danger p-1">{{ $msgCount }}</span>
-                                @endif
-                            </a>
+                            <div class="nav-section-parent">
+                                @set('activeRoute', active_route('account.private-message.*'))
+                                <div class="nav-section {{ $activeRoute }}">
+                                    <a class="nav-link nav-section-title"
+                                       onclick="navSectionClick(this)"
+                                       href="javascript:">
+                                        Messages
+                                        @if($msgCount > 0)
+                                            <span class="badge badge-danger p-1">{{ $msgCount }}</span>
+                                        @endif
+                                    </a>
+                                    <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
+                                        <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
+                                        <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>
+                                    </div>
+                                </div>
+                                @unset($activeRoute)
+                            </div>
                         </li>
                         
                         <li class="nav-item">
                             <div class="nav-section-parent">
-                                @php($activeRoute = active_route('account.manage.*'))
+                                @set('activeRoute', active_route('account.manage.*'))
                                 <div class="nav-section {{ $activeRoute }}">
                                     <a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Settings</a>
                                     <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
@@ -217,6 +240,7 @@
                                         <a class="nav-link nav-link-sub {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
                                     </div>
                                 </div>
+                                @unset('activeRoute')
                             </div>
                         </li>
                         <li class="nav-item">
