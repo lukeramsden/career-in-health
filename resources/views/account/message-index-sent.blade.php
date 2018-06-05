@@ -31,11 +31,6 @@
                 <div class="card-footer p-2">
                     <div class="btn-group-sm">
                         <a href="{{ route('account.private-message.show', [$message]) }}" class="btn btn-primary">View</a>
-                        @unless($message->read)
-                            <a href="{{ route('account.private-message.mark-as-read', [$message]) }}" class="btn btn-link">Mark As Read</a>
-                        @else
-                            <a href="{{ route('account.private-message.mark-as-unread', [$message]) }}" class="btn btn-link">Mark As Unread</a>
-                        @endif
                     </div>
                 </div>
             </div>
