@@ -19,7 +19,6 @@ class CreatePrivateMessagesTable extends Migration
             $table->integer('to_user_id');
             $table->integer('advert_id');
             $table->string('body', 1000);
-            $table->string('body', 1000);
             $table->boolean('read')->default(0);
             $table->timestamp('read_at')->nullable();
             $table->timestamps();

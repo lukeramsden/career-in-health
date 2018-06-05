@@ -107,4 +107,9 @@ class Advert extends Model
     {
         return $this->published;
     }
+
+    public function messages()
+    {
+        return $this->hasMany(PrivateMessage::class, 'advert_id', 'id');
+    }
 }

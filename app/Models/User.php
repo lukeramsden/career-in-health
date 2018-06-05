@@ -109,6 +109,6 @@ class User extends Authenticatable
 
     public function unreadMessages()
     {
-        return $this->receivedMessages()->count();
+        return $this->receivedMessages()->where('read', false);
     }
 }

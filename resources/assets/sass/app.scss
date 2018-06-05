@@ -789,3 +789,17 @@ $navbar-width: 200px;
     column-count: 2;
   }
 }
+
+#message-index-filter {
+  #unreadCheck {
+    & ~ label {
+      &::before {
+        border: 1px solid $gray-700;
+      }
+    }
+
+    &:checked ~ label::before {
+      background-color: $action;
+    }
+  }
+}

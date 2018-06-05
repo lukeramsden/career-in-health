@@ -1,11 +1,15 @@
 @extends('layouts.app')
 @section('content')
     <div class="d-none d-lg-block text-center" id="pagination-lg">
-        {!! $messages->appends(Request::capture()->except('page'))->render('vendor.pagination') !!}
-        <p class="font-italic">{{ $messages->total() }} {{ str_plural('message', $messages->total()) }}</p>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="unreadCheck" {{ Request::query('filterRead') ? 'checked' : '' }} disabled>
-          <label class="custom-control-label" for="unreadCheck">Only show unread</label>
+        <div class="card card-custom" id="message-index-filter">
+            <div class="card-body">
+                {!! $messages->appends(Request::capture()->except('page'))->render('vendor.pagination') !!}
+                <p class="font-italic">{{ $messages->total() }} {{ str_plural('message', $messages->total()) }}</p>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="unreadCheck" {{ Request::query('filterRead') ? 'checked' : '' }} disabled>
+                  <label class="custom-control-label" for="unreadCheck">Only show unread</label>
+                </div>
+            </div>
         </div>
     </div>
     <div class="container-fluid mt-4">
@@ -61,7 +65,7 @@
         #pagination-lg {
             position: fixed;
             z-index: 9999;
-            top: 0;
+            top: 1vw;
             right: 1vw;
         }
     </style>

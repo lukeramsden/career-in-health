@@ -11977,3 +11977,11 @@ body {
   }
 }
 
+#message-index-filter #unreadCheck ~ label::before {
+  border: 1px solid #495057;
+}
+
+#message-index-filter #unreadCheck:checked ~ label::before {
+  background-color: #f9834e;
+}
+
