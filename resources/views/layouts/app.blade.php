@@ -1,6 +1,8 @@
 @extends('layouts.base')
 @section('b_content')
-    @php($msgCount = Auth::user()->unreadMessages()->count())
+    @auth
+        @php($msgCount = Auth::user()->unreadMessages()->count() ?? 0)
+    @endauth
     <div id="navbar" class="d-none d-lg-block">
         <a href="{{ route(Auth::check() ? 'dashboard' : 'home') }}">
             <img class="logo" src="/images/cih-logo.svg" alt="logo">
