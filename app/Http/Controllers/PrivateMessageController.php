@@ -32,4 +32,22 @@ class PrivateMessageController extends Controller
                 'messages' => $messages->paginate(10)
             ]);
     }
+
+    public function indexSent()
+    {
+        $messages = Auth::user()
+            ->sentMessages();
+
+        if($this->request->get('filterRead'))
+            $messages->where('read', false);
+
+        $messages
+            ->orderBy('created_at')
+            ->with('toUser', 'advert', 'company');
+
+        return view('account.message-index-sent')
+            ->with([
+                'messages' => $messages->paginate(10)
+            ]);
+    }
 }
