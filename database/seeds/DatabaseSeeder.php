@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdvertSeeder::class);
         $this->call(AddressSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(PrivateMessageSeeder::class);
     }
 }

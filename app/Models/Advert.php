@@ -110,6 +110,6 @@ class Advert extends Model
 
     public function messages()
     {
-        return $this->hasMany(PrivateMessage::class, 'advert_id', 'id');
+        return $this->hasMany(PrivateMessage::class, 'advert_id');
     }
 }

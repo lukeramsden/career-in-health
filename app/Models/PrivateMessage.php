@@ -10,17 +10,17 @@ class PrivateMessage extends Model
 
     public function fromUser()
     {
-        return $this->belongsTo(User::class, 'id', 'from_user_id');
+        return $this->belongsTo(User::class, 'from_user_id');
     }
 
     public function toUser()
     {
-        return $this->belongsTo(User::class, 'id', 'to_user_id');
+        return $this->belongsTo(User::class, 'to_user_id');
     }
 
     public function advert()
     {
-        return $this->belongsTo(Advert::class, 'id', 'advert_id');
+        return $this->belongsTo(Advert::class);
     }
 
     public function company()

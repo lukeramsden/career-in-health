@@ -99,12 +99,12 @@ class User extends Authenticatable
 
     public function sentMessages()
     {
-        return $this->hasMany(PrivateMessage::class, 'from_user_id', 'id');
+        return $this->hasMany(PrivateMessage::class, 'from_user_id');
     }
 
     public function receivedMessages()
     {
-        return $this->hasMany(PrivateMessage::class, 'to_user_id', 'id');
+        return $this->hasMany(PrivateMessage::class, 'to_user_id');
     }
 
     public function unreadMessages()
