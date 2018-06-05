@@ -96,4 +96,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(Cv\Cv::class);
     }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(PrivateMessage::class, 'from_user_id', 'id');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany(PrivateMessage::class, 'to_user_id', 'id');
+    }
+
+    public function unreadMessages()
+    {
+        return $this->receivedMessages()->count();
+    }
 }
