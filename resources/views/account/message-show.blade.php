@@ -6,6 +6,19 @@
                 <b>From:</b> <a href="{{ route('company.show', [$message->advert->company]) }}">{{ $message->advert->company->name }}</a>
                 <br>
                 <b>Advert:</b> <a href="{{ route('advert.show', [$message->advert]) }}">{{ $message->advert->title }}</a>
+            
+                @if(\App\AdvertApplication::hasApplied(Auth::user(), $message->advert))
+                    <hr>
+                    <b>You have applied to this advert!</b>
+                    <br>
+                    <small class="text-muted">
+                        {{ str_limit(
+                            \App\AdvertApplication::getApplication(
+                                Auth::user(),
+                                $message->advert
+                            )->custom_cover_letter ?? 'No cover letter', 100) }}
+                    </small>
+                @endif
             </div>
             <div class="card-body">
                 <p class="my-0 mb-1">{{ $message->body }}</p>

@@ -53,11 +53,12 @@
                             @elseif(Auth::user()->isCompany())
                                 <button type="button" disabled class="btn btn-block btn-secondary">You can't apply</button>
                             @else
-                                @if(!\App\AdvertApplication::alreadyApplied(Auth::user(), $advert))
+                                @if(!\App\AdvertApplication::hasApplied(Auth::user(), $advert))
                                     <a href="{{ route('advert.application.create', [$advert]) }}" class="btn btn-block btn-action">Apply</a>
                                 @else
                                     <button type="button" disabled class="btn btn-block btn-secondary">Already Applied!</button>
                                 @endif
+                                    <a href="{{ route('account.private-message.new', [$advert]) }}" class="btn btn-block btn-primary">Send a Message</a>
                             @endif
                         @endauth
                     </div>

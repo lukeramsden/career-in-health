@@ -25,6 +25,7 @@ class CreateAdvertApplicationsTable extends Migration
             // NOTE: this defaults to the current time in the DATABASE's tz, the app's tz
             $table->timestamp('last_edited')->nullable()->useCurrent();
             $table->timestamps();
+            $table->unique(['user_id', 'advert_id']);
         });
     }
 

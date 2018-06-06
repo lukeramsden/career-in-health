@@ -59,7 +59,7 @@ class AdvertApplicationController extends Controller
             return redirect(route('register'));
         }
 
-        if(AdvertApplication::alreadyApplied(Auth::user(), $advert))
+        if(AdvertApplication::hasApplied(Auth::user(), $advert))
         {
             toast()->error('You have already applied to this job!');
             return redirect(route('advert.show', [$advert]));
@@ -73,7 +73,7 @@ class AdvertApplicationController extends Controller
 
     public function store(Advert $advert)
     {
-        if(AdvertApplication::alreadyApplied(Auth::user(), $advert))
+        if(AdvertApplication::hasApplied(Auth::user(), $advert))
         {
             toast()->error('You have already applied to this job!');
             return redirect(route('advert.show', [$advert]));

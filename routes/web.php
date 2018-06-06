@@ -72,6 +72,8 @@ Route::prefix('account')
         Route::any('/private-message/{message}/mark-as-unread', 'PrivateMessageController@markAsUnread')->name('private-message.mark-as-unread');
         Route::get('/private-message/{message}/reply', 'PrivateMessageController@showReply')->name('private-message.reply.show');
         Route::post('/private-message/{message}/reply', 'PrivateMessageController@reply')->name('private-message.reply');
+        Route::get('/private-message/new/{advert}', 'PrivateMessageController@showNew')->name('private-message.new.show');
+        Route::post('/private-message/new/{advert}', 'PrivateMessageController@new')->name('private-message.new');
     });
 
 Route::prefix('profile')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Advert;
 use App\PrivateMessage;
 use Closure;
 use Illuminate\Http\Request;
@@ -69,6 +70,20 @@ class PrivateMessageController extends Controller
             ]);
     }
 
+    public function show(PrivateMessage $message)
+    {
+        $isReceiver = Auth::user()->id == optional($message)->toUser->id;
+
+        if($isReceiver)
+            $message->markAsRead();
+
+        return view('account.message-show')
+            ->with([
+                'message' => $message,
+                'isReceiver' => $isReceiver,
+            ]);
+    }
+
     public function showReply(PrivateMessage $message)
     {
         return view('account.message-create')
@@ -96,18 +111,31 @@ class PrivateMessageController extends Controller
         return redirect(route('account.private-message.index'));
     }
 
-    public function show(PrivateMessage $message)
+    public function showNew(Advert $advert)
     {
-        $isReceiver = Auth::user()->id == optional($message)->toUser->id;
-
-        if($isReceiver)
-            $message->markAsRead();
-
-        return view('account.message-show')
+        return view('account.message-create')
             ->with([
-                'message' => $message,
-                'isReceiver' => $isReceiver,
+                'advert' => $advert
             ]);
+    }
+
+    public function new(Advert $advert)
+    {
+        $data = $this->request->validate(self::rules());
+
+        $newMessage = new PrivateMessage();
+
+        $newMessage->advert_id    = $advert->id;
+        $newMessage->to_user_id   = $advert->created_by_user_id;
+        $newMessage->from_user_id = Auth::user()->id;
+        $newMessage->body         = $data['body'];
+        $newMessage->save();
+
+        if(ajax())
+            return response()->json(['success' => true, 'model' => $newMessage], 200);
+
+        toast()->success('Message sent successfully');
+        return redirect(route('account.private-message.index'));
     }
 
     public function markAsRead(PrivateMessage $message)

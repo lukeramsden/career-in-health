@@ -27,7 +27,27 @@ class AdvertApplication extends Model
         return $this->belongsTo(\App\Advert::class);
     }
 
-    static public function alreadyApplied(User $user = null, Advert $advert = null)
+    /**
+     * @param \App\User|null $user
+     * @param Advert|null $advert
+     * @return AdvertApplication|null
+     */
+    static public function getApplication(User $user = null, Advert $advert = null)
+    {
+        if($user == null || $advert == null) return null;
+
+        return static::where([
+            ['user_id', $user->id],
+            ['advert_id', $advert->id]
+        ])->first();
+    }
+
+    /**
+     * @param \App\User|null $user
+     * @param Advert|null $advert
+     * @return bool
+     */
+    static public function hasApplied(User $user = null, Advert $advert = null)
     {
         if($user == null || $advert == null) return false;
 
