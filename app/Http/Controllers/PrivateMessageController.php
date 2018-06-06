@@ -50,7 +50,7 @@ class PrivateMessageController extends Controller
         return view('account.message-thread-show')
             ->with([
                 'advert' => $advert,
-                'messages' => $advert->threadMessages(Auth::user()),
+                'messages' => $advert->threadMessages()->sortBy('created_at'),
             ]);
     }
 

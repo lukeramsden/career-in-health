@@ -19,7 +19,7 @@ class Profile extends Model
 
     public function fullName()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return trim($this->first_name . ' ' . $this->last_name);
     }
 
     public function user()

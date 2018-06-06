@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class PrivateMessage extends Model
 {
@@ -44,6 +45,11 @@ class PrivateMessage extends Model
         $this->read = false;
         $this->read_at = null;
         $this->save();
+    }
+
+    public function isFromUser(User $user = null)
+    {
+        return ($user ?? Auth::user())->id == $this->from_user_id;
     }
 
     public static function allMessageThreads(User $user = null)

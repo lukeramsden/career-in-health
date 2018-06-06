@@ -21,7 +21,7 @@
                     </small>
                 </div>
                 <div class="card-footer">
-                    <a href="javascript:">View Messages</a>
+                    <a href="{{ route('account.private-message.show', [$advert]) }}">View Messages</a>
                 </div>
             </div>
         @endforeach
