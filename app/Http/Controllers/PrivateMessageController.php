@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Advert;
 use App\PrivateMessage;
+use App\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,125 +39,37 @@ class PrivateMessageController extends Controller
 
     public function index()
     {
-        $messages = Auth::user()
-            ->receivedMessages();
-
-        if($this->request->get('filterRead'))
-            $messages->where('read', false);
-
-        $messages
-            ->orderByDesc('created_at');
-
-        return view('account.message-index')
+        return view('account.message-thread-index')
             ->with([
-                'messages' => $messages->paginate(10)
+                'threads' => PrivateMessage::allMessageThreads(Auth::user())
             ]);
     }
 
-    public function indexSent()
+    public function showThread(Advert $advert)
     {
-        $messages = Auth::user()
-            ->sentMessages();
-
-        if($this->request->get('filterRead'))
-            $messages->where('read', false);
-
-        $messages
-            ->orderByDesc('created_at');
-
-        return view('account.message-index-sent')
+        return view('account.message-thread-show')
             ->with([
-                'messages' => $messages->paginate(10),
+                'advert' => $advert,
+                'messages' => $advert->threadMessages(Auth::user()),
             ]);
     }
 
-    public function show(PrivateMessage $message)
-    {
-        $isReceiver = Auth::user()->id == optional($message)->toUser->id;
-
-        if($isReceiver)
-            $message->markAsRead();
-
-        return view('account.message-show')
-            ->with([
-                'message' => $message,
-                'isReceiver' => $isReceiver,
-            ]);
-    }
-
-    public function showReply(PrivateMessage $message)
-    {
-        return view('account.message-create')
-            ->with([
-                'replyTo' => $message
-            ]);
-    }
-
-    public function reply(PrivateMessage $message)
+    public function store(Advert $advert, User $user)
     {
         $data = $this->request->validate(self::rules());
 
-        $newMessage = new PrivateMessage();
+        $message = new PrivateMessage();
 
-        $newMessage->advert_id    = $message->advert_id;
-        $newMessage->to_user_id   = $message->from_user_id;
-        $newMessage->from_user_id = Auth::user()->id;
-        $newMessage->body         = $data['body'];
-        $newMessage->save();
+        $message->advert_id    = $advert->id;
+        $message->to_user_id   = $user->id;
+        $message->from_user_id = Auth::user()->id;
+        $message->body         = $data['body'];
+        $message->save();
 
         if(ajax())
-            return response()->json(['success' => true, 'model' => $newMessage], 200);
+            return response()->json(['success' => true, 'model' => $message], 200);
 
         toast()->success('Message sent successfully');
-        return redirect(route('account.private-message.index'));
-    }
-
-    public function showNew(Advert $advert)
-    {
-        return view('account.message-create')
-            ->with([
-                'advert' => $advert
-            ]);
-    }
-
-    public function new(Advert $advert)
-    {
-        $data = $this->request->validate(self::rules());
-
-        $newMessage = new PrivateMessage();
-
-        $newMessage->advert_id    = $advert->id;
-        $newMessage->to_user_id   = $advert->created_by_user_id;
-        $newMessage->from_user_id = Auth::user()->id;
-        $newMessage->body         = $data['body'];
-        $newMessage->save();
-
-        if(ajax())
-            return response()->json(['success' => true, 'model' => $newMessage], 200);
-
-        toast()->success('Message sent successfully');
-        return redirect(route('account.private-message.index'));
-    }
-
-    public function markAsRead(PrivateMessage $message)
-    {
-        $message->markAsRead();
-
-        if(ajax())
-            return response()->json(['success' => true], 204);
-
-        toast()->success('Message has been marked as read.');
-        return back();
-    }
-
-    public function markAsUnread(PrivateMessage $message)
-    {
-        $message->markAsUnread();
-
-        if(ajax())
-            return response()->json(['success' => true], 204);
-
-        toast()->success('Message has been marked as unread.');
         return back();
     }
 }

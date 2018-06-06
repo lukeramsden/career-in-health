@@ -45,4 +45,34 @@ class PrivateMessage extends Model
         $this->read_at = null;
         $this->save();
     }
+
+    public static function allMessageThreads(User $user = null)
+    {
+        if ($user == null) return null;
+
+        return Advert::whereIn(
+            'id',
+            static::where(function($query) use ($user) {
+                $query
+                    ->where('to_user_id', $user->id)
+                    ->orWhere('from_user_id', $user->id);
+            })->pluck('advert_id')
+        )->get();
+    }
+
+    public static function getThread(User $user = null, Advert $advert = null)
+    {
+        if ($user == null || $advert == null) return null;
+
+        $messages = static::whereAdvertId($advert->id);
+
+        $messages->where(function($query) use ($user) {
+            $query
+                ->where('to_user_id', $user->id)
+                ->orWhere('from_user_id', $user->id);
+        });
+
+        return $messages
+            ->orderByDesc('created_at');
+    }
 }

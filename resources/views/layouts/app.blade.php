@@ -80,7 +80,7 @@
                             </a>
                             <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
                                 <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
-                                <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>
+{{--                                <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>--}}
                             </div>
                         </div>
                         @unset($activeRoute)
@@ -223,7 +223,7 @@
                                     </a>
                                     <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
                                         <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
-                                        <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>
+{{--                                        <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>--}}
                                     </div>
                                 </div>
                                 @unset($activeRoute)
