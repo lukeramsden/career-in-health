@@ -19,11 +19,7 @@ class PrivateMessageController extends Controller
         $this->middleware(function($request, Closure $next) {
             $message = $request->route('message');
 
-            $authUser = Auth::user();
-            $toUser = optional($message)->toUser;
-            if($message && Auth::check() && $authUser->id != $toUser->id) {
-                debug($authUser->id);
-                debug($toUser->id);
+            if($message && Auth::check() && Auth::user()->id != optional($message)->toUser->id) {
                 toast()->error('Cannot change read status of a message you didn\'t receive.');
                 return back();
             }
@@ -48,7 +44,7 @@ class PrivateMessageController extends Controller
             $messages->where('read', false);
 
         $messages
-            ->orderBy('created_at');
+            ->orderByDesc('created_at');
 
         return view('account.message-index')
             ->with([
@@ -65,7 +61,7 @@ class PrivateMessageController extends Controller
             $messages->where('read', false);
 
         $messages
-            ->orderBy('created_at');
+            ->orderByDesc('created_at');
 
         return view('account.message-index-sent')
             ->with([
@@ -73,40 +69,44 @@ class PrivateMessageController extends Controller
             ]);
     }
 
-    public function showReply(PrivateMessage $replyTo)
+    public function showReply(PrivateMessage $message)
     {
         return view('account.message-create')
             ->with([
-               'replyTo' => $replyTo
+                'replyTo' => $message
             ]);
     }
 
-    public function reply(PrivateMessage $replyTo)
+    public function reply(PrivateMessage $message)
     {
         $data = $this->request->validate(self::rules());
 
-        $message = new PrivateMessage();
+        $newMessage = new PrivateMessage();
 
-        $message->advert_id    = $replyTo->advert_id;
-        $message->to_user_id   = $replyTo->from_user_id;
-        $message->from_user_id = Auth::user()->id;
-        $message->body         = $data['body'];
-        $message->save();
+        $newMessage->advert_id    = $message->advert_id;
+        $newMessage->to_user_id   = $message->from_user_id;
+        $newMessage->from_user_id = Auth::user()->id;
+        $newMessage->body         = $data['body'];
+        $newMessage->save();
 
         if(ajax())
-            return response()->json(['success' => true, 'model' => $message], 200);
+            return response()->json(['success' => true, 'model' => $newMessage], 200);
 
         toast()->success('Message sent successfully');
-        return redirect(route('private-message.index'));
+        return redirect(route('account.private-message.index'));
     }
 
     public function show(PrivateMessage $message)
     {
-        $message->markAsRead();
+        $isReceiver = Auth::user()->id == optional($message)->toUser->id;
+
+        if($isReceiver)
+            $message->markAsRead();
 
         return view('account.message-show')
             ->with([
                 'message' => $message,
+                'isReceiver' => $isReceiver,
             ]);
     }
 

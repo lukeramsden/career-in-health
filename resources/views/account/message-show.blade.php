@@ -10,11 +10,13 @@
             <div class="card-body">
                 <p class="my-0 mb-1">{{ $message->body }}</p>
             </div>
-            <div class="card-footer p-2">
-                <div class="btn-group-sm">
-                    <a href="{{ route('account.private-message.reply.show', [$message]) }}" class="btn btn-primary float-right px-4">Reply</a>
+            @if($isReceiver)
+                <div class="card-footer p-2">
+                    <div class="btn-group-sm">
+                        <a href="{{ route('account.private-message.reply.show', [$message]) }}" class="btn btn-primary float-right px-4">Reply</a>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 @endsection
