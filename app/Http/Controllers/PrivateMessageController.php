@@ -47,10 +47,19 @@ class PrivateMessageController extends Controller
 
     public function showThread(Advert $advert)
     {
+        $messages = $advert->threadMessages()->sortBy('created_at');
+
+        PrivateMessage
+            ::whereIn('id', $messages->pluck('id'))
+            ->update([
+                'read' => true,
+                'read_at' => now()
+            ]);
+
         return view('account.message-thread-show')
             ->with([
                 'advert' => $advert,
-                'messages' => $advert->threadMessages()->sortBy('created_at'),
+                'messages' => $messages->all(),
             ]);
     }
 
