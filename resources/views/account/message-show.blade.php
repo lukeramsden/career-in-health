@@ -12,7 +12,7 @@
             </div>
             <div class="card-footer p-2">
                 <div class="btn-group-sm">
-                    <a href="javascript:" class="btn btn-primary float-right">Reply</a>
+                    <a href="{{ route('account.private-message.reply.show', [$message]) }}" class="btn btn-primary float-right px-4">Reply</a>
                 </div>
             </div>
         </div>

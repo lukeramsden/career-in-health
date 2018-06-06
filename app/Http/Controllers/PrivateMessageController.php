@@ -32,6 +32,13 @@ class PrivateMessageController extends Controller
         })->only('markAsRead', 'markAsUnread');
     }
 
+    protected function rules()
+    {
+        return [
+            'body' => 'required|string|max:1000'
+        ];
+    }
+
     public function index()
     {
         $messages = Auth::user()
@@ -64,6 +71,33 @@ class PrivateMessageController extends Controller
             ->with([
                 'messages' => $messages->paginate(10),
             ]);
+    }
+
+    public function showReply(PrivateMessage $replyTo)
+    {
+        return view('account.message-create')
+            ->with([
+               'replyTo' => $replyTo
+            ]);
+    }
+
+    public function reply(PrivateMessage $replyTo)
+    {
+        $data = $this->request->validate(self::rules());
+
+        $message = new PrivateMessage();
+
+        $message->advert_id    = $replyTo->advert_id;
+        $message->to_user_id   = $replyTo->from_user_id;
+        $message->from_user_id = Auth::user()->id;
+        $message->body         = $data['body'];
+        $message->save();
+
+        if(ajax())
+            return response()->json(['success' => true, 'model' => $message], 200);
+
+        toast()->success('Message sent successfully');
+        return redirect(route('private-message.index'));
     }
 
     public function show(PrivateMessage $message)
