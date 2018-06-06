@@ -46,6 +46,8 @@
                 @if(!$isFromUser)
                     {{-- TODO: profile link --}}
                     <div class="card-header"><b>From:</b> {{ $message->fromUser->profile->fullName() }}</div>
+                @else
+                    <div class="card-header"><b>You said...</b></div>
                 @endif
                 <div class="card-body">{{ $message->body }}</div>
                 <div class="card-footer">{{ $message->created_at->diffForHumans() }}</div>
