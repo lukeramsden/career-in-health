@@ -62,7 +62,17 @@ class PrivateMessageController extends Controller
 
         return view('account.message-index-sent')
             ->with([
-                'messages' => $messages->paginate(10)
+                'messages' => $messages->paginate(10),
+            ]);
+    }
+
+    public function show(PrivateMessage $message)
+    {
+        $message->markAsRead();
+
+        return view('account.message-show')
+            ->with([
+                'message' => $message,
             ]);
     }
 
