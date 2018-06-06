@@ -59,7 +59,6 @@
                 <form action="{{ route('account.private-message.store', [$advert, '#new-message']) }}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <label for="inputBody">Message</label>
                         <textarea
                         class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}"
                         name="body" id="inputBody" rows="10" maxlength="1000">{{ old('body') }}</textarea>
