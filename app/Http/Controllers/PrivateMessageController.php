@@ -49,6 +49,7 @@ class PrivateMessageController extends Controller
     {
         $messages = $advert->threadMessages()->sortBy('created_at');
 
+        // TODO: only mark received messages as read
         PrivateMessage
             ::whereIn('id', $messages->pluck('id'))
             ->update([
