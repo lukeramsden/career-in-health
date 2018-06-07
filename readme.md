@@ -7,12 +7,14 @@
 
 ```bash
 npm install
-npm run # 'dev' or 'prod'
+npm run prod
 composer install
 php artisan symlink
 php artisan migrate
 cp .env.example .env
-vi .env # config to match environment
+vim .env # config to match environment
+cp vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64 /usr/local/bin/ # maybe sudo
+chmod +x /usr/local/bin/wkhtmltopdf-amd64                              # maybe sudo
 ```
 
 
