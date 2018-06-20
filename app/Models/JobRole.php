@@ -172,9 +172,4 @@ class JobRole extends Model
     ];
 
     protected $fillable = ['name'];
-
-    public function profile()
-    {
-        return $this->belongsToMany(\App\Profile::class);
-    }
 }
