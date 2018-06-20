@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function isCompany()
     {
-        return $this->company_id !== null ? true : false; // not sure why you don't just return the expression james
+        return $this->company_id !== null;
     }
 
     public function stripePlan()
