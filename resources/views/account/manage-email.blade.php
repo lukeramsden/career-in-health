@@ -7,7 +7,23 @@
                     {{ csrf_field() }}
                     
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="password">Password</label>
+                        <input
+                        class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                        type="password"
+                        name="password"
+                        id="password"
+                        value="{{ old('password') }}"
+                        autocomplete="off"
+                        required>
+    
+                        @if ($errors->has('password'))
+                            <div class="invalid-feedback">{{ $errors->first('password') }}</div>
+                        @endif
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">New Email</label>
                         <input
                             class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
                             type="email"
@@ -34,10 +50,10 @@
                         placeholder="joebloggs@email.com"
                         autocomplete="off"
                         required>
-                        
+    
                         @if ($errors->has('email_confirmation'))
-                             <div class="invalid-feedback">{{ $errors->first('email_confirmation') }}</div>
-                         @endif
+                            <div class="invalid-feedback">{{ $errors->first('email_confirmation') }}</div>
+                        @endif
                     </div>
                     
                     <button class="btn btn-action px-5 float-right">Save</button>

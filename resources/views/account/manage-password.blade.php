@@ -7,34 +7,50 @@
                     {{ csrf_field() }}
                     
                     <div class="form-group">
-                        <label for="password">Password</label>
+                        <label for="password">Current Password</label>
                         <input
-                            class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                        class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                        type="password"
+                        name="password"
+                        id="password"
+                        value="{{ old('password', 'password1') }}"
+                        autocomplete="off"
+                        required>
+    
+                        @if ($errors->has('password'))
+                            <div class="invalid-feedback">{{ $errors->first('password') }}</div>
+                        @endif
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new_password">New Password</label>
+                        <input
+                            class="form-control {{ $errors->has('new_password') ? 'is-invalid' : '' }}"
                             type="password"
-                            name="password"
-                            id="password"
-                            value="{{ old('password') }}"
+                            name="new_password"
+                            id="new_password"
+                            value="{{ old('new_password') }}"
                             autocomplete="off"
                             required>
                         
-                        @if ($errors->has('password'))
-                             <div class="invalid-feedback">{{ $errors->first('password') }}</div>
+                        @if ($errors->has('new_password'))
+                             <div class="invalid-feedback">{{ $errors->first('new_password') }}</div>
                          @endif
                     </div>
     
                     <div class="form-group">
-                        <label for="password_confirmation">Confirm Password</label>
+                        <label for="new_password_confirmation">Confirm New Password</label>
                         <input
-                        class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
+                        class="form-control {{ $errors->has('new_password_confirmation') ? 'is-invalid' : '' }}"
                         type="password"
-                        name="password_confirmation"
-                        id="password_confirmation"
-                        value="{{ old('password_confirmation') }}"
+                        name="new_password_confirmation"
+                        id="new_password_confirmation"
+                        value="{{ old('new_password_confirmation') }}"
                         autocomplete="off"
                         required>
                         
-                        @if ($errors->has('password_confirmation'))
-                             <div class="invalid-feedback">{{ $errors->first('password_confirmation') }}</div>
+                        @if ($errors->has('new_password_confirmation'))
+                             <div class="invalid-feedback">{{ $errors->first('new_password_confirmation') }}</div>
                          @endif
                     </div>
                     

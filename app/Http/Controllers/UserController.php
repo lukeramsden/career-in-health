@@ -34,8 +34,16 @@ class UserController extends Controller
             'email' => [
                 'required', 'string', 'confirmed',
                 'email', 'max:255', Rule::unique('users')->ignore($user->id)
-            ]
+            ],
+            'password' => 'required|string'
         ]);
+
+        if(!Hash::check($data['password'], $user->password))
+            return back()
+                ->exceptInput('password')
+                ->withErrors([
+                    'password' => 'Password incorrect.'
+                ]);
 
         $user->email = $data['email'];
         $user->save();
@@ -57,10 +65,18 @@ class UserController extends Controller
         $user = Auth::user();
 
         $data = $this->request->validate([
-            'password' => ['required', 'string', 'confirmed', 'min:6']
+            'password' => 'required|string|min:6',
+            'new_password' => 'required|string|confirmed|min:6',
         ]);
 
-        $user->password = Hash::make($data['password']);
+        if(!Hash::check($data['password'], $user->password))
+            return back()
+                ->exceptInput('password')
+                ->withErrors([
+                    'password' => 'Password incorrect.'
+                ]);
+
+        $user->password = Hash::make($data['new_password']);
         $user->save();
 
         toast()->success('Password Updated!');
