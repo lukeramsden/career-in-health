@@ -70,14 +70,17 @@ class User extends Authenticatable
     
     public function getSubscriptionUser()
     {
-        $user = $this->company->users()
+        $user =$this
+            ->company
+            ->users()
             ->whereNotNull('stripe_id')
             ->first();
 
-        if ($user == null) {
-            $user = $this->company->users()
+        if ($user == null)
+            $user = $this
+                ->company
+                ->users()
                 ->first();
-        }
 
         return $user;
     }
