@@ -2,22 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Cv\Cv;
-use App\Enum\IAm;
-use App\Profile;
 use App\User;
-use App\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Validation\Rule;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 
 class RegisterController extends Controller
 {
@@ -60,17 +52,18 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $rules = [
-            'i_am'       => ['required', 'integer', Rule::in([IAm::Employee, IAm::Company]),],
+            'i_am' => [
+                'required', 'integer',
+                Rule::in(\App\UserType::where('id' ,'>' ,0)
+                    ->pluck('id')
+                    ->toArray())
+            ],
             'first_name' => 'required|string|max:255',
             'last_name'  => 'string|max:255',
             'email'      => 'required|string|email|max:255|unique:users',
             'password'   => 'required|string|min:6|confirmed',
             'terms'      => 'required'
         ];
-
-        if (isset($data['i_am']) && $data['i_am'] == IAm::Company) {
-            $rules['company_name'] = 'required|string|max:255|unique:companies,name';
-        }
 
         return Validator::make($data, $rules);
     }
@@ -91,27 +84,7 @@ class RegisterController extends Controller
         $user->password = Hash::make($data['password']);
         $user->save();
 
-        $profile = new Profile();
-        $profile->first_name = ucwords($data['first_name']);
-
-        if(isset($data['last_name']))
-            $profile->last_name = ucwords($data['last_name']);
-
-        $user->profile()->save($profile);
-
-        if ($data['i_am'] == IAm::Company) {
-            $company = new Company();
-            $company->name = ucwords($data['company_name']);
-            $company->created_by_user_id = $user->id;
-            $company->save();
-
-            $user->company_id = $company->id;
-        } else if($data['i_am'] == IAm::Employee) {
-            $cv = new Cv();
-            $user->cv()->save($cv);
-            // TODO: step by step signup
-            // $this->redirectTo = route('step by step signup');
-        }
+        // TODO: user type stuff
 
         $user->save();
         return $user;
