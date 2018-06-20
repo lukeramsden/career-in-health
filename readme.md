@@ -10,9 +10,9 @@ npm install
 npm run prod
 composer install
 php artisan symlink
-php artisan migrate
 cp .env.example .env
 vim .env # config to match environment
+php artisan migrate
 cp vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64 /usr/local/bin/ # maybe sudo
 chmod +x /usr/local/bin/wkhtmltopdf-amd64                              # maybe sudo
 ```
