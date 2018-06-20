@@ -159,7 +159,7 @@ class Advert extends Model
     {
         return PrivateMessage
             ::whereAdvertId($this->id)
-            ->whereToUserId(($user ?? Auth::user())->id)
+            ->whereToUserId(($user->id ?? Auth::user())->id)
             ->orderByDesc('created_at')
             ->first();
     }

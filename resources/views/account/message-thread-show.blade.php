@@ -58,6 +58,7 @@
         <div class="card card-custom mx-lg-5 mb-4" id="new-message">
             <div class="card-header">New Message</div>
             <div class="card-body">
+                {{-- TODO: make this work for companies replying --}}
                 <form action="{{ route('account.private-message.store', ['advert' => $advert, 'user' => $advert->company->users()->first()]) }}#new-message" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
