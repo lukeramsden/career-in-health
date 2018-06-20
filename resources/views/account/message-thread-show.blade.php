@@ -28,17 +28,7 @@
         @foreach($messages as $message)
             @set('isFromUser', $message->isFromUser())
             <div
-            class="card
-            card-custom
-            mx-lg-5
-            mb-4
-            message-thread-item
-            @if($isFromUser)
-            message-thread-item-sent
-            @else
-            message-thread-item-received
-            @endif
-            "
+            class="card card-custom mx-lg-5 mb-4 message-thread-item {{$isFromUser?'message-thread-item-sent':'message-thread-item-received'}}"
             @if ($loop->last)
                 id="message-thread-item-last"
             @endif
