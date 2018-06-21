@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class CompanyUser extends Model
 {
+    protected $fillable = [
+        'first_name', 'last_name', 'avatar'
+    ];
+
     public function user()
     {
         return $this->morphOne(User::class, 'userable');
