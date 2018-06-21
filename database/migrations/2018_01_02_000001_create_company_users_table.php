@@ -18,6 +18,7 @@ class CreateCompanyUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('avatar')->nullable();
+            $table->integer('company_id')->nullable();
             $table->timestamps();
         });
     }
