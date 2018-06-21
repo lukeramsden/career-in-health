@@ -25,9 +25,24 @@ class User extends Authenticatable
     }
 
     public function userable()
-   {
-       return $this->morphTo();
-   }
+    {
+        return $this->morphTo();
+    }
+
+    public function isEmployee()
+    {
+        return $this->userable instanceof Employee;
+    }
+
+    public function isCompany()
+    {
+        return $this->userable instanceof CompanyUser;
+    }
+
+    public function isAdmin()
+    {
+        return $this->userable instanceof Admin;
+    }
 
     public function sendEmailConfirmationNotification()
     {

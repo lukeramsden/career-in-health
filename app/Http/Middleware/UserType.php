@@ -2,6 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Admin;
+use App\CompanyUser;
+use App\Employee;
 use App\Enum\UserType as UserTypeEnum;
 use Closure;
 use Illuminate\Support\Facades\Auth;
@@ -17,24 +20,28 @@ class UserType
      */
     public function handle($request, Closure $next, $type)
     {
-        dd(Auth::user()->userable);
+        $user = Auth::user();
+        $userable = $user->userable;
+
         switch($type)
         {
-            case UserTypeEnum::EMPLOYEE:
-                {
-                    break;
-                }
-            case UserTypeEnum::COMPANY_USER:
-                {
-                    break;
-                }
-            case UserTypeEnum::ADMIN:
-                {
-                    break;
-                }
-
+            case 'employee':
+                if($userable instanceof Employee)
+                    return $next($request);
+                break;
+            case 'company':
+                if($userable instanceof CompanyUser)
+                    return $next($request);
+                break;
+            case 'admin':
+                if($userable instanceof Admin)
+                    return $next($request);
+                break;
+            default:
+                abort(500, '$type does not match any user type');
         }
 
-        return $next($request);
+        abort(400, 'wrong user type');
+        return back();
     }
 }
