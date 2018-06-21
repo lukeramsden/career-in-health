@@ -20,7 +20,7 @@ class AdvertController extends Controller
         $this->request = $request;
 
         $this->middleware('auth')->except('show');
-        $this->middleware('only.employer')->except('show');
+        $this->middleware('user-type:company')->except('show');
 
         // editor ownership
         $this->middleware(function($request, Closure $next) {

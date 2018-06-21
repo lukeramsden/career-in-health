@@ -17,7 +17,7 @@ class PersonnelFileController extends Controller
         $this->request = $request;
 
         $this->middleware('auth');
-        $this->middleware('only.employee');
+        $this->middleware('user-type:employee');
     }
 
     public function __destruct()

@@ -1,8 +1,5 @@
 @extends('layouts.base')
 @section('b_content')
-    @auth
-        @php($msgCount = Auth::user()->unreadMessages()->count())
-    @endauth
     <div id="navbar" class="d-none d-lg-block">
         <a href="{{ route(Auth::check() ? 'dashboard' : 'home') }}">
             <img class="logo" src="/images/cih-logo.svg" alt="logo">
@@ -25,8 +22,8 @@
                         
                         <small class="text-muted">Profile</small>
                         
-                        <a class="nav-link {{ active_route('company.show.me') }}" href="{{ route('company.show.me') }}">My Profile</a>
-                        <a class="nav-link {{ active_route('company.edit') }}" href="{{ route('company.edit') }}">Edit Profile</a>
+                        {{--<a class="nav-link {{ active_route('company.show.me') }}" href="{{ route('company.show.me') }}">My Profile</a>--}}
+                        {{--<a class="nav-link {{ active_route('company.edit') }}" href="{{ route('company.edit') }}">Edit Profile</a>--}}
                         
                         {{----}}
                         
@@ -50,8 +47,8 @@
                         
                         <small class="text-muted">Profile</small>
                         
-                        <a class="nav-link {{ active_route('profile.show.me') }}" href="{{ route('profile.show.me') }}">View Profile</a>
-                        <a class="nav-link {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Profile</a>
+                        {{--<a class="nav-link {{ active_route('profile.show.me') }}" href="{{ route('profile.show.me') }}">View Profile</a>--}}
+                        {{--<a class="nav-link {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Profile</a>--}}
                         <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
                         
                         {{----}}
@@ -74,9 +71,7 @@
                                onclick="navSectionClick(this)"
                                href="javascript:">
                                 Messages
-                                @if($msgCount > 0)
-                                    <span class="badge badge-danger p-1">{{ $msgCount }}</span>
-                                @endif
+                                <span class="badge badge-danger p-1">1</span>
                             </a>
                             <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
                                 <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
@@ -145,11 +140,11 @@
                             <small class="text-light">Profile</small>
                             
                             <li class="nav-item">
-                                <a class="nav-link {{ active_route('company.show.me') }}" href="{{ route('company.show.me') }}">My Profile</a>
+{{--                                <a class="nav-link {{ active_route('company.show.me') }}" href="{{ route('company.show.me') }}">My Profile</a>--}}
                             </li>
                             
                             <li class="nav-item">
-                                <a class="nav-link {{ active_route('company.edit') }}" href="{{ route('company.edit') }}">Edit Profile</a>
+                                {{--<a class="nav-link {{ active_route('company.edit') }}" href="{{ route('company.edit') }}">Edit Profile</a>--}}
                             </li>
                             
                             {{----}}
@@ -183,10 +178,10 @@
                             <small class="text-light">Profile</small>
                             
                             <li class="nav-item">
-                                <a class="nav-link {{ active_route('profile.show.me') }}" href="{{ route('profile.show.me') }}">View Profile</a>
+{{--                                <a class="nav-link {{ active_route('profile.show.me') }}" href="{{ route('profile.show.me') }}">View Profile</a>--}}
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Profile</a>
+{{--                                <a class="nav-link {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Profile</a>--}}
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
@@ -217,9 +212,7 @@
                                        onclick="navSectionClick(this)"
                                        href="javascript:">
                                         Messages
-                                        @if($msgCount > 0)
-                                            <span class="badge badge-danger p-1">{{ $msgCount }}</span>
-                                        @endif
+                                            <span class="badge badge-danger p-1">1</span>
                                     </a>
                                     <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
                                         <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>

@@ -186,9 +186,9 @@ class DashController extends Controller
         $user = Auth::user();
 
         if($user->isCompany())
-            return view('company.dashboard', ['items' => $this->dashCompany()]);
+            return view('company.dashboard', ['items' => new LengthAwarePaginator([], 0, 10)]);
         else
-            return view('employee.dashboard', ['items' => $this->dashEmployee()]);
+            return view('employee.dashboard', ['items' => new LengthAwarePaginator([], 0, 10)]);
     }
 
     /**

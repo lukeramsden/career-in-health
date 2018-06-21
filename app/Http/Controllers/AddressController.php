@@ -15,7 +15,7 @@ class AddressController extends Controller
         $this->request = $request;
 
         $this->middleware('auth');
-        $this->middleware('only.employer');
+        $this->middleware('user-type:company');
     }
 
     protected function rules()

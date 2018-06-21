@@ -17,7 +17,7 @@ class AdvertApplicationController extends Controller
         $this->request = $request;
 
         $this->middleware('auth')->except('create');
-        $this->middleware('only.employee')->except('update');
+        $this->middleware('user-type:employee')->except('update');
     }
 
     protected function rules(bool $internal)

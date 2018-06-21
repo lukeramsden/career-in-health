@@ -104,7 +104,7 @@ Route::prefix('cv')
         Route::put('preferences', 'Cv\CvPreferencesController@update')->name('preferences.update');
 
         Route::view('/', 'employee.cv.edit')
-            ->middleware(['auth', 'only.employee'])
+            ->middleware(['auth', 'user-type:employee'])
             ->name('builder');
 
         Route::get('/pdf/view', 'PersonnelFileController@view')->name('pdf.view');
