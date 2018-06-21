@@ -41,7 +41,7 @@ class UserType
                 abort(500, '$type does not match any user type');
         }
 
-        abort(400, 'wrong user type');
+        toast()->error('Access Denied.');
         return back();
     }
 }
