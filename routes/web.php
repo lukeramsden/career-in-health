@@ -55,8 +55,6 @@ Route::prefix('address')
         Route::any('/{address}/delete', 'AddressController@destroy')->name('destroy');
     });
 
-Route::get('/plans', 'SubscriptionController@index')->name('plans');
-
 Route::prefix('account')
     ->name('account.')
     ->group(function() {
@@ -70,14 +68,23 @@ Route::prefix('account')
         Route::post('/private-messages/{advert}/{user}', 'PrivateMessageController@store')->name('private-message.store');
     });
 
-Route::prefix('profile')
-    ->name('profile.')
-    ->group(function () {
-        Route::get("/", "ProfileController@showMe")->name('show.me');
-        Route::get("/edit", "ProfileController@edit")->name('edit');
-        Route::post("/edit", "ProfileController@update")->name('update');
-        Route::get("/{user}", "ProfileController@show")->name('show');
-    });
+//Route::prefix('profile')
+//    ->name('profile.')
+//    ->group(function () {
+//        Route::get("/", "ProfileController@showMe")->name('show.me');
+//        Route::get("/edit", "ProfileController@edit")->name('edit');
+//        Route::post("/edit", "ProfileController@update")->name('update');
+//        Route::get("/{user}", "ProfileController@show")->name('show');
+//    });
+//
+//Route::prefix('company')
+//    ->name('company.')
+//    ->group(function () {
+//        Route::get("/", "CompanyProfileController@showMe")->name('show.me');
+//        Route::post("/edit", "CompanyProfileController@update")->name('update');
+//        Route::get("/edit", "CompanyProfileController@edit")->name('edit');
+//        Route::get("/{company}", "CompanyProfileController@show")->name('show');
+//    });
 
 Route::prefix('cv')
     ->name('cv.')
@@ -102,15 +109,6 @@ Route::prefix('cv')
 
         Route::get('/pdf/view', 'PersonnelFileController@view')->name('pdf.view');
         Route::get('/pdf/download', 'PersonnelFileController@download')->name('pdf.download');
-    });
-
-Route::prefix('company')
-    ->name('company.')
-    ->group(function () {
-        Route::get("/", "CompanyProfileController@showMe")->name('show.me');
-        Route::post("/edit", "CompanyProfileController@update")->name('update');
-        Route::get("/edit", "CompanyProfileController@edit")->name('edit');
-        Route::get("/{company}", "CompanyProfileController@show")->name('show');
     });
 
 Route::prefix('tracking')

@@ -15,11 +15,11 @@
                                     </div>
                                     <div class="col-auto">
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" autocomplete="off" id="i_am-1" name="i_am" class="custom-control-input" value="{{ \App\Enum\IAm::Company }}" required {{ old('i_am') == \App\Enum\IAm::Company ? 'checked' : '' }}>
+                                            <input type="radio" autocomplete="off" id="i_am-1" name="i_am" class="custom-control-input" value="{{ \App\Enum\UserType::COMPANY_USER }}" required {{ old('i_am') == \App\Enum\UserType::COMPANY_USER ? 'checked' : '' }}>
                                             <label class="custom-control-label text-sm" for="i_am-1">Company</label>
                                         </div>
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" autocomplete="off" id="i_am-2" name="i_am" class="custom-control-input" value="{{ \App\Enum\IAm::Employee }}" required {{ old('i_am') == \App\Enum\IAm::Employee ? 'checked' : '' }}>
+                                            <input type="radio" autocomplete="off" id="i_am-2" name="i_am" class="custom-control-input" value="{{ \App\Enum\UserType::EMPLOYEE }}" required {{ old('i_am') == \App\Enum\UserType::EMPLOYEE ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="i_am-2">Employee</label>
                                         </div>
                                     </div>
@@ -77,22 +77,6 @@
                                     <div class="invalid-feedback">{{ $errors->first('password') }}</div>
                                 @endif
                             </div>
-                            
-                            <div class="form-group" style="{{ old('i_am') == \App\Enum\IAm::Company ? '' : 'display:none;' }}" id="company-name-group">
-                                <small class="text-muted">Company Name (<span class='text-action'>*</span>)</small>
-                                <input
-                                type="text"
-                                name="company_name"
-                                class="form-control {{ $errors->has('company_name') ? 'is-invalid' : '' }}"
-                                placeholder="Company Name"
-                                value="{{ old('company_name') }}"
-                                {{-- TODO: make this field required when its displayed --}}
-                                >
-                            
-                                @if ($errors->has('company_name'))
-                                    <div class="invalid-feedback">{{ $errors->first('company_name') }}</div>
-                                @endif
-                            </div>
     
                             <div class="form-group">
                                 <div class="form-check">
@@ -130,11 +114,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('script')
-    <script>
-        $( 'input[name="i_am"]:radio' ).change(function() {
-            $('#company-name-group')[this.value === '{{ \App\Enum\IAm::Company }}' ? 'slideDown' : 'slideUp']("slow", "easeInOutExpo");
-        });
-    </script>
 @endsection

@@ -10,14 +10,12 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'email',
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    protected $with = ['profile'];
 
     protected static function boot() {
         parent::boot();
@@ -26,18 +24,23 @@ class User extends Authenticatable
         });
     }
 
-    public function sendPasswordResetNotification($token)
+    public function type()
     {
-        $this->notify(new \App\Notifications\ResetPassword($token));
+        return $this->hasOne(UserType::class);
     }
+
+    public function userable()
+   {
+       return $this->morphTo();
+   }
 
     public function sendEmailConfirmationNotification()
     {
         $this->notify(new \App\Notifications\ConfirmEmail($this));
     }
 
-    public function cv()
+    public function sendPasswordResetNotification($token)
     {
-        return $this->hasOne(Cv\Cv::class);
+        $this->notify(new \App\Notifications\ResetPassword($token));
     }
 }

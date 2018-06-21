@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\CompanyUser;
+use App\Employee;
+use App\Enum\UserType;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -52,12 +55,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $rules = [
-            'i_am' => [
-                'required', 'integer',
-                Rule::in(\App\UserType::where('id' ,'>' ,0)
-                    ->pluck('id')
-                    ->toArray())
-            ],
+            'i_am' => [ 'required', 'string', Rule::in(array_values(UserType::all())) ],
             'first_name' => 'required|string|max:255',
             'last_name'  => 'string|max:255',
             'email'      => 'required|string|email|max:255|unique:users',
@@ -84,8 +82,26 @@ class RegisterController extends Controller
         $user->password = Hash::make($data['password']);
         $user->save();
 
-        // TODO: user type stuff
+        switch($data['i_am'])
+        {
+            case UserType::EMPLOYEE:
+                {
+                    $userable = new Employee();
+                    break;
+                }
+            case UserType::COMPANY_USER:
+                {
+                    $userable = new CompanyUser();
+                    break;
+                }
+        }
 
+        $userable->first_name = $data['first_name'];
+
+        if(isset($data['last_name']))
+            $userable->last_name = $data['last_name'];
+
+        $user->userable()->save($userable);
         $user->save();
         return $user;
     }
