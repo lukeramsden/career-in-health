@@ -24,11 +24,6 @@ class User extends Authenticatable
         });
     }
 
-    public function type()
-    {
-        return $this->hasOne(UserType::class);
-    }
-
     public function userable()
    {
        return $this->morphTo();
