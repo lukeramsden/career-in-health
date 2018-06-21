@@ -92,7 +92,6 @@ class RegisterController extends Controller
                 }
         }
 
-        // save userable
         $userable->first_name = $data['first_name'];
         if(isset($data['last_name']))
             $userable->last_name = $data['last_name'];
@@ -102,7 +101,7 @@ class RegisterController extends Controller
         $user->email = $data['email'];
         $user->confirmation_code = str_random(30);
         $user->password = Hash::make($data['password']);
-        $user->userable()->associate($userable); // attach userable to user
+        $user->userable()->associate($userable);
         $user->save();
 
         return $user;

@@ -11,9 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(AdvertSeeder::class);
-        $this->call(AddressSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(PrivateMessageSeeder::class);
     }
 }
