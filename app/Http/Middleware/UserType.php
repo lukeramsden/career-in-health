@@ -2,11 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Admin;
-use App\CompanyUser;
-use App\Employee;
-use App\Enum\UserType as UserTypeEnum;
-use Closure;
 use Illuminate\Support\Facades\Auth;
 
 class UserType
@@ -18,7 +13,7 @@ class UserType
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $type)
+    public function handle($request, \Closure $next, $type)
     {
         $user = Auth::user();
         $userable = $user->userable;
@@ -26,15 +21,15 @@ class UserType
         switch($type)
         {
             case 'employee':
-                if($userable instanceof Employee)
+                if($userable instanceof \App\Employee)
                     return $next($request);
                 break;
             case 'company':
-                if($userable instanceof CompanyUser)
+                if($userable instanceof \App\CompanyUser)
                     return $next($request);
                 break;
             case 'admin':
-                if($userable instanceof Admin)
+                if($userable instanceof \App\Admin)
                     return $next($request);
                 break;
             default:
