@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Company;
 use App\CompanyUser;
 use App\Employee;
 use App\Enum\UserType;
@@ -76,12 +77,7 @@ class RegisterController extends Controller
     {
         $this->redirectTo = route('dashboard');
 
-        $user = new User();
-        $user->email = $data['email'];
-        $user->confirmation_code = str_random(30);
-        $user->password = Hash::make($data['password']);
-        $user->save();
-
+        // create userable of correct type
         switch($data['i_am'])
         {
             case UserType::EMPLOYEE:
@@ -96,13 +92,19 @@ class RegisterController extends Controller
                 }
         }
 
+        // save userable
         $userable->first_name = $data['first_name'];
-
         if(isset($data['last_name']))
             $userable->last_name = $data['last_name'];
+        $userable->save();
 
-        $user->userable()->save($userable);
+        $user = new User();
+        $user->email = $data['email'];
+        $user->confirmation_code = str_random(30);
+        $user->password = Hash::make($data['password']);
+        $user->userable()->associate($userable); // attach userable to user
         $user->save();
+
         return $user;
     }
 
