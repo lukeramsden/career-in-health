@@ -324,7 +324,7 @@
         Vue.component('cv-section-single', {
             template: '#template__cv_section_single',
             props: ['schema', 'model'],
-        })
+        });
         
         Vue.component('cv-section-multiple', {
             template: '#template__cv_section_multiple',
@@ -417,7 +417,7 @@
                     const multiple      = _.get(this, 'multiple');
                     const hasFileInput  = inputTypes.includes('file');
                     
-                    let options = {}
+                    let options = {};
                     
                     if(hasFileInput) {
                         const files = fields
@@ -425,7 +425,7 @@
                             .compact()
                             .value();
                             
-                        _.set(options, ['headers', 'Content-Type'], 'multipart/form-data')
+                        _.set(options, ['headers', 'Content-Type'], 'multipart/form-data');
                         options.data = new FormData();
                         
                         for(file in files)
@@ -539,7 +539,7 @@
                 '<div class="sk-circle11 sk-circle"></div>' +
                 '<div class="sk-circle12 sk-circle"></div>' +
             '</div>',
-        })
+        });
         
         Vue.component('date-picker', {
             template: '#template__date-picker',
@@ -561,7 +561,7 @@
           template: '#template__select2',
           props: ['options', 'value'],
           mounted: function () {
-            var vm = this
+            var vm = this;
             $(this.$el)
               // init select2
               .select2({
@@ -590,7 +590,7 @@
           destroyed: function () {
             $(this.$el).off().select2('destroy')
           }
-        })
+        });
         
         Vue.component('file-upload', {
             template: '#template__file_upload',
@@ -619,7 +619,7 @@
                     });
                 },
             },
-        })
+        });
         
         const schemas = [
             {
@@ -883,18 +883,18 @@
                     },
                 ]
             },
-        ]
+        ];
         
         let data = {
             model: {
-                @php($cv = Auth::user()->cv)
+                @php($cv = Auth::user()->userable->cv)
                 preferences: {!! optional($cv->preferences)->toJson() ?? '{}'!!},
                 education: {!! optional($cv->education)->toJson() ?? '[]'!!},
                 work_experience: {!! optional($cv->workExperience)->toJson() ?? '[]'!!},
                 certifications: {!! optional($cv->certifications)->toJson() ?? '[]'!!},
             },
             schemas: schemas,
-        }
+        };
         
         Vue.filter('truncate', (text, length, clamp) => {
             clamp = clamp || '...';
