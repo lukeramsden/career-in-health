@@ -11,6 +11,13 @@ class Cv extends Model
     protected static function boot() {
         parent::boot();
 
+        static::created(function(Cv $cv) {
+           $preferences = new CvPreferences();
+           $preferences->save();
+           $cv->preferences_id = $preferences->id;
+           $cv->save();
+        });
+
         static::deleting(function(Cv $cv) {
             $cv->education()     ->delete();
             $cv->workExperience()->delete();

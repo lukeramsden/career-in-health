@@ -13,8 +13,14 @@ class Employee extends Model
     protected static function boot() {
         parent::boot();
 
-        static::deleting(function(Cv\Cv $cv) {
-            $cv->delete();
+        static::created(function(Employee $employee) {
+            $cv = new Cv\Cv();
+            $employee->cv()->save($cv);
+            $employee->save();
+        });
+
+        static::deleting(function(Employee $employee) {
+            $employee->cv()->delete();
         });
     }
 
