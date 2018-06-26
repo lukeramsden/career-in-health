@@ -34,6 +34,29 @@ class UserSeeder extends Seeder
 
     private function createCompanyUser()
     {
-        
+        $user = factory(\App\User::class)
+            ->create([
+                'email' => 'company@karma.com',
+            ]);
+
+        $userable = new \App\CompanyUser([
+            'first_name' => 'James',
+            'last_name' => 'Waring',
+        ]);
+
+        $userable->save();
+        $user->userable()->associate($userable);
+        $user->save();
+
+        $company = factory(\App\Company::class)
+            ->create([
+                'name' => 'Karma AS',
+                'created_by_user_id' => $user->id,
+            ]);
+
+        $company->users()->save($userable);
+        $company->save();
+        $userable->save();
+        $user->save();
     }
 }

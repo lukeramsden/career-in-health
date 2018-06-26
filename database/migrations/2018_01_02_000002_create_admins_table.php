@@ -32,6 +32,7 @@ class CreateAdminsTable extends Migration
         $userable->first_name = 'Admin';
         $userable->save();
         $user->userable()->associate($userable);
+        $user->save();
     }
 
     /**
