@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Company extends Model
 {
-    protected $fillable = ['name', 'headline', 'location', 'description', 'phone', 'contact_email'];
+    protected $fillable = ['name', 'avatar'];
 
     protected static function boot() {
         parent::boot();
@@ -40,6 +40,6 @@ class Company extends Model
 
     public function picture()
     {
-        return $this->avatar_path ? Storage::url($this->avatar_path) : null;
+        return $this->avatar ? Storage::url($this->avatar) : null;
     }
 }

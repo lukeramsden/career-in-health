@@ -147,6 +147,10 @@ class RegisterController extends Controller
         toast()
             ->success('You have successfully confirmed your email!')
             ->info('You are now logged in.');
+
+        if($user->isCompany() && !$user->userable->company()->exists())
+            return redirect(route('company.create'));
+
         return redirect(route('dashboard'));
     }
 

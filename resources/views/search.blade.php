@@ -150,8 +150,7 @@
     </div>
 @endsection
 @section('stylesheet')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
     <style>
         .noUi-tooltip {
             display: none;
@@ -179,7 +178,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.0.3/nouislider.min.js" integrity="sha256-oj880/QiddQHkKfC9iOmsu+Hu5V4KCHfS3RY3RaZdZc=" crossorigin="anonymous"></script>
     
     <script>
-        $(document).ready(function () {
+        $(function () {
             $('.town-control').select2({
                 dropdownAutoWidth : true,
                 width: '100%'

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container-fluid" id="register-container-parent">
-        <div class="card" id="register-container">
+    <div class="container-fluid sleek-form-parent">
+        <div class="card sleek-form">
             <div class="card-body">
                 <div class="form-row">
                     <div class="col col-12 col-xl-6">
@@ -103,8 +103,8 @@
                         </form>
                     </div>
                     <div class="col col-12 col-xl-6 order-first order-xl-last">
-                        <div id="register-form-help-container">
-                            <div id="register-form-help-inner">
+                        <div class="sleek-form-help-container">
+                            <div class="sleek-form-help-inner">
                                 <h2>Create a FREE Account</h2>
                                 <p>With over 50 years of recruitment industry experience, we offer executive search, selection and contingency recruitment services for permanent, contract and temporary requirements.</p>
                             </div>

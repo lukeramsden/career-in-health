@@ -17,6 +17,7 @@ class DashController extends Controller
         $this->request = $request;
 
         $this->middleware('auth');
+        $this->middleware('company-created');
     }
 
     protected function dashCompany()

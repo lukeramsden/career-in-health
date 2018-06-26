@@ -16,7 +16,7 @@
                 @auth
                     <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
                     
-                    @if(Auth::user()->isCompany())
+                    @if(Auth::user()->isValidCompany())
                         
                         {{----}}
                         
@@ -133,7 +133,7 @@
                             <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
                         
-                        @if(Auth::user()->isCompany())
+                        @if(Auth::user()->isValidCompany())
                             
                             {{----}}
                             

@@ -39,6 +39,16 @@ class User extends Authenticatable
         return $this->userable instanceof CompanyUser;
     }
 
+    /**
+     * Checks if is company user AND if company is valid
+     *
+     * @return bool
+     */
+    public function isValidCompany()
+    {
+        return $this->isCompany() && $this->userable->company()->exists();
+    }
+
     public function isAdmin()
     {
         return $this->userable instanceof Admin;

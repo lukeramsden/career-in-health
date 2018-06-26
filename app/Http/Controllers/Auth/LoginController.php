@@ -55,6 +55,12 @@ class LoginController extends Controller
             return redirect(route('prompt-confirm-email'));
         }
 
+        if($user->isCompany() && !$user->userable->company()->exists())
+        {
+            toast()->error('You must create a company first.');
+            return redirect(route('company.create'));
+        }
+
         return null;
     }
 
@@ -71,5 +77,4 @@ class LoginController extends Controller
             'password' => 'required|string|min:6',
         ]);
     }
-
 }

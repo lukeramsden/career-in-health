@@ -76,15 +76,13 @@ Route::prefix('account')
 //        Route::post("/edit", "ProfileController@update")->name('update');
 //        Route::get("/{user}", "ProfileController@show")->name('show');
 //    });
-//
-//Route::prefix('company')
-//    ->name('company.')
-//    ->group(function () {
-//        Route::get("/", "CompanyProfileController@showMe")->name('show.me');
-//        Route::post("/edit", "CompanyProfileController@update")->name('update');
-//        Route::get("/edit", "CompanyProfileController@edit")->name('edit');
-//        Route::get("/{company}", "CompanyProfileController@show")->name('show');
-//    });
+
+Route::prefix('company')
+    ->name('company.')
+    ->group(function () {
+        Route::get("/new", "CompanyController@create")->name('create');
+        Route::post("/new", "CompanyController@store")->name('store');
+    });
 
 Route::prefix('cv')
     ->name('cv.')

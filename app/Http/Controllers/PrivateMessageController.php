@@ -18,6 +18,7 @@ class PrivateMessageController extends Controller
         $this->request = $request;
 
         $this->middleware('auth');
+        $this->middleware('company-created');
         $this->middleware(function($request, Closure $next) {
             $message = $request->route('message');
 
