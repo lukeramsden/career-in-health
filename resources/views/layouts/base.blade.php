@@ -26,7 +26,7 @@
     <body>
         @yield('b_content')
 
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="{{ asset('js/app.js') }}"></script>
         @yield('b_script')
         @include('toast::messages-jquery')
