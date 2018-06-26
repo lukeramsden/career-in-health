@@ -21,6 +21,7 @@ class User extends Authenticatable
         parent::boot();
 
         static::deleting(function(User $user) {
+            $user->userable()->delete();
         });
     }
 

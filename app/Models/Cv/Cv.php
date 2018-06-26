@@ -19,9 +19,9 @@ class Cv extends Model
         });
     }
 
-    public function user()
+    public function employee()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(\App\Employee::class);
     }
 
     public function education()
