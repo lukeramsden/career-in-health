@@ -41,7 +41,7 @@
                         
                         {{----}}
                     
-                    @else
+                    @elseif(Auth::user()->isEmployee())
                         
                         {{----}}
                         
@@ -171,7 +171,7 @@
                             
                             {{----}}
                         
-                        @else
+                        @elseif(Auth::user()->isEmployee())
                             
                             {{----}}
                             
