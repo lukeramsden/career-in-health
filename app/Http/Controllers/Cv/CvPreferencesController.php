@@ -41,7 +41,7 @@ class CvPreferencesController extends Controller
 
         $data['willing_to_relocate'] = $data['willing_to_relocate'] ?? false;
 
-        $cv = Auth::user()->cv;
+        $cv = Auth::user()->userable->cv;
 
         if($cv->preferences()->exists())
         {

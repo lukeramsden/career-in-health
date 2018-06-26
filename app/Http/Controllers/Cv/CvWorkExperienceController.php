@@ -36,7 +36,7 @@ class CvWorkExperienceController extends Controller
         $data = $this->request->validate(self::rules());
 
         $workExperience = new CvWorkExperience();
-        $workExperience->cv_id = Auth::user()->cv->id;
+        $workExperience->cv_id = Auth::user()->userable->cv->id;
         $workExperience->fill($data);
         $workExperience->save();
 

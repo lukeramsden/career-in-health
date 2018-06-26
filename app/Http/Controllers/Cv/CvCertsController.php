@@ -53,7 +53,7 @@ class CvCertsController extends Controller
             }
         }
 
-        $certification->cv_id = Auth::user()->cv->id;
+        $certification->cv_id = Auth::user()->userable->cv->id;
         $certification->fill($data);
         $certification->save();
 

@@ -36,7 +36,7 @@ class CvEducationController extends Controller
         $data = $this->request->validate(self::rules());
 
         $education = new CvEducation();
-        $education->cv_id = Auth::user()->cv->id;
+        $education->cv_id = Auth::user()->userable->cv->id;
         $education->fill($data);
         $education->save();
 
