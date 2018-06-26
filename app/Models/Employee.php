@@ -33,4 +33,9 @@ class Employee extends Model
     {
         return $this->hasOne(Cv\Cv::class);
     }
+
+    public function applications()
+    {
+        return $this->hasMany(AdvertApplication::class);
+    }
 }

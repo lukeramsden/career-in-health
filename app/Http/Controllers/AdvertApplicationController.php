@@ -37,6 +37,7 @@ class AdvertApplicationController extends Controller
                 'applications' =>
                     Auth
                         ::user()
+                        ->userable
                         ->applications()
                         ->with('user', 'advert', 'advert.company', 'advert.jobRole')
                         ->orderBy('created_at', 'desc')
