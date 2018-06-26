@@ -16,7 +16,7 @@ class CheckCompanyCreated
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->userable->company()->exists())
+        if(Auth::check() && Auth::user()->isCompany() && Auth::user()->isValidCompany())
             return $next($request);
 
         return redirect(route('company.create'));
