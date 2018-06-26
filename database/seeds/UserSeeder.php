@@ -29,6 +29,7 @@ class UserSeeder extends Seeder
 
         $userable->save();
         $user->userable()->associate($userable);
+        $user->save();
     }
 
     private function createCompanyUser()
