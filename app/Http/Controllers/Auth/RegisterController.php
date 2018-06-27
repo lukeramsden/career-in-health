@@ -75,26 +75,29 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $this->redirectTo = route('dashboard');
-
-        // create userable of correct type
         switch($data['i_am'])
         {
             case UserType::EMPLOYEE:
                 {
                     $userable = new Employee();
+                    $this->redirectTo = route('cv.builder');
                     break;
                 }
             case UserType::COMPANY_USER:
                 {
                     $userable = new CompanyUser();
+                    $this->redirectTo = route('dashboard');
                     break;
                 }
+            default:
+                abort(400);
+                return null;
         }
 
         $userable->first_name = $data['first_name'];
         if(isset($data['last_name']))
             $userable->last_name = $data['last_name'];
+
         $userable->save();
 
         $user = new User();
@@ -151,7 +154,13 @@ class RegisterController extends Controller
         if($user->isCompany() && !$user->userable->company()->exists())
             return redirect(route('company.create'));
 
-        return redirect(route('dashboard'));
+        if($user->isEmployee())
+            return redirect(route('cv.builder'));
+
+        if($user->isCompany())
+            return redirect(route('dashboard'));
+
+        return abort(500);
     }
 
     public function prompt()
