@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use mikehaertl\pdftk\Pdf as PDFTk;
@@ -30,7 +31,7 @@ class PersonnelFileController extends Controller
     public function view() {
         return view('pdf.personnel')
             ->with([
-                'profile' => Auth::user()->profile,
+                'userable' => Auth::user()->userable,
                 'download' => false,
                 'embed' => $this->request->query('embed', false)
             ]);
@@ -38,14 +39,16 @@ class PersonnelFileController extends Controller
 
     public function download()
     {
-        $profile = Auth::user()->profile;
+        $userable = Auth::user()->userable;
+        if(!$userable instanceof Employee)
+            abort(500);
 
         // path to view-generated PDF
-        $viewName = '/tmp/' . PDFtk::TMP_PREFIX . $profile->first_name . $profile->last_name . "_" . md5(time()) . '_personnel_file_view.pdf';
+        $viewName = '/tmp/'.PDFtk::TMP_PREFIX.$userable->first_name.$userable->last_name."_".md5(time()).'_personnel_file_view.pdf';
         array_push($this->filesForDeletion, $viewName);
 
         PDF
-            ::loadView('pdf.personnel', ['profile' => $profile, 'download' => true, 'embed' => false])
+            ::loadView('pdf.personnel', ['profile' => $userable, 'download' => true, 'embed' => false])
             ->setPaper('a4')
             ->setOrientation('portrait')
             ->setOption('margin-bottom', 0)
@@ -53,17 +56,17 @@ class PersonnelFileController extends Controller
 
         // get array of files (keys are randomly generated)
         $certFilesArray = [];
-        foreach ($profile->user->cv->certifications->toArray() as $certification)
+        foreach ($userable->user->cv->certifications->toArray() as $certification)
         {
-            switch (mime_content_type(storage_path('app/' . $certification['file']))) {
+            switch (mime_content_type(storage_path('app/'.$certification['file']))) {
                 case 'application/pdf':
-                    $path = storage_path('app/' . $certification['file']);
+                    $path = storage_path('app/'.$certification['file']);
                     break;
                 case 'image/png':
                 case 'image/jpeg':
-                    $tmpPath = '/tmp/'.PDFtk::TMP_PREFIX.$profile->first_name.$profile->last_name.md5($certification['id'].time()).'.pdf';
+                    $tmpPath = '/tmp/'.PDFtk::TMP_PREFIX.$userable->first_name.$userable->last_name.md5($certification['id'].time()).'.pdf';
                     PDF
-                        ::loadView('pdf.image', ['src' => storage_path('app/' . $certification['file'])])
+                        ::loadView('pdf.image', ['src' => storage_path('app/'.$certification['file'])])
                         ->setPaper('a4')
                         ->setOrientation('portrait')
                         ->setOption('margin-top',0)
@@ -94,7 +97,7 @@ class PersonnelFileController extends Controller
             $appended->cat(null, null, $key);
 
         // name of cat'd PDF file
-        $appendedName = '/tmp/' . PDFtk::TMP_PREFIX . $profile->first_name . $profile->last_name . "_" . md5(time()) . '_personnel_file_appended.pdf';
+        $appendedName = '/tmp/'.PDFtk::TMP_PREFIX.$userable->first_name.$userable->last_name."_".md5(time()).'_personnel_file_appended.pdf';
         array_push($this->filesForDeletion, $appendedName);
 
         // Check for errors
@@ -119,7 +122,7 @@ class PersonnelFileController extends Controller
         array_push($this->filesForDeletion, $stampPath);
 
         // name of stamped PDF file
-        $stampedName = '/tmp/' . PDFtk::TMP_PREFIX . $profile->first_name . $profile->last_name . "_" . md5(time()) . '_personnel_file_stamped.pdf';
+        $stampedName = '/tmp/'.PDFtk::TMP_PREFIX.$userable->first_name.$userable->last_name."_".md5(time()).'_personnel_file_stamped.pdf';
         array_push($this->filesForDeletion, $stampedName);
 
         $stamped = new PDFTk($appended);
@@ -132,6 +135,6 @@ class PersonnelFileController extends Controller
             abort(500);
         }
 
-        return $stamped->send($profile->first_name . $profile->last_name . '.pdf', false);
+        return $stamped->send($userable->first_name.$userable->last_name.'.pdf', false);
     }
 }

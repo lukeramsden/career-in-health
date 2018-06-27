@@ -62,14 +62,14 @@
     </div>
     <div class="container page">
         <div class="section">
-            <h1 style="margin: 0;">{{ $profile->fullName() }}</h1>
-            <p><b>{{ $profile->location }}</b></p>
-            <p>{{ $profile->headline }}</p>
-            <p>{{ $profile->description }}</p>
-            <p>{{ $profile->user->email }}</p>
+            <h1 style="margin: 0;">{{ $userable->first_name.$userable->last_name }}</h1>
+            {{--<p><b>{{ $profile->location }}</b></p>--}}
+            {{--<p>{{ $profile->headline }}</p>--}}
+            {{--<p>{{ $profile->description }}</p>--}}
+            <p>{{ $userable->user->email }}</p>
         </div>
         <hr>
-        @php($cv = $profile->user->cv)
+        @php($cv = $userable->cv)
         @if($cv->education->count() > 0)
             <h4><em>Education</em></h4>
             
