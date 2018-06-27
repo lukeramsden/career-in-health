@@ -48,7 +48,7 @@ class PersonnelFileController extends Controller
         array_push($this->filesForDeletion, $viewName);
 
         PDF
-            ::loadView('pdf.personnel', ['profile' => $userable, 'download' => true, 'embed' => false])
+            ::loadView('pdf.personnel', ['userable' => $userable, 'download' => true, 'embed' => false])
             ->setPaper('a4')
             ->setOrientation('portrait')
             ->setOption('margin-bottom', 0)
@@ -56,7 +56,7 @@ class PersonnelFileController extends Controller
 
         // get array of files (keys are randomly generated)
         $certFilesArray = [];
-        foreach ($userable->user->cv->certifications->toArray() as $certification)
+        foreach ($userable->cv->certifications->toArray() as $certification)
         {
             switch (mime_content_type(storage_path('app/'.$certification['file']))) {
                 case 'application/pdf':
