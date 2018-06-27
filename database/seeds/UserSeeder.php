@@ -24,7 +24,8 @@ class UserSeeder extends Seeder
 
         $userable = new \App\Employee([
             'first_name' => 'Luke',
-            'last_name' => 'Ramsden'
+            'last_name' => 'Ramsden',
+            'location_id' => 4018,
         ]);
 
         $userable->save();
@@ -52,6 +53,7 @@ class UserSeeder extends Seeder
             ->create([
                 'name' => 'Karma AS',
                 'created_by_user_id' => $user->id,
+                'location_id' => 4018,
             ]);
 
         $company->users()->save($userable);

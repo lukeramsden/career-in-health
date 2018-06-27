@@ -68,20 +68,20 @@ Route::prefix('account')
         Route::post('/private-messages/{advert}/{user}', 'PrivateMessageController@store')->name('private-message.store');
     });
 
-//Route::prefix('profile')
-//    ->name('profile.')
-//    ->group(function () {
-//        Route::get("/", "ProfileController@showMe")->name('show.me');
-//        Route::get("/edit", "ProfileController@edit")->name('edit');
-//        Route::post("/edit", "ProfileController@update")->name('update');
-//        Route::get("/{user}", "ProfileController@show")->name('show');
-//    });
-
 Route::prefix('company')
     ->name('company.')
     ->group(function () {
-        Route::get("/new", "CompanyController@create")->name('create');
-        Route::post("/new", "CompanyController@store")->name('store');
+        Route::get('/new', 'CompanyController@create')->name('create');
+        Route::post('/new', 'CompanyController@store')->name('store');
+    });
+
+Route::prefix('employee')
+    ->name('employee.')
+    ->group(function() {
+        Route::get('/edit', 'EmployeeController@edit')->name('edit');
+        Route::post('/edit', 'EmployeeController@update')->name('update');
+        Route::get('/view/{employee}', 'EmployeeController@show')->name('show');
+        Route::get('/view/', 'EmployeeController@showMe')->name('show.me');
     });
 
 Route::prefix('cv')

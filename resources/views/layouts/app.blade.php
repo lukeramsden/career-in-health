@@ -47,8 +47,8 @@
                         
                         <small class="text-muted">Profile</small>
                         
-                        {{--<a class="nav-link {{ active_route('profile.show.me') }}" href="{{ route('profile.show.me') }}">View Profile</a>--}}
-                        {{--<a class="nav-link {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Profile</a>--}}
+                        <a class="nav-link {{ active_route('employee.show.me') }}" href="{{ route('employee.show.me') }}">View Profile</a>
+                        <a class="nav-link {{ active_route('employee.edit') }}" href="{{ route('employee.edit') }}">Edit Profile</a>
                         <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
                         
                         {{----}}
@@ -178,10 +178,10 @@
                             <small class="text-light">Profile</small>
                             
                             <li class="nav-item">
-{{--                                <a class="nav-link {{ active_route('profile.show.me') }}" href="{{ route('profile.show.me') }}">View Profile</a>--}}
+                                <a class="nav-link {{ active_route('employee.show.me') }}" href="{{ route('employee.show.me') }}">View Profile</a>
                             </li>
                             <li class="nav-item">
-{{--                                <a class="nav-link {{ active_route('profile.edit') }}" href="{{ route('profile.edit') }}">Edit Profile</a>--}}
+                                <a class="nav-link {{ active_route('employee.edit') }}" href="{{ route('employee.edit') }}">Edit Profile</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>

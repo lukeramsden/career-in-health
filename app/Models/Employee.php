@@ -3,11 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Employee extends Model
 {
     protected $fillable = [
-        'first_name', 'last_name', 'avatar'
+        'first_name', 'last_name', 'about', 'location_id'
     ];
 
     protected static function boot() {
@@ -38,4 +39,20 @@ class Employee extends Model
     {
         return $this->hasMany(AdvertApplication::class);
     }
+
+    public function location()
+    {
+        return $this->hasOne(Location::class, 'id', 'location_id');
+    }
+
+    public function fullName()
+    {
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
+
+    public function picture()
+    {
+        return $this->avatar ? Storage::url($this->avatar) : null;
+    }
+
 }
