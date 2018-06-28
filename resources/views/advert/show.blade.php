@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
-    @php($isOwner = optional(Auth::user())->isCompany() && Auth::user()->company_id === $advert->company_id)
+    @php($isOwner = optional(Auth::user())->isValidCompany() && Auth::user()->userable->company->id === $advert->company_id)
     <div class="container-fluid p-0 m-0">
         <div class="row m-0 p-4" id="advert-show-row">
             <div class="col-12">
                 <div class="card card-custom card-advert">
                     <div class="card-body">
-                        <a href="{{ route('company.show', [$advert->company]) }}" class="card-subtitle">
+                        <a href="javascript:{{-- route('company.show', [$advert->company]) --}}" class="card-subtitle">
                             {{$advert->company->name}}
                         </a>
                         <h4 class="card-title">{{$advert->jobRole->name}}</h4>
@@ -34,15 +34,17 @@
             <div class="col-12 col-md-4 order-md-last">
                 <div class="card card-custom card-advert" id="card-advert-contact-details">
                     <div class="card-body">
-                        <div class="mb-4">
-                            @isset($advert->company->phone)
+                        @isset($advert->company->phone)
+                            <div class="mb-4">
                                 <h5 class="align-middle"><span class="oi oi-phone text-muted"></span> <span class="text-muted">Phone:</span> <span>{{ $advert->company->phone }}</span></h5>
-                            @endisset
-                            
-                            @isset($advert->company->contact_email)
+                            </div>
+                        @endisset
+                        
+                        @isset($advert->company->contact_email)
+                            <div class="mb-4">
                                 <h5 class="align-middle"><span class="oi oi-envelope-closed text-muted"></span> <span class="text-muted">Email:</span> <span>{{ $advert->company->contact_email }}</span></h5>
-                            @endisset
-                        </div>
+                            </div>
+                        @endisset
                     
                         @guest
                             <a href="{{ route('register') }}" class="btn btn-block btn-action">Sign Up To Apply</a>
@@ -50,7 +52,7 @@
                         @auth
                             @if($isOwner)
                                 <a href="{{ route('advert.show.applications', [$advert]) }}" class="btn btn-block btn-link">View Applications</a>
-                            @elseif(Auth::user()->isCompany())
+                            @elseif(Auth::user()->isValidCompany())
                                 <button type="button" disabled class="btn btn-block btn-secondary">You can't apply</button>
                             @else
                                 @if(!\App\AdvertApplication::hasApplied(Auth::user(), $advert))

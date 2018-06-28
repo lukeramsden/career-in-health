@@ -21,7 +21,7 @@ class AdvertController extends Controller
 
         $this->middleware('auth')->except('show');
         $this->middleware('user-type:company')->except('show');
-        $this->middleware('company-created');
+        $this->middleware('company-created')->except('show');
 
         // editor ownership
         $this->middleware(function($request, Closure $next) {
@@ -31,7 +31,7 @@ class AdvertController extends Controller
             if(!isset($advert))
                 return $next($request);
 
-            if($user->isCompany() && $user->company_id === $advert->company_id)
+            if($user->isCompany() && $user->userable->company->id === $advert->company_id)
                 return $next($request);
 
             if(ajax())
@@ -51,7 +51,7 @@ class AdvertController extends Controller
                 return $next($request);
             }
 
-            if($user->isCompany() && $user->company_id === $address->company_id)
+            if($user->isCompany() && $user->userable->company->id === $address->company_id)
                 return $next($request);
 
             if(ajax())
@@ -107,6 +107,7 @@ class AdvertController extends Controller
                 'adverts' =>
                     Auth
                         ::user()
+                        ->userable
                         ->company
                         ->adverts()
                         ->with('applications')
@@ -166,11 +167,14 @@ class AdvertController extends Controller
 
         $advert = new Advert();
         $advert->fill($data);
-        $advert->company_id = Auth::user()->company_id;
+        $advert->company_id = Auth::user()->userable->company->id;
         $advert->created_by_user_id = Auth::user()->id;
         $advert->published = !$savingForLater;
         $advert->last_edited = Carbon::now();;
         $advert->save();
+
+        if(Auth::user()->onboarding()->inProgress())
+            return redirect(Auth::user()->onboarding()->nextUnfinishedStep()->link);
 
         if(ajax())
             return response()->json(['success' => true, 'model' => $advert], 200);

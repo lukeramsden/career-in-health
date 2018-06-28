@@ -215,7 +215,7 @@
             },
             data() {
                 return {
-                    addresses: {!! Auth::user()->company->addresses->toJson() !!}
+                    addresses: {!! Auth::user()->userable->company->addresses->toJson() !!}
                 };
             },
             mounted() {

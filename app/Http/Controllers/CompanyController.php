@@ -53,6 +53,9 @@ class CompanyController extends Controller
         $user->userable->company_id = $company->id;
         $user->userable->save();
 
+        if(Auth::user()->onboarding()->inProgress())
+            return redirect(Auth::user()->onboarding()->nextUnfinishedStep()->link);
+
         return redirect(route('dashboard'));
     }
 }

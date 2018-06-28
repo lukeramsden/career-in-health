@@ -65,9 +65,12 @@ class AddressController extends Controller
         $data = $this->request->validate(self::rules());
 
         $address = new Address();
-        $address->company_id = Auth::user()->company_id;
+        $address->company_id = Auth::user()->userable->company->id;
         $address->fill($data);
         $address->save();
+
+        if(Auth::user()->onboarding()->inProgress())
+            return redirect(Auth::user()->onboarding()->nextUnfinishedStep()->link);
 
         if(ajax())
             return response()->json(['success' => true, 'model' => $address], 200);
