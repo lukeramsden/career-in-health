@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Advert;
 use App\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
@@ -88,6 +89,9 @@ class SearchController extends Controller
 
         if(count($advertIds) > 0)
             Advert::whereIn('id', $advertIds)->increment('search_impressions');
+
+        if(Auth::check() && Auth::user()->isEmployee())
+            Auth::user()->userable()->increment('times_searched');
 
         return view('search')
             ->with([

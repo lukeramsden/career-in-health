@@ -20,7 +20,7 @@ class CvCert extends AbstractCvItemModel
     ];
 
     protected $appends = [
-        'url',
+        'url', 'is_edited'
     ];
 
     protected static function boot() {

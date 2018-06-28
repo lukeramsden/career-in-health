@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cv extends Model
 {
+    protected $appends = ['is_edited'];
+
+    public function getIsEditedAttribute()
+    {
+         return $this->attributes['is_edited'] = ($this->created_at != $this->updated_at) ? true : false;
+    }
+
     protected $fillable = [];
 
     protected static function boot() {
@@ -23,6 +30,10 @@ class Cv extends Model
             $cv->workExperience()->delete();
             $cv->certifications()->delete();
             $cv->preferences()   ->delete();
+        });
+
+        static::saved(function(Cv $cv) {
+
         });
     }
 

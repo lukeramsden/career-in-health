@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Storage;
 
 class Employee extends Model
 {
+    protected $appends = ['is_edited'];
+
+    public function getIsEditedAttribute()
+    {
+         return $this->attributes['is_edited'] = ($this->created_at != $this->updated_at) ? true : false;
+    }
+
     protected $fillable = [
         'first_name', 'last_name', 'about', 'location_id'
     ];
@@ -54,5 +61,4 @@ class Employee extends Model
     {
         return $this->avatar ? Storage::url($this->avatar) : null;
     }
-
 }

@@ -80,13 +80,11 @@ class RegisterController extends Controller
             case UserType::EMPLOYEE:
                 {
                     $userable = new Employee();
-                    $this->redirectTo = route('cv.builder');
                     break;
                 }
             case UserType::COMPANY_USER:
                 {
                     $userable = new CompanyUser();
-                    $this->redirectTo = route('dashboard');
                     break;
                 }
             default:
@@ -151,16 +149,13 @@ class RegisterController extends Controller
             ->success('You have successfully confirmed your email!')
             ->info('You are now logged in.');
 
-        if($user->isCompany() && !$user->userable->company()->exists())
-            return redirect(route('company.create'));
+        if($user->isCompany())
+            return redirect(route('company-user.edit'));
 
         if($user->isEmployee())
-            return redirect(route('cv.builder'));
+            return redirect(route('employee.edit'));
 
-        if($user->isCompany())
-            return redirect(route('dashboard'));
-
-        return abort(500);
+        return redirect(route('dashboard'));
     }
 
     public function prompt()

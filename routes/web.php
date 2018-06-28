@@ -84,6 +84,15 @@ Route::prefix('employee')
         Route::get('/view/', 'EmployeeController@showMe')->name('show.me');
     });
 
+Route::prefix('company-user')
+    ->name('company-user.')
+    ->group(function() {
+        Route::get('/edit', 'CompanyUserController@edit')->name('edit');
+        Route::post('/edit', 'CompanyUserController@update')->name('update');
+        Route::get('/view/{companyUser}', 'CompanyUserController@show')->name('show');
+        Route::get('/view/', 'CompanyUserController@showMe')->name('show.me');
+    });
+
 Route::prefix('cv')
     ->name('cv.')
     ->group(function () {

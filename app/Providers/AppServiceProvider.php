@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -53,6 +55,10 @@ class AppServiceProvider extends ServiceProvider
                 . '$/i';
 
             return preg_match($validation_expression, $value);
+        });
+
+        Blade::if('onboarding', function () {
+            return Auth::check() && Auth::user()->onboarding()->inProgress();
         });
     }
 

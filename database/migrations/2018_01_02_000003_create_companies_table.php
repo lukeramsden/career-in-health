@@ -18,8 +18,9 @@ class CreateCompaniesTable extends Migration
             $table->integer('created_by_user_id');
             $table->string('name')->unique();
             $table->string('avatar')->nullable();
-            $table->integer('location_id')->unsigned();
+            $table->integer('location_id')->nullable()->unsigned();
             $table->foreign('location_id')->references('id')->on('locations');
+            $table->string('about', 500)->nullable();
             $table->timestamps();
         });
     }

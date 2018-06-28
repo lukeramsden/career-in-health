@@ -1,5 +1,6 @@
 @extends('layouts.base')
 @section('b_content')
+    {{-- side nav --}}
     <div id="navbar" class="d-none d-lg-block">
         <a href="{{ route(Auth::check() ? 'dashboard' : 'home') }}">
             <img class="logo" src="/images/cih-logo.svg" alt="logo">
@@ -14,92 +15,110 @@
                 @endguest
                 
                 @auth
-                    <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
-                    
-                    @if(Auth::user()->isValidCompany())
-                        
-                        {{----}}
-                        
-                        <small class="text-muted">Profile</small>
-                        
-                        {{--<a class="nav-link {{ active_route('company.show.me') }}" href="{{ route('company.show.me') }}">My Profile</a>--}}
-                        {{--<a class="nav-link {{ active_route('company.edit') }}" href="{{ route('company.edit') }}">Edit Profile</a>--}}
-                        
-                        {{----}}
-                        
-                        <small class="text-muted">Adverts</small>
-                        
-                        <a class="nav-link nav-link-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
-                        <a class="nav-link {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">My Adverts</a>
-                        
-                        {{----}}
-                        
-                        <small class="text-muted">Addresses</small>
-                        
-                        <a class="nav-link {{ active_route('address.create') }}" href="{{ route('address.create') }}">Create New Address</a>
-                        <a class="nav-link {{ active_route(['address.index', 'address.edit', 'address.show.*']) }}" href="{{ route('address.index') }}">My Addresses</a>
-                        
-                        {{----}}
-                    
-                    @elseif(Auth::user()->isEmployee())
-                        
-                        {{----}}
-                        
-                        <small class="text-muted">Profile</small>
-                        
-                        <a class="nav-link {{ active_route('employee.show.me') }}" href="{{ route('employee.show.me') }}">View Profile</a>
-                        <a class="nav-link {{ active_route('employee.edit') }}" href="{{ route('employee.edit') }}">Edit Profile</a>
-                        <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
-                        
-                        {{----}}
-                        
-                        <small class="text-muted">Get Hired</small>
-                        
-                        <a class="nav-link nav-link-action {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
-                        
-                        <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
-                    @endif
-                    
-                    {{----}}
-                    
-                    <small class="text-muted">Account</small>
-                    
-                    <div class="nav-section-parent">
-                        @set('activeRoute', active_route('account.private-message.*'))
-                        <div class="nav-section {{ $activeRoute }}">
-                            <a class="nav-link nav-section-title"
-                               onclick="navSectionClick(this)"
-                               href="javascript:">
-                                Messages
-                                <span class="badge badge-danger p-1">1</span>
+                    @onboarding
+                        {{-- TODO: style this better --}}
+                        @foreach (Auth::user()->onboarding()->steps as $step)
+                            <a
+                            class="nav-link nav-link-onboarding {{ $step->linkClass ?: '' }} {{ Request::fullUrlIs($step->link) ? 'active' : ''  }}"
+                            href="{{ $step->link }}"
+                            {{ $step->complete() ? 'disabled=disabled' : '' }}>
+                                @if($step->complete())
+                                    <span class="oi oi-circle-check"></span>
+                                @else
+                                    <span class="oi oi-circle-x"></span>
+                                @endif
+                                {{ $loop->iteration }}. {{ $step->title }}
                             </a>
-                            <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
-                                <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
-{{--                                <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>--}}
-                            </div>
-                        </div>
-                        @unset($activeRoute)
-                    </div>
+                        @endforeach
                     
-                    <div class="nav-section-parent">
-                        @set('activeRoute', active_route('account.manage.*'))
-                        <div class="nav-section {{ $activeRoute }}">
-                            <a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Settings</a>
-                            <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
-                                <a class="nav-link nav-link-sub {{ active_route('account.manage.email') }}" href="{{ route('account.manage.email') }}">Change Email</a>
-                                <a class="nav-link nav-link-sub {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
-                            </div>
-                        </div>
-                        @unset($activeRoute)
-                    </div>
-                    <a class="nav-link" href="{{ route('logout.get') }}">Log Out</a>
+                    @else
+                        <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
                     
-                    {{----}}
-                @endauth
+                        @if(Auth::user()->isValidCompany())
+                        
+                            {{----}}
+                        
+                            <small class="text-muted">Profile</small>
+                        
+                            {{--<a class="nav-link {{ active_route('company.show.me') }}" href="{{ route('company.show.me') }}">My Profile</a>--}}
+                            {{--<a class="nav-link {{ active_route('company.edit') }}" href="{{ route('company.edit') }}">Edit Profile</a>--}}
+                        
+                            {{----}}
+                        
+                            <small class="text-muted">Adverts</small>
+                        
+                            <a class="nav-link nav-link-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
+                            <a class="nav-link {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">My Adverts</a>
+                        
+                            {{----}}
+                        
+                            <small class="text-muted">Addresses</small>
+                        
+                            <a class="nav-link {{ active_route('address.create') }}" href="{{ route('address.create') }}">Create New Address</a>
+                            <a class="nav-link {{ active_route(['address.index', 'address.edit', 'address.show.*']) }}" href="{{ route('address.index') }}">My Addresses</a>
+                        
+                            {{----}}
+                    
+                        @elseif(Auth::user()->isEmployee())
+                        
+                            {{----}}
+                        
+                            <small class="text-muted">Profile</small>
+                        
+                            <a class="nav-link {{ active_route('employee.show.me') }}" href="{{ route('employee.show.me') }}">View Profile</a>
+                            <a class="nav-link {{ active_route('employee.edit') }}" href="{{ route('employee.edit') }}">Edit Profile</a>
+                            <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
+                        
+                            {{----}}
+                        
+                            <small class="text-muted">Get Hired</small>
+                        
+                            <a class="nav-link nav-link-action {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
+                        
+                            <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
+                        @endif
+                    
+                        {{----}}
+                    
+                        <small class="text-muted">Account</small>
+                    
+                        <div class="nav-section-parent">
+                            @set('activeRoute', active_route('account.private-message.*'))
+                            <div class="nav-section {{ $activeRoute }}">
+                                <a class="nav-link nav-section-title"
+                                   onclick="navSectionClick(this)"
+                                   href="javascript:">
+                                    Messages
+                                    <span class="badge badge-danger p-1">1</span>
+                                </a>
+                                <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
+                                    <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
+                                    {{--                                <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>--}}
+                                </div>
+                            </div>
+                            @unset($activeRoute)
+                        </div>
+                    
+                        <div class="nav-section-parent">
+                            @set('activeRoute', active_route('account.manage.*'))
+                            <div class="nav-section {{ $activeRoute }}">
+                                <a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Settings</a>
+                                <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
+                                    <a class="nav-link nav-link-sub {{ active_route('account.manage.email') }}" href="{{ route('account.manage.email') }}">Change Email</a>
+                                    <a class="nav-link nav-link-sub {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
+                                </div>
+                            </div>
+                            @unset($activeRoute)
+                        </div>
+                        <a class="nav-link" href="{{ route('logout.get') }}">Log Out</a>
+                    
+                        {{----}}
+                        @endonboarding
+                    @endauth
             </nav>
         </div>
     </div>
-    
+    {{-- mobile nav --}}
     <nav class="navbar navbar-dark bg-primary d-block d-lg-none fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/">Career In Health</a>
@@ -129,124 +148,130 @@
                     @endguest
                     
                     @auth
-                        <li class="nav-item">
-                            <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
-                        </li>
+                        @onboarding
+                            <li class="nav-item">
+                                <a href="javascript:" class="nav-link">onboarding</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
+                            </li>
                         
-                        @if(Auth::user()->isValidCompany())
+                            @if(Auth::user()->isValidCompany())
                             
-                            {{----}}
+                                {{----}}
                             
-                            <small class="text-light">Profile</small>
+                                <small class="text-light">Profile</small>
                             
-                            <li class="nav-item">
-{{--                                <a class="nav-link {{ active_route('company.show.me') }}" href="{{ route('company.show.me') }}">My Profile</a>--}}
-                            </li>
+                                <li class="nav-item">
+                                    {{--                                <a class="nav-link {{ active_route('company.show.me') }}" href="{{ route('company.show.me') }}">My Profile</a>--}}
+                                </li>
                             
-                            <li class="nav-item">
-                                {{--<a class="nav-link {{ active_route('company.edit') }}" href="{{ route('company.edit') }}">Edit Profile</a>--}}
-                            </li>
+                                <li class="nav-item">
+                                    {{--<a class="nav-link {{ active_route('company.edit') }}" href="{{ route('company.edit') }}">Edit Profile</a>--}}
+                                </li>
                             
-                            {{----}}
+                                {{----}}
                             
-                            <small class="text-light">Adverts</small>
+                                <small class="text-light">Adverts</small>
                             
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">My Adverts</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link nav-link-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">My Adverts</a>
+                                </li>
                             
-                            {{----}}
+                                {{----}}
                             
-                            <small class="text-light">Addresses</small>
+                                <small class="text-light">Addresses</small>
                             
-                            <li class="nav-item">
-                                <a class="nav-link {{ active_route('address.create') }}" href="{{ route('address.create') }}">Create New Address</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ active_route(['address.index', 'address.edit', 'address.show.*']) }}" href="{{ route('address.index') }}">My Addresses</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ active_route('address.create') }}" href="{{ route('address.create') }}">Create New Address</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ active_route(['address.index', 'address.edit', 'address.show.*']) }}" href="{{ route('address.index') }}">My Addresses</a>
+                                </li>
                             
+                                {{----}}
+                        
+                            @elseif(Auth::user()->isEmployee())
+                            
+                                {{----}}
+                            
+                                <small class="text-light">Profile</small>
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link {{ active_route('employee.show.me') }}" href="{{ route('employee.show.me') }}">View Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ active_route('employee.edit') }}" href="{{ route('employee.edit') }}">Edit Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
+                                </li>
+                            
+                                {{----}}
+                            
+                                <small class="text-light">Get Hired</small>
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
+                                </li>
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
+                                </li>
+                            @endif
+                        
                             {{----}}
                         
-                        @elseif(Auth::user()->isEmployee())
-                            
-                            {{----}}
-                            
-                            <small class="text-light">Profile</small>
-                            
-                            <li class="nav-item">
-                                <a class="nav-link {{ active_route('employee.show.me') }}" href="{{ route('employee.show.me') }}">View Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ active_route('employee.edit') }}" href="{{ route('employee.edit') }}">Edit Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
-                            </li>
-                            
-                            {{----}}
-                            
-                            <small class="text-light">Get Hired</small>
-                            
-                            <li class="nav-item">
-                                <a class="nav-link {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
-                            </li>
-                            
-                            <li class="nav-item">
-                                <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
-                            </li>
-                        @endif
+                            <small class="text-light">Account</small>
                         
-                        {{----}}
-                        
-                        <small class="text-light">Account</small>
-                        
-                        <li class="nav-item">
-                            <div class="nav-section-parent">
-                                @set('activeRoute', active_route('account.private-message.*'))
-                                <div class="nav-section {{ $activeRoute }}">
-                                    <a class="nav-link nav-section-title"
-                                       onclick="navSectionClick(this)"
-                                       href="javascript:">
-                                        Messages
+                            <li class="nav-item">
+                                <div class="nav-section-parent">
+                                    @set('activeRoute', active_route('account.private-message.*'))
+                                    <div class="nav-section {{ $activeRoute }}">
+                                        <a class="nav-link nav-section-title"
+                                           onclick="navSectionClick(this)"
+                                           href="javascript:">
+                                            Messages
                                             <span class="badge badge-danger p-1">1</span>
-                                    </a>
-                                    <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
-                                        <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
-{{--                                        <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>--}}
+                                        </a>
+                                        <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
+                                            <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
+                                            {{--                                        <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>--}}
+                                        </div>
                                     </div>
+                                    @unset($activeRoute)
                                 </div>
-                                @unset($activeRoute)
-                            </div>
-                        </li>
+                            </li>
                         
-                        <li class="nav-item">
-                            <div class="nav-section-parent">
-                                @set('activeRoute', active_route('account.manage.*'))
-                                <div class="nav-section {{ $activeRoute }}">
-                                    <a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Settings</a>
-                                    <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
-                                        <a class="nav-link nav-link-sub {{ active_route('account.manage.email') }}" href="{{ route('account.manage.email') }}">Change Email</a>
-                                        <a class="nav-link nav-link-sub {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
+                            <li class="nav-item">
+                                <div class="nav-section-parent">
+                                    @set('activeRoute', active_route('account.manage.*'))
+                                    <div class="nav-section {{ $activeRoute }}">
+                                        <a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Settings</a>
+                                        <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
+                                            <a class="nav-link nav-link-sub {{ active_route('account.manage.email') }}" href="{{ route('account.manage.email') }}">Change Email</a>
+                                            <a class="nav-link nav-link-sub {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
+                                        </div>
                                     </div>
+                                    @unset('activeRoute')
                                 </div>
-                                @unset('activeRoute')
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('logout.get') }}">Log Out</a>
-                        </li>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout.get') }}">Log Out</a>
+                            </li>
                         
-                        {{----}}
+                            {{----}}
+                        @endonboarding
                     @endauth
                 </ul>
             </div>
         </div>
     </nav>
-    
+    {{--main app--}}
     <div id="app">
         @yield('content')
     </div>

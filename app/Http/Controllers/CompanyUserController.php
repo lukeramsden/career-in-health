@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
+use App\CompanyUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-class EmployeeController extends Controller
+class CompanyUserController extends Controller
 {
     protected $request;
 
@@ -16,7 +16,7 @@ class EmployeeController extends Controller
         $this->request = $request;
 
         $this->middleware('auth');
-        $this->middleware('user-type:employee')->except('show');
+        $this->middleware('user-type:company')->except('show');
     }
 
     protected function rules()
@@ -26,59 +26,57 @@ class EmployeeController extends Controller
             'last_name'     => 'nullable|string',
             'avatar'        => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
             'remove_avatar' => 'nullable|boolean',
-            'location_id'   => 'required|integer|exists:locations,id',
-            'about'         => 'nullable|string|max:500',
         ];
     }
 
-    public function show(Employee $employee)
+    public function show(CompanyUser $companyUser)
     {
-        return view('employee.profile.show')
+        return view('company-user.profile.show')
             ->with([
-                'employee' => $employee,
+                'companyUser' => $companyUser,
                 'self' => false,
             ]);
     }
 
     public function showMe()
     {
-        return view('employee.profile.show')
+        return view('company-user.profile.show')
             ->with([
-                'employee' => Auth::user()->userable,
+                'companyUser' => Auth::user()->userable,
                 'self' => true,
             ]);
     }
 
     public function edit()
     {
-        return view('employee.profile.edit')
+        return view('company-user.profile.edit')
             ->with([
-                'employee' => Auth::user()->userable,
+                'companyUser' => Auth::user()->userable,
             ]);
     }
 
     public function update()
     {
         $data = $this->request->validate(self::rules());
-        $employee = Auth::user()->userable;
+        $companyUser = Auth::user()->userable;
 
         if(isset($data['remove_avatar']) && $data['remove_avatar'])
         {
-            Storage::delete($employee->avatar);
-            $employee->avatar = null;
+            Storage::delete($companyUser->avatar);
+            $companyUser->avatar = null;
         } else if($this->request->hasFile('avatar'))
         {
             $path = $this->request->file('avatar')->storePublicly('avatars');
-            Storage::delete($employee->avatar);
-            $employee->avatar = $path;
+            Storage::delete($companyUser->avatar);
+            $companyUser->avatar = $path;
         }
 
-        $employee->fill($data);
-        $employee->has_been_filled = true;
-        $employee->save();
+        $companyUser->fill($data);
+        $companyUser->has_been_filled = true;
+        $companyUser->save();
 
         if(ajax())
-            return response()->json(['success' => true, 'model' => $employee], 200);
+            return response()->json(['success' => true, 'model' => $companyUser], 200);
 
         toast()->success('Profile updated!');
         return back();

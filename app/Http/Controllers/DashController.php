@@ -18,6 +18,7 @@ class DashController extends Controller
 
         $this->middleware('auth');
         $this->middleware('company-created');
+        // $this->middleware('mustOnboard'); TODO: activate this
     }
 
     protected function dashCompany()

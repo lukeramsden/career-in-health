@@ -17,10 +17,19 @@
                     </template>
                 </div>
                 <div class="col-sm-12 col-md-4 col-xl-3 order-first order-md-last mb-4">
-                    <button class="btn btn-primary btn-block" @click="show">View CV</button>
-                    @endverbatim
-                    <a href="{{ route('cv.pdf.download') }}" target="_blank" class="btn btn-primary btn-block">Download CV</a>
-                    @verbatim
+                    <div class="btn-group-vertical">
+                        @endverbatim
+                        @onboarding
+                        <a
+                        href="{{ Auth::user()->onboarding()->nextUnfinishedStep()->link }}"
+                        class="btn btn-action disabled" id="next-step">Next Step</a>
+                        @endonboarding
+                        @verbatim
+                            <button class="btn btn-primary" @click="show">View CV</button> <!-- TODO: fix this -->
+                        @endverbatim
+                        <a href="{{ route('cv.pdf.download') }}" target="_blank" class="btn btn-primary">Download CV</a>
+                        @verbatim
+                    </div>
                 </div>
             </div>
         </script>
@@ -476,6 +485,7 @@
                         
                             self.loading =  false;
                             self.model.new = false;
+                            $('#next-step').removeClass('disabled');
                         })
                         .catch((error) => {
                             console.log(error);

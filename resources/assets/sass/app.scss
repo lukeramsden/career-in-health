@@ -22,7 +22,7 @@ body {
   background-color: #f2f2f2;
 }
 
-$navbar-width: 200px;
+$navbar-width: 240px;
 
 .btn-action, .btn-action:hover {
   color: $white !important;
@@ -98,6 +98,29 @@ $navbar-width: 200px;
       color: $primary;
 
       height: 40px;
+
+      // custom heights, 2px-100px in increments of 2
+      @for $i from 1px through 50px {
+        $size: $i * 2;
+        &.size-#{$size} {
+          height: $size;
+
+          &.active {
+            border-left-width: $i;
+            border-top-width: $i;
+            border-bottom-width: $i;
+            right: -$i;
+          }
+        }
+      }
+
+      &.nav-link-onboarding {
+        &[disabled] {
+          color: $secondary;
+          pointer-events: none;
+          text-decoration: line-through $secondary;
+        }
+      }
 
       &.nav-link-action {
         background-color: $action;
@@ -788,7 +811,8 @@ $navbar-width: 200px;
 #profile-edit-card-columns,
 #company-edit-card-columns,
 #advert-edit-card-columns,
-#address-edit-card-columns {
+#address-edit-card-columns,
+#company-create-card-columns {
   @include media-breakpoint-up(sm) {
     column-count: 1;
   }

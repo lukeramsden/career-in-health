@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('confirmed')->default(0);
+            $table->boolean('confirmed')->default(false);
             $table->string('confirmation_code')->nullable();
             $table->integer('userable_id')->nullable();
             $table->string('userable_type')->nullable();

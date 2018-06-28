@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0899c62526e65b1501489a96d1da7173",
+    "content-hash": "525bfb9b4eeb441b51778193517396d5",
     "packages": [
         {
             "name": "akaunting/money",
@@ -232,6 +232,55 @@
                 "wkhtmltopdf"
             ],
             "time": "2018-02-08T15:58:26+00:00"
+        },
+        {
+            "name": "calebporzio/onboard",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/calebporzio/onboard.git",
+                "reference": "7c4751701f206d65a5c8aa04edb644bd135c7d65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/calebporzio/onboard/zipball/7c4751701f206d65a5c8aa04edb644bd135c7d65",
+                "reference": "7c4751701f206d65a5c8aa04edb644bd135c7d65",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Calebporzio\\Onboard\\OnboardServiceProvider"
+                    ],
+                    "aliases": {
+                        "Onboard": "Calebporzio\\Onboard\\OnboardFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Calebporzio\\Onboard\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caleb Porzio",
+                    "email": "caleb@fmtc.co"
+                }
+            ],
+            "description": "Track onboarding steps for users when they get setup in your app.",
+            "time": "2018-06-22T16:36:06+00:00"
         },
         {
             "name": "composer/semver",

@@ -164,7 +164,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Rukhsar\ActiveRoute\ActiveRouteServiceProvider::class,
-        Radic\BladeExtensions\BladeExtensionsServiceProvider::class
+        Radic\BladeExtensions\BladeExtensionsServiceProvider::class,
+        Calebporzio\Onboard\OnboardServiceProvider::class,
     ],
 
     /*
@@ -215,6 +216,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'Active' =>  Rukhsar\ActiveRoute\Facades\Active::class,
+        'Onboard' => Calebporzio\Onboard\OnboardFacade::class,
     ],
 
     'faker_locale' => 'en_GB',

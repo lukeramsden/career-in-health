@@ -19,6 +19,7 @@ class PersonnelFileController extends Controller
 
         $this->middleware('auth');
         $this->middleware('user-type:employee');
+        $this->middleware('mustOnboard');
     }
 
     public function __destruct()

@@ -122,6 +122,7 @@ return [
     'attributes' => [
         'min_salary' => 'minimum salary',
         'max_salary' => 'maximum salary',
+        'location_id' => 'location',
     ],
 
 ];

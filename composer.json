@@ -9,6 +9,7 @@
         "akaunting/money": "^1.0",
         "appstract/laravel-blade-directives": "^1.0",
         "barryvdh/laravel-snappy": "^0.4.1",
+        "calebporzio/onboard": "^1.1",
         "fedeisas/laravel-mail-css-inliner": "^2.2",
         "fideloper/proxy": "~4.0",
         "grimthorr/laravel-toast": "^1.1",
