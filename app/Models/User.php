@@ -18,10 +18,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        static::deleting(function(User $user) {
+        static::deleting(function (User $user)
+        {
             $user->userable()->delete();
         });
     }
@@ -45,10 +47,14 @@ class User extends Authenticatable
      * Checks if is company user AND if company is valid
      *
      * @return bool
+     * @throws \Exception
      */
     public function isValidCompany()
     {
-        return $this->isCompany() && $this->userable->company()->exists();
+        return once(function ()
+        {
+            return $this->isCompany() && $this->userable->company()->exists();
+        });
     }
 
     public function isAdmin()
