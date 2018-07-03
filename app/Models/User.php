@@ -51,10 +51,10 @@ class User extends Authenticatable
      */
     public function isValidCompany()
     {
-        return once(function ()
-        {
-            return $this->isCompany() && $this->userable->company()->exists();
-        });
+        static $b = null;
+        if(is_null($b))
+            $b = $this->isCompany() && $this->userable->company()->exists();
+        return $b;
     }
 
     /**
@@ -63,10 +63,10 @@ class User extends Authenticatable
      */
     public function hasCreatedAddress()
     {
-        return once(function ()
-        {
-            return $this->isValidCompany() && $this->userable->company->addresses()->count() > 0;
-        });
+        static $b = null;
+        if(is_null($b))
+            $b = $this->isValidCompany() && $this->userable->company->addresses()->count() > 0;
+        return $b;
     }
 
     /**
@@ -75,12 +75,12 @@ class User extends Authenticatable
      */
     public function hasCreatedAdvert()
     {
-        return once(function ()
-        {
+        static $b = null;
+        if(is_null($b))
             // has_created_first_advert is here because we don't want to return to onboarding
             // if the company deletes all the adverts they have created
-            return $this->isValidCompany() && $this->userable->company->has_created_first_advert;
-        });
+            $b = $this->isValidCompany() && $this->userable->company->has_created_first_advert;
+        return $b;
     }
 
     public function isAdmin()

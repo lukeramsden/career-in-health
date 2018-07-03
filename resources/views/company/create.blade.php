@@ -70,9 +70,9 @@
                             <select name="location_id"
                                     class="form-control location-control {{ $errors->has('location_id') ? 'is-invalid' : '' }}"
                                     title="Location" size="1">
-                                <option {{ old('location_id', $company->location->id) === null ? 'selected' : '' }} value="null" disabled>-</option>
+                                <option {{ old('location_id', optional($company->location)->id) === null ? 'selected' : '' }} value="null" disabled>-</option>
                                 @foreach(\App\Location::getAllLocations() as $location)
-                                    <option {{ old('location_id', $company->location->id) === $location->id ? 'selected' : '' }} value="{{ $location->id }}">{{ $location->name }}</option>
+                                    <option {{ old('location_id', optional($company->location)->id) === $location->id ? 'selected' : '' }} value="{{ $location->id }}">{{ $location->name }}</option>
                                 @endforeach
                             </select>
                             

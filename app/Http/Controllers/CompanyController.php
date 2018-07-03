@@ -86,7 +86,7 @@ class CompanyController extends Controller
     {
         return view('company.create')
             ->with([
-                'company' => null,
+                'company' => new Company(),
                 'edit' => false,
             ]);
     }
