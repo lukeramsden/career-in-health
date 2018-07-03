@@ -24,7 +24,7 @@
                     <div class="card card-custom">
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Title</label>
+                                <label>Title (<span class='text-action'>*</span>)</label>
                                 <input type="text" class="form-control" v-model="model.title" name="title" maxlength="120" required>
                             </div>
                         </div>

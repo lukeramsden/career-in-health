@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container mt-lg-5">
+    <div class="container mt-lg-5" style="min-height: 100vh;">
         <address-form :model="model" :url="url" :create-new="createNew"></address-form>
     </div>
 @endsection
@@ -22,12 +22,12 @@
                     <div class="card card-custom">
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Name</label>
+                                <label>Name (<span class='text-action'>*</span>)</label>
                                 <input type="text" class="form-control" v-model="model.name" name="name" maxlength="120" required>
                             </div>
 
                             <div class="form-group">
-                                <label>Address</label>
+                                <label>Address (<span class='text-action'>*</span>)</label>
                                 <input type="text" class="form-control my-1" v-model="model.address_line_1" name="address_line_1" placeholder="Line 1" maxlength="60" required>
                                 <input type="text" class="form-control my-1" v-model="model.address_line_2" name="address_line_2" placeholder="Line 2" maxlength="60">
                                 <input type="text" class="form-control my-1" v-model="model.address_line_3" name="address_line_3" placeholder="Line 3" maxlength="60">
@@ -53,7 +53,7 @@
                     <div class="card card-custom">
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Location</label>
+                                <label>City (<span class='text-action'>*</span>)</label>
                                 <select2 v-model="model.location_id" name="location_id" required>
                                     <option :value="null">-</option>
                                     @foreach(\App\Location::getAllLocations() as $loc)

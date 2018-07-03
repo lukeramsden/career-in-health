@@ -46,10 +46,7 @@ class RegisterOnboardingSteps
                     ->cta('Add')
                     ->completeIf(function (User $user)
                     {
-                        return once(function () use ($user)
-                        {
-                            return $user->isValidCompany() && $user->userable->company->addresses()->count() > 0;
-                        });
+                        return $user->hasCreatedAddress();
                     });
 
                 Onboard::addStep('Create An Advert')
@@ -57,10 +54,7 @@ class RegisterOnboardingSteps
                     ->cta('Create')
                     ->completeIf(function (User $user)
                     {
-                        return once(function () use ($user)
-                        {
-                            return $user->isValidCompany() && $user->userable->company->adverts()->count() > 0;
-                        });
+                        return $user->hasCreatedAdvert();
                     });
 
             } elseif ($user->isEmployee())

@@ -57,6 +57,30 @@ class User extends Authenticatable
         });
     }
 
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function hasCreatedAddress()
+    {
+        return once(function ()
+        {
+            return $this->isValidCompany() && $this->userable->company->addresses()->count() > 0;
+        });
+    }
+
+    /**
+     * @return bool
+     * @throws \Exception
+     */
+    public function hasCreatedAdvert()
+    {
+        return once(function ()
+        {
+            return $this->isValidCompany() && $this->userable->company->adverts()->count() > 0;
+        });
+    }
+
     public function isAdmin()
     {
         return $this->userable instanceof Admin;
