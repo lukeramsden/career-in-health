@@ -35,7 +35,7 @@ class CompanyUser extends Model
 
     public function fullName()
     {
-        return trim($this->first_name . ' ' . $this->last_name);
+        return trim("{$this->first_name} {$this->last_name}");
     }
 
     public function picture()
