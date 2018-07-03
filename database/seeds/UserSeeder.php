@@ -43,6 +43,7 @@ class UserSeeder extends Seeder
         $userable = new \App\CompanyUser([
             'first_name' => 'James',
             'last_name' => 'Waring',
+            'has_been_filled' => true,
         ]);
 
         $userable->save();

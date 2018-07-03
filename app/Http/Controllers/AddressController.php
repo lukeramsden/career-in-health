@@ -66,7 +66,7 @@ class AddressController extends Controller
 
         $address = new Address();
         $address->company_id = Auth::user()->userable->company->id;
-        $data['postcode'] = strtoupper($data['postcode']);
+        $data['postcode'] = str_replace(' ', '', strtoupper($data['postcode']));
         $address->fill($data);
         $address->save();
 

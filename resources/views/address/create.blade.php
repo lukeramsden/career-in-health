@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container mt-lg-5" style="min-height: 100vh;">
+    <div class="container mt-lg-5" style="min-height: 70vh;">
         <address-form :model="model" :url="url" :create-new="createNew"></address-form>
     </div>
 @endsection

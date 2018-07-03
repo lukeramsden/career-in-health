@@ -161,20 +161,29 @@ class AdvertController extends Controller
 
     public function store()
     {
+        $user = Auth::user();
+        $userable = $user->userable;
+        $company = $userable->company;
         $data = $this->request->validate(self::rules());
 
         $savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater;
 
         $advert = new Advert();
         $advert->fill($data);
-        $advert->company_id = Auth::user()->userable->company->id;
-        $advert->created_by_user_id = Auth::user()->id;
+        $advert->company_id = $company->id;
+        $advert->created_by_user_id = $user->id;
         $advert->published = !$savingForLater;
         $advert->last_edited = Carbon::now();;
         $advert->save();
 
-        if(Auth::user()->onboarding()->inProgress())
-            return redirect(Auth::user()->onboarding()->nextUnfinishedStep()->link);
+        if(!$company->has_created_first_advert)
+        {
+            $company->has_created_first_advert = true;
+            $company->save();
+        }
+
+        if($user->onboarding()->inProgress())
+            return redirect($user->onboarding()->nextUnfinishedStep()->link);
 
         if(ajax())
             return response()->json(['success' => true, 'model' => $advert], 200);

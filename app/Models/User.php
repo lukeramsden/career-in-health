@@ -77,7 +77,9 @@ class User extends Authenticatable
     {
         return once(function ()
         {
-            return $this->isValidCompany() && $this->userable->company->adverts()->count() > 0;
+            // has_created_first_advert is here because we don't want to return to onboarding
+            // if the company deletes all the adverts they have created
+            return $this->isValidCompany() && $this->userable->company->has_created_first_advert;
         });
     }
 
