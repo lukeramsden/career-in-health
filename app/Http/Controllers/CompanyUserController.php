@@ -49,7 +49,7 @@ class CompanyUserController extends Controller
 
     public function edit()
     {
-        return view('company-user.edit')
+        return view('company-user.create')
             ->with([
                 'companyUser' => Auth::user()->userable,
             ]);

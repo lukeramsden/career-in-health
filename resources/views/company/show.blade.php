@@ -14,9 +14,8 @@
             <div class="col-12 col-md-6">
                 <div class="card card-custom mb-4">
                     <div class="card-body">
-                        @isset($company->description)
-                            {{-- TODO: add this to company migration/controller/etc --}}
-                            <p>{!! nl2br(e($company->description)) !!}</p>
+                        @isset($company->about)
+                            <p>{!! nl2br(e($company->about)) !!}</p>
                         @endisset
                     </div>
                 </div>

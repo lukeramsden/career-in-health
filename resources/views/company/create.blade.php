@@ -2,7 +2,7 @@
 @section('content')
     <div class="container my-lg-5">
         <form
-        action="{{ route('company.store') }}"
+        action="{{ route($edit ? 'company.update' : 'company.store') }}"
         method="post"
         enctype="multipart/form-data">
             {{ csrf_field() }}
@@ -127,7 +127,9 @@
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-action btn-block">Create Company</button>
+                            <button type="submit" class="btn btn-action btn-block">
+                                {{ $edit ? 'Save' : 'Create Company' }}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -183,5 +185,10 @@
     </script>
 @endsection
 @section('stylesheet')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet"/>
+    <style>
+        .custom-checkbox .custom-control-label::before {
+            border: 1px solid #495057;
+        }
+    </style>
 @endsection

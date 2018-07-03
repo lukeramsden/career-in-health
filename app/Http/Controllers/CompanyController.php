@@ -6,6 +6,7 @@ use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class CompanyController extends Controller
 {
@@ -40,16 +41,50 @@ class CompanyController extends Controller
 
     public function edit()
     {
-        return view('company.edit')
+        return view('company.create')
             ->with([
                 'company' => Auth::user()->userable->company,
                 'edit' => true,
             ]);
     }
 
+    public function update()
+    {
+        $user = Auth::user();
+        $company = $user->userable->company;
+
+        $data = $this->request->validate([
+            'name'            => ['required', 'string', Rule::unique('companies')->ignore($company->id)],
+            'usersToInvite'   => 'nullable|array',
+            'usersToInvite.*' => 'nullable|email|distinct|unique:users,email',
+            'avatar'          => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
+            'remove_avatar'   => 'nullable|boolean',
+            'location_id'     => 'required|integer|exists:locations,id',
+            'about'           => 'nullable|string|max:500',
+        ]);
+
+        $company->fill($data);
+
+        if(isset($data['remove_avatar']) && $data['remove_avatar'])
+        {
+            Storage::delete($company->avatar);
+            $company->avatar = null;
+        } else if($this->request->hasFile('avatar'))
+        {
+            $path = $this->request->file('avatar')->storePublicly('avatars');
+            Storage::delete($company->avatar);
+            $company->avatar = $path;
+        }
+
+        $company->save();
+
+        toast()->success('Saved!');
+        return back();
+    }
+
     public function create()
     {
-        return view('company.edit')
+        return view('company.create')
             ->with([
                 'company' => null,
                 'edit' => false,
