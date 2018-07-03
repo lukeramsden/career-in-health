@@ -182,9 +182,6 @@ class AdvertController extends Controller
             $company->save();
         }
 
-        if($user->onboarding()->inProgress())
-            return redirect($user->onboarding()->nextUnfinishedStep()->link);
-
         if(ajax())
             return response()->json(['success' => true, 'model' => $advert], 200);
 
