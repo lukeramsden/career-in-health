@@ -17,7 +17,7 @@ class CompanyController extends Controller
         $this->request = $request;
 
         $this->middleware('auth');
-        $this->middleware('user-type:company');
+        $this->middleware('user-type:company')->except('show');
         $this->middleware('mustOnboard')->except(['create', 'store']);
     }
 

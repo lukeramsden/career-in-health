@@ -6,7 +6,7 @@
             <div class="col-12">
                 <div class="card card-custom card-advert">
                     <div class="card-body">
-                        <a href="javascript:{{-- route('company.show', [$advert->company]) --}}" class="card-subtitle">
+                        <a href="{{ route('company.show', [$advert->company]) }}" class="card-subtitle">
                             {{$advert->company->name}}
                         </a>
                         <h4 class="card-title">{{$advert->jobRole->name}}</h4>
@@ -55,7 +55,7 @@
                             @elseif(Auth::user()->isValidCompany())
                                 <button type="button" disabled class="btn btn-block btn-secondary">You can't apply</button>
                             @else
-                                @if(!\App\AdvertApplication::hasApplied(Auth::user(), $advert))
+                                @if(Auth::user()->isEmployee() && !\App\AdvertApplication::hasApplied(Auth::user()->userable, $advert))
                                     <a href="{{ route('advert.application.create', [$advert]) }}" class="btn btn-block btn-action">Apply</a>
                                 @else
                                     <button type="button" disabled class="btn btn-block btn-secondary">Already Applied!</button>

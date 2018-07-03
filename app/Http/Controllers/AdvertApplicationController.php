@@ -40,7 +40,7 @@ class AdvertApplicationController extends Controller
                         ::user()
                         ->userable
                         ->applications()
-                        ->with('user', 'advert', 'advert.company', 'advert.jobRole')
+                        ->with('employee', 'advert', 'advert.company', 'advert.jobRole')
                         ->orderBy('created_at', 'desc')
                         ->paginate(15)
             ]);
@@ -61,7 +61,7 @@ class AdvertApplicationController extends Controller
             return redirect(route('register'));
         }
 
-        if(AdvertApplication::hasApplied(Auth::user(), $advert))
+        if(AdvertApplication::hasApplied(Auth::user()->userable, $advert))
         {
             toast()->error('You have already applied to this job!');
             return redirect(route('advert.show', [$advert]));
@@ -75,7 +75,7 @@ class AdvertApplicationController extends Controller
 
     public function store(Advert $advert)
     {
-        if(AdvertApplication::hasApplied(Auth::user(), $advert))
+        if(AdvertApplication::hasApplied(Auth::user()->userable, $advert))
         {
             toast()->error('You have already applied to this job!');
             return redirect(route('advert.show', [$advert]));
@@ -85,7 +85,7 @@ class AdvertApplicationController extends Controller
 
         $application = new AdvertApplication();
         $application->fill($data);
-        $application->user_id = Auth::user()->id;
+        $application->employee_id = Auth::user()->userable->id;
         $application->last_edited = Carbon::now();;
         $advert->applications()->save($application);
 
@@ -108,7 +108,7 @@ class AdvertApplicationController extends Controller
         // if editing status or notes
         if ($this->request->has('status') || $this->request->has('notes')) {
             // dont let non-owners edit status or notes for applications for adverts they dont own
-            if(!$user->isCompany() || $application->advert->company->id !== $user->company->id) {
+            if(!$user->isValidCompany() || $application->advert->company->id !== $user->company->id) {
                 if(ajax())
                     return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status or notes.'], 401);
 

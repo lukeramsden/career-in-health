@@ -17,9 +17,9 @@ class AdvertApplication extends Model
     protected $fillable = ['custom_cover_letter'];
     protected $dates = ['created_at', 'updated_at', 'last_edited'];
 
-    public function user()
+    public function employee()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(\App\Employee::class);
     }
     
     public function advert()
@@ -28,31 +28,31 @@ class AdvertApplication extends Model
     }
 
     /**
-     * @param \App\User|null $user
+     * @param \App\Employee|null $employee
      * @param Advert|null $advert
      * @return AdvertApplication|null
      */
-    static public function getApplication(User $user = null, Advert $advert = null)
+    static public function getApplication(Employee $employee = null, Advert $advert = null)
     {
-        if($user == null || $advert == null) return null;
+        if($employee == null || $advert == null) return null;
 
         return static::where([
-            ['user_id', $user->id],
+            ['employee_id', $employee->id],
             ['advert_id', $advert->id]
         ])->first();
     }
 
     /**
-     * @param \App\User|null $user
+     * @param \App\Employee|null $employee
      * @param Advert|null $advert
      * @return bool
      */
-    static public function hasApplied(User $user = null, Advert $advert = null)
+    static public function hasApplied(Employee $employee = null, Advert $advert = null)
     {
-        if($user == null || $advert == null) return false;
+        if($employee == null || $advert == null) return false;
 
         return static::where([
-            ['user_id', $user->id],
+            ['employee_id', $employee->id],
             ['advert_id', $advert->id]
         ])->count() > 0 ? true : false;
     }
