@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractCvItemModel extends Model
 {
-    protected $guarded = ['id', '_token'];
     protected $fillable = [];
     protected $appends = ['is_edited'];
 
