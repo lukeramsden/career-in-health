@@ -20,9 +20,40 @@ class CompanyController extends Controller
         $this->middleware('mustOnboard')->except(['create', 'store']);
     }
 
+    public function show(Company $company)
+    {
+        return view('company.show')
+            ->with([
+                'company' => $company,
+                'self' => false,
+            ]);
+    }
+
+    public function showMe()
+    {
+        return view('company.show')
+            ->with([
+                'company' => Auth::user()->userable->company,
+                'self' => true,
+            ]);
+    }
+
+    public function edit()
+    {
+        return view('company.edit')
+            ->with([
+                'company' => Auth::user()->userable->company,
+                'edit' => true,
+            ]);
+    }
+
     public function create()
     {
-        return view('company.create');
+        return view('company.edit')
+            ->with([
+                'company' => null,
+                'edit' => false,
+            ]);
     }
 
     public function store()

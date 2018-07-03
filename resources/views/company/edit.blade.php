@@ -13,7 +13,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-12 offset-lg-3 col-lg-6">
-                                    <img src="{{ '/images/generic.png' }}" alt="Profile picture"
+                                    <img src="{{ optional($company)->picture() ?? '/images/generic.png' }}" alt="Profile picture"
                                          class="img-thumbnail mx-auto d-block" style="width: 100%; max-width: 230px;">
                                 </div>
                                 <div class="col-12">
@@ -58,7 +58,7 @@
                             id="inputName"
                             class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
                             placeholder="Name"
-                            value="{{ old('name') }}">
+                            value="{{ old('name', $company->name) }}">
                             
                             @if ($errors->has('name'))
                                 <div class="invalid-feedback">{{ $errors->first('name') }}</div>
@@ -70,9 +70,9 @@
                             <select name="location_id"
                                     class="form-control location-control {{ $errors->has('location_id') ? 'is-invalid' : '' }}"
                                     title="Location" size="1">
-                                <option {{ old('location_id') === null ? 'selected' : '' }} value="null" disabled>-</option>
+                                <option {{ old('location_id', $company->location->id) === null ? 'selected' : '' }} value="null" disabled>-</option>
                                 @foreach(\App\Location::getAllLocations() as $location)
-                                    <option {{ old('location_id') ?? -1 === $location->id ? 'selected' : '' }} value="{{ $location->id }}">{{ $location->name }}</option>
+                                    <option {{ old('location_id', $company->location->id) === $location->id ? 'selected' : '' }} value="{{ $location->id }}">{{ $location->name }}</option>
                                 @endforeach
                             </select>
                             
@@ -82,37 +82,40 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="card card-custom">
                     <div class="card-body">
-                        <div class="form-group">
-                            <label for="usersInviteSelect">Users To Invite</label>
-                            <select
-                            class="form-control {{ count($errors->get('usersToInvite.*')) ? 'is-invalid' : '' }}"
-                            multiple="multiple"
-                            size="1"
-                            name="usersToInvite[]"
-                            id="usersInviteSelect">
-                                @if (is_array(old('usersToInvite')))
-                                    @foreach (old('usersToInvite') as $email)
-                                        <option value="{{ $email }}" selected="selected">{{ $email }}</option>
-                                    @endforeach
+                        @if(!$edit)
+                            <div class="form-group">
+                                <label for="usersInviteSelect">Users To Invite</label>
+                                <select
+                                class="form-control {{ count($errors->get('usersToInvite.*')) ? 'is-invalid' : '' }}"
+                                multiple="multiple"
+                                size="1"
+                                name="usersToInvite[]"
+                                id="usersInviteSelect">
+                                    @if (is_array(old('usersToInvite')))
+                                        @foreach (old('usersToInvite') as $email)
+                                            <option value="{{ $email }}" selected="selected">{{ $email }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                @if (count($errors->get('usersToInvite.*')))
+                                    <div class="invalid-feedback">
+                                        @foreach(array_values($errors->get('usersToInvite.*')) as $error)
+                                            {{ $error[0] }} {{-- TODO: Make this error prettier--}}
+                                            <br>
+                                        @endforeach
+                                    </div>
                                 @endif
-                            </select>
-                            @if (count($errors->get('usersToInvite.*')))
-                                <div class="invalid-feedback">
-                                    @foreach(array_values($errors->get('usersToInvite.*')) as $error)
-                                        {{ $error[0] }} {{-- TODO: Make this error prettier--}}
-                                        <br>
-                                    @endforeach
-                                </div>
-                            @endif
-                        </div>
+                            </div>
+                        @endif
                         
                         <div class="form-group">
                             <label>About</label>
                             <textarea name="about" class="form-control {{ $errors->has('about') ? 'is-invalid' : '' }}"
                                       placeholder="500 characters about the company" rows="12"
-                                      maxlength="500">{{ old('about') }}</textarea>
+                                      maxlength="500">{{ old('about', $company->about) }}</textarea>
                             
                             @if ($errors->has('about'))
                                 <div class="invalid-feedback">{{ $errors->first('about') }}</div>
@@ -120,6 +123,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="form-group">

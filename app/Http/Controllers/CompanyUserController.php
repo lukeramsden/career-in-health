@@ -31,7 +31,7 @@ class CompanyUserController extends Controller
 
     public function show(CompanyUser $companyUser)
     {
-        return view('company-user.profile.show')
+        return view('company-user.show')
             ->with([
                 'companyUser' => $companyUser,
                 'self' => false,
@@ -40,7 +40,7 @@ class CompanyUserController extends Controller
 
     public function showMe()
     {
-        return view('company-user.profile.show')
+        return view('company-user.show')
             ->with([
                 'companyUser' => Auth::user()->userable,
                 'self' => true,
@@ -49,7 +49,7 @@ class CompanyUserController extends Controller
 
     public function edit()
     {
-        return view('company-user.profile.edit')
+        return view('company-user.edit')
             ->with([
                 'companyUser' => Auth::user()->userable,
             ]);

@@ -38,10 +38,18 @@
                         
                             {{----}}
                         
-                            <small class="text-muted">Profile</small>
+                            <small class="text-muted">Your Profile</small>
+                        
+                            <a class="nav-link {{ active_route('company-user.show.me') }}" href="{{ route('company-user.show.me') }}">View Your Profile</a>
+                            <a class="nav-link {{ active_route('company-user.edit') }}" href="{{ route('company-user.edit') }}">Edit Your Profile</a>
                         
                             {{--<a class="nav-link {{ active_route('company.show.me') }}" href="{{ route('company.show.me') }}">My Profile</a>--}}
                             {{--<a class="nav-link {{ active_route('company.edit') }}" href="{{ route('company.edit') }}">Edit Profile</a>--}}
+                        
+                            <small class="text-muted">Your Company</small>
+            
+                            <a class="nav-link {{active_route('company.show.me')}}" href="{{route('company.show.me')}}">View Your Company</a>
+                            <a class="nav-link {{active_route('company.edit')}}" href="{{route('company.edit')}}">Edit Your Company</a>
                         
                             {{----}}
                         

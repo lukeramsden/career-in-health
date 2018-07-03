@@ -54,6 +54,7 @@ class EmployeeController extends Controller
         return view('employee.profile.edit')
             ->with([
                 'employee' => Auth::user()->userable,
+                'edit' => true,
             ]);
     }
 

@@ -6,8 +6,7 @@
                 <img src="{{ $company->picture() ?? '/images/generic.png' }}" alt="Profile picture" width="200" class="img-thumbnail mx-auto d-block">
                 <div class="text-center">
                     <h1 class="mt-3">{{ $company->name }}</h1>
-                    <h5><b>{{ $company->location }}</b></h5>
-                    <h5>{{ $company->headline }}</h5>
+                    <h5><b>{{ $company->location->name }}</b></h5>
                 </div>
             </div>
         </div>
@@ -16,6 +15,7 @@
                 <div class="card card-custom mb-4">
                     <div class="card-body">
                         @isset($company->description)
+                            {{-- TODO: add this to company migration/controller/etc --}}
                             <p>{!! nl2br(e($company->description)) !!}</p>
                         @endisset
                     </div>
@@ -25,10 +25,12 @@
                 <div class="card card-custom mb-4">
                     <div class="card-body">
                         @isset($company->phone)
+                            {{-- TODO: add this to company migration/controller/etc --}}
                             <h5><span class="oi oi-phone text-muted"></span> <span class="text-muted">Phone:</span> <span>{{ $company->phone }}</span></h5>
                         @endisset
                         
                         @isset($company->contact_email)
+                            {{-- TODO: add this to company migration/controller/etc --}}
                             <h5><span class="oi oi-envelope-closed text-muted"></span> <span class="text-muted">Email:</span> <span>{{ $company->contact_email }}</span></h5>
                         @endisset
                     </div>
