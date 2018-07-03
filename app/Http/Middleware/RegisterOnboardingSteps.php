@@ -48,7 +48,7 @@ class RegisterOnboardingSteps
                     {
                         return once(function () use ($user)
                         {
-                            $user->isValidCompany() && $user->userable->company->addresses()->count() > 0;
+                            return $user->isValidCompany() && $user->userable->company->addresses()->count() > 0;
                         });
                     });
 
@@ -59,7 +59,7 @@ class RegisterOnboardingSteps
                     {
                         return once(function () use ($user)
                         {
-                            $user->isValidCompany() && $user->userable->company->adverts()->count() > 0;
+                            return $user->isValidCompany() && $user->userable->company->adverts()->count() > 0;
                         });
                     });
 
