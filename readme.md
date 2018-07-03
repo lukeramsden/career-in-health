@@ -4,6 +4,8 @@
 #### Dependencies
 - PHP 7.0
 - NPM
+- MariaDB
+- Redis
 
 ```bash
 npm install
