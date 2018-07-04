@@ -26,6 +26,7 @@ class CompanyUserController extends Controller
             'last_name'     => 'nullable|string',
             'avatar'        => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
             'remove_avatar' => 'nullable|boolean',
+            'job_title'     => 'nullable|string',
         ];
     }
 

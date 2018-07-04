@@ -62,6 +62,16 @@
                                 <div class="invalid-feedback">{{ $errors->first('last_name') }}</div>
                             @endif
                         </div>
+                        
+                        <div class="form-group">
+                            <label>Job Title</label>
+                            <input type="text" name="job_title" class="form-control {{ $errors->has('job_title') ? 'is-invalid' : '' }}"
+                                   placeholder="Job Title" value="{{ old('job_title', $companyUser->job_title) }}" maxlength="40">
+                            
+                            @if ($errors->has('job_title'))
+                                <div class="invalid-feedback">{{ $errors->first('job_title') }}</div>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 

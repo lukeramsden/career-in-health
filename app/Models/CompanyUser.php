@@ -9,6 +9,10 @@ class CompanyUser extends Model
 {
     protected $appends = ['is_edited', 'full_name'];
 
+    protected $fillable = [
+        'first_name', 'last_name', 'job_title'
+    ];
+
     public function getIsEditedAttribute()
     {
          return $this->attributes['is_edited'] = ($this->created_at != $this->updated_at) ? true : false;
@@ -18,10 +22,6 @@ class CompanyUser extends Model
     {
         return $this->fullName();
     }
-
-    protected $fillable = [
-        'first_name', 'last_name'
-    ];
 
     public function user()
     {
