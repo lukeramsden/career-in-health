@@ -27,7 +27,7 @@
                                     </a>
                                 </h5>
                                 {{-- get only first line and then str_limit it --}}
-                                <p class="mt-1">{{ str_limit(strtok($companyUser->company->about, " \n")) }}</p>
+                                <p class="mt-1">{{ str_limit(strtok($companyUser->company->about, "\n")) }}</p>
                             </div>
                         </div>
                     </div>

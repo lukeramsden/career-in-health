@@ -14,7 +14,7 @@ class Company extends Model
          return $this->attributes['is_edited'] = ($this->created_at != $this->updated_at) ? true : false;
     }
 
-    protected $fillable = ['name', 'location_id', 'about'];
+    protected $fillable = ['name', 'location_id', 'about', 'phone', 'email'];
 
     protected static function boot() {
         parent::boot();

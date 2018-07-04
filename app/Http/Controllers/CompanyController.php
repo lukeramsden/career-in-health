@@ -21,6 +21,21 @@ class CompanyController extends Controller
         $this->middleware('mustOnboard')->except(['create', 'store']);
     }
 
+    private function rules($custom = [])
+    {
+        return array_merge([
+            'name'            => 'required|string|unique:companies',
+            'usersToInvite'   => 'nullable|array',
+            'usersToInvite.*' => 'nullable|email|distinct|unique:users,email',
+            'avatar'          => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
+            'remove_avatar'   => 'nullable|boolean',
+            'location_id'     => 'required|integer|exists:locations,id',
+            'about'           => 'nullable|string|max:500',
+            'phone'           => 'nullable|string',
+            'email'           => 'nullable|string',
+        ], $custom);
+    }
+
     public function show(Company $company)
     {
         return view('company.show')
@@ -53,15 +68,11 @@ class CompanyController extends Controller
         $user = Auth::user();
         $company = $user->userable->company;
 
-        $data = $this->request->validate([
-            'name'            => ['required', 'string', Rule::unique('companies')->ignore($company->id)],
-            'usersToInvite'   => 'nullable|array',
-            'usersToInvite.*' => 'nullable|email|distinct|unique:users,email',
-            'avatar'          => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
-            'remove_avatar'   => 'nullable|boolean',
-            'location_id'     => 'required|integer|exists:locations,id',
-            'about'           => 'nullable|string|max:500',
-        ]);
+        $data = $this->request->validate(
+            self::rules([
+                    'name' => ['required', 'string', Rule::unique('companies')->ignore($company->id)],
+                ]
+            ));
 
         $company->fill($data);
 
@@ -93,14 +104,7 @@ class CompanyController extends Controller
 
     public function store()
     {
-        $data = $this->request->validate([
-            'name'            => 'required|string|unique:companies',
-            'usersToInvite'   => 'nullable|array',
-            'usersToInvite.*' => 'nullable|email|distinct|unique:users,email',
-            'avatar'          => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
-            'location_id'     => 'required|integer|exists:locations,id',
-            'about'           => 'nullable|string|max:500',
-        ]);
+        $data = $this->request->validate(self::rules());
 
         $user = Auth::user();
 

@@ -21,6 +21,8 @@ class CreateCompaniesTable extends Migration
             $table->integer('location_id')->nullable()->unsigned();
             $table->foreign('location_id')->references('id')->on('locations');
             $table->string('about', 500)->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
             $table->boolean('has_created_first_advert')->default(0);
             $table->timestamps();
         });

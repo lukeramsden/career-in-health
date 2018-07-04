@@ -121,6 +121,30 @@
                                 <div class="invalid-feedback">{{ $errors->first('about') }}</div>
                             @endif
                         </div>
+                        
+                        <div class="form-group">
+                            <label>Contact Details</label>
+                            <input
+                            type="tel"
+                            class="form-control my-1 {{ $errors->has('phone') ? 'is-invalid' : '' }}"
+                            placeholder="Phone Number"
+                            name="phone"
+                            value="{{ old('phone', $company->phone) }}">
+                            
+                            @if ($errors->has('phone'))
+                                <div class="invalid-feedback">{{ $errors->first('phone') }}</div>
+                            @endif
+                            <input
+                            type="email"
+                            class="form-control my-1 {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                            placeholder="Email Address"
+                            name="email"
+                            value="{{ old('email', $company->email) }}">
+                            
+                            @if ($errors->has('email'))
+                                <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 
