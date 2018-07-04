@@ -347,7 +347,7 @@
                     if(!!modelId) {
                         axios.delete(_.get(this, 'schema.url') + '/' + modelId)
                             .then((response) => {
-                                if(response.status == 200)
+                                if(response.status === 200)
                                     this.model.splice(i, 1);
                             })
                             .catch((error) => {
@@ -477,7 +477,7 @@
                     
                     axios(options)
                         .then((response) => {
-                            if(response.status == 200) {
+                            if(response.status === 200) {
                                 self.$set(self.model, 'editing', false);
                                 
                                 self.$set(self.model, 'id', _.get(response, 'data.model.id'));
@@ -619,7 +619,6 @@
                         return;
                     }
                     
-                    console.log(file);
                     this.$emit('input', file);
                     this.file = file;
                 },

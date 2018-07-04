@@ -182,7 +182,6 @@
                         data: this.model,
                     })
                         .then((response) => {
-                            console.log(response);
                             if(response.status === 200) {
                                 toastr.success('Updated!')
                                 if (_.get(response, 'data.model.published', false))
