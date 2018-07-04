@@ -18,16 +18,16 @@
                                 <img class="mr-3" height="150" src="{{ $companyUser->company->picture() ?? '/images/generic.png' }}">
                             </a>
                             <div class="media-body">
-                                    <h4 class="mt-0">{{ $companyUser->job_title ?? 'Unknown' }}</h4>
+                                <h4 class="my-0">{{ $companyUser->job_title ?? 'Unknown' }}</h4>
                                 
-                                    <h5 class="mt-0">
-                                        at
-                                        <a href="{{ route('company.show', $companyUser->company) }}">
-                                            {{ $companyUser->company->name }}
-                                        </a>
-                                    </h5>
+                                <h5 class="mt-0">
+                                    at
+                                    <a href="{{ route('company.show', $companyUser->company) }}">
+                                        {{ $companyUser->company->name }}
+                                    </a>
+                                </h5>
                                 
-                                {{ str_limit($companyUser->company->about) }}
+                                <p class="mt-1">{{ str_limit($companyUser->company->about) }}</p>
                             </div>
                         </div>
                     </div>
