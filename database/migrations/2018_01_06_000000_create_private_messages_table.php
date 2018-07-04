@@ -15,8 +15,9 @@ class CreatePrivateMessagesTable extends Migration
     {
         Schema::create('private_messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('from_user_id');
-            $table->integer('to_user_id');
+            $table->integer('company_id');
+            $table->integer('employee_id');
+            $table->enum('direction', ['to_company', 'to_employee']);
             $table->integer('advert_id');
             $table->string('body', 1000);
             $table->boolean('read')->default(0);

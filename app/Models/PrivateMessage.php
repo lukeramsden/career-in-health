@@ -9,14 +9,14 @@ class PrivateMessage extends Model
 {
     protected $fillable = [];
 
-    public function fromUser()
+    public function company()
     {
-        return $this->belongsTo(User::class, 'from_user_id');
+        return $this->belongsTo(Company::class);
     }
 
-    public function toUser()
+    public function employee()
     {
-        return $this->belongsTo(User::class, 'to_user_id');
+        return $this->belongsTo(Employee::class);
     }
 
     public function advert()
@@ -24,14 +24,44 @@ class PrivateMessage extends Model
         return $this->belongsTo(Advert::class);
     }
 
-    public function company()
+    /**
+     * @param User|Employee|Company|null $entity
+     * @return boolean
+     * @throws \Exception
+     */
+    public function sentTo($entity = null)
     {
-        return $this->advert->company;
+        if (is_null($entity))
+        {
+            if (!Auth::check())
+                return false;
+
+            $entity = Auth::user();
+        }
+
+        if ($entity instanceof Employee)
+            return $this->direction === 'to_employee' && $this->employee_id === $entity->id;
+
+        elseif ($entity instanceof Company)
+            return $this->direction === 'to_company' && $this->company_id === $entity->id;
+
+        elseif ($entity instanceof User)
+        {
+            if ($entity->isValidCompany())
+                return $this->direction === 'to_company'
+                    && $this->company_id === $entity->company->id;
+
+            elseif ($entity->isEmployee())
+                return $this->direction === 'to_employee'
+                    && $this->employee_id === $entity->employee->id;
+        }
+
+        return false;
     }
 
     public function markAsRead()
     {
-        if($this->read) return; // don't execute query if it does nothing
+        if ($this->read) return;
 
         $this->read = true;
         $this->read_at = now();
@@ -40,45 +70,10 @@ class PrivateMessage extends Model
 
     public function markAsUnread()
     {
-        if(!$this->read) return;
+        if (!$this->read) return;
 
         $this->read = false;
         $this->read_at = null;
         $this->save();
-    }
-
-    public function isFromUser(User $user = null)
-    {
-        return ($user ?? Auth::user())->id == $this->from_user_id;
-    }
-
-    public static function allMessageThreads(User $user = null)
-    {
-        if ($user == null) return null;
-
-        return Advert::whereIn(
-            'id',
-            static::where(function($query) use ($user) {
-                $query
-                    ->where('to_user_id', $user->id)
-                    ->orWhere('from_user_id', $user->id);
-            })->pluck('advert_id')
-        )->get();
-    }
-
-    public static function getThread(User $user = null, Advert $advert = null)
-    {
-        if ($user == null || $advert == null) return null;
-
-        $messages = static::whereAdvertId($advert->id);
-
-        $messages->where(function($query) use ($user) {
-            $query
-                ->where('to_user_id', $user->id)
-                ->orWhere('from_user_id', $user->id);
-        });
-
-        return $messages
-            ->orderByDesc('created_at');
     }
 }
