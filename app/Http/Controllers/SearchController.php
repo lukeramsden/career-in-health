@@ -38,9 +38,6 @@ class SearchController extends Controller
 
     public function search()
     {
-        if(Auth::check() && Auth::user()->isEmployee() && Auth::user()->onboarding()->inProgress())
-            return redirect(route('search'));
-
         if(!$this->request->has('town'))
             return view('search')
                 ->with([

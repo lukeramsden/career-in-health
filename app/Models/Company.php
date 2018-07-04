@@ -11,7 +11,7 @@ class Company extends Model
 
     public function getIsEditedAttribute()
     {
-         return $this->attributes['is_edited'] = ($this->created_at != $this->updated_at) ? true : false;
+         return $this->created_at != $this->updated_at;
     }
 
     protected $fillable = ['name', 'location_id', 'about', 'phone', 'email'];

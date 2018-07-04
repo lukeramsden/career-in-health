@@ -21,7 +21,6 @@ class RegisterOnboardingSteps
         if (Auth::check())
         {
             $user = Auth::user();
-            $userable = $user->userable;
 
             if ($user->isCompany())
             {

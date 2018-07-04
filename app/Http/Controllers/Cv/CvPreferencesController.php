@@ -46,6 +46,8 @@ class CvPreferencesController extends Controller
         if($cv->preferences()->exists())
         {
             $preferences = $cv->preferences;
+            debug($data);
+            debug($preferences);
             $preferences->fill($data);
             $preferences->save();
         } else

@@ -214,6 +214,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'Active' =>  Rukhsar\ActiveRoute\Facades\Active::class,
         'Onboard' => Calebporzio\Onboard\OnboardFacade::class,
