@@ -26,8 +26,8 @@
                                         {{ $companyUser->company->name }}
                                     </a>
                                 </h5>
-                                
-                                <p class="mt-1">{{ str_limit($companyUser->company->about) }}</p>
+                                {{-- get only first line and then str_limit it --}}
+                                <p class="mt-1">{{ str_limit(strtok($companyUser->company->about, " \n")) }}</p>
                             </div>
                         </div>
                     </div>
