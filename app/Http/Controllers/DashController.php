@@ -18,23 +18,24 @@ class DashController extends Controller
 
         $this->middleware('auth');
         $this->middleware('company-created');
-        // $this->middleware('mustOnboard'); TODO: activate this
+        $this->middleware('mustOnboard');
     }
 
     protected function dashCompany()
     {
-        $user = Auth::user()->load(['company', 'company.applications']);
+        $user = Auth::user();
+        $companyUser = $user->userable;
+        $company = $companyUser->company;
+
         $currentPage = $this->request->get('page', 1);
 
         $applicationsCount =
-            $user
-                ->company
+            $company
                 ->applications()
                 ->count();
 
         $applications =
-            $user
-                ->company
+            $company
                 ->applications()
                 ->orderByDesc('created_at')
                 ->skip(self::$perPage * ($currentPage - 1))
@@ -62,18 +63,19 @@ class DashController extends Controller
 
     protected function dashEmployee()
     {
-        $user = Auth::user()->load(['cv', 'cv.preferences']);
+        $user = Auth::user();
+        $employee = $user->userable;
+
         $currentPage = $this->request->get('page', 1);
 
         // Applications
-
         $applicationsCount =
-            $user
+            $employee
                 ->applications()
                 ->count();
 
         $applications =
-            $user
+            $employee
                 ->applications()
                 ->orderByDesc('updated_at')
                 ->skip(self::$perPage * ($currentPage - 1))
@@ -138,23 +140,24 @@ class DashController extends Controller
         $count += $advertsCount;
 //        $count += $privateMessagesCount;
 
-        while($feed->count() < self::$perPage)
-        {
-            $item = null;
-            switch(random_int(0, 1)) {
-                case 0:
-                    $item = $adverts->shift();
-                    break;
-                case 1:
-                    $item = $applications->shift();
-                    break;
-//                case 2:
-//                    $item = $privateMessages->shift();
-//                    break;
+        if($advertsCount > 0 && $applicationsCount > 0)
+            while($feed->count() < self::$perPage)
+            {
+                $item = null;
+                switch(random_int(0, 1)) {
+                    case 0:
+                        $item = $adverts->shift();
+                        break;
+                    case 1:
+                        $item = $applications->shift();
+                        break;
+    //                case 2:
+    //                    $item = $privateMessages->shift();
+    //                    break;
+                }
+                if($item !== null)
+                    $feed->push($item);
             }
-            if($item !== null)
-                $feed->push($item);
-        }
 
         $paginator = new LengthAwarePaginator(
             // items
@@ -188,9 +191,9 @@ class DashController extends Controller
         $user = Auth::user();
 
         if($user->isCompany())
-            return view('company.dashboard', ['items' => new LengthAwarePaginator([], 0, 10)]);
+            return view('company.dashboard', ['items' => self::dashCompany()]);
         else
-            return view('employee.dashboard', ['items' => new LengthAwarePaginator([], 0, 10)]);
+            return view('employee.dashboard', ['items' => self::dashEmployee()]);
     }
 
     /**
