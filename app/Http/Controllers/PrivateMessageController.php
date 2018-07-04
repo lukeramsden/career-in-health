@@ -4,83 +4,83 @@ namespace App\Http\Controllers;
 
 use App\Advert;
 use App\PrivateMessage;
-use App\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PrivateMessageController extends Controller
 {
-    protected $request;
+	protected $request;
 
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
+	public function __construct(Request $request)
+	{
+		$this->request = $request;
 
-        $this->middleware('auth');
-        $this->middleware('mustOnboard');
-        $this->middleware(function($request, Closure $next) {
-            $message = $request->route('message');
+		$this->middleware('auth');
+		$this->middleware('mustOnboard');
+		$this->middleware(function ($request, Closure $next)
+		{
+			$message = $request->route('message');
 
-            if($message && Auth::check() && Auth::user()->id != optional($message)->toUser->id) {
-                toast()->error('Cannot change read status of a message you didn\'t receive.');
-                return back();
-            }
+			if ($message && Auth::check() && !$message->sentTo(Auth::user()))
+			{
+				toast()->error('Cannot change read status of a message you didn\'t receive.');
+				return back();
+			}
 
-            return $next($request);
-        })->only('markAsRead', 'markAsUnread');
-    }
+			return $next($request);
+		})
+			->only('markAsRead', 'markAsUnread')
+		;
+	}
 
-    protected function rules()
-    {
-        return [
-            'body' => 'required|string|max:1000'
-        ];
-    }
+	public function show(Advert $advert)
+	{
+		return view('account.private-message.show')
+			->with([
+				'advert' => $advert,
+			]);
+	}
 
-    public function index()
-    {
-        return view('account.message-thread-index')
-            ->with([
-                'threads' => PrivateMessage::allMessageThreads(Auth::user())
-            ]);
-    }
+	public function store()
+	{
+		$data = $this->request->validate(self::rules());
 
-    public function showThread(Advert $advert)
-    {
-        $messages = $advert->threadMessages()->sortBy('created_at');
+		$message = new PrivateMessage();
 
-        PrivateMessage
-            ::whereIn('id', $messages->pluck('id'))
-            ->where('to_user_id', Auth::user()->id)
-            ->update([
-                'read' => true,
-                'read_at' => now()
-            ]);
+		$user     = Auth::user();
+		$userable = $user->userable;
 
-        return view('account.message-thread-show')
-            ->with([
-                'advert' => $advert,
-                'messages' => $messages->all(),
-            ]);
-    }
+		if (isset($data->to_employee_id))
+		{
+			$message->direction   = 'to_employee';
+			$message->employee_id = $data->to_employee_id;
+			$message->company_id  = $userable->company_id;
+		}
+		elseif (isset($data->to_company_id))
+		{
+			$message->direction   = 'to_company';
+			$message->company_id  = $data->to_company_id;
+			$message->employee_id = $userable->employee_id;
+		}
 
-    public function store(Advert $advert, User $user)
-    {
-        $data = $this->request->validate(self::rules());
+		$message->fill($data);
+		$message->save();
 
-        $message = new PrivateMessage();
+		if (ajax())
+			return response()->json(['success' => true, 'model' => $message], 200);
 
-        $message->advert_id    = $advert->id;
-        $message->to_user_id   = $user->id;
-        $message->from_user_id = Auth::user()->id;
-        $message->body         = $data['body'];
-        $message->save();
+		toast()->success('Message sent successfully');
+		return back();
+	}
 
-        if(ajax())
-            return response()->json(['success' => true, 'model' => $message], 200);
-
-        toast()->success('Message sent successfully');
-        return back();
-    }
+	protected function rules()
+	{
+		return [
+			'body'           => 'required|string|max:1000',
+			'advert_id'      => 'required|integer|exists:adverts,id',
+			'to_employee_id' => 'required_without:to_company_id|integer|exists:employees,id',
+			'to_company_id'  => 'required_without:to_employee_id|integer|exists:companies,id',
+		];
+	}
 }

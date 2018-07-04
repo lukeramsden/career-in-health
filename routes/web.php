@@ -64,8 +64,8 @@ Route::prefix('account')
         Route::post('/password', 'UserController@updatePassword')->name('manage.password');
 
         Route::get('/private-messages', 'PrivateMessageController@index')->name('private-message.index');
-        Route::get('/private-messages/{advert}', 'PrivateMessageController@showThread')->name('private-message.show');
-        Route::post('/private-messages/{advert}/{user}', 'PrivateMessageController@store')->name('private-message.store');
+        Route::post('/private-messages/send', 'PrivateMessageController@store')->name('private-message.store');
+        Route::get('/private-messages/{advert}', 'PrivateMessageController@show')->name('private-message.show');
     });
 
 Route::prefix('employee')
