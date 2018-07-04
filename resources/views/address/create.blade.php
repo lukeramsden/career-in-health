@@ -35,7 +35,7 @@
                             
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input class="awesomplete form-control" v-model="model.county" list="counties" name="county" placeholder="County" maxlength="60" required />
+                                    <input class="form-control" id="county-dropdown" v-model="model.county" list="counties" name="county" placeholder="County" maxlength="60" required />
                                     <datalist id="counties">
                                         @endverbatim
                                             @foreach(\App\Location::getCounties() as $county)
@@ -146,10 +146,8 @@
                         data: this.model,
                     })
                         .then((response) => {
-                            console.log(response);
-                            if(response.status === 200) {
+                            if(response.status === 200)
                                 toastr.success('Updated!')
-                            }
                         })
                         .catch((error) => {
                             console.log(error);
@@ -184,9 +182,19 @@
             data: data,
         });
         
-        @foreach ($errors->all() as $error)
-            toastr.error("{{ $error }}");
-        @endforeach
+        $(function(){
+            @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}");
+            @endforeach
+            
+            let $county = $('#county-dropdown');
+            const countyDropdown = new Awesomplete('#county-dropdown');
+            
+            $county.on('awesomplete-selectcomplete', function(event) {
+                $county[0].dispatchEvent(new Event('input', { 'bubbles': true }));
+                countyDropdown.close();
+            });
+        });
     </script>
 @endsection
 @section('stylesheet')
