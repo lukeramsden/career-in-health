@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Advert;
+use App\Employee;
 use App\PrivateMessage;
 use Closure;
 use Illuminate\Http\Request;
@@ -17,28 +18,67 @@ class PrivateMessageController extends Controller
 		$this->request = $request;
 
 		$this->middleware('auth');
-		$this->middleware('mustOnboard');
+		$this->middleware('must-onboard');
 		$this->middleware(function ($request, Closure $next)
 		{
 			$message = $request->route('message');
 
-			if ($message && Auth::check() && !$message->sentTo(Auth::user()))
+			if ($message && Auth::check() && !$message->wasSentTo(Auth::user()))
 			{
 				toast()->error('Cannot change read status of a message you didn\'t receive.');
 				return back();
 			}
 
 			return $next($request);
-		})
-			->only('markAsRead', 'markAsUnread')
-		;
+		})->only('markAsRead', 'markAsUnread');
+		$this->middleware('user-type:employee')->only('showForAdvert');
+		$this->middleware('user-type:company')->only('showForAdvertAndEmployee');
+
 	}
 
-	public function show(Advert $advert)
+	public function showForAdvert(Advert $advert)
 	{
+		$user     = Auth::user();
+		$userable = $user->userable;
+
+		$messages = PrivateMessage
+			::whereAdvertId($advert->id)
+			->whereEmployeeId($userable->id)
+			->whereCompanyId($advert->company->id);
+
+		(clone $messages)
+			->whereDirection('to_employee')
+			->each(function ($v, $k)
+			{
+				$v->markAsRead();
+			});
+
 		return view('account.private-message.show')
 			->with([
-				'advert' => $advert,
+				'messages' => $messages->get(),
+				'advert'   => $advert,
+			]);
+	}
+
+	public function showForAdvertAndEmployee(Advert $advert, Employee $employee)
+	{
+		$messages = PrivateMessage
+			::whereAdvertId($advert->id)
+			->whereEmployeeId($employee->id)
+			->whereCompanyId($advert->company->id);
+
+		(clone $messages)
+			->whereDirection('to_company')
+			->each(function ($v, $k)
+			{
+				$v->markAsRead();
+			});
+
+		return view('account.private-message.show')
+			->with([
+				'messages' => $messages->get(),
+				'advert'   => $advert,
+				'employee' => $employee,
 			]);
 	}
 
@@ -51,18 +91,19 @@ class PrivateMessageController extends Controller
 		$user     = Auth::user();
 		$userable = $user->userable;
 
-		if (isset($data->to_employee_id))
+		if (isset($data['to_employee_id']))
 		{
 			$message->direction   = 'to_employee';
-			$message->employee_id = $data->to_employee_id;
+			$message->employee_id = $data['to_employee_id'];
 			$message->company_id  = $userable->company_id;
 		}
-		elseif (isset($data->to_company_id))
+		elseif (isset($data['to_company_id']))
 		{
 			$message->direction   = 'to_company';
-			$message->company_id  = $data->to_company_id;
-			$message->employee_id = $userable->employee_id;
+			$message->company_id  = $data['to_company_id'];
+			$message->employee_id = $userable->id;
 		}
+		else abort(500);
 
 		$message->fill($data);
 		$message->save();

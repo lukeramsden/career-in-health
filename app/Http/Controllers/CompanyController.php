@@ -18,10 +18,10 @@ class CompanyController extends Controller
 
         $this->middleware('auth');
         $this->middleware('user-type:company')->except('show');
-        $this->middleware('mustOnboard')->except(['create', 'store']);
+        $this->middleware('must-onboard')->except(['create', 'store']);
     }
 
-    private function rules($custom = [])
+    protected function rules($custom = [])
     {
         return array_merge([
             'name'            => 'required|string|unique:companies',

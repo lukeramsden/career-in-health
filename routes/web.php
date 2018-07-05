@@ -65,7 +65,8 @@ Route::prefix('account')
 
         Route::get('/private-messages', 'PrivateMessageController@index')->name('private-message.index');
         Route::post('/private-messages/send', 'PrivateMessageController@store')->name('private-message.store');
-        Route::get('/private-messages/{advert}', 'PrivateMessageController@show')->name('private-message.show');
+        Route::get('/private-messages/{advert}', 'PrivateMessageController@showForAdvert')->name('private-message.show-employee');
+        Route::get('/private-messages/{advert}/{employee}', 'PrivateMessageController@showForAdvertAndEmployee')->name('private-message.show-company');
     });
 
 Route::prefix('employee')

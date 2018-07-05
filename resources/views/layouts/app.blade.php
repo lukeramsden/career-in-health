@@ -97,7 +97,9 @@
                                    onclick="navSectionClick(this)"
                                    href="javascript:">
                                     Messages
-                                    <span class="badge badge-danger p-1">1</span>
+                                    @if(Auth::user()->unreadMessages() > 0)
+                                        <span class="badge badge-danger p-1">{{ Auth::user()->unreadMessages() }}</span>
+                                    @endif
                                 </a>
                                 <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
                                     <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>

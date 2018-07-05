@@ -2,99 +2,126 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    use \Calebporzio\Onboard\GetsOnboarded;
+	use Notifiable;
+	use \Calebporzio\Onboard\GetsOnboarded;
 
-    protected $fillable = [
-        'email',
-    ];
+	protected $fillable = [
+		'email',
+	];
 
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+	protected $hidden = [
+		'password', 'remember_token',
+	];
 
-    protected static function boot()
-    {
-        parent::boot();
+	protected static function boot()
+	{
+		parent::boot();
 
-        static::deleting(function (User $user)
-        {
-            $user->userable()->delete();
-        });
-    }
+		static::deleting(function (User $user)
+		{
+			$user->userable()->delete();
+		});
+	}
 
-    public function userable()
-    {
-        return $this->morphTo();
-    }
+	public function userable()
+	{
+		return $this->morphTo();
+	}
 
-    public function isEmployee()
-    {
-        return $this->userable instanceof Employee;
-    }
+	/**
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function hasCreatedAddress()
+	{
+		static $b = null;
+		if (is_null($b))
+			$b = $this->isValidCompany() && $this->userable->company->addresses()->count() > 0;
+		return $b;
+	}
 
-    public function isCompany()
-    {
-        return $this->userable instanceof CompanyUser;
-    }
+	/**
+	 * Checks if is company user AND if company is valid
+	 *
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function isValidCompany()
+	{
+		static $b = null;
+		if (is_null($b))
+			$b = $this->isCompany() && $this->userable->company()->exists();
+		return $b;
+	}
 
-    /**
-     * Checks if is company user AND if company is valid
-     *
-     * @return bool
-     * @throws \Exception
-     */
-    public function isValidCompany()
-    {
-        static $b = null;
-        if(is_null($b))
-            $b = $this->isCompany() && $this->userable->company()->exists();
-        return $b;
-    }
+	public function isCompany()
+	{
+		return $this->userable instanceof CompanyUser;
+	}
 
-    /**
-     * @return bool
-     * @throws \Exception
-     */
-    public function hasCreatedAddress()
-    {
-        static $b = null;
-        if(is_null($b))
-            $b = $this->isValidCompany() && $this->userable->company->addresses()->count() > 0;
-        return $b;
-    }
+	/**
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function hasCreatedAdvert()
+	{
+		static $b = null;
+		if (is_null($b))
+			// has_created_first_advert is here because we don't want to return to onboarding
+			// if the company deletes all the adverts they have created
+			$b = $this->isValidCompany() && $this->userable->company->has_created_first_advert;
+		return $b;
+	}
 
-    /**
-     * @return bool
-     * @throws \Exception
-     */
-    public function hasCreatedAdvert()
-    {
-        static $b = null;
-        if(is_null($b))
-            // has_created_first_advert is here because we don't want to return to onboarding
-            // if the company deletes all the adverts they have created
-            $b = $this->isValidCompany() && $this->userable->company->has_created_first_advert;
-        return $b;
-    }
+	public function isAdmin()
+	{
+		return $this->userable instanceof Admin;
+	}
 
-    public function isAdmin()
-    {
-        return $this->userable instanceof Admin;
-    }
+	public function isEmployee()
+	{
+		return $this->userable instanceof Employee;
+	}
 
-    public function sendEmailConfirmationNotification()
-    {
-        $this->notify(new \App\Notifications\ConfirmEmail($this));
-    }
+	/**
+	 * @return int
+	 * @throws \Exception
+	 */
+	public function unreadMessages()
+	{
+		/** @var integer $unread */
+		static $unread = null;
+		if (is_null($unread))
+		{
+			if ($this->isValidCompany())
+				$unread = PrivateMessage
+					::whereDirection('to_company')
+					->whereCompanyId($this->userable->company->id)
+					->whereRead(false)
+					->count();
 
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new \App\Notifications\ResetPassword($token));
-    }
+			elseif ($this->isEmployee())
+				$unread = PrivateMessage
+					::whereDirection('to_employee')
+					->whereEmployeeId($this->userable->id)
+					->whereRead(false)
+					->count();
+		}
+		return $unread;
+	}
+
+	public function sendEmailConfirmationNotification()
+	{
+		$this->notify(new \App\Notifications\ConfirmEmail($this));
+	}
+
+	public function sendPasswordResetNotification($token)
+	{
+		$this->notify(new \App\Notifications\ResetPassword($token));
+	}
 }

@@ -44,7 +44,7 @@ class Kernel extends HttpKernel
             'bindings',
         ],
 
-        'mustOnboard' => [
+        'must-onboard' => [
             \App\Http\Middleware\RedirectToUnfinishedOnboardingStep::class,
         ],
     ];

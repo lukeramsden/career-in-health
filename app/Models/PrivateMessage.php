@@ -30,7 +30,7 @@ class PrivateMessage extends Model
 	 * @return boolean
 	 * @throws \Exception
 	 */
-	public function sentTo($entity = null)
+	public function wasSentTo($entity = null)
 	{
 		if (is_null($entity))
 		{
@@ -50,11 +50,11 @@ class PrivateMessage extends Model
 		{
 			if ($entity->isValidCompany())
 				return $this->direction === 'to_company'
-					&& $this->company_id === $entity->company->id;
+					&& $this->company_id === $entity->userable->company->id;
 
 			elseif ($entity->isEmployee())
 				return $this->direction === 'to_employee'
-					&& $this->employee_id === $entity->employee->id;
+					&& $this->employee_id === $entity->userable->id;
 		}
 
 		return false;

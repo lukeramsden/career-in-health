@@ -17,5 +17,10 @@ class AdvertSeeder extends Seeder
             'created_by_user_id' => 3,
             'published' => true,
         ]);
+
+		$company = \App\Company::find(1);
+
+		$company->has_created_first_advert = true;
+		$company->save();
     }
 }

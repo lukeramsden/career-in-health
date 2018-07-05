@@ -60,7 +60,31 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('onboarding', function () {
             return Auth::check() && Auth::user()->onboarding()->inProgress();
         });
-    }
+
+        Blade::if('usertype', function($types) {
+			$user = Auth::user();
+			$userable = $user->userable;
+
+			foreach(explode(',', $types) as $type)
+				switch($type)
+				{
+					case 'employee':
+						if($userable instanceof \App\Employee)
+							return true;
+						break;
+					case 'company':
+						if($userable instanceof \App\CompanyUser)
+							return true;
+						break;
+					case 'admin':
+						if($userable instanceof \App\Admin)
+							return true;
+						break;
+				}
+
+        	return false;
+        });
+	}
 
     /**
      * Register any application services.
