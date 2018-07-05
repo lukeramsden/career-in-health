@@ -37,6 +37,10 @@
                         <div class="card card-custom">
                             <div class="card-body">
                                 <p>
+                                    <b>From:</b> 
+                                    <a href="{{ route('employee.show', $application->employee) }}">{{ $application->employee->full_name }}</a>
+                                </p>
+                                <p>
                                     @if($application->custom_cover_letter)
                                         {{ $application->custom_cover_letter }}
                                     @else
