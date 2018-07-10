@@ -11,14 +11,16 @@
             </div>
         </div>
         <div class="row mt-4">
-            <div class="col-sm-12 col-md-6">
-                <div class="card card-custom mb-4">
-                    <div class="card-body">
-                        <h4 class="mb-4"><em>About Me</em></h4>
-                        <p>{!! nl2br(e($employee->about)) !!}</p>
+            @isset($employee->about)
+                <div class="col-sm-12 col-md-6">
+                    <div class="card card-custom mb-4">
+                        <div class="card-body">
+                            <h4 class="mb-4"><em>About Me</em></h4>
+                            <p>{!! nl2br(e($employee->about)) !!}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endisset
             @php($cv = $employee->cv)
             <div class="col-sm-12 col-md-6">
                 @if($cv->education->count() > 0)
