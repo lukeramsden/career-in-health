@@ -27,6 +27,19 @@
                                 )->custom_cover_letter ?? 'No cover letter', 100) }}
                         </small>
                     @endif
+                @elseusertype('company')
+                    @if(\App\AdvertApplication::hasApplied($employee, $advert))
+                        <hr>
+                        <b>They have applied to this advert!</b>
+                        <br>
+                        <small class="text-muted">
+                            {{ str_limit(
+                                \App\AdvertApplication::getApplication(
+                                    $employee,
+                                    $advert
+                                )->custom_cover_letter ?? 'No cover letter', 100) }}
+                        </small>
+                    @endif
                 @endusertype
             </div>
         </div>

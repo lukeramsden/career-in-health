@@ -47,25 +47,36 @@ class PrivateMessageController extends Controller
 		if($user->isEmployee()) {
 			$messages = PrivateMessage
 				::with('company', 'advert.address', 'advert.address.location')
-				->whereEmployeeId($userable->id)
-				->select('company_id', 'advert_id', DB::raw('MAX(`created_at`) as `created_at`'))
-				->orderByDesc('created_at')
-				->groupBy('employee_id', 'advert_id', 'company_id');
+				->findMany(
+					PrivateMessage
+						::whereEmployeeId($userable->id)
+						->select(DB::raw('MAX(`id`) as `id`'), 'company_id', 'advert_id', DB::raw('MAX(`created_at`) as `created_at`'))
+						->orderByDesc('created_at')
+						->groupBy('employee_id', 'advert_id', 'company_id')
+						->get()
+						->pluck('id')
+				)->reverse();
 
 			return view('account.private-message.index')
 				->with([
-					'messages' => $messages->get()
+					'messages' => $messages
 				]);
 		} elseif ($user->isValidCompany()) {
 			$messages = PrivateMessage
-				::whereCompanyId($userable->company->id)
-				->select('employee_id', 'advert_id', DB::raw('MAX(`created_at`) as `created_at`'))
-				->orderByDesc('created_at')
-				->groupBy('employee_id', 'company_id', 'advert_id');
+				::with('advert.address', 'advert.address.location', 'employee', 'employee.location')
+				->findMany(
+					PrivateMessage
+						::whereCompanyId($userable->company->id)
+						->select(DB::raw('MAX(`id`) as `id`'), 'employee_id', 'advert_id', DB::raw('MAX(`created_at`) as `created_at`'))
+						->orderByDesc('created_at')
+						->groupBy('employee_id', 'advert_id', 'company_id')
+						->get()
+						->pluck('id')
+				)->reverse();
 
 			return view('account.private-message.index')
 				->with([
-					'messages' => $messages->get()
+					'messages' => $messages
 				]);
 		}
 
