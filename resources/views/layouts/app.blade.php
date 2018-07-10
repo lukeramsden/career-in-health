@@ -291,7 +291,7 @@
     @yield('stylesheet')
 @endsection
 @section('b_script')
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script>
         function navSectionClick(t) {
             $(t).next().slideToggle("fast", "easeInOutExpo");

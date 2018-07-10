@@ -8,6 +8,7 @@ use App\PrivateMessage;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PrivateMessageController extends Controller
 {
@@ -33,7 +34,42 @@ class PrivateMessageController extends Controller
 		})->only('markAsRead', 'markAsUnread');
 		$this->middleware('user-type:employee')->only('showForAdvert');
 		$this->middleware('user-type:company')->only('showForAdvertAndEmployee');
+	}
 
+	/**
+	 * @throws \Exception
+	 */
+	public function index()
+	{
+		$user = Auth::user();
+		$userable = $user->userable;
+
+		if($user->isEmployee()) {
+			$messages = PrivateMessage
+				::with('company', 'advert.address', 'advert.address.location')
+				->whereEmployeeId($userable->id)
+				->select('company_id', 'advert_id', DB::raw('MAX(`created_at`) as `created_at`'))
+				->orderByDesc('created_at')
+				->groupBy('employee_id', 'advert_id', 'company_id');
+
+			return view('account.private-message.index')
+				->with([
+					'messages' => $messages->get()
+				]);
+		} elseif ($user->isValidCompany()) {
+			$messages = PrivateMessage
+				::whereCompanyId($userable->company->id)
+				->select('employee_id', 'advert_id', DB::raw('MAX(`created_at`) as `created_at`'))
+				->orderByDesc('created_at')
+				->groupBy('employee_id', 'company_id', 'advert_id');
+
+			return view('account.private-message.index')
+				->with([
+					'messages' => $messages->get()
+				]);
+		}
+
+		return abort(500);
 	}
 
 	public function showForAdvert(Advert $advert)
