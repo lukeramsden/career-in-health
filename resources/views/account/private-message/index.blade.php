@@ -3,7 +3,7 @@
     <div class="container mt-lg-5">
         {{-- TODO: improve UX for this --}}
         @usertype('employee')
-            @foreach($messages as $message)
+            @forelse($messages as $message)
                 <div class="card card-custom mb-3">
                     <div class="card-header">
                         <b>With:</b> <a href="{{ route('company.show', [$message->company]) }}">{{ $message->company->name }}</a>
@@ -20,9 +20,13 @@
                         <a href="{{ route('account.private-message.show-employee', [$message->advert]) }}">View Messages</a>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="text-center">
+                    <p class="font-italic">You have no messages</p>
+                </div>
+            @endforelse
         @elseusertype('company')
-            @foreach($messages as $message)
+            @forelse($messages as $message)
                 <div class="card card-custom mb-3">
                     <div class="card-header">
                         <b>With:</b> <a href="{{ route('employee.show', [$message->employee]) }}">{{ $message->employee->full_name }}</a>
@@ -40,7 +44,12 @@
                         <a href="{{ route('account.private-message.show-company', [$message->advert, $message->employee]) }}">View Messages</a>
                     </div>
                 </div>
-            @endforeach
+                
+            @empty
+                <div class="text-center">
+                    <p class="font-italic">You have no messages</p>
+                </div>
+            @endforelse
         @endusertype
     </div>
 @endsection
