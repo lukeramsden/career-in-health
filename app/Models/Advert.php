@@ -38,6 +38,7 @@ class Advert extends Model
 
         static::deleting(function(Advert $advert) {
              $advert->applications()->delete();
+             $advert->messages()->delete();
         });
     }
 
@@ -112,93 +113,5 @@ class Advert extends Model
     public function messages()
     {
         return $this->hasMany(PrivateMessage::class, 'advert_id');
-    }
-
-    /**
-     * Message thread related stuff
-     **/
-
-    public function threadMessages(User $user = null)
-    {
-        return PrivateMessage
-            ::getThread($user ?? Auth::user(), $this)
-            ->get();
-    }
-
-    public function threadUnreadMessages(User $user = null)
-    {
-        return PrivateMessage
-            ::getThread($user ?? Auth::user(), $this)
-            ->whereRead(false)
-            ->get();
-    }
-
-    public function threadMessageCount(User $user = null)
-    {
-        return PrivateMessage
-            ::getThread($user ?? Auth::user(), $this)
-            ->count();
-    }
-
-    public function threadUnreadCount(User $user = null)
-    {
-        return PrivateMessage
-            ::getThread($user ?? Auth::user(), $this)
-            ->whereRead(false)
-            ->count();
-    }
-
-    public function threadLatestMessage(User $user = null)
-    {
-        return PrivateMessage
-            ::getThread($user ?? Auth::user(), $this)
-            ->first();
-    }
-
-    public function threadLatestReceivedMessage(User $user = null)
-    {
-        return PrivateMessage
-            ::whereAdvertId($this->id)
-            ->whereToUserId(($user->id ?? Auth::user())->id)
-            ->orderByDesc('created_at')
-            ->first();
-    }
-
-    public function threadReceivedMessages(User $user = null)
-    {
-        return PrivateMessage
-            ::whereAdvertId($this->id)
-            ->whereToUserId(($user ?? Auth::user())->id)
-            ->orderByDesc('created_at')
-            ->get();
-    }
-
-    public function threadReceivedUnreadMessages(User $user = null)
-    {
-        return PrivateMessage
-            ::whereAdvertId($this->id)
-            ->whereToUserId(($user ?? Auth::user())->id)
-            ->whereRead(false)
-            ->orderByDesc('created_at')
-            ->get();
-    }
-
-    public function threadReceivedMessagesCount(User $user = null)
-    {
-        return PrivateMessage
-            ::whereAdvertId($this->id)
-            ->whereToUserId(($user ?? Auth::user())->id)
-            ->orderByDesc('created_at')
-            ->count();
-    }
-
-    public function threadReceivedUnreadMessagesCount(User $user = null)
-    {
-        return PrivateMessage
-            ::whereAdvertId($this->id)
-            ->whereToUserId(($user ?? Auth::user())->id)
-            ->whereRead(false)
-            ->orderByDesc('created_at')
-            ->count();
     }
 }
