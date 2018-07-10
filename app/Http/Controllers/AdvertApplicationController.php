@@ -102,13 +102,19 @@ class AdvertApplicationController extends Controller
         return redirect(route('advert.show', [$advert]));
     }
 
-    public function update(AdvertApplication $application)
+	/**
+	 * @param AdvertApplication $application
+	 *
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+	 * @throws \Exception
+	 */
+	public function update(AdvertApplication $application)
     {
         $user = Auth::user();
         // if editing status or notes
         if ($this->request->has('status') || $this->request->has('notes')) {
             // dont let non-owners edit status or notes for applications for adverts they dont own
-            if(!$user->isValidCompany() || $application->advert->company->id !== $user->company->id) {
+            if(!$user->isValidCompany() || $application->advert->company->id !== $user->userable->company->id) {
                 if(ajax())
                     return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status or notes.'], 401);
 
