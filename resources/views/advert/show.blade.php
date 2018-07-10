@@ -60,9 +60,7 @@
                                 @else
                                     <button type="button" disabled class="btn btn-block btn-secondary">Already Applied!</button>
                                 @endif
-                                {{-- Send a message if there are none --}}
-                                {{-- View messages if there is --}}
-                                {{-- <a href="{{ route('account.private-message.new', [$advert]) }}" class="btn btn-block btn-primary">Send a Message</a>--}}
+                                <a href="{{ route('account.private-message.show-employee', [$advert]) }}" class="btn btn-block btn-primary">Send a Message</a>
                             @endif
                         @endauth
                     </div>
