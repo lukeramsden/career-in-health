@@ -34,49 +34,72 @@
                         <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
                     
                         @if(Auth::user()->isValidCompany())
-                        
-                            {{----}}
-                        
-                            <small class="text-muted">Your Profile</small>
-                        
-                            <a class="nav-link {{ active_route('company-user.show.me') }}" href="{{ route('company-user.show.me') }}">View Your Profile</a>
-                            <a class="nav-link {{ active_route('company-user.edit') }}" href="{{ route('company-user.edit') }}">Edit Your Profile</a>
-                        
-                            {{--<a class="nav-link {{ active_route('company.show.me') }}" href="{{ route('company.show.me') }}">My Profile</a>--}}
-                            {{--<a class="nav-link {{ active_route('company.edit') }}" href="{{ route('company.edit') }}">Edit Profile</a>--}}
-                        
                             <small class="text-muted">Your Company</small>
-            
-                            <a class="nav-link {{active_route('company.show.me')}}" href="{{route('company.show.me')}}">View Your Company</a>
-                            <a class="nav-link {{active_route('company.edit')}}" href="{{route('company.edit')}}">Edit Your Company</a>
                         
-                            {{----}}
+                            <li class="nav-item dropright {{ active_route(['company.show.me', 'company.edit']) }}">
+                                <a class="nav-link dropdown-toggle"
+                                   href="javascript:"
+                                   id="navdropdown-Company"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Company
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navdropdown-Company">
+                                    <a class="dropdown-item {{active_route('company.show.me')}}" href="{{route('company.show.me')}}">View Your Company</a>
+                                    <a class="dropdown-item {{active_route('company.edit')}}" href="{{route('company.edit')}}">Edit Your Company</a>
+                                </div>
+                            </li>
                         
-                            <small class="text-muted">Adverts</small>
+                            <li class="nav-item dropright {{ active_route(['advert.*', 'company.show.applications']) }}">
+                                <a class="nav-link dropdown-toggle"
+                                   href="javascript:"
+                                   id="navdropdown-Adverts"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Adverts
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navdropdown-Adverts">
+                                    <a class="dropdown-item dropdown-item-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
+                                    <a class="dropdown-item {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">View Adverts</a>
+                                    <a class="dropdown-item {{ active_route('company.show.applications') }}" href="{{ route('company.show.applications') }}">View Applications</a>
+                                </div>
+                            </li>
+                            
+                            <li class="nav-item dropright {{ active_route('address.*') }}">
+                                <a class="nav-link dropdown-toggle"
+                                   href="javascript:"
+                                   id="navdropdown-Addresses"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Addresses
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navdropdown-Addresses">
+                                    <a class="dropdown-item dropdown-item-action {{ active_route('address.create') }}" href="{{ route('address.create') }}">Create New Address</a>
+                                    <a class="dropdown-item {{ active_route(['address.index', 'address.edit', 'address.show.*']) }}" href="{{ route('address.index') }}">My Addresses</a>
+                                </div>
+                            </li>
+                            
+                            <small class="text-muted">You</small>
                         
-                            <a class="nav-link nav-link-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
-                            <a class="nav-link {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">My Adverts</a>
-                            <a class="nav-link {{ active_route('company.show.applications') }}" href="{{ route('company.show.applications') }}">View Applications</a>
-                        
-                            {{----}}
-                        
-                            <small class="text-muted">Addresses</small>
-                        
-                            <a class="nav-link {{ active_route('address.create') }}" href="{{ route('address.create') }}">Create New Address</a>
-                            <a class="nav-link {{ active_route(['address.index', 'address.edit', 'address.show.*']) }}" href="{{ route('address.index') }}">My Addresses</a>
-                        
-                            {{----}}
-                    
+                            <li class="nav-item dropright {{ active_route('company-user.*') }}">
+                                <a class="nav-link dropdown-toggle"
+                                   href="javascript:"
+                                   id="navdropdown-Profile"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Profile
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navdropdown-Profile">
+                                    <a class="dropdown-item {{ active_route('company-user.show.me') }}" href="{{ route('company-user.show.me') }}">View Your Profile</a>
+                                    <a class="dropdown-item {{ active_route('company-user.edit') }}" href="{{ route('company-user.edit') }}">Edit Your Profile</a>
+                                </div>
+                            </li>
+                            
                         @elseif(Auth::user()->isEmployee())
-                        
-                            {{----}}
-                        
-                            <small class="text-muted">Profile</small>
-                        
-                            <a class="nav-link {{ active_route('employee.show.me') }}" href="{{ route('employee.show.me') }}">View Profile</a>
-                            <a class="nav-link {{ active_route('employee.edit') }}" href="{{ route('employee.edit') }}">Edit Profile</a>
-                            <a class="nav-link {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
-                        
                             {{----}}
                         
                             <small class="text-muted">Get Hired</small>
@@ -84,44 +107,52 @@
                             <a class="nav-link nav-link-action {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
                         
                             <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
-                        @endif
-                    
-                        {{----}}
-                    
-                        <small class="text-muted">Account</small>
-                    
-                        <div class="nav-section-parent">
-                            @set('activeRoute', active_route('account.private-message.*'))
-                            <div class="nav-section {{ $activeRoute }}">
-                                <a class="nav-link nav-section-title"
-                                   onclick="navSectionClick(this)"
-                                   href="javascript:">
-                                    Messages
-                                    @if(Auth::user()->unreadMessages() > 0)
-                                        <span class="badge badge-danger p-1">{{ Auth::user()->unreadMessages() }}</span>
-                                    @endif
+                            
+                            <small class="text-muted">You</small>
+                        
+                            <li class="nav-item dropright {{ active_route(['employee.*', 'cv.*']) }}">
+                                <a class="nav-link dropdown-toggle"
+                                   href="javascript:"
+                                   id="navdropdown-Profile"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Profile
                                 </a>
-                                <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
-                                    <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
+                                <div class="dropdown-menu" aria-labelledby="navdropdown-Profile">
+                                    <a class="dropdown-item {{ active_route('employee.show.me') }}" href="{{ route('employee.show.me') }}">View Profile</a>
+                                    <a class="dropdown-item {{ active_route('employee.edit') }}" href="{{ route('employee.edit') }}">Edit Profile</a>
+                                    <a class="dropdown-item {{ active_route('cv.builder') }}" href="{{ route('cv.builder') }}">CV Builder</a>
                                 </div>
+                            </li>
+                        
+                        
+                        @endif
+                        
+                        <a class="nav-link {{ active_route('account.private-message.*') }}"
+                           href="{{ route('account.private-message.index') }}">
+                            Messages
+                            @if(Auth::user()->unreadMessages() > 0)
+                                <span class="badge badge-danger p-1">{{ Auth::user()->unreadMessages() }}</span>
+                            @endif
+                        </a>
+        
+                        <li class="nav-item dropright {{ active_route('account.manage.*') }}">
+                            <a class="nav-link dropdown-toggle"
+                               href="javascript:"
+                               id="navdropdown-Account"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">
+                                Account
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navdropdown-Account">
+                                <a class="dropdown-item {{ active_route('account.manage.email') }}" href="{{ route('account.manage.email') }}">Change Email</a>
+                                <a class="dropdown-item {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
+                                <a class="dropdown-item" href="{{ route('logout.get') }}">Log Out</a>
                             </div>
-                            @unset($activeRoute)
-                        </div>
+                        </li>
                     
-                        <div class="nav-section-parent">
-                            @set('activeRoute', active_route('account.manage.*'))
-                            <div class="nav-section {{ $activeRoute }}">
-                                <a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Settings</a>
-                                <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
-                                    <a class="nav-link nav-link-sub {{ active_route('account.manage.email') }}" href="{{ route('account.manage.email') }}">Change Email</a>
-                                    <a class="nav-link nav-link-sub {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
-                                </div>
-                            </div>
-                            @unset($activeRoute)
-                        </div>
-                        <a class="nav-link" href="{{ route('logout.get') }}">Log Out</a>
-                    
-                        {{----}}
                         @endonboarding
                     @endauth
             </nav>
@@ -242,12 +273,11 @@
                                     @set('activeRoute', active_route('account.private-message.*'))
                                     <div class="nav-section {{ $activeRoute }}">
                                         <a class="nav-link nav-section-title"
-                                           onclick="navSectionClick(this)"
                                            href="javascript:">
                                             Messages
                                             <span class="badge badge-danger p-1">1</span>
                                         </a>
-                                        <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
+                                        <div class="nav-section-sub">
                                             <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
                                             {{--                                        <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>--}}
                                         </div>
@@ -260,8 +290,8 @@
                                 <div class="nav-section-parent">
                                     @set('activeRoute', active_route('account.manage.*'))
                                     <div class="nav-section {{ $activeRoute }}">
-                                        <a class="nav-link nav-section-title" onclick="navSectionClick(this)" href="javascript:">Settings</a>
-                                        <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
+                                        <a class="nav-link nav-section-title" href="javascript:">Settings</a>
+                                        <div class="nav-section-sub">
                                             <a class="nav-link nav-link-sub {{ active_route('account.manage.email') }}" href="{{ route('account.manage.email') }}">Change Email</a>
                                             <a class="nav-link nav-link-sub {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
                                         </div>
@@ -290,11 +320,5 @@
     @yield('stylesheet')
 @endsection
 @section('b_script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <script>
-        function navSectionClick(t) {
-            $(t).next().slideToggle("fast", "easeInOutExpo");
-        }
-    </script>
     @yield('script')
 @endsection

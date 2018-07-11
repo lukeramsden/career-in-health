@@ -37,14 +37,11 @@ $navbar-width: 240px;
     margin-left: $navbar-width;
   }
 
+  z-index: 1;
+
   @include media-breakpoint-down(md) {
     margin-top: 56px;
   }
-
-  width: auto;
-  position: relative;
-  overflow: auto;
-  z-index: 1;
 
   .container-fluid {
     padding-left: 30px;
@@ -69,6 +66,7 @@ $navbar-width: 240px;
 }
 
 #navbar {
+  z-index: 200;
   position: fixed;
   top: 0;
   left: 0;
@@ -87,6 +85,7 @@ $navbar-width: 240px;
   }
 
   nav {
+    z-index: 200;
     width: 100%;
 
     a {
@@ -99,21 +98,6 @@ $navbar-width: 240px;
 
       height: 40px;
 
-      // custom heights, 2px-100px in increments of 2
-      @for $i from 1px through 50px {
-        $size: $i * 2;
-        &.size-#{$size} {
-          height: $size;
-
-          &.active {
-            border-left-width: $i;
-            border-top-width: $i;
-            border-bottom-width: $i;
-            right: -$i;
-          }
-        }
-      }
-
       &.nav-link-onboarding {
         &[disabled] {
           color: $secondary;
@@ -122,7 +106,8 @@ $navbar-width: 240px;
         }
       }
 
-      &.nav-link-action {
+      &.nav-link-action,
+      &.dropdown-item-action {
         background-color: $action;
         color: $white;
 
@@ -189,70 +174,30 @@ $navbar-width: 240px;
       }
     }
 
-    .nav-section {
-      &-sub {
-        &:last-child {
-          margin-bottom: 0.25em;
-        }
-      }
-
-      &-title {
-        &:after {
-          content: '';
-          position: absolute;
-          width: 90%;
-          transform: translateX(-50%);
-          bottom: 0;
-          left: 50%;
-          border-bottom: 4px solid $primary;
-        }
-      }
-
-      .nav-link {
-        &-sub {
-          font-size: 80%;
-          margin-left: 10%;
-          width: 90%;
-          height: 34px;
-
-          &:nth-last-child(1) {
-            border-bottom-left-radius: 4px;
-          }
-        }
-      }
-
+    .nav-item.dropright {
+      z-index: 200;
       &.active {
-        .nav-section-title {
-          &:hover {
-            &:after {
-              border-bottom-color: $dark-primary;
-            }
-          }
-        }
-
-        .nav-link {
+        .dropdown-toggle {
           color: $white;
           background-color: $primary;
 
           &:hover {
             background-color: $dark-primary;
           }
+        }
+      }
 
-          &-sub {
-            &:hover {
-              &:after {
-                border-left-color: $dark-primary;
-              }
-            }
+      .dropdown-menu {
+        z-index: 200;
+        padding: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+        border-bottom-right-radius: 0.25rem;
 
-            &:after {
-              height: 34px;
-              border-top: 17px solid transparent;
-              border-bottom: 17px solid transparent;
-              border-left: 17px solid $primary;
-              right: -17px;
-            }
-          }
+        .dropdown-item {
+          vertical-align: middle;
+          padding: 0.5rem 1rem;
         }
       }
     }
