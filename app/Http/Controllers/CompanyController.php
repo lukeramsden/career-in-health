@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\UserInvite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +27,7 @@ class CompanyController extends Controller
         return array_merge([
             'name'            => 'required|string|unique:companies',
             'usersToInvite'   => 'nullable|array',
-            'usersToInvite.*' => 'nullable|email|distinct|unique:users,email',
+            'usersToInvite.*' => 'nullable|email|distinct|unique:users,email|unique:user_invites,email',
             'avatar'          => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
             'remove_avatar'   => 'nullable|boolean',
             'location_id'     => 'required|integer|exists:locations,id',
@@ -122,6 +123,18 @@ class CompanyController extends Controller
 
         $user->userable->company_id = $company->id;
         $user->userable->save();
+
+        if(isset($data['usersToInvite']))
+		{
+			foreach($data['usersToInvite'] as $email)
+			{
+				$invite = new UserInvite();
+				$invite->email = $email;
+				$invite->company_id = $company->id;
+				$invite->invited_by_id = $user->userable_id;
+				$invite->save();
+			}
+		}
 
         if(Auth::user()->onboarding()->inProgress())
             return redirect(Auth::user()->onboarding()->nextUnfinishedStep()->link);

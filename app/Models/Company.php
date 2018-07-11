@@ -54,4 +54,9 @@ class Company extends Model
     {
         return $this->avatar ? Storage::url($this->avatar) : null;
     }
+
+	public function invites()
+	{
+		return $this->hasMany(UserInvite::class);
+	}
 }

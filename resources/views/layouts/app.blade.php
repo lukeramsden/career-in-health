@@ -16,7 +16,6 @@
                 
                 @auth
                     @onboarding
-                        {{-- TODO: style this better --}}
                         @foreach (Auth::user()->onboarding()->steps as $step)
                             <a
                             class="nav-link nav-link-onboarding {{ $step->linkClass ?: '' }} {{ Request::fullUrlIs($step->link) ? 'active' : ''  }}"
