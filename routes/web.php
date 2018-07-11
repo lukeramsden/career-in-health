@@ -87,7 +87,7 @@ Route::prefix('company')
         Route::post('/edit', 'CompanyController@update')->name('update');
         Route::get('/view/{company}', 'CompanyController@show')->name('show');
         Route::get('/view/', 'CompanyController@showMe')->name('show.me');
-
+        Route::get('/applications/', 'CompanyController@showApplications')->name('show.applications');
     });
 
 Route::prefix('company-user')

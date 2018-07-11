@@ -57,6 +57,7 @@
                         
                             <a class="nav-link nav-link-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
                             <a class="nav-link {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">My Adverts</a>
+                            <a class="nav-link {{ active_route('company.show.applications') }}" href="{{ route('company.show.applications') }}">View Applications</a>
                         
                             {{----}}
                         
@@ -103,7 +104,6 @@
                                 </a>
                                 <div class="nav-section-sub" {{ empty($activeRoute) ? 'style=display:none' : '' }}>
                                     <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
-                                    {{--                                <a class="nav-link nav-link-sub {{ active_route('account.private-message.index.sent') }}" href="{{ route('account.private-message.index.sent') }}">Sent Messages</a>--}}
                                 </div>
                             </div>
                             @unset($activeRoute)

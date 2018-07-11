@@ -128,4 +128,12 @@ class CompanyController extends Controller
 
         return redirect(route('dashboard'));
     }
+
+    public function showApplications()
+	{
+		return view('company.view-applications')
+			->with([
+				'applications' => Auth::user()->userable->company->applications
+			]);
+	}
 }

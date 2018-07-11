@@ -34,7 +34,7 @@
             <div class="col-12">
                 <div class="card-columns m-0">
                     @foreach($advert->applications as $application)
-                        <div class="card card-custom">
+                        <div class="card card-custom" id="application{{$application->id}}">
                             <div class="card-body">
                                 <p>
                                     <b>From:</b> 
@@ -81,4 +81,31 @@
             </div>
         </div>
     </div>
+@endsection
+@section('stylesheet')
+    <style>
+        .highlight {
+            border: 3px solid #455782 !important;
+            outline: 0;
+            -webkit-box-shadow: 0px 0px 67px -18px rgba(0,0,0,0.47);
+            -moz-box-shadow: 0px 0px 67px -18px rgba(0,0,0,0.47);
+            box-shadow: 0px 0px 67px -18px rgba(0,0,0,0.47);
+        }
+    </style>
+@endsection
+@section('script')
+    <script>
+        $(function() {
+            @if(Request::query('highlight'))
+                var $card = $('#application{{ Request::query('highlight')  }}');
+                $card
+                    .addClass('highlight')
+                    .addClass('rounded');
+                
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $card.offset().top
+                }, 500);
+            @endif
+        });
+    </script>
 @endsection
