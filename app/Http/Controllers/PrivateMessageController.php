@@ -7,6 +7,7 @@ use App\Employee;
 use App\PrivateMessage;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -56,11 +57,6 @@ class PrivateMessageController extends Controller
 						->get()
 						->pluck('id')
 				)->reverse();
-
-			return view('account.private-message.index')
-				->with([
-					'messages' => $messages
-				]);
 		} elseif ($user->isValidCompany()) {
 			$messages = PrivateMessage
 				::with('advert.address', 'advert.address.location', 'employee', 'employee.location')
@@ -73,14 +69,32 @@ class PrivateMessageController extends Controller
 						->get()
 						->pluck('id')
 				)->reverse();
-
-			return view('account.private-message.index')
-				->with([
-					'messages' => $messages
-				]);
 		}
 
-		return abort(500);
+		$messages = collect($messages);
+		$result = view('account.private-message.index');
+		if($messages->count() > 0)
+		{
+			$perPage = 10;
+			$currentPage = $this->request->query('page', 1);
+
+			$paginator = new LengthAwarePaginator(
+				array_slice(
+					$messages->all(),
+					$perPage * ($currentPage - 1),
+					$perPage
+				),
+				$messages->count(),
+				$perPage,
+				$currentPage,
+    			[ 'path' => '/'.$this->request->path() ]
+			);
+			$result->with([
+				'messages' => $paginator
+			]);
+		}
+
+		return $result;
 	}
 
 	public function showForAdvert(Advert $advert)
