@@ -3,13 +3,29 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Webpatser\Uuid\Uuid;
 
 class UserInvite extends Model
 {
-    protected $table = 'user_invites';
-    protected $fillable = [];
+	use Notifiable;
 
-    public function company()
+	public    $incrementing = false;
+	protected $table        = 'user_invites';
+	protected $primaryKey   = 'email';
+	protected $fillable = [];
+	protected $dates    = ['created_at', 'updated_at', 'last_reminded_at'];
+
+	public static function boot()
+	{
+		parent::boot();
+		self::creating(function ($model)
+		{
+			$model->accept_code = (string)Uuid::generate(4);
+		});
+	}
+
+	public function company()
 	{
 		return $this->belongsTo(Company::class, 'company_id');
 	}
@@ -17,5 +33,14 @@ class UserInvite extends Model
 	public function invitedBy()
 	{
 		return $this->belongsTo(CompanyUser::class, 'invited_by_id');
+	}
+
+	public function remind()
+	{
+		$this->notify(new \App\Notifications\CompanyInvite($this));
+
+		$this->last_reminded_at = now();
+		$this->times_reminded   = $this->times_reminded++ ?? 1;
+		$this->save();
 	}
 }

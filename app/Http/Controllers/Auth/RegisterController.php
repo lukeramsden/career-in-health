@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Validation\Rule;
+use Webpatser\Uuid\Uuid;
 
 class RegisterController extends Controller
 {
@@ -67,12 +68,14 @@ class RegisterController extends Controller
         return Validator::make($data, $rules);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
+	/**
+	 * Create a new user instance after a valid registration.
+	 *
+	 * @param  array $data
+	 *
+	 * @return \App\User
+	 * @throws \Exception
+	 */
     protected function create(array $data)
     {
         switch($data['i_am'])
@@ -100,7 +103,7 @@ class RegisterController extends Controller
 
         $user = new User();
         $user->email = $data['email'];
-        $user->confirmation_code = str_random(30);
+        $user->confirmation_code = (string) Uuid::generate(4);
         $user->password = Hash::make($data['password']);
         $user->userable()->associate($userable);
         $user->save();

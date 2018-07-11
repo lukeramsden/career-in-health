@@ -83,11 +83,6 @@ class User extends Authenticatable
 		return $this->userable instanceof Admin;
 	}
 
-	public function isEmployee()
-	{
-		return $this->userable instanceof Employee;
-	}
-
 	/**
 	 * @return int
 	 * @throws \Exception
@@ -113,6 +108,19 @@ class User extends Authenticatable
 					->count();
 		}
 		return $unread;
+	}
+
+	public function isEmployee()
+	{
+		return $this->userable instanceof Employee;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isInvited()
+	{
+		return UserInvite::whereEmail($this->email)->count() > 0;
 	}
 
 	public function sendEmailConfirmationNotification()

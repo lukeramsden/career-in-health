@@ -15,11 +15,14 @@ class CreateUserInvitesTable extends Migration
 	{
 		Schema::create('user_invites', function (Blueprint $table)
 		{
-			$table->string('email')->unique()->index();
+			$table->string('email')->primary()->unique()->index();
+			$table->string('accept_code')->unique();
 			$table->integer('company_id')->unsigned();
 			$table->foreign('company_id')->references('id')->on('companies');
 			$table->integer('invited_by_id')->unsigned();
 			$table->foreign('invited_by_id')->references('id')->on('company_users');
+			$table->timestamp('last_reminded_at')->nullable();
+			$table->integer('times_reminded')->unsigned()->default(0);
 			$table->timestamps();
 		});
 	}

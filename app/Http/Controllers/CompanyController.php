@@ -133,6 +133,7 @@ class CompanyController extends Controller
 				$invite->company_id = $company->id;
 				$invite->invited_by_id = $user->userable_id;
 				$invite->save();
+				$invite->remind();
 			}
 		}
 

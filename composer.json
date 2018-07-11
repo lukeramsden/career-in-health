@@ -20,7 +20,8 @@
         "mikehaertl/php-pdftk": "^0.4.4",
         "predis/predis": "^1.1",
         "radic/blade-extensions": "^7.0",
-        "rukhsar/laravel-active-route": "^1.4"
+        "rukhsar/laravel-active-route": "^1.4",
+        "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
