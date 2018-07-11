@@ -25,12 +25,10 @@
                     <div class="card card-custom mb-4">
                         <div class="card-body">
                             @isset($company->phone)
-                                {{-- TODO: add this to company migration/controller/etc --}}
                                 <h5><span class="oi oi-phone text-muted"></span> <span class="text-muted">Phone:</span> <span>{{ $company->phone }}</span></h5>
                             @endisset
                 
                             @isset($company->email)
-                                {{-- TODO: add this to company migration/controller/etc --}}
                                 <h5><span class="oi oi-envelope-closed text-muted"></span> <span class="text-muted">Email:</span> <span>{{ $company->email }}</span></h5>
                             @endisset
                         </div>

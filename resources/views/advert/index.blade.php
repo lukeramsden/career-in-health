@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
     <div class="container-fluid">
-        {{-- TODO: add more fields to this --}}
         <table class="table table-striped table-hover" id="adverts"
                data-order="[[ 1, &quot;desc&quot; ]]">
             <thead>
