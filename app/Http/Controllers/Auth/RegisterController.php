@@ -59,7 +59,7 @@ class RegisterController extends Controller
         $rules = [
             'i_am'       => [ 'required', 'string', Rule::in(array_values(UserType::all())) ],
             'first_name' => 'required|string|max:255',
-            'last_name'  => 'string|max:255',
+            'last_name'  => 'nullable|string|max:255',
             'email'      => 'required|string|email|max:255|unique:users',
             'password'   => 'required|string|min:6|confirmed',
             'terms'      => 'required'
