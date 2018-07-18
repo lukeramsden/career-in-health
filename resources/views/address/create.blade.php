@@ -13,7 +13,7 @@
 
     @verbatim
         <script type="text/x-template" id="template__address-form">
-            <form @submit="submit" :action="url" method="post" >
+            <form @submit="submit" :action="url" method="post" enctype="multipart/form-data">
                 @endverbatim
                     {{ csrf_field() }}
                 @verbatim
@@ -75,6 +75,17 @@
                                     <a href="{{ route('address.destroy', [$address]) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-block">Delete</a>
                                 @endif
                                 @verbatim
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-custom">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input type="file" name="images[]" class="form-control-file">
+                                <input type="file" name="images[]" class="form-control-file">
+                                <input type="file" name="images[]" class="form-control-file">
+                                <input type="file" name="images[]" class="form-control-file">
                             </div>
                         </div>
                     </div>

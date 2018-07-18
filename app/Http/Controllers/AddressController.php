@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Address;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\Exceptions\FileCannotBeAdded;
+use Webpatser\Uuid\Uuid;
 
 class AddressController extends Controller
 {
@@ -14,14 +16,14 @@ class AddressController extends Controller
     {
         $this->request = $request;
 
-        $this->middleware('auth');
-        $this->middleware('user-type:company');
-        $this->middleware('company-created');
+        $this->middleware('auth')->except('show');
+        $this->middleware('user-type:company')->except('show');
+        $this->middleware('company-created')->except('show');
     }
 
-    protected function rules()
+    protected function rules($custom = [])
     {
-        return [
+        return array_merge([
             'name'           => 'required|max:120',
             'location_id'    => 'required|integer|exists:locations,id',
             'address_line_1' => 'required|max:60',
@@ -29,7 +31,9 @@ class AddressController extends Controller
             'address_line_3' => 'nullable|max:60',
             'county'         => 'required|max:40',
             'postcode'       => 'required|max:10|postcode',
-        ];
+			'images'         => 'nullable|array',
+			'images.*'       => 'image|max:10240|mimes:jpg,jpeg,png'
+        ], $custom);
     }
 
     public function index()
@@ -39,6 +43,14 @@ class AddressController extends Controller
                 'addresses' => Auth::user()->userable->company->addresses,
             ]);
     }
+
+    public function show(Address $address)
+	{
+		return view('address.show')
+			->with([
+				'address' => $address,
+			]);
+	}
 
     public function create()
     {
@@ -67,6 +79,23 @@ class AddressController extends Controller
         $data['postcode'] = str_replace(' ', '', strtoupper($data['postcode']));
         $address->fill($data);
         $address->save();
+
+		foreach($this->request->file('images') as $image)
+		{
+			try
+			{
+				$address
+					->addMedia($image)
+					->usingFileName(Uuid::generate(4)->string)
+					->toMediaCollection('images');
+			} catch (FileCannotBeAdded $e)
+			{
+				toast()->error("{$image->getClientOriginalName()} failed to upload, please try again.");
+			} catch (\Exception $e)
+			{
+				toast()->error("Unknown error with file {$image->getClientOriginalName()}");
+			}
+		}
 
         if(Auth::user()->onboarding()->inProgress())
             return redirect(Auth::user()->onboarding()->nextUnfinishedStep()->link);

@@ -3,10 +3,24 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
-class Address extends Model
+class Address extends Model implements HasMedia
 {
-    protected $guarded = ['id', '_token'];
+	use HasMediaTrait;
+
+    protected $fillable = [
+    	'name',
+		'address_line_1',
+		'address_line_2',
+		'address_line_3',
+		'county',
+		'postcode',
+		'company_id',
+		'location_id',
+	];
+
     protected $with = ['location'];
 
     protected static function boot() {

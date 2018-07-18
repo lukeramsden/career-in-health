@@ -21,6 +21,7 @@
         "predis/predis": "^1.1",
         "radic/blade-extensions": "^7.0",
         "rukhsar/laravel-active-route": "^1.4",
+        "spatie/laravel-medialibrary": "^6.0.0",
         "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {

@@ -53,6 +53,7 @@ Route::prefix('address')
         Route::get('/{address}/edit', 'AddressController@edit')->name('edit');
         Route::post('/{address}/edit', 'AddressController@update')->name('update');
         Route::any('/{address}/delete', 'AddressController@destroy')->name('destroy');
+        Route::get('/{address}', 'AddressController@show')->name('show');
     });
 
 Route::prefix('account')
