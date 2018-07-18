@@ -11548,7 +11548,8 @@ body {
 }
 
 .sleek-form .col:nth-child(2) {
-  background-color: #455782;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#455782), to(#354968));
+  background-image: linear-gradient(to right bottom, #455782, #354968);
   color: #fff;
 }
 

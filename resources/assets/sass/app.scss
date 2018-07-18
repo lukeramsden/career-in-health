@@ -521,7 +521,12 @@ $navbar-width: 240px;
 
     // style text
     &:nth-child(2) {
-      background-color: $primary;
+      background-image:
+              linear-gradient(
+                              to right bottom,
+                              $primary,
+                              $dark-primary
+              );
       color: $white;
 
       .sleek-form-help-container {
