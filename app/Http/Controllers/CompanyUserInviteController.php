@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\CompanyUser;
 use App\User;
-use App\UserInvite;
+use App\CompanyUserInvite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class UserInviteController extends Controller
+class CompanyUserInviteController extends Controller
 {
 	protected $request;
 
@@ -22,7 +23,6 @@ class UserInviteController extends Controller
 	protected function rules($custom = [])
 	    {
 	        return array_merge([
-	        	'accept_code' => 'required|uuid|exists:user_invites',
 				'first_name'  => 'required|string|max:255',
 				'last_name'   => 'nullable|string|max:255',
 				'password'    => 'required|string|min:6|confirmed',
@@ -32,30 +32,27 @@ class UserInviteController extends Controller
 
 	public function show($code)
 	{
-		$invite = UserInvite::whereAcceptCode($code)->first();
+		$invite = CompanyUserInvite::whereAcceptCode($code)->first();
 
 		if(!isset($invite))
 			return abort(404, 'Invite not found.');
 
-		return view('user.accept-invite')
+		return view('company-user.accept-invite')
 			->with([
 				'code' => $code,
+				'invite' => $invite,
 			]);
 	}
 
-	public function accept()
+	public function accept(CompanyUserInvite $invite)
 	{
 		$data = $this->request->validate(self::rules());
 
-		$invite = UserInvite::whereAcceptCode($data['code'])->first();
-
-		if(!isset($invite))
-			return abort(404, 'Invite not found.');
-
-		$userable = new CompanyUser();
-		$userable->first_name = $data['first_name'];
-		if(isset($data['last_name']))
-			$userable->last_name = $data['last_name'];
+		$userable = new CompanyUser([
+			'first_name' => $data['first_name'],
+			'last_name' => $data['last_name'],
+			'company_id' => $invite->company_id,
+		]);
 		$userable->save();
 
 		$user = new User();
@@ -65,5 +62,9 @@ class UserInviteController extends Controller
 		$user->password = Hash::make($data['password']);
 		$user->userable()->associate($userable);
 		$user->save();
+
+		Auth::guard()->login($user);
+
+		return redirect(route('dashboard'));
 	}
 }

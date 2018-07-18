@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
-use App\UserInvite;
+use App\CompanyUserInvite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +17,7 @@ class CompanyController extends Controller
     {
         $this->request = $request;
 
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show');
         $this->middleware('user-type:company')->except('show');
         $this->middleware('must-onboard')->except(['create', 'store']);
     }
@@ -27,7 +27,7 @@ class CompanyController extends Controller
         return array_merge([
             'name'            => 'required|string|unique:companies',
             'usersToInvite'   => 'nullable|array',
-            'usersToInvite.*' => 'nullable|email|distinct|unique:users,email|unique:user_invites,email',
+            'usersToInvite.*' => 'nullable|email|distinct|unique:users,email|unique:company_user_invites,email',
             'avatar'          => 'nullable|image|max:1024|dimensions:max_width=600,max_height=600,ratio=1|mimes:jpg,jpeg,png',
             'remove_avatar'   => 'nullable|boolean',
             'location_id'     => 'required|integer|exists:locations,id',
@@ -128,7 +128,7 @@ class CompanyController extends Controller
 		{
 			foreach($data['usersToInvite'] as $email)
 			{
-				$invite = new UserInvite();
+				$invite = new CompanyUserInvite();
 				$invite->email = $email;
 				$invite->company_id = $company->id;
 				$invite->invited_by_id = $user->userable_id;

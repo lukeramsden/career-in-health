@@ -21,14 +21,14 @@
         <link rel="shortcut icon" type="image/png" href="/images/favicon.png"/>
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        @yield('b_stylesheet')
+        @yield('base_stylesheet')
     </head>
     <body>
-        @yield('b_content')
+        @yield('base_content')
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="{{ asset('js/app.js') }}"></script>
-        @yield('b_script')
+        @yield('base_script')
         @include('toast::messages-jquery')
     </body>
 </html>

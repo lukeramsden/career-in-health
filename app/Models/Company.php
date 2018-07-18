@@ -57,6 +57,6 @@ class Company extends Model
 
 	public function invites()
 	{
-		return $this->hasMany(UserInvite::class);
+		return $this->hasMany(CompanyUserInvite::class);
 	}
 }

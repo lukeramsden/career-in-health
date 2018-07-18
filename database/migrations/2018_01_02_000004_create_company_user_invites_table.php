@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserInvitesTable extends Migration
+class CreateCompanyUserInvitesTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserInvitesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('user_invites', function (Blueprint $table)
+		Schema::create('company_user_invites', function (Blueprint $table)
 		{
 			$table->string('email')->primary()->unique()->index();
 			$table->string('accept_code')->unique();
@@ -34,6 +34,6 @@ class CreateUserInvitesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('private_messages');
+		Schema::dropIfExists('company_user_invites');
 	}
 }

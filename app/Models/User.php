@@ -120,7 +120,7 @@ class User extends Authenticatable
 	 */
 	public function isInvited()
 	{
-		return UserInvite::whereEmail($this->email)->count() > 0;
+		return CompanyUserInvite::whereEmail($this->email)->count() > 0;
 	}
 
 	public function sendEmailConfirmationNotification()

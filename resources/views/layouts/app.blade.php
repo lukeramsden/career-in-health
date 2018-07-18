@@ -1,5 +1,5 @@
 @extends('layouts.base')
-@section('b_content')
+@section('base_content')
     {{-- side nav --}}
     <div id="navbar" class="d-none d-lg-block">
         <a href="{{ route(Auth::check() ? 'dashboard' : 'home') }}">
@@ -315,10 +315,10 @@
         @yield('content')
     </div>
 @endsection
-@section('b_stylesheet')
+@section('base_stylesheet')
     <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     @yield('stylesheet')
 @endsection
-@section('b_script')
+@section('base_script')
     @yield('script')
 @endsection

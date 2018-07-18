@@ -1,5 +1,5 @@
-@extends('layouts.base')
-@section('b_content')
+@extends('layouts.app')
+@section('base_content')
     <div id="home">
         <div class='banners'>
             <div class='banner'>

@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\UserInvite;
+use App\CompanyUserInvite;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -13,7 +13,7 @@ class CompanyInvite extends Notification
 
 	protected $invite;
 
-	public function __construct(UserInvite $invite)
+	public function __construct(CompanyUserInvite $invite)
 	{
 		$this->$invite = $invite;
 	}

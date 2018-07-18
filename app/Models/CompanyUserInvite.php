@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Webpatser\Uuid\Uuid;
 
-class UserInvite extends Model
+class CompanyUserInvite extends Model
 {
 	use Notifiable;
 
 	public    $incrementing = false;
-	protected $table        = 'user_invites';
+	protected $table        = 'company_user_invites';
 	protected $primaryKey   = 'email';
 	protected $fillable = [];
 	protected $dates    = ['created_at', 'updated_at', 'last_reminded_at'];

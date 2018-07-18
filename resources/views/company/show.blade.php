@@ -38,9 +38,9 @@
                 <div class="card card-custom mb-4">
                     <div class="card-body">
                         @foreach($company->users as $user)
-                            <div class="media">
+                            <div class="media {{ $loop->last ?: 'mb-3' }}">
                                 <a href="{{ route('company-user.show', $user) }}">
-                                    <img class="mr-3" height="80" src="{{ $user->picture() ?? '/images/generic.png' }}">
+                                    <img class="mr-3 img-thumbnail" width="80" src="{{ $user->picture() ?? '/images/generic.png' }}">
                                 </a>
                                 <div class="media-body">
                                     <h4 class="my-0">

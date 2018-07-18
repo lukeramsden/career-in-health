@@ -124,6 +124,9 @@ Route::prefix('cv')
         Route::get('/pdf/download', 'PersonnelFileController@download')->name('pdf.download');
     });
 
+Route::get('/accept-invite/{code}', 'CompanyUserInviteController@show')->name('accept-invite.show');
+Route::post('/accept-invite/{invite}', 'CompanyUserInviteController@accept')->name('accept-invite.accept');
+
 Route::prefix('tracking')
     ->name('tracking.')
     ->group(function() {

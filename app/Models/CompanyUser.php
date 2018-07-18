@@ -45,6 +45,6 @@ class CompanyUser extends Model
 
     public function invites()
 	{
-		return $this->hasMany(UserInvite::class, 'invited_by_id');
+		return $this->hasMany(CompanyUserInvite::class, 'invited_by_id');
 	}
 }
