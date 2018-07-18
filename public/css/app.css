@@ -11982,3 +11982,25 @@ body {
   background-color: #f9834e;
 }
 
+.slick-prev,
+.slick-next {
+  z-index: 2000 !important;
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #354968 !important;
+  font-size: 2rem !important;
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+.slick-prev {
+  left: 10px !important;
+}
+
+.slick-next {
+  right: 10px !important;
+}
+

@@ -67,7 +67,7 @@
                                 </div>
                             </li>
                             
-                            <li class="nav-item dropright {{ active_route('address.*') }}">
+                            <li class="nav-item dropright {{ active_route(['address.create', 'address.index']) }}">
                                 <a class="nav-link dropdown-toggle"
                                    href="javascript:"
                                    id="navdropdown-Addresses"

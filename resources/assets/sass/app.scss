@@ -7,9 +7,9 @@ $primary: #455782;
 $dark-primary: #354968;
 
 $theme-colors: (
-  "primary": $primary,
-  "action": $action,
-  "dark-primary": $dark-primary,
+        "primary": $primary,
+        "action": $action,
+        "dark-primary": $dark-primary,
 );
 
 // Bootstrap
@@ -61,8 +61,8 @@ $navbar-width: 240px;
 }
 
 .fill {
-    min-height: 100%;
-    height: 100%;
+  min-height: 100%;
+  height: 100%;
 }
 
 #navbar {
@@ -70,7 +70,7 @@ $navbar-width: 240px;
   position: fixed;
   top: 0;
   left: 0;
-  height:100%;
+  height: 100%;
   width: $navbar-width;
 
   padding: 0;
@@ -147,7 +147,6 @@ $navbar-width: 240px;
             border-left-color: $dark-primary;
           }
         }
-
 
         &:after {
           content: '';
@@ -288,13 +287,13 @@ $navbar-width: 240px;
   position: relative;
 
   &:before {
-      content: '';
-      display: block;
-      left: 0;
-      right: 0;
-      top: -11px;
-      height: 11px;
-      background-color: $primary;
+    content: '';
+    display: block;
+    left: 0;
+    right: 0;
+    top: -11px;
+    height: 11px;
+    background-color: $primary;
   }
 
   // card styling
@@ -307,7 +306,6 @@ $navbar-width: 240px;
       background-color: #e6e6e6;
     }
   }
-
 
   &.card-advert {
     h1, h2, h3, h4, h5, h6 {
@@ -463,16 +461,16 @@ $navbar-width: 240px;
 }
 
 #advert-show-row {
-    & .col-12 {
-      @include media-breakpoint-up(md) {
-        &:nth-child(1) {
-          margin-bottom: $spacer * 1.5;
-        }
+  & .col-12 {
+    @include media-breakpoint-up(md) {
+      &:nth-child(1) {
+        margin-bottom: $spacer * 1.5;
       }
+    }
 
-      @include media-breakpoint-down(sm) {
-        margin-bottom: $spacer * 0.5;
-      }
+    @include media-breakpoint-down(sm) {
+      margin-bottom: $spacer * 0.5;
+    }
   }
 }
 
@@ -482,7 +480,7 @@ $navbar-width: 240px;
     @include media-breakpoint-up(md) {
       margin-top: 40%;
     }
-    
+
     .form-group {
       position: relative;
     }
@@ -495,9 +493,9 @@ $navbar-width: 240px;
     width: 65%;
   }
 
-  -webkit-box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.19);
-  -moz-box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.19);
-  box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.19);
+  -webkit-box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.19);
+  -moz-box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.19);
+  box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.19);
 
   &-parent {
     min-height: 100vh;
@@ -521,12 +519,11 @@ $navbar-width: 240px;
 
     // style text
     &:nth-child(2) {
-      background-image:
-              linear-gradient(
-                              to right bottom,
-                              $primary,
-                              $dark-primary
-              );
+      background-image: linear-gradient(
+                      to right bottom,
+                      $primary,
+                      $dark-primary
+      );
       color: $white;
 
       .sleek-form-help-container {
@@ -620,7 +617,7 @@ $navbar-width: 240px;
     line-height: 38px !important;
   }
 
-  .select2-selection--multiple  {
+  .select2-selection--multiple {
     .select2-selection__choice {
       background-color: $action !important;
       border: none !important;
@@ -739,9 +736,9 @@ $navbar-width: 240px;
   padding: 1rem;
   margin: 1rem;
 
-  -webkit-box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.13);
-  -moz-box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.13);
-  box-shadow: 10px 29px 82px -21px rgba(0,0,0,0.13);
+  -webkit-box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.13);
+  -moz-box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.13);
+  box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.13);
 
   &-inner {
     display: inline-block;
@@ -783,4 +780,27 @@ $navbar-width: 240px;
       background-color: $action;
     }
   }
+}
+
+$slick-button-size: 2rem;
+$slick-button-offset: 10px;
+.slick-prev,
+.slick-next {
+  z-index: 2000 !important;
+  width: $slick-button-size !important;
+  height: $slick-button-size !important;
+
+  &:before {
+    color: $dark-primary !important;
+    font-size: $slick-button-size !important;
+    font-family: 'Open Sans', sans-serif !important;
+  }
+}
+
+.slick-prev {
+  left: $slick-button-offset !important;
+}
+
+.slick-next {
+  right: $slick-button-offset !important;
 }

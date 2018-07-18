@@ -128,6 +128,12 @@ Route::prefix('cv')
 Route::get('/accept-invite/{code}', 'CompanyUserInviteController@show')->name('accept-invite.show');
 Route::post('/accept-invite/{invite}', 'CompanyUserInviteController@accept')->name('accept-invite.accept');
 
+Route::prefix('media')
+	->name('media.')
+	->group(function() {
+		Route::any('/delete/{media}', 'MediaController@destroy')->name('destroy');
+	});
+
 Route::prefix('tracking')
     ->name('tracking.')
     ->group(function() {
