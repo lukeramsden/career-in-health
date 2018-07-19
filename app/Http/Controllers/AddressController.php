@@ -34,6 +34,10 @@ class AddressController extends Controller
 		return view('address.show')
 			->with([
 				'address' => $address,
+				'adverts' => $address
+					->adverts()
+					->orderBy('created_at', 'desc')
+					->paginate(5),
 			]);
 	}
 

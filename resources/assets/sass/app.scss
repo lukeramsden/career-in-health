@@ -347,14 +347,6 @@ $navbar-width: 240px;
   }
 }
 
-.card-link {
-  transition: all .1s ease-in-out;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-}
-
 .pagination {
   margin: 0;
 
@@ -835,5 +827,15 @@ $slick-button-offset: 10px;
   &:hover {
     text-decoration: unset;
     color: unset;
+  }
+}
+
+@for $i from 1 through 100 {
+  .scale-on-hover-#{$i} {
+    transition: all .1s ease-in-out;
+
+    &:hover {
+      transform: scale(1 + ($i / 100));
+    }
   }
 }

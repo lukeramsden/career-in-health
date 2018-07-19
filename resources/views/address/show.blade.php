@@ -27,7 +27,7 @@
             
             <div class="col-12 col-lg-5 offset-lg-1 mb-4">
                 <a class="link-unstyled" href="{{ route('company.show', $address->company) }}">
-                    <div class="card card-custom card-link">
+                    <div class="card card-custom scale-on-hover-2">
                         <div class="card-body">
                             <img src="{{ $address->company->picture() ?? '/images/generic.png' }}" alt="Profile picture" width="200" class="img-thumbnail mx-auto d-block">
                             <div class="text-center">
@@ -39,11 +39,28 @@
                 </a>
             </div>
             
-            <div class="col-12 col-lg-5">
-                <div class="card card-custom">
-                    <div class="card-body"></div>
+            @if($adverts->total() > 0)
+                <div class="col-12 col-lg-5 mb-4">
+                    <div class="card card-custom">
+                        <div class="card-body pt-0">
+                            {!! $adverts->appends(Request::capture()->except('page'))->render("vendor.pagination") !!}
+                            @foreach($adverts as $advert)
+                                <a class="link-unstyled" href="{{ route('advert.show', $advert) }}">
+                                    <div class="advert scale-on-hover-2">
+                                        <h4>{{$advert->jobRole->name}}</h4>
+                                        <h5>{{ str_limit($advert->title, 50) }}</h5>
+                                        <h6>{{ $advert->getSetting() }}</h6>
+                                    </div>
+                                </a>
+                                <hr>
+                            @endforeach
+                            <div class="text-center">
+                                <p class="font-italic">{{ $adverts->total() }} {{ str_plural('advert', $adverts->total()) }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 @endsection

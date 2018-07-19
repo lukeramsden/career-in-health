@@ -11383,16 +11383,6 @@ body {
   margin-left: 1.5rem;
 }
 
-.card-link {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
-}
-
-.card-link:hover {
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
-}
-
 .pagination {
   margin: 0;
 }
@@ -12037,5 +12027,1005 @@ body {
 .link-unstyled:hover {
   text-decoration: unset;
   color: unset;
+}
+
+.scale-on-hover-1 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-1:hover {
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
+}
+
+.scale-on-hover-2 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-2:hover {
+  -webkit-transform: scale(1.02);
+          transform: scale(1.02);
+}
+
+.scale-on-hover-3 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-3:hover {
+  -webkit-transform: scale(1.03);
+          transform: scale(1.03);
+}
+
+.scale-on-hover-4 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-4:hover {
+  -webkit-transform: scale(1.04);
+          transform: scale(1.04);
+}
+
+.scale-on-hover-5 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-5:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.scale-on-hover-6 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-6:hover {
+  -webkit-transform: scale(1.06);
+          transform: scale(1.06);
+}
+
+.scale-on-hover-7 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-7:hover {
+  -webkit-transform: scale(1.07);
+          transform: scale(1.07);
+}
+
+.scale-on-hover-8 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-8:hover {
+  -webkit-transform: scale(1.08);
+          transform: scale(1.08);
+}
+
+.scale-on-hover-9 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-9:hover {
+  -webkit-transform: scale(1.09);
+          transform: scale(1.09);
+}
+
+.scale-on-hover-10 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-10:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.scale-on-hover-11 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-11:hover {
+  -webkit-transform: scale(1.11);
+          transform: scale(1.11);
+}
+
+.scale-on-hover-12 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-12:hover {
+  -webkit-transform: scale(1.12);
+          transform: scale(1.12);
+}
+
+.scale-on-hover-13 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-13:hover {
+  -webkit-transform: scale(1.13);
+          transform: scale(1.13);
+}
+
+.scale-on-hover-14 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-14:hover {
+  -webkit-transform: scale(1.14);
+          transform: scale(1.14);
+}
+
+.scale-on-hover-15 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-15:hover {
+  -webkit-transform: scale(1.15);
+          transform: scale(1.15);
+}
+
+.scale-on-hover-16 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-16:hover {
+  -webkit-transform: scale(1.16);
+          transform: scale(1.16);
+}
+
+.scale-on-hover-17 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-17:hover {
+  -webkit-transform: scale(1.17);
+          transform: scale(1.17);
+}
+
+.scale-on-hover-18 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-18:hover {
+  -webkit-transform: scale(1.18);
+          transform: scale(1.18);
+}
+
+.scale-on-hover-19 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-19:hover {
+  -webkit-transform: scale(1.19);
+          transform: scale(1.19);
+}
+
+.scale-on-hover-20 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-20:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.scale-on-hover-21 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-21:hover {
+  -webkit-transform: scale(1.21);
+          transform: scale(1.21);
+}
+
+.scale-on-hover-22 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-22:hover {
+  -webkit-transform: scale(1.22);
+          transform: scale(1.22);
+}
+
+.scale-on-hover-23 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-23:hover {
+  -webkit-transform: scale(1.23);
+          transform: scale(1.23);
+}
+
+.scale-on-hover-24 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-24:hover {
+  -webkit-transform: scale(1.24);
+          transform: scale(1.24);
+}
+
+.scale-on-hover-25 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-25:hover {
+  -webkit-transform: scale(1.25);
+          transform: scale(1.25);
+}
+
+.scale-on-hover-26 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-26:hover {
+  -webkit-transform: scale(1.26);
+          transform: scale(1.26);
+}
+
+.scale-on-hover-27 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-27:hover {
+  -webkit-transform: scale(1.27);
+          transform: scale(1.27);
+}
+
+.scale-on-hover-28 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-28:hover {
+  -webkit-transform: scale(1.28);
+          transform: scale(1.28);
+}
+
+.scale-on-hover-29 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-29:hover {
+  -webkit-transform: scale(1.29);
+          transform: scale(1.29);
+}
+
+.scale-on-hover-30 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-30:hover {
+  -webkit-transform: scale(1.3);
+          transform: scale(1.3);
+}
+
+.scale-on-hover-31 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-31:hover {
+  -webkit-transform: scale(1.31);
+          transform: scale(1.31);
+}
+
+.scale-on-hover-32 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-32:hover {
+  -webkit-transform: scale(1.32);
+          transform: scale(1.32);
+}
+
+.scale-on-hover-33 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-33:hover {
+  -webkit-transform: scale(1.33);
+          transform: scale(1.33);
+}
+
+.scale-on-hover-34 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-34:hover {
+  -webkit-transform: scale(1.34);
+          transform: scale(1.34);
+}
+
+.scale-on-hover-35 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-35:hover {
+  -webkit-transform: scale(1.35);
+          transform: scale(1.35);
+}
+
+.scale-on-hover-36 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-36:hover {
+  -webkit-transform: scale(1.36);
+          transform: scale(1.36);
+}
+
+.scale-on-hover-37 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-37:hover {
+  -webkit-transform: scale(1.37);
+          transform: scale(1.37);
+}
+
+.scale-on-hover-38 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-38:hover {
+  -webkit-transform: scale(1.38);
+          transform: scale(1.38);
+}
+
+.scale-on-hover-39 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-39:hover {
+  -webkit-transform: scale(1.39);
+          transform: scale(1.39);
+}
+
+.scale-on-hover-40 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-40:hover {
+  -webkit-transform: scale(1.4);
+          transform: scale(1.4);
+}
+
+.scale-on-hover-41 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-41:hover {
+  -webkit-transform: scale(1.41);
+          transform: scale(1.41);
+}
+
+.scale-on-hover-42 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-42:hover {
+  -webkit-transform: scale(1.42);
+          transform: scale(1.42);
+}
+
+.scale-on-hover-43 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-43:hover {
+  -webkit-transform: scale(1.43);
+          transform: scale(1.43);
+}
+
+.scale-on-hover-44 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-44:hover {
+  -webkit-transform: scale(1.44);
+          transform: scale(1.44);
+}
+
+.scale-on-hover-45 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-45:hover {
+  -webkit-transform: scale(1.45);
+          transform: scale(1.45);
+}
+
+.scale-on-hover-46 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-46:hover {
+  -webkit-transform: scale(1.46);
+          transform: scale(1.46);
+}
+
+.scale-on-hover-47 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-47:hover {
+  -webkit-transform: scale(1.47);
+          transform: scale(1.47);
+}
+
+.scale-on-hover-48 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-48:hover {
+  -webkit-transform: scale(1.48);
+          transform: scale(1.48);
+}
+
+.scale-on-hover-49 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-49:hover {
+  -webkit-transform: scale(1.49);
+          transform: scale(1.49);
+}
+
+.scale-on-hover-50 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-50:hover {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+
+.scale-on-hover-51 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-51:hover {
+  -webkit-transform: scale(1.51);
+          transform: scale(1.51);
+}
+
+.scale-on-hover-52 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-52:hover {
+  -webkit-transform: scale(1.52);
+          transform: scale(1.52);
+}
+
+.scale-on-hover-53 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-53:hover {
+  -webkit-transform: scale(1.53);
+          transform: scale(1.53);
+}
+
+.scale-on-hover-54 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-54:hover {
+  -webkit-transform: scale(1.54);
+          transform: scale(1.54);
+}
+
+.scale-on-hover-55 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-55:hover {
+  -webkit-transform: scale(1.55);
+          transform: scale(1.55);
+}
+
+.scale-on-hover-56 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-56:hover {
+  -webkit-transform: scale(1.56);
+          transform: scale(1.56);
+}
+
+.scale-on-hover-57 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-57:hover {
+  -webkit-transform: scale(1.57);
+          transform: scale(1.57);
+}
+
+.scale-on-hover-58 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-58:hover {
+  -webkit-transform: scale(1.58);
+          transform: scale(1.58);
+}
+
+.scale-on-hover-59 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-59:hover {
+  -webkit-transform: scale(1.59);
+          transform: scale(1.59);
+}
+
+.scale-on-hover-60 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-60:hover {
+  -webkit-transform: scale(1.6);
+          transform: scale(1.6);
+}
+
+.scale-on-hover-61 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-61:hover {
+  -webkit-transform: scale(1.61);
+          transform: scale(1.61);
+}
+
+.scale-on-hover-62 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-62:hover {
+  -webkit-transform: scale(1.62);
+          transform: scale(1.62);
+}
+
+.scale-on-hover-63 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-63:hover {
+  -webkit-transform: scale(1.63);
+          transform: scale(1.63);
+}
+
+.scale-on-hover-64 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-64:hover {
+  -webkit-transform: scale(1.64);
+          transform: scale(1.64);
+}
+
+.scale-on-hover-65 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-65:hover {
+  -webkit-transform: scale(1.65);
+          transform: scale(1.65);
+}
+
+.scale-on-hover-66 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-66:hover {
+  -webkit-transform: scale(1.66);
+          transform: scale(1.66);
+}
+
+.scale-on-hover-67 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-67:hover {
+  -webkit-transform: scale(1.67);
+          transform: scale(1.67);
+}
+
+.scale-on-hover-68 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-68:hover {
+  -webkit-transform: scale(1.68);
+          transform: scale(1.68);
+}
+
+.scale-on-hover-69 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-69:hover {
+  -webkit-transform: scale(1.69);
+          transform: scale(1.69);
+}
+
+.scale-on-hover-70 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-70:hover {
+  -webkit-transform: scale(1.7);
+          transform: scale(1.7);
+}
+
+.scale-on-hover-71 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-71:hover {
+  -webkit-transform: scale(1.71);
+          transform: scale(1.71);
+}
+
+.scale-on-hover-72 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-72:hover {
+  -webkit-transform: scale(1.72);
+          transform: scale(1.72);
+}
+
+.scale-on-hover-73 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-73:hover {
+  -webkit-transform: scale(1.73);
+          transform: scale(1.73);
+}
+
+.scale-on-hover-74 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-74:hover {
+  -webkit-transform: scale(1.74);
+          transform: scale(1.74);
+}
+
+.scale-on-hover-75 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-75:hover {
+  -webkit-transform: scale(1.75);
+          transform: scale(1.75);
+}
+
+.scale-on-hover-76 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-76:hover {
+  -webkit-transform: scale(1.76);
+          transform: scale(1.76);
+}
+
+.scale-on-hover-77 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-77:hover {
+  -webkit-transform: scale(1.77);
+          transform: scale(1.77);
+}
+
+.scale-on-hover-78 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-78:hover {
+  -webkit-transform: scale(1.78);
+          transform: scale(1.78);
+}
+
+.scale-on-hover-79 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-79:hover {
+  -webkit-transform: scale(1.79);
+          transform: scale(1.79);
+}
+
+.scale-on-hover-80 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-80:hover {
+  -webkit-transform: scale(1.8);
+          transform: scale(1.8);
+}
+
+.scale-on-hover-81 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-81:hover {
+  -webkit-transform: scale(1.81);
+          transform: scale(1.81);
+}
+
+.scale-on-hover-82 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-82:hover {
+  -webkit-transform: scale(1.82);
+          transform: scale(1.82);
+}
+
+.scale-on-hover-83 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-83:hover {
+  -webkit-transform: scale(1.83);
+          transform: scale(1.83);
+}
+
+.scale-on-hover-84 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-84:hover {
+  -webkit-transform: scale(1.84);
+          transform: scale(1.84);
+}
+
+.scale-on-hover-85 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-85:hover {
+  -webkit-transform: scale(1.85);
+          transform: scale(1.85);
+}
+
+.scale-on-hover-86 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-86:hover {
+  -webkit-transform: scale(1.86);
+          transform: scale(1.86);
+}
+
+.scale-on-hover-87 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-87:hover {
+  -webkit-transform: scale(1.87);
+          transform: scale(1.87);
+}
+
+.scale-on-hover-88 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-88:hover {
+  -webkit-transform: scale(1.88);
+          transform: scale(1.88);
+}
+
+.scale-on-hover-89 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-89:hover {
+  -webkit-transform: scale(1.89);
+          transform: scale(1.89);
+}
+
+.scale-on-hover-90 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-90:hover {
+  -webkit-transform: scale(1.9);
+          transform: scale(1.9);
+}
+
+.scale-on-hover-91 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-91:hover {
+  -webkit-transform: scale(1.91);
+          transform: scale(1.91);
+}
+
+.scale-on-hover-92 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-92:hover {
+  -webkit-transform: scale(1.92);
+          transform: scale(1.92);
+}
+
+.scale-on-hover-93 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-93:hover {
+  -webkit-transform: scale(1.93);
+          transform: scale(1.93);
+}
+
+.scale-on-hover-94 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-94:hover {
+  -webkit-transform: scale(1.94);
+          transform: scale(1.94);
+}
+
+.scale-on-hover-95 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-95:hover {
+  -webkit-transform: scale(1.95);
+          transform: scale(1.95);
+}
+
+.scale-on-hover-96 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-96:hover {
+  -webkit-transform: scale(1.96);
+          transform: scale(1.96);
+}
+
+.scale-on-hover-97 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-97:hover {
+  -webkit-transform: scale(1.97);
+          transform: scale(1.97);
+}
+
+.scale-on-hover-98 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-98:hover {
+  -webkit-transform: scale(1.98);
+          transform: scale(1.98);
+}
+
+.scale-on-hover-99 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-99:hover {
+  -webkit-transform: scale(1.99);
+          transform: scale(1.99);
+}
+
+.scale-on-hover-100 {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.scale-on-hover-100:hover {
+  -webkit-transform: scale(2);
+          transform: scale(2);
 }
 
