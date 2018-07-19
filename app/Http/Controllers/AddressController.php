@@ -59,6 +59,10 @@ class AddressController extends Controller
 			]);
 	}
 
+	/**
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @throws \Exception
+	 */
 	public function store()
 	{
 		$data = $this->request->validate(self::rules());
@@ -80,9 +84,6 @@ class AddressController extends Controller
 			} catch (FileCannotBeAdded $e)
 			{
 				toast()->error("{$image->getClientOriginalName()} failed to upload, please try again.");
-			} catch (\Exception $e)
-			{
-				toast()->error("Unknown error with file {$image->getClientOriginalName()}");
 			}
 		}
 
@@ -106,7 +107,7 @@ class AddressController extends Controller
 			'address_line_3' => 'nullable|max:60',
 			'county'         => 'required|max:40',
 			'postcode'       => 'required|max:10|postcode',
-			'images'         => 'nullable|array',
+			'images'         => 'nullable|array|max:20',
 			'images.*'       => 'image|max:10240|mimes:jpg,jpeg,png',
 		], $custom);
 	}
@@ -146,6 +147,52 @@ class AddressController extends Controller
 
 		toast()->success('Deleted');
 		return redirect(route('address.index'));
+	}
+
+	/**
+	 * @param Address $address
+	 *
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+	 * @throws \Exception
+	 */
+	public function addImage(Address $address)
+	{
+		$data = $this->request->validate([
+			'image' => 'required|image|max:10240|mimes:jpg,jpeg,png',
+		]);
+
+		$image = $this->request->file('image');
+
+		try
+		{
+			$address
+				->addMedia($image)
+				->usingFileName(Uuid::generate(4)->string)
+				->toMediaCollection('images');
+		} catch (FileCannotBeAdded $e)
+		{
+			$str = "{$image->getClientOriginalName()} failed to upload, please try again.";
+			if (ajax())
+				return response()->json([
+					'success' => false,
+					'model'   => $address,
+					'media'   => $address->getMedia('images'),
+					'error'   => $str,
+				], 500);
+
+			toast()->error($str);
+			return back();
+		}
+
+		if (ajax())
+			return response()->json([
+				'success' => true,
+				'model'   => $address,
+				'media'   => $address->getMedia('images'),
+			], 200);
+
+		toast()->success('Added');
+		return back();
 	}
 
 }

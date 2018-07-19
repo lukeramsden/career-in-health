@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('content')
     <div class="container mt-lg-5" style="min-height: 70vh;">
-        <address-form :model="model" :url="url" :create-new="createNew"></address-form>
+        <div class="card-columns" id="address-edit-card-columns">
+            <address-form :model="model" :url="url" :create-new="createNew"></address-form>
+        </div>
     </div>
 @endsection
 @section('script')
@@ -10,7 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+    
     @verbatim
         <script type="text/x-template" id="template__address-form">
             <form @submit="submit" :action="url" method="post" enctype="multipart/form-data">
@@ -18,75 +21,69 @@
                     {{ csrf_field() }}
                 @verbatim
                 
-                <div class="card-columns" id="address-edit-card-columns">
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Name (<span class='text-action'>*</span>)</label>
-                                <input type="text" class="form-control" v-model="model.name" name="name" maxlength="120" required>
-                            </div>
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Name (<span class='text-action'>*</span>)</label>
+                            <input type="text" class="form-control" v-model="model.name" name="name" maxlength="120" required>
+                        </div>
 
-                            <div class="form-group">
-                                <label>Address (<span class='text-action'>*</span>)</label>
-                                <input type="text" class="form-control my-1" v-model="model.address_line_1" name="address_line_1" placeholder="Line 1" maxlength="60" required>
-                                <input type="text" class="form-control my-1" v-model="model.address_line_2" name="address_line_2" placeholder="Line 2" maxlength="60">
-                                <input type="text" class="form-control my-1" v-model="model.address_line_3" name="address_line_3" placeholder="Line 3" maxlength="60">
-                            </div>
-                            
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input class="form-control" id="county-dropdown" v-model="model.county" list="counties" name="county" placeholder="County" maxlength="60" required />
-                                    <datalist id="counties">
-                                        @endverbatim
-                                            @foreach(\App\Location::getCounties() as $county)
-                                                <option value="{{ $county }}">{{ $county }}</option>
-                                            @endforeach
-                                        @verbatim
-                                    </datalist>
-                                    <input type="text" class="form-control" v-model="model.postcode" name="postcode" placeholder="Postcode" maxlength="10" required>
-                                </div>
+                        <div class="form-group">
+                            <label>Address (<span class='text-action'>*</span>)</label>
+                            <input type="text" class="form-control my-1" v-model="model.address_line_1" name="address_line_1" placeholder="Line 1" maxlength="60" required>
+                            <input type="text" class="form-control my-1" v-model="model.address_line_2" name="address_line_2" placeholder="Line 2" maxlength="60">
+                            <input type="text" class="form-control my-1" v-model="model.address_line_3" name="address_line_3" placeholder="Line 3" maxlength="60">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input class="form-control" id="county-dropdown" v-model="model.county" list="counties" name="county" placeholder="County" maxlength="60" required />
+                                <datalist id="counties">
+                                    @endverbatim
+                                        @foreach(\App\Location::getCounties() as $county)
+                                            <option value="{{ $county }}">{{ $county }}</option>
+                                        @endforeach
+                                    @verbatim
+                                </datalist>
+                                <input type="text" class="form-control" v-model="model.postcode" name="postcode" placeholder="Postcode" maxlength="10" required>
                             </div>
                         </div>
                     </div>
-                    
-                    @endverbatim
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>City (<span class='text-action'>*</span>)</label>
-                                <select2 v-model="model.location_id" name="location_id" required>
-                                    <option :value="null">-</option>
-                                    @foreach(\App\Location::getAllLocations() as $loc)
-                                        <option value="{{ $loc->id }}">{{ $loc->name }}</option>
-                                    @endforeach
-                                </select2>
-                            </div>
+                </div>
+                
+                @endverbatim
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>City (<span class='text-action'>*</span>)</label>
+                            <select2 v-model="model.location_id" name="location_id" required>
+                                <option :value="null">-</option>
+                                @foreach(\App\Location::getAllLocations() as $loc)
+                                    <option value="{{ $loc->id }}">{{ $loc->name }}</option>
+                                @endforeach
+                            </select2>
                         </div>
                     </div>
-                    @verbatim
-                    
+                </div>
+                @verbatim
+        
                     <div class="card card-custom">
                         <div class="card-body">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-action btn-block">{{ createNew ? 'Create' : 'Save' }}</button>
-                            
-                                @endverbatim
-                                @if($edit)
-                                    <a href="{{ route('address.destroy', [$address]) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-block">Delete</a>
-                                @endif
-                                @verbatim
-                            </div>
+                            <label>Image Gallery (20 max)</label>
+                            <file-upload @update="fileUploadUpdate"></file-upload>
                         </div>
                     </div>
                     
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <input type="file" name="images[]" class="form-control-file">
-                                <input type="file" name="images[]" class="form-control-file">
-                                <input type="file" name="images[]" class="form-control-file">
-                                <input type="file" name="images[]" class="form-control-file">
-                            </div>
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-action btn-block">{{ createNew ? 'Create' : 'Save' }}</button>
+                        
+                            @endverbatim
+                            @if($edit)
+                                <a href="{{ route('address.destroy', [$address]) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-block">Delete</a>
+                            @endif
+                            @verbatim
                         </div>
                     </div>
                 </div>
@@ -94,9 +91,13 @@
         </script>
         
         <script type="text/x-template" id="template__select2">
-          <select :name="name">
-            <slot></slot>
-          </select>
+            <select :name="name">
+                <slot></slot>
+            </select>
+        </script>
+
+        <script type="text/x-template" id="template__file-upload">
+            <div class="dropzone"></div>
         </script>
     @endverbatim
 
@@ -142,6 +143,39 @@
             }
         });
         
+        Vue.component('file-upload', {
+            template: '#template__file-upload',
+            mounted() {
+                if(!this.hasBeenMounted) {
+                    const dropzoneOpts = {
+                        // options
+                        url: "/",
+                        autoProcessQueue: false,
+                        uploadMultiple: true,
+                        parallelUploads: 20,
+                        maxFiles: 20,
+                        acceptedFiles: 'image/png,image/jpeg',
+                        autoQueue: false,
+                        addRemoveLinks: true,
+                    };
+
+                    this.dropzone = new Dropzone(this.$el, dropzoneOpts);
+                    this.hasBeenMounted = true;
+                }
+                
+                this.dropzone.enable();
+                
+                let vm = this;
+
+                const emitUpdate = file => vm.$emit('update', vm.dropzone.getAcceptedFiles());
+                this.dropzone.on('addedfiles', emitUpdate);
+                this.dropzone.on('removedfile', emitUpdate);
+            },
+            beforeDestroy() {
+                this.dropzone.disable();
+            },
+        });
+        
         Vue.component('address-form', {
             template: '#template__address-form',
             props: ['model', 'url', 'method', 'createNew'],
@@ -158,7 +192,9 @@
                     })
                         .then((response) => {
                             if(response.status === 200)
-                                toastr.success('Updated!')
+                                toastr.success('Updated!');
+                            
+                            console.log(response);
                         })
                         .catch((error) => {
                             console.log(error);
@@ -170,6 +206,10 @@
                     
                     event.preventDefault();
                     return false;
+                },
+                fileUploadUpdate(files) {
+                    this.model.images = files;
+                    console.log(this.model);
                 },
             },
             computed: {},
@@ -193,7 +233,10 @@
             data: data,
         });
         
-        $(function(){
+        // Disable auto discover for all elements:
+        Dropzone.autoDiscover = false;
+        
+        $(function() {
             @foreach ($errors->all() as $error)
                 toastr.error("{{ $error }}");
             @endforeach
@@ -212,6 +255,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" />
     
     <style>
         .select2 {
