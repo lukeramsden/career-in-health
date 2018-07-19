@@ -189,9 +189,19 @@
                 
                 @auth
                     @onboarding
-                        <li class="nav-item">
-                            <a href="javascript:" class="nav-link">onboarding</a>
-                        </li>
+                        @foreach (Auth::user()->onboarding()->steps as $step)
+                            <a
+                            class="nav-link nav-link-onboarding {{ $step->linkClass ?: '' }} {{ Request::fullUrlIs($step->link) ? 'active' : ''  }}"
+                            href="{{ $step->link }}"
+                            {{ $step->complete() ? 'disabled=disabled' : '' }}>
+                                @if($step->complete())
+                                    <span class="oi oi-circle-check"></span>
+                                @else
+                                    <span class="oi oi-circle-x"></span>
+                                @endif
+                                {{ $loop->iteration }}. {{ $step->title }}
+                            </a>
+                        @endforeach
                     @else
                         <li class="nav-item">
                             <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
