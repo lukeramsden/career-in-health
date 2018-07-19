@@ -40,7 +40,7 @@ $navbar-width: 240px;
   z-index: 1;
 
   @include media-breakpoint-down(md) {
-    margin-top: 56px;
+    margin-top: 106px;
   }
 
   .container-fluid {
@@ -63,6 +63,21 @@ $navbar-width: 240px;
 .fill {
   min-height: 100%;
   height: 100%;
+}
+
+.navbar.d-lg-none {
+  padding-left: 0px;
+  padding-right: 0px;
+
+  .text-light {
+    display: none;
+  }
+
+  .navbar-collapse {
+    background-color: $dark-primary;
+    padding: 0px 20px 0px;
+    margin-top: 8px;
+  }
 }
 
 #navbar {
