@@ -11081,7 +11081,7 @@ body {
 
 @media (max-width: 991.98px) {
   #app {
-    margin-top: 56px;
+    margin-top: 106px;
   }
 }
 
@@ -11104,6 +11104,21 @@ body {
 .fill {
   min-height: 100%;
   height: 100%;
+}
+
+.navbar.d-lg-none {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.navbar.d-lg-none .text-light {
+  display: none;
+}
+
+.navbar.d-lg-none .navbar-collapse {
+  background-color: #354968;
+  padding: 0px 20px 0px;
+  margin-top: 8px;
 }
 
 #navbar {
