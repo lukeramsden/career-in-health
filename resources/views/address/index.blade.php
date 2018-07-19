@@ -18,7 +18,9 @@
                             <p>{{ $address->id }}</p>
                         </td>
                         <td data-search="{{ $address->name }}">
-                            <p>{{ $address->name }}</p>
+                            <a href="{{ route('address.show', $address) }}">
+                                <p>{{ $address->name }}</p>
+                            </a>
                         </td>
                         <td>
                             <a href="{{ route('address.edit', [$address]) }}" class="btn btn-sm btn-block btn-link">Edit</a>

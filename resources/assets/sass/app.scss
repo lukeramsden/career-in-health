@@ -332,6 +332,14 @@ $navbar-width: 240px;
   }
 }
 
+.card-link {
+  transition: all .1s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
 .pagination {
   margin: 0;
 
@@ -803,4 +811,14 @@ $slick-button-offset: 10px;
 
 .slick-next {
   right: $slick-button-offset !important;
+}
+
+.link-unstyled {
+  text-decoration: unset;
+  color: unset;
+
+  &:hover {
+    text-decoration: unset;
+    color: unset;
+  }
 }

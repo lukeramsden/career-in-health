@@ -11368,6 +11368,16 @@ body {
   margin-left: 1.5rem;
 }
 
+.card-link {
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
+}
+
+.card-link:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
 .pagination {
   margin: 0;
 }
@@ -12002,5 +12012,15 @@ body {
 
 .slick-next {
   right: 10px !important;
+}
+
+.link-unstyled {
+  text-decoration: unset;
+  color: unset;
+}
+
+.link-unstyled:hover {
+  text-decoration: unset;
+  color: unset;
 }
 
