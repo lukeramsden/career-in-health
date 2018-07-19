@@ -43,15 +43,24 @@ class CompanyController extends Controller
             ->with([
                 'company' => $company,
                 'self' => false,
+				'addresses' => $company
+					->addresses()
+					->orderByDesc('created_at')
+					->paginate(5),
             ]);
     }
 
     public function showMe()
     {
-        return view('company.show')
+		$company = Auth::user()->userable->company;
+		return view('company.show')
             ->with([
-                'company' => Auth::user()->userable->company,
+                'company' => $company,
                 'self' => true,
+				'addresses' => $company
+					->addresses()
+					->orderByDesc('created_at')
+					->paginate(5),
             ]);
     }
 
