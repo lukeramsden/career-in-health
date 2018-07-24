@@ -9,7 +9,7 @@
                             <div class="carousel" style="">
                                 @foreach($address->getMedia('images') as $image)
                                     <div class="carousel-item text-center" style="height: 28rem">
-                                        <img class="mx-auto" style="max-width:100%;height:100%;vertical-align: middle;" src="{{ $image->getUrl() }}">
+                                        <img class="mx-auto" style="max-width:100%;height:100%;vertical-align: middle;" src="{{ $image->getFullUrl() }}" alt="{{ $image->name }}">
                                     </div>
                                 @endforeach
                             </div>

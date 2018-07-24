@@ -329,5 +329,6 @@
     @yield('stylesheet')
 @endsection
 @section('base_script')
+    @routes
     @yield('script')
 @endsection

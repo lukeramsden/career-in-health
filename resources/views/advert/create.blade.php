@@ -182,7 +182,7 @@
                         data: this.model,
                     })
                         .then((response) => {
-                            if(response.status === 200) {
+                            if(response.data.success) {
                                 toastr.success('Updated!')
                                 if (_.get(response, 'data.model.published', false))
                                     toastr.info('This advert has been published successfully.<br><a href="{{ route('advert.show', ['advert' => $advert]) }}" class="btn btn-action btn-sm mt-1">View Advert</a>');

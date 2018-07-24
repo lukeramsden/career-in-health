@@ -839,3 +839,25 @@ $slick-button-offset: 10px;
     }
   }
 }
+
+.dropzone .dz-preview {
+  .dz-image {
+    @extend .img-thumbnail;
+
+    border-radius: 0 !important;
+    margin-bottom: 5px !important;
+    img {
+      width: 100% !important;
+      height: 100% !important;
+     }
+   }
+
+  .dz-progress {
+    border-radius: 0 !important;
+
+    .dz-upload {
+      background: $primary !important;
+      background: linear-gradient(to right, lighten($primary, 10%), darken($primary, 10%)) !important;
+    }
+  }
+}

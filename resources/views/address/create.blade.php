@@ -16,7 +16,10 @@
     
     @verbatim
         <script type="text/x-template" id="template__address-form">
-            <form @submit="submit" :action="url" method="post" enctype="multipart/form-data">
+            <form @submit="submit"
+                  :action="url"
+                  method="post"
+                  enctype="multipart/form-data">
                 @endverbatim
                     {{ csrf_field() }}
                 @verbatim
@@ -67,12 +70,12 @@
                 </div>
                 @verbatim
         
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <label>Image Gallery (20 max)</label>
-                            <file-upload @update="fileUploadUpdate"></file-upload>
-                        </div>
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <label>Image Gallery</label>
+                        <file-upload @update="fileUploadUpdate"></file-upload>
                     </div>
+                </div>
                     
                 <div class="card card-custom">
                     <div class="card-body">
@@ -124,23 +127,23 @@
                     // emit event on change.
                     .on('change', function () {
                         self.$emit('input', this.value)
-                    })
+                    });
             },
             watch: {
                 value(value) {
                     // update value
                     $(this.$el)
                         .val(value)
-                        .trigger('change')
+                        .trigger('change');
                 },
                 options(options) {
                     // update options
-                    $(this.$el).empty().select2({ data: options })
-                }
+                    $(this.$el).empty().select2({ data: options });
+                },
             },
             destroyed() {
-                $(this.$el).off().select2('destroy')
-            }
+                $(this.$el).off().select2('destroy');
+            },
         });
         
         Vue.component('file-upload', {
@@ -154,13 +157,122 @@
                         uploadMultiple: true,
                         parallelUploads: 20,
                         maxFiles: 20,
+                        maxFilesize: 10,
                         acceptedFiles: 'image/png,image/jpeg',
                         autoQueue: false,
-                        addRemoveLinks: true,
+                        addRemoveLinks: false,
                     };
 
                     this.dropzone = new Dropzone(this.$el, dropzoneOpts);
                     this.hasBeenMounted = true;
+                    
+                    this.dropzone.on('addedfile', function(file) {
+                        // Create the remove button
+                        let removeButton = Dropzone.createElement('<button class="btn btn-outline-danger btn-sm btn-block">Remove file</button>');
+                    
+                        // Capture the Dropzone instance as closure.
+                        let self = this;
+                    
+                        // Listen to the click event
+                        removeButton.addEventListener('click', function(e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+                    
+                            // Remove the file preview.
+                            self.removeFile(file);
+                            
+                            @if($edit)
+                                // remove file on server
+                                axios({
+                                    url: route('media.destroy', {media: file.id}),
+                                    method: 'post',
+                                })
+                                    .then((response) => { })
+                                    .catch((error) => {
+                                        console.log(error);
+                                        _.forIn(
+                                            error.response.data.errors,
+                                            (errors, field) => errors.forEach((error) => toastr.error(error, changeCase.titleCase(field)))
+                                        );
+                                    });
+                            @endif
+                        });
+                    
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                        
+                        @if($edit)
+                            if(!file.id) {
+                                let formData = new FormData();
+                                formData.append('image', file);
+                                this.emit('sending', file, undefined, formData);
+                                
+                                axios.post(route('address.image.store', {address:{{$address->id}}}), formData, {
+                                        // config
+                                        onUploadProgress: progressEvent => {
+                                            let percentCompleted = Math.floor((progressEvent.loaded * 100) / progressEvent.total);
+                                            self.emit('uploadprogress', file, percentCompleted, progressEvent.loaded)
+                                            console.log(`progress: ${file.name} is ${percentCompleted}% (${progressEvent.loaded}/${progressEvent.total}) complete`);
+                                        }
+                                    })
+                                    .then((response) => {
+                                        file.id = _.get(response, 'data.model.id');
+                                        self.emit('success', file, response);
+                                        self.emit('complete', file);
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                        self.emit('error', file, 'Error');
+                                        _.forIn(
+                                            error.response.data.errors,
+                                            (errors, field) => errors.forEach((error) => toastr.error(error, changeCase.titleCase(field)))
+                                        );
+                                    });
+                            }
+                            
+                        @else
+                            this.emit('complete', file);
+                        @endif
+                    });
+                    
+                    @if($edit)
+                        let files = [
+                            @foreach($address->getMedia('images') as $image)
+                                {
+                                    id: {{ $image->id }},
+                                    name: '{{ $image->name }}',
+                                    size: {{ $image->size }},
+                                    dataURL: '{{ $image->getFullUrl() }}',
+                                },
+                            @endforeach
+                        ];
+                        
+                        // recursive IIFE used to ensure that files are added one-by-one
+                        (function procFile(self) {
+                            if(files.length < 1)
+                                return;
+                            
+                            let file = files.shift();
+                            
+                            self.dropzone.files.push(file);
+                            
+                            // Call the default addedfile event handler
+                            self.dropzone.emit('addedfile', file);
+                            
+                            self.dropzone.createThumbnailFromUrl(file,
+                                self.dropzone.options.thumbnailWidth, self.dropzone.options.thumbnailHeight,
+                                self.dropzone.options.thumbnailMethod, true, function (thumbnail) {
+                                    self.dropzone.emit('thumbnail', file, thumbnail);
+                                    // Make sure that there is no progress bar, etc...
+                                    self.dropzone.emit('complete', file);
+                                    
+                                    self.dropzone.options.maxFiles = self.dropzone.options.maxFiles - 1;
+                                    
+                                    procFile(self);
+                                });
+                        })(this);
+                    @endif
                 }
                 
                 this.dropzone.enable();
@@ -181,35 +293,54 @@
             props: ['model', 'url', 'method', 'createNew'],
             methods: {
                 submit(event) {
-                    if(this.createNew) {
-                        return true;
+                    let formData = new FormData();
+                    for (let key in this.model) {
+                        let val = this.model[key];
+                        if (_.isArray(val)) {
+                            for (arrKey in val) {
+                                let arrVal = val[arrKey];
+                                formData.append(key + '[]', arrVal);
+                            }
+                        } else {
+                            formData.append(key, val);
+                        }
                     }
-                    
-                    axios({
-                        url: this.url,
-                        method: 'post',
-                        data: this.model,
-                    })
-                        .then((response) => {
-                            if(response.status === 200)
-                                toastr.success('Updated!');
-                            
-                            console.log(response);
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                            _.forIn(
-                                error.response.data.errors,
-                                (errors, field) => errors.forEach((error) => toastr.error(error, changeCase.titleCase(field)))
-                            );
-                        });
+                    if(this.createNew) {
+                        axios.post(this.url, formData)
+                            .then((response) => {
+                                if (response.data.success)
+                                {
+                                    toastr.success('Created!');
+                                    window.location = response.data.redirectTo;
+                                }
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                                _.forIn(
+                                    error.response.data.errors,
+                                    (errors, field) => errors.forEach((error) => toastr.error(error, changeCase.titleCase(field)))
+                                );
+                            });
+                    } else {
+                        axios.post(this.url, formData)
+                            .then((response) => {
+                                if (response.data.success)
+                                    toastr.success('Updated!');
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                                _.forIn(
+                                    error.response.data.errors,
+                                    (errors, field) => errors.forEach((error) => toastr.error(error, changeCase.titleCase(field)))
+                                );
+                            });
+                    }
                     
                     event.preventDefault();
                     return false;
                 },
                 fileUploadUpdate(files) {
-                    this.model.images = files;
-                    console.log(this.model);
+                    this.$set(this.model, 'images', files);
                 },
             },
             computed: {},
@@ -228,13 +359,13 @@
             createNew: {{ $edit ? 'false' : 'true' }},
         };
         
+        // Disable auto discover for all elements:
+        Dropzone.autoDiscover = false;
+        
         const app = new Vue({
             el: '#app',
             data: data,
         });
-        
-        // Disable auto discover for all elements:
-        Dropzone.autoDiscover = false;
         
         $(function() {
             @foreach ($errors->all() as $error)

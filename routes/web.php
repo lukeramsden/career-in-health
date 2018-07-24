@@ -54,6 +54,8 @@ Route::prefix('address')
         Route::post('/{address}/edit', 'AddressController@update')->name('update');
         Route::any('/{address}/delete', 'AddressController@destroy')->name('destroy');
         Route::get('/{address}', 'AddressController@show')->name('show');
+
+        Route::post('/{address}/image/new', 'AddressController@addImage')->name('image.store');
     });
 
 Route::prefix('account')

@@ -21,6 +21,19 @@ class AddressController extends Controller
 		$this->middleware('company-created')->except('show');
 	}
 
+	protected function rules($custom = [])
+	{
+		return array_merge([
+			'name'           => 'required|max:120',
+			'location_id'    => 'required|integer|exists:locations,id',
+			'address_line_1' => 'required|max:60',
+			'address_line_2' => 'nullable|max:60',
+			'address_line_3' => 'nullable|max:60',
+			'county'         => 'required|max:40',
+			'postcode'       => 'required|max:10|postcode',
+		], $custom);
+	}
+
 	public function index()
 	{
 		return view('address.index')
@@ -65,7 +78,10 @@ class AddressController extends Controller
 	 */
 	public function store()
 	{
-		$data = $this->request->validate(self::rules());
+		$data = $this->request->validate(self::rules([
+			'images'         => 'nullable|array|max:20',
+			'images.*'       => 'image|max:10240|mimes:jpg,jpeg,png',
+		]));
 
 		$address             = new Address();
 		$address->company_id = Auth::user()->userable->company->id;
@@ -79,7 +95,7 @@ class AddressController extends Controller
 			{
 				$address
 					->addMedia($image)
-					->usingFileName(Uuid::generate(4)->string)
+					->usingFileName(Uuid::generate(4)->string.'.'.$image->clientExtension())
 					->toMediaCollection('images');
 			} catch (FileCannotBeAdded $e)
 			{
@@ -87,29 +103,20 @@ class AddressController extends Controller
 			}
 		}
 
+		$redirectTo = route('address.edit', ['address' => $address]);
+
 		if (Auth::user()->onboarding()->inProgress())
-			return redirect(Auth::user()->onboarding()->nextUnfinishedStep()->link);
+			$redirectTo = Auth::user()->onboarding()->nextUnfinishedStep()->link;
 
 		if (ajax())
-			return response()->json(['success' => true, 'model' => $address], 200);
+			return response()->json([
+				'success' => true,
+				'model' => $address,
+				'redirectTo' => $redirectTo,
+			], 200);
 
 		toast()->success('Created!');
-		return redirect(route('address.edit', ['address' => $address]));
-	}
-
-	protected function rules($custom = [])
-	{
-		return array_merge([
-			'name'           => 'required|max:120',
-			'location_id'    => 'required|integer|exists:locations,id',
-			'address_line_1' => 'required|max:60',
-			'address_line_2' => 'nullable|max:60',
-			'address_line_3' => 'nullable|max:60',
-			'county'         => 'required|max:40',
-			'postcode'       => 'required|max:10|postcode',
-			'images'         => 'nullable|array|max:20',
-			'images.*'       => 'image|max:10240|mimes:jpg,jpeg,png',
-		], $custom);
+		return redirect($redirectTo);
 	}
 
 	public function update(Address $address)
@@ -165,9 +172,9 @@ class AddressController extends Controller
 
 		try
 		{
-			$address
+			$file = $address
 				->addMedia($image)
-				->usingFileName(Uuid::generate(4)->string)
+				->usingFileName(Uuid::generate(4)->string.'.'.$image->clientExtension())
 				->toMediaCollection('images');
 		} catch (FileCannotBeAdded $e)
 		{
@@ -187,7 +194,7 @@ class AddressController extends Controller
 		if (ajax())
 			return response()->json([
 				'success' => true,
-				'model'   => $address,
+				'model'   => $file,
 				'media'   => $address->getMedia('images'),
 			], 200);
 
