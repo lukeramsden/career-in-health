@@ -11,6 +11,7 @@ use Webpatser\Uuid\Uuid;
 class AddressController extends Controller
 {
 	protected $request;
+	static $maxMedia = 20;
 
 	public function __construct(Request $request)
 	{
@@ -81,8 +82,8 @@ class AddressController extends Controller
 	public function store()
 	{
 		$data = $this->request->validate(self::rules([
-			'images'         => 'nullable|array|max:20',
-			'images.*'       => 'image|max:10240|mimes:jpg,jpeg,png',
+			'images'   => 'nullable|array|max:'.self::$maxMedia,
+			'images.*' => 'image|max:10240|mimes:jpg,jpeg,png',
 		]));
 
 		$address             = new Address();
@@ -93,6 +94,12 @@ class AddressController extends Controller
 
 		foreach ($this->request->file('images', []) as $image)
 		{
+			if($address->getMedia('images')->count() >= self::$maxMedia)
+			{
+				toast()->error('Too many images, only the first '.self::$maxMedia.' have been added.');
+				break;
+			}
+
 			try
 			{
 				$address
@@ -166,6 +173,18 @@ class AddressController extends Controller
 	 */
 	public function addImage(Address $address)
 	{
+		if($address->getMedia('images')->count() >= self::$maxMedia)
+		{
+			if (ajax())
+				return response()->json([
+					'success' => false,
+					'error' => 'Too many images. Please remove an image to make space for a new one.',
+				], 400);
+
+			toast()->error('Too many images. Please remove an image to make space for a new one.');
+			return back();
+		}
+
 		$data = $this->request->validate([
 			'image' => 'required|image|max:10240|mimes:jpg,jpeg,png',
 		]);

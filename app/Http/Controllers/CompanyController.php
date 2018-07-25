@@ -78,11 +78,9 @@ class CompanyController extends Controller
         $user = Auth::user();
         $company = $user->userable->company;
 
-        $data = $this->request->validate(
-            self::rules([
-                    'name' => ['required', 'string', Rule::unique('companies')->ignore($company->id)],
-                ]
-            ));
+		$data = $this->request->validate(self::rules([
+			'name' => ['required', 'string', Rule::unique('companies')->ignore($company->id)],
+		]));
 
         $company->fill($data);
 

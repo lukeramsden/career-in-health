@@ -179,6 +179,14 @@
                     this.hasBeenMounted = true;
                     
                     this.dropzone.on('addedfile', function(file) {
+                        if(this.files.length > {{ \App\Http\Controllers\AddressController::$maxMedia }})
+                        {
+                            toastr.error('Too many images');
+                            // Remove the file preview.
+                            this.removeFile(file);
+                            return;
+                        }
+                        
                         // Create the remove button
                         let removeButton = Dropzone.createElement('<button class="btn btn-outline-danger btn-sm btn-block">Remove file</button>');
                     
@@ -280,7 +288,6 @@
                                     self.dropzone.emit('complete', file);
                                     
                                     self.dropzone.options.maxFiles = self.dropzone.options.maxFiles - 1;
-                                    
                                     procFile(self);
                                 });
                         })(this);
