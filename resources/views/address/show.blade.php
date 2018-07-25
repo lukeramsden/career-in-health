@@ -68,7 +68,7 @@
                 <div class="col-12 col-lg-5 mb-4">
                     <div class="card card-custom">
                         <div class="card-body">
-                            <h4 class="card-title"><em>Open Positions</em></h4>
+                            <h4 class="card-title text-center"><em>Open Positions</em></h4>
                             {!! $adverts->appends(Request::capture()->except('page'))->render("vendor.pagination") !!}
                             @foreach($adverts as $advert)
                                 <a class="link-unstyled" href="{{ route('advert.show', $advert) }}">
