@@ -29,8 +29,10 @@ class AddressController extends Controller
 			'address_line_1' => 'required|max:60',
 			'address_line_2' => 'nullable|max:60',
 			'address_line_3' => 'nullable|max:60',
-			'county'         => 'required|max:40',
 			'postcode'       => 'required|max:10|postcode',
+			'about'          => 'nullable|string|max:500',
+			'phone'          => 'nullable|string',
+			'email'          => 'nullable|string',
 		], $custom);
 	}
 

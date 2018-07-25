@@ -8,7 +8,9 @@ $factory->define(Address::class, function (Faker $faker) {
         'name' => $faker->streetName,
         'location_id' => $faker->randomElement(\App\Location::getAllLocations())->id,
         'address_line_1' => $faker->streetAddress,
-        'county' => $faker->county,
         'postcode' => $faker->postcode,
+		'about' => $faker->text(),
+        'phone' => $faker->phoneNumber,
+        'email' => $faker->companyEmail,
     ];
 });

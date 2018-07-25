@@ -21,8 +21,10 @@ class CreateAddressesTable extends Migration
             $table->string('address_line_1', 60);
             $table->string('address_line_2', 60)->nullable();
             $table->string('address_line_3', 60)->nullable();
-            $table->string('county', 60);
             $table->string('postcode', 10);
+			$table->string('about', 500)->nullable();
+		   	$table->string('phone')->nullable();
+		   	$table->string('email')->nullable();
             $table->timestamp('canceled_at')->nullable();
             $table->timestamp('disable_at')->nullable();
             $table->timestamps();

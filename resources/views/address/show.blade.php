@@ -16,12 +16,37 @@
                         </div>
                     </div>
                 @endif
+            </div>
+            
+            <div class="col-12 col-lg-10 offset-lg-1">
+                <div class="card-deck">
+                    <div class="card card-custom mb-4">
+                        <div class="card-body">
+                            <h2 class="card-title">{{$address->name}}</h2>
+                            <h4>{{ $address->location->name }}</h4>
+    
+                            <hr>
+                            
+                            @isset($address->phone)
+                                <h5><span class="oi oi-phone text-muted"></span> <span class="text-muted">Phone:</span> <span>{{ $address->phone }}</span></h5>
+                            @endisset
                 
-                <div class="card card-custom mb-4">
-                    <div class="card-body">
-                        <h2 class="card-title">{{$address->name}}</h2>
-                        <h4>{{ $address->location->name }}</h4>
+                            @isset($address->email)
+                                <h5><span class="oi oi-envelope-closed text-muted"></span> <span class="text-muted">Email:</span> <span>{{ $address->email }}</span></h5>
+                            @endisset
+                        </div>
                     </div>
+                    
+                    @isset($address->about)
+                        <div class="card card-custom mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title"><em>About</em></h4>
+                                @isset($address->about)
+                                    <p>{!! nl2br(e($address->about)) !!}</p>
+                                @endisset
+                            </div>
+                        </div>
+                    @endisset
                 </div>
             </div>
             
@@ -42,7 +67,8 @@
             @if($adverts->total() > 0)
                 <div class="col-12 col-lg-5 mb-4">
                     <div class="card card-custom">
-                        <div class="card-body pt-0">
+                        <div class="card-body">
+                            <h4 class="card-title"><em>Open Positions</em></h4>
                             {!! $adverts->appends(Request::capture()->except('page'))->render("vendor.pagination") !!}
                             @foreach($adverts as $advert)
                                 <a class="link-unstyled" href="{{ route('advert.show', $advert) }}">

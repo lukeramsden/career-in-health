@@ -68,7 +68,7 @@
             @if($addresses->total() > 0)
                 <div class="col-12 col-md-6">
                     <div class="card card-custom mb-4">
-                        <div class="card-body pt-0">
+                        <div class="card-body">
                             {!! $addresses->appends(Request::capture()->except('page'))->render("vendor.pagination") !!}
                             @foreach($addresses as $address)
                                 <a href="{{ route('address.show', $address) }}" class="link-unstyled">

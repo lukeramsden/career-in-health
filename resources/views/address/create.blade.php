@@ -39,17 +39,28 @@
                         </div>
                         
                         <div class="form-group">
-                            <div class="input-group">
-                                <input class="form-control" id="county-dropdown" v-model="model.county" list="counties" name="county" placeholder="County" maxlength="60" required />
-                                <datalist id="counties">
-                                    @endverbatim
-                                        @foreach(\App\Location::getCounties() as $county)
-                                            <option value="{{ $county }}">{{ $county }}</option>
-                                        @endforeach
-                                    @verbatim
-                                </datalist>
-                                <input type="text" class="form-control" v-model="model.postcode" name="postcode" placeholder="Postcode" maxlength="10" required>
-                            </div>
+                            <label>About</label>
+                            <textarea name="about" class="form-control"
+                                      placeholder="500 characters" rows="8"
+                                      maxlength="500"
+                                      v-model="model.about"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Contact Details</label>
+                            <input
+                                type="tel"
+                                class="form-control my-1"
+                                placeholder="Phone Number"
+                                name="phone"
+                                v-model="model.phone">
+                                
+                            <input
+                                type="email"
+                                class="form-control my-1"
+                                placeholder="Email Address"
+                                name="email"
+                                v-model="model.email">
                         </div>
                     </div>
                 </div>
@@ -85,6 +96,7 @@
                             @endverbatim
                             @if($edit)
                                 <a href="{{ route('address.destroy', [$address]) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-block">Delete</a>
+                                <a href="{{ route('address.show', [$address]) }}" class="btn btn-info btn-block">View Address</a>
                             @endif
                             @verbatim
                         </div>
@@ -302,7 +314,7 @@
                                 formData.append(key + '[]', arrVal);
                             }
                         } else {
-                            formData.append(key, val);
+                            formData.append(key, val || '');
                         }
                     }
                     if(this.createNew) {
