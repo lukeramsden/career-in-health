@@ -52,9 +52,9 @@ class UserSeeder extends Seeder
 
         $company = factory(\App\Company::class)
             ->create([
-                'name'               => 'Karma AS',
-                'created_by_user_id' => $user->id,
-                'location_id'        => 4018,
+                'name'        => 'Karma AS',
+                'owner_id'    => $userable->id,
+                'location_id' => 4018,
             ]);
 
         $company->users()->save($userable);
@@ -66,7 +66,7 @@ class UserSeeder extends Seeder
 			::table('company_user_permissions')
 			->insert([
 				'company_id'       => $company->id,
-				'company_user_id'  => $user->userable_id,
+				'company_user_id'  => $userable->id,
 				'permission_level' => 'owner',
 			]);
     }

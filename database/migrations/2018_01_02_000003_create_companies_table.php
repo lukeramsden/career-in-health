@@ -15,7 +15,8 @@ class CreateCompaniesTable extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('created_by_user_id');
+			$table->integer('owner_id')->unsigned();
+			$table->foreign('owner_id')->references('id')->on('company_users');
             $table->string('name')->unique();
             $table->string('avatar')->nullable();
             $table->integer('location_id')->nullable()->unsigned();

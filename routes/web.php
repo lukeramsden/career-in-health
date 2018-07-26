@@ -100,6 +100,10 @@ Route::prefix('company-user')
         Route::post('/edit', 'CompanyUserController@update')->name('update');
         Route::get('/view/{companyUser}', 'CompanyUserController@show')->name('show');
         Route::get('/view/', 'CompanyUserController@showMe')->name('show.me');
+
+        Route::get('/manage', 'CompanyUserManagementController@show')->name('manage.show');
+        Route::post('/manage/invite', 'CompanyUserManagementController@inviteUser')->name('manage.invite');
+        Route::any('/manage/invite/{invite}/cancel', 'CompanyUserManagementController@cancelInvite')->name('manage.invite.cancel');
     });
 
 Route::prefix('cv')

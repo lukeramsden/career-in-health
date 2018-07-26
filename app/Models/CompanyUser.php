@@ -3,11 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class CompanyUser extends Model
 {
-    protected $appends = ['is_edited', 'full_name'];
+    protected $appends = ['is_edited', 'full_name', 'permission_level'];
 
     protected $fillable = [
         'first_name', 'last_name', 'job_title', 'company_id'
@@ -22,6 +23,11 @@ class CompanyUser extends Model
     {
         return $this->fullName();
     }
+
+    public function getPermissionLevelAttribute()
+	{
+		return $this->permissionLevel();
+	}
 
     public function user()
     {
@@ -46,5 +52,30 @@ class CompanyUser extends Model
     public function invites()
 	{
 		return $this->hasMany(CompanyUserInvite::class, 'invited_by_id');
+	}
+
+	public function permissionLevel() {
+		return DB
+			::table('company_user_permissions')
+			->where('company_user_id', $this->id)
+			->first()
+			->permission_level;
+	}
+
+	public function ownsCompany()
+	{
+		return $this->company->isOwner($this);
+	}
+
+	public function hasPermsOver(CompanyUser $user)
+	{
+		if($this->ownsCompany())
+			return true;
+
+		if($this->permission_level === 'manager'
+			&& $user->permission_level === 'standard')
+			return true;
+
+		return false;
 	}
 }

@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'user-type' => \App\Http\Middleware\UserType::class,
         'company-created' => \App\Http\Middleware\CheckCompanyCreated::class,
+        'company-user-permission-level' => \App\Http\Middleware\CompanyUserPermissionLevel::class,
     ];
 }

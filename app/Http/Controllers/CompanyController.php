@@ -118,7 +118,7 @@ class CompanyController extends Controller
         $user = Auth::user();
 
         $company = new Company();
-        $company->created_by_user_id = $user->id;
+        $company->owner_id = $user->id;
         $company->fill($data);
 
         if($this->request->hasFile('avatar'))
@@ -141,17 +141,8 @@ class CompanyController extends Controller
 			]);
 
         if(isset($data['usersToInvite']))
-		{
 			foreach($data['usersToInvite'] as $email)
-			{
-				$invite = new CompanyUserInvite();
-				$invite->email = $email;
-				$invite->company_id = $company->id;
-				$invite->invited_by_id = $user->userable_id;
-				$invite->save();
-				$invite->remind();
-			}
-		}
+				$company->invite($email);
 
         if(Auth::user()->onboarding()->inProgress())
             return redirect(Auth::user()->onboarding()->nextUnfinishedStep()->link);
