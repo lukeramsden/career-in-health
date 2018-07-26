@@ -36,6 +36,8 @@
                             <input type="text" class="form-control my-1" v-model="model.address_line_1" name="address_line_1" placeholder="Line 1" maxlength="60" required>
                             <input type="text" class="form-control my-1" v-model="model.address_line_2" name="address_line_2" placeholder="Line 2" maxlength="60">
                             <input type="text" class="form-control my-1" v-model="model.address_line_3" name="address_line_3" placeholder="Line 3" maxlength="60">
+                            <label>Postcode (<span class="text-action">*</span>)</label>
+                            <input type="text" class="form-control my-1" v-model="model.postcode" name="postcode" placeholder="Post Code" maxlength="60">
                         </div>
                         
                         <div class="form-group">

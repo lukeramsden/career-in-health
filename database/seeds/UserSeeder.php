@@ -23,8 +23,8 @@ class UserSeeder extends Seeder
             ]);
 
         $userable = new \App\Employee([
-            'first_name' => 'Luke',
-            'last_name' => 'Ramsden',
+            'first_name'  => 'Luke',
+            'last_name'   => 'Ramsden',
             'location_id' => 4018,
         ]);
 
@@ -41,8 +41,8 @@ class UserSeeder extends Seeder
             ]);
 
         $userable = new \App\CompanyUser([
-            'first_name' => 'James',
-            'last_name' => 'Waring',
+            'first_name'      => 'James',
+            'last_name'       => 'Waring',
             'has_been_filled' => true,
         ]);
 
@@ -52,14 +52,22 @@ class UserSeeder extends Seeder
 
         $company = factory(\App\Company::class)
             ->create([
-                'name' => 'Karma AS',
+                'name'               => 'Karma AS',
                 'created_by_user_id' => $user->id,
-                'location_id' => 4018,
+                'location_id'        => 4018,
             ]);
 
         $company->users()->save($userable);
         $company->save();
         $userable->save();
         $user->save();
+
+		DB
+			::table('company_user_permissions')
+			->insert([
+				'company_id'       => $company->id,
+				'company_user_id'  => $user->userable_id,
+				'permission_level' => 'owner',
+			]);
     }
 }

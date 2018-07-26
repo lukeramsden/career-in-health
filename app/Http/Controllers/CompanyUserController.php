@@ -77,7 +77,10 @@ class CompanyUserController extends Controller
         $companyUser->save();
 
         if(ajax())
-            return response()->json(['success' => true, 'model' => $companyUser], 200);
+            return response()->json([
+            	'success' => true,
+				'model' => $companyUser,
+			], 200);
 
         toast()->success('Profile updated!');
         return back();

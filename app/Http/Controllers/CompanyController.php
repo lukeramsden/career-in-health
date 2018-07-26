@@ -6,6 +6,7 @@ use App\Company;
 use App\CompanyUserInvite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -130,6 +131,14 @@ class CompanyController extends Controller
 
         $user->userable->company_id = $company->id;
         $user->userable->save();
+
+        DB
+			::table('company_user_permissions')
+			->insert([
+				'company_id'       => $company->id,
+				'company_user_id'  => $user->userable_id,
+				'permission_level' => 'owner',
+			]);
 
         if(isset($data['usersToInvite']))
 		{

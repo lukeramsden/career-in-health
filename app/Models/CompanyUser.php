@@ -10,7 +10,7 @@ class CompanyUser extends Model
     protected $appends = ['is_edited', 'full_name'];
 
     protected $fillable = [
-        'first_name', 'last_name', 'job_title'
+        'first_name', 'last_name', 'job_title', 'company_id'
     ];
 
     public function getIsEditedAttribute()

@@ -7,6 +7,7 @@ use App\User;
 use App\CompanyUserInvite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class CompanyUserInviteController extends Controller
@@ -39,31 +40,47 @@ class CompanyUserInviteController extends Controller
 
 		return view('company-user.accept-invite')
 			->with([
-				'code' => $code,
+				'code'   => $code,
 				'invite' => $invite,
 			]);
 	}
 
+	/**
+	 * @param CompanyUserInvite $invite
+	 *
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @throws \Exception
+	 */
 	public function accept(CompanyUserInvite $invite)
 	{
 		$data = $this->request->validate(self::rules());
 
 		$userable = new CompanyUser([
 			'first_name' => $data['first_name'],
-			'last_name' => $data['last_name'],
 			'company_id' => $invite->company_id,
 		]);
 		$userable->save();
 
-		$user = new User();
-		$user->email = $invite->email;
-		$user->confirmed = true;
+		$user                    = new User();
+		$user->email             = $invite->email;
+		$user->confirmed         = true;
 		$user->confirmation_code = null;
-		$user->password = Hash::make($data['password']);
+		$user->password          = Hash::make($data['password']);
+
 		$user->userable()->associate($userable);
 		$user->save();
 
+		DB
+			::table('company_user_permissions')
+			->insert([
+				'company_id'       => $invite->company_id,
+				'company_user_id'  => $user->userable_id,
+				'permission_level' => 'standard',
+			]);
+
 		Auth::guard()->login($user);
+
+		$invite->delete();
 
 		return redirect(route('dashboard'));
 	}
