@@ -6,6 +6,8 @@ use App\CompanyUser;
 use App\CompanyUserInvite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class CompanyUserManagementController extends Controller
 {
@@ -44,7 +46,7 @@ class CompanyUserManagementController extends Controller
 		if (ajax())
 			return response()->json(['success' => true], 200);
 
-		toast()->success($data['email'].' has been invited!');
+		toast()->success($data['email'] . ' has been invited!');
 		return back();
 	}
 
@@ -55,7 +57,6 @@ class CompanyUserManagementController extends Controller
 			$invite->delete();
 		} catch (\Exception $e)
 		{
-			debug($e);
 			abort(500);
 		}
 
@@ -88,15 +89,26 @@ class CompanyUserManagementController extends Controller
 
 	public function updatePermissionForUser(CompanyUser $companyUser)
 	{
-		$curCompanyUser = Auth::user()->userable;
-
-		if (!$curCompanyUser->hasPermsOver($companyUser))
+		if (!Auth::user()->userable->hasPermsOver($companyUser))
 		{
 			toast()->error('Access Denied');
 			return back();
 		}
 
-		toast()->warning('Work In Progress');
+		$data = $this->request->validate([
+			'new_permission_level' => ['required', Rule::in(['standard', 'manager'])],
+		]);
+
+		DB
+			::table('company_user_permissions')
+			->where('company_user_id', $companyUser->id)
+			->update([
+				'permission_level' => $data['new_permission_level'],
+			]);
+
+
+
+		toast()->success("{$companyUser->full_name} has been updated.");
 		return back();
 	}
 }

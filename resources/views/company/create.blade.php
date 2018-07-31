@@ -7,7 +7,7 @@
         enctype="multipart/form-data">
             {{ csrf_field() }}
             
-            <div class="card-columns" id="company-create-card-columns">
+            <div class="card-columns smaller-card-columns">
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="form-group">

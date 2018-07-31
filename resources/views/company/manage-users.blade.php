@@ -23,7 +23,7 @@
         </div>
         @unset($user)
         <h2 class="my-3"><em>Managers</em></h2>
-        <div class="card-columns mt-2">
+        <div class="card-columns smaller-card-columns mt-2">
             @foreach($company->managers() as $user)
                 <div class="card card-custom">
                     <div class="card-body">
@@ -39,6 +39,15 @@
                                 </h4>
                                 
                                 <h5 class="mt-0">{{ $user->job_title ?? 'Unknown' }}</h5>
+                                
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="{{
+                                        route('company.manage-users.update-permission-level', [
+                                            $user,
+                                            'new_permission_level' => 'standard',
+                                        ]) }}"
+                                       class="btn btn-danger">Demote</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +55,7 @@
             @endforeach
         </div>
         <h2 class="my-3"><em>Standard Users</em></h2>
-        <div class="card-columns mt-2">
+        <div class="card-columns smaller-card-columns mt-2">
             @foreach($company->standardUsers() as $user)
                 <div class="card card-custom">
                     <div class="card-body">
@@ -62,6 +71,15 @@
                                 </h4>
                                 
                                 <h5 class="mt-0">{{ $user->job_title ?? 'Unknown' }}</h5>
+                                
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="{{
+                                        route('company.manage-users.update-permission-level', [
+                                            $user,
+                                            'new_permission_level' => 'manager',
+                                        ]) }}"
+                                       class="btn btn-primary">Promote</a>
+                                </div>
                             </div>
                         </div>
                     </div>

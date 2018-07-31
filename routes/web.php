@@ -100,11 +100,19 @@ Route::prefix('company')
 		 Route::get('/view/', 'CompanyController@showMe')->name('show.me');
 		 Route::get('/applications/', 'CompanyController@showApplications')->name('show.applications');
 
-		 Route::get('/manage', 'CompanyUserManagementController@show')->name('manage-users');
-		 Route::post('/manage/invite', 'CompanyUserManagementController@inviteUser')->name('manage-users.invite');
-		 Route::any('/manage/invite/{invite}/cancel', 'CompanyUserManagementController@cancelInvite')
-			  ->name('manage-users.invite.cancel');
-
+		 Route::prefix('manage')
+			  ->name('manage-users.')
+			  ->group(function ()
+			  {
+				  Route::get('/', 'CompanyUserManagementController@show')
+					   ->name('show');
+				  Route::post('/invite', 'CompanyUserManagementController@inviteUser')
+					   ->name('invite');
+				  Route::any('/invite/{invite}/cancel', 'CompanyUserManagementController@cancelInvite')
+					   ->name('invite.cancel');
+				  Route::any('/update-permission-level/{companyUser}', 'CompanyUserManagementController@updatePermissionForUser')
+					  ->name('update-permission-level');
+			  });
 	 });
 
 Route::prefix('company-user')

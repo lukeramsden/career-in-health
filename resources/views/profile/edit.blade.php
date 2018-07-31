@@ -4,7 +4,7 @@
         <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             
-            <div class="card-columns" id="profile-edit-card-columns">
+            <div class="card-columns smaller-card-columns">
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="form-group">

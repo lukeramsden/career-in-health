@@ -770,11 +770,7 @@ $navbar-width: 240px;
   }
 }
 
-#profile-edit-card-columns,
-#company-edit-card-columns,
-#advert-edit-card-columns,
-#address-edit-card-columns,
-#company-create-card-columns {
+.smaller-card-columns {
   @include media-breakpoint-up(sm) {
     column-count: 1;
   }

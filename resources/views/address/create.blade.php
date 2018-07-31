@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container mt-lg-5" style="min-height: 70vh;">
-        <div class="card-columns" id="address-edit-card-columns">
+        <div class="card-columns smaller-card-columns">
             <address-form :model="model" :url="url" :create-new="createNew"></address-form>
         </div>
     </div>

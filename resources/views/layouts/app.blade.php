@@ -36,7 +36,7 @@
                         @if(Auth::user()->isValidCompany())
                             <small class="text-muted">Your Company</small>
                         
-                            <li class="nav-item dropright {{ active_route(['company.show.me', 'company.edit', 'company.manage-users']) }}">
+                            <li class="nav-item dropright {{ active_route(['company.show.me', 'company.edit', 'company.manage-users.show']) }}">
                                 <a class="nav-link dropdown-toggle"
                                    href="javascript:"
                                    id="navdropdown-Company"
@@ -48,7 +48,9 @@
                                 <div class="dropdown-menu" aria-labelledby="navdropdown-Company">
                                     <a class="dropdown-item {{active_route('company.show.me')}}" href="{{route('company.show.me')}}">View Your Company</a>
                                     <a class="dropdown-item {{active_route('company.edit')}}" href="{{route('company.edit')}}">Edit Your Company</a>
-                                    <a class="dropdown-item {{active_route('company.manage-users')}}" href="{{route('company.manage-users')}}">Manage Users</a>
+                                    @if(Auth::user()->userable->hasUserManagePerms())
+                                        <a class="dropdown-item {{active_route('company.manage-users.show')}}" href="{{route('company.manage-users.show')}}">Manage Users</a>
+                                    @endif
                                 </div>
                             </li>
                         

@@ -20,7 +20,7 @@
                     {{ csrf_field() }}
                 @verbatim
                 
-                <div class="card-columns" id="advert-edit-card-columns">
+                <div class="card-columns smaller-card-columns">
                     <div class="card card-custom">
                         <div class="card-body">
                             <div class="form-group">
