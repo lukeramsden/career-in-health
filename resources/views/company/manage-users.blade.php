@@ -124,16 +124,26 @@
                             <div class="form-group">
                                 <label>Email (<span class="text-action">*</span>)</label>
                                 <input
-                                type="email"
+                                type="text"
                                 class="form-control"
                                 value="{{ $invite->email }}"
+                                disabled>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Last Reminded</label>
+                                <input
+                                type="text"
+                                class="form-control"
+                                value="{{ $invite->last_reminded_at->diffForHumans() }}"
                                 disabled>
                             </div>
                 
                         </div>
                         <div class="card-footer p-0">
                             <div class="btn-group btn-group-sm btn-group-full" role="group">
-                                <button type="submit" class="btn btn-danger btn-sm btn-block">Cancel Invite</button>
+                                <button type="submit" class="btn btn-danger">Cancel Invite</button>
+                                <a href="{{ route('company.manage-users.invite.remind', $invite) }}" class="btn btn-primary">Remind</a>
                             </div>
                         </div>
                     </form>

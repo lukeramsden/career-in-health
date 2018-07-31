@@ -110,6 +110,8 @@ Route::prefix('company')
 					   ->name('invite');
 				  Route::any('/invite/{invite}/cancel', 'CompanyUserManagementController@cancelInvite')
 					   ->name('invite.cancel');
+				  Route::any('/invite/{invite}/remind', 'CompanyUserManagementController@remindInvite')
+					   ->name('invite.remind');
 
 				  Route::any('/{companyUser}/update-permission-level', 'CompanyUserManagementController@updatePermissionForUser')
 					  ->name('update-permission-level');

@@ -130,4 +130,11 @@ class CompanyUserManagementController extends Controller
 		toast()->success("{$companyUser->full_name} has been updated.");
 		return back();
 	}
+
+	public function remindInvite(CompanyUserInvite $invite)
+	{
+		$invite->remind();
+
+		return back();
+	}
 }
