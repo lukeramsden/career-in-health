@@ -23,7 +23,7 @@ class CompanyUserManagementController extends Controller
 
 	public function show()
 	{
-		return view('company-user.management.show')
+		return view('company.manage-users')
 			->with([
 				'company' => Auth::user()->userable->company,
 			]);

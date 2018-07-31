@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container mt-5">
+    <div class="container my-5">
         <h2 class="mb-3"><em>Owner</em></h2>
         @set('user', $company->owner())
         <div class="card card-custom">
@@ -48,7 +48,6 @@
         <h2 class="my-3"><em>Standard Users</em></h2>
         <div class="card-columns mt-2">
             @foreach($company->standardUsers() as $user)
-                @php(debug($user))
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="media">
@@ -75,7 +74,7 @@
                 <div class="card card-custom">
                     <div class="card-header">Invited by <a href="{{ route('company-user.show', $invite->invitedBy) }}">{{$invite->invitedBy->full_name}}</a></div>
                     <div class="card-body">
-                        <form action="{{ route('company-user.manage.invite.cancel', [$invite]) }}" method="post">
+                        <form action="{{ route('company.manage-users.invite.cancel', [$invite]) }}" method="post">
                             {{ csrf_field() }}
                             
                             <div class="form-group">
@@ -98,7 +97,7 @@
             <div class="card card-custom">
                 <div class="card-header">Invite a new user</div>
                 <div class="card-body">
-                    <form action="{{ route('company-user.manage.invite') }}" method="post">
+                    <form action="{{ route('company.manage-users.invite') }}" method="post">
                         {{ csrf_field() }}
                         
                         <div class="form-group">
