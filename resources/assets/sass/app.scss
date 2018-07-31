@@ -2,19 +2,20 @@
 // @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700');
 
-$action: #f9834e;
-$primary: #455782;
+$action:       #f9834e;
+$primary:      #455782;
 $dark-primary: #354968;
+$golden:  	   #ffcf40;
 
 $theme-colors: (
-        "primary": $primary,
-        "action": $action,
-        "dark-primary": $dark-primary,
+  "primary":      $primary,
+  "action":       $action,
+  "dark-primary": $dark-primary,
+  "golden":       $golden,
 );
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
 @import "nouislider";
 
 body {

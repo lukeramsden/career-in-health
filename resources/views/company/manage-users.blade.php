@@ -14,6 +14,9 @@
                             <a href="{{ route('company-user.show', $user) }}">
                                 {{ $user->full_name }}
                             </a>
+                            @if(Auth::user()->userable_id == $user->id)
+                                <small class="text-muted">You</small>
+                            @endif
                         </h4>
                         
                         <h5 class="mt-0">{{ $user->job_title ?? 'Unknown' }}</h5>
@@ -36,18 +39,30 @@
                                     <a href="{{ route('company-user.show', $user) }}">
                                         {{ $user->full_name }}
                                     </a>
+                                    @if(Auth::user()->userable_id == $user->id)
+                                        <small class="text-muted">You</small>
+                                    @endif
                                 </h4>
                                 
                                 <h5 class="mt-0">{{ $user->job_title ?? 'Unknown' }}</h5>
                                 
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{
-                                        route('company.manage-users.update-permission-level', [
-                                            $user,
-                                            'new_permission_level' => 'standard',
-                                        ]) }}"
-                                       class="btn btn-danger">Demote</a>
-                                </div>
+                                @if(Auth::user()->userable_id != $user->id)
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        @if(Auth::user()->userable->hasPermsOver($user))
+                                            <a href="{{
+                                                route('company.manage-users.update-permission-level', [
+                                                    $user,
+                                                    'new_permission_level' => 'standard',
+                                                ]) }}"
+                                               class="btn btn-danger">Demote</a>
+        
+                                            <a href="javascript:" class="btn btn-golden">
+                                                <span class="oi oi-star"></span>
+                                                Make Owner
+                                            </a>
+                                        @endif
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -68,18 +83,23 @@
                                     <a href="{{ route('company-user.show', $user) }}">
                                         {{ $user->full_name }}
                                     </a>
+                                    @if(Auth::user()->userable_id == $user->id)
+                                        <small class="text-muted">You</small>
+                                    @endif
                                 </h4>
                                 
                                 <h5 class="mt-0">{{ $user->job_title ?? 'Unknown' }}</h5>
                                 
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{
-                                        route('company.manage-users.update-permission-level', [
-                                            $user,
-                                            'new_permission_level' => 'manager',
-                                        ]) }}"
-                                       class="btn btn-primary">Promote</a>
-                                </div>
+                                @if(Auth::user()->userable_id != $user->id)
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a href="{{
+                                            route('company.manage-users.update-permission-level', [
+                                                $user,
+                                                'new_permission_level' => 'manager',
+                                            ]) }}"
+                                           class="btn btn-primary">Promote</a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
