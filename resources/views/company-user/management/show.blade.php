@@ -48,6 +48,7 @@
         <h2 class="my-3"><em>Standard Users</em></h2>
         <div class="card-columns mt-2">
             @foreach($company->standardUsers() as $user)
+                @php(debug($user))
                 <div class="card card-custom">
                     <div class="card-body">
                         <div class="media">

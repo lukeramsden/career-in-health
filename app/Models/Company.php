@@ -96,11 +96,12 @@ class Company extends Model
 	 */
 	public function managers()
 	{
-		return DB
-			::table('company_user_permissions')
-			->where('company_id', $this->id)
-			->where('permission_level', 'manager')
-			->get();
+		return CompanyUser::whereIn('id',
+			DB::table('company_user_permissions')
+			  ->where('company_id', $this->id)
+			  ->where('permission_level', 'manager')
+			  ->pluck('company_user_id')
+		)->get();
 	}
 
 	/**
@@ -108,11 +109,12 @@ class Company extends Model
 	 */
 	public function standardUsers()
 	{
-		return DB
-			::table('company_user_permissions')
-			->where('company_id', $this->id)
-			->where('permission_level', 'standard')
-			->get();
+		return CompanyUser::whereIn('id',
+			DB::table('company_user_permissions')
+			  ->where('company_id', $this->id)
+			  ->where('permission_level', 'standard')
+			  ->pluck('company_user_id')
+		)->get();
 	}
 
 	/**
