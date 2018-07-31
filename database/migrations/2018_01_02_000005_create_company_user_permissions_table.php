@@ -22,6 +22,7 @@ class CreateCompanyUserPermissionsTable extends Migration
 			$table->index('company_id');
 
 			$table->enum('permission_level', ['owner', 'manager', 'standard']);
+			$table->unique(['company_id', 'company_user_id']);
 		});
     }
 

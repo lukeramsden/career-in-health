@@ -146,4 +146,31 @@ class Company extends Model
 
 		return $invite;
 	}
+
+	/**
+	 * @param CompanyUser $companyUser
+	 *
+	 * @return bool
+	 */
+	public function makeOwner(CompanyUser $companyUser)
+	{
+		DB
+			::table('company_user_permissions')
+			->where('company_user_id', $this->owner()->id)
+			->update([
+				'permission_level' => 'manager',
+			]);
+
+		DB
+			::table('company_user_permissions')
+			->where('company_user_id', $companyUser->id)
+			->update([
+				'permission_level' => 'owner',
+			]);
+
+		$this->owner_id = $companyUser->id;
+		$this->save();
+
+		return true;
+	}
 }

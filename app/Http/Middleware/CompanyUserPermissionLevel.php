@@ -31,6 +31,6 @@ class CompanyUserPermissionLevel
 			return response()->json(['message' => 'Access Denied'], 403);
 
 		toast()->error('Access Denied.');
-		return back();
+		return redirect(route('dashboard'));
 	}
 }

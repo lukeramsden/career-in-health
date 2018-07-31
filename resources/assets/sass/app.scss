@@ -33,6 +33,14 @@ $navbar-width: 240px;
   color: $white !important;
 }
 
+.btn-group-full {
+  display: flex;
+
+  .btn {
+    flex: 1;
+  }
+}
+
 #app {
   @include media-breakpoint-up(lg) {
     margin-left: $navbar-width;

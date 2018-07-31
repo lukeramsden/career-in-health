@@ -46,25 +46,29 @@
                                 
                                 <h5 class="mt-0">{{ $user->job_title ?? 'Unknown' }}</h5>
                                 
-                                @if(Auth::user()->userable_id != $user->id)
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        @if(Auth::user()->userable->hasPermsOver($user))
-                                            <a href="{{
-                                                route('company.manage-users.update-permission-level', [
-                                                    $user,
-                                                    'new_permission_level' => 'standard',
-                                                ]) }}"
-                                               class="btn btn-danger">Demote</a>
-        
-                                            <a href="javascript:" class="btn btn-golden">
-                                                <span class="oi oi-star"></span>
-                                                Make Owner
-                                            </a>
-                                        @endif
-                                    </div>
-                                @endif
                             </div>
                         </div>
+                    </div>
+                    <div class="card-footer p-0">
+                        @if(Auth::user()->userable_id != $user->id)
+                            <div class="btn-group btn-group-sm btn-group-full" role="group">
+                                @if(Auth::user()->userable->hasPermsOver($user))
+                                    <a href="{{
+                                        route('company.manage-users.update-permission-level', [
+                                            $user,
+                                            'new_permission_level' => 'standard',
+                                        ]) }}"
+                                       class="btn btn-danger">Demote</a>
+    
+                                    @if(Auth::user()->userable->ownsCompany())
+                                        <a href="{{route('company.manage-users.make-owner', $user)}}" class="btn btn-golden">
+                                            <span class="oi oi-star"></span>
+                                            Make Owner
+                                        </a>
+                                    @endif
+                                @endif
+                            </div>
+                        @endif
                     </div>
                 </div>
             @endforeach
@@ -90,18 +94,20 @@
                                 
                                 <h5 class="mt-0">{{ $user->job_title ?? 'Unknown' }}</h5>
                                 
-                                @if(Auth::user()->userable_id != $user->id)
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <a href="{{
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer p-0">
+                        @if(Auth::user()->userable_id != $user->id)
+                            <div class="btn-group btn-group-sm btn-group-full" role="group">
+                                <a href="{{
                                             route('company.manage-users.update-permission-level', [
                                                 $user,
                                                 'new_permission_level' => 'manager',
                                             ]) }}"
-                                           class="btn btn-primary">Promote</a>
-                                    </div>
-                                @endif
+                                   class="btn btn-primary">Promote</a>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             @endforeach
@@ -111,24 +117,26 @@
             @foreach($company->invites as $invite)
                 <div class="card card-custom">
                     <div class="card-header">Invited by <a href="{{ route('company-user.show', $invite->invitedBy) }}">{{$invite->invitedBy->full_name}}</a></div>
-                    <div class="card-body">
-                        <form action="{{ route('company.manage-users.invite.cancel', [$invite]) }}" method="post">
+                    <form action="{{ route('company.manage-users.invite.cancel', [$invite]) }}" method="post">
+                        <div class="card-body">
                             {{ csrf_field() }}
-                            
+                    
                             <div class="form-group">
                                 <label>Email (<span class="text-action">*</span>)</label>
                                 <input
-                                    type="email"
-                                    class="form-control"
-                                    value="{{ $invite->email }}"
-                                    disabled>
+                                type="email"
+                                class="form-control"
+                                value="{{ $invite->email }}"
+                                disabled>
                             </div>
-                            
-                            <div class="form-group">
+                
+                        </div>
+                        <div class="card-footer p-0">
+                            <div class="btn-group btn-group-sm btn-group-full" role="group">
                                 <button type="submit" class="btn btn-danger btn-sm btn-block">Cancel Invite</button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             @endforeach
             

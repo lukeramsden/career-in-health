@@ -87,6 +87,26 @@ class CompanyUserManagementController extends Controller
 		return back();
 	}
 
+	public function makeOwner(CompanyUser $companyUser)
+	{
+		if (!Auth::user()->userable->ownsCompany())
+		{
+			toast()->error('Access Denied');
+			return back();
+		}
+
+		if (Auth::user()->userable->company->makeOwner($companyUser))
+		{
+			toast()->success("{$companyUser->full_name} has been made owner");
+			return redirect(route('company.manage-users.show'));
+		}
+		else
+		{
+			toast()->error('Error');
+			return back();
+		}
+	}
+
 	public function updatePermissionForUser(CompanyUser $companyUser)
 	{
 		if (!Auth::user()->userable->hasPermsOver($companyUser))
@@ -105,7 +125,6 @@ class CompanyUserManagementController extends Controller
 			->update([
 				'permission_level' => $data['new_permission_level'],
 			]);
-
 
 
 		toast()->success("{$companyUser->full_name} has been updated.");
