@@ -90,4 +90,14 @@ class CompanyUser extends Model
 
 		return false;
 	}
+
+	public function activate()
+	{
+		$this->user->activate();
+	}
+
+	public function deactivate()
+	{
+		$this->user->deactivate();
+	}
 }

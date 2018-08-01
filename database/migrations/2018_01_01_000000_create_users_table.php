@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('confirmation_code')->nullable();
             $table->integer('userable_id')->nullable();
             $table->string('userable_type')->nullable();
+            $table->boolean('deactivated')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

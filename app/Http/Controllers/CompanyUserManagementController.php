@@ -137,4 +137,33 @@ class CompanyUserManagementController extends Controller
 
 		return back();
 	}
+
+	public function activateUser(CompanyUser $companyUser)
+	{
+		if (!Auth::user()->userable->ownsCompany())
+		{
+			toast()->error('Access Denied');
+			return back();
+		}
+
+		$companyUser->activate();
+
+		toast()->success("{$companyUser->full_name} has been activated.");
+		return back();
+	}
+
+	public function deactivateUser(CompanyUser $companyUser)
+	{
+		if (!Auth::user()->userable->ownsCompany())
+		{
+			toast()->error('Access Denied');
+			return back();
+		}
+
+		$companyUser->deactivate();
+
+		toast()->success("{$companyUser->full_name} has been deactivated.");
+		return back();
+
+	}
 }

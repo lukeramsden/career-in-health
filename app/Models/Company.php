@@ -84,6 +84,26 @@ class Company extends Model
 	}
 
 	/**
+	 * @param      $permissionLevel
+	 * @param bool $filterDeactivated
+	 */
+	public function getUsersWithPermissionLevel($permissionLevel, $filterDeactivated = true)
+	{
+		return CompanyUser
+			::whereIn('id',
+				DB::table('company_user_permissions')
+				  ->where('company_id', $this->id)
+				  ->where('permission_level', $permissionLevel)
+				  ->pluck('company_user_id')
+			)
+			->get()
+			->filter(function ($value, $key) use ($filterDeactivated)
+			{
+				return !$filterDeactivated || !$value->user->deactivated;
+			});
+	}
+
+	/**
 	 * @return CompanyUser|CompanyUser[]|\Illuminate\Database\Eloquent\Collection|Model|mixed|null
 	 */
 	public function owner()
@@ -96,12 +116,7 @@ class Company extends Model
 	 */
 	public function managers()
 	{
-		return CompanyUser::whereIn('id',
-			DB::table('company_user_permissions')
-			  ->where('company_id', $this->id)
-			  ->where('permission_level', 'manager')
-			  ->pluck('company_user_id')
-		)->get();
+		return $this->getUsersWithPermissionLevel('manager');
 	}
 
 	/**
@@ -109,12 +124,22 @@ class Company extends Model
 	 */
 	public function standardUsers()
 	{
-		return CompanyUser::whereIn('id',
-			DB::table('company_user_permissions')
-			  ->where('company_id', $this->id)
-			  ->where('permission_level', 'standard')
-			  ->pluck('company_user_id')
-		)->get();
+		return $this->getUsersWithPermissionLevel('standard');
+	}
+
+	public function deactivatedUsers()
+	{
+		return CompanyUser
+			::whereIn('id',
+				DB::table('company_user_permissions')
+				  ->where('company_id', $this->id)
+				  ->pluck('company_user_id')
+			)
+			->get()
+			->filter(function ($value, $key)
+			{
+				return $value->user->deactivated;
+			});
 	}
 
 	/**
@@ -154,15 +179,15 @@ class Company extends Model
 	 */
 	public function makeOwner(CompanyUser $companyUser)
 	{
-		DB
-			::table('company_user_permissions')
+		$table = DB::table('company_user_permissions');
+
+		$table
 			->where('company_user_id', $this->owner()->id)
 			->update([
 				'permission_level' => 'manager',
 			]);
 
-		DB
-			::table('company_user_permissions')
+		$table
 			->where('company_user_id', $companyUser->id)
 			->update([
 				'permission_level' => 'owner',

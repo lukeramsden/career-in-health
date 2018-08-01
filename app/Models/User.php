@@ -132,4 +132,20 @@ class User extends Authenticatable
 	{
 		$this->notify(new \App\Notifications\ResetPassword($token));
 	}
+
+	public function activate()
+	{
+		if($this->deactivated) {
+			$this->deactivated = false;
+			$this->save();
+		}
+	}
+
+	public function deactivate()
+	{
+		if(!$this->deactivated) {
+			$this->deactivated = true;
+			$this->save();
+		}
+	}
 }

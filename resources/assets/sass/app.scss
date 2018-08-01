@@ -59,13 +59,33 @@ $navbar-width: 240px;
   }
 }
 
-@include media-breakpoint-up(lg) {
-  .w-lg-50 {
-    width: 50% !important;
-  }
+@for $i from 1 through 100 {
+  @include media-breakpoint-up(sm) {
+    .w-sm-#{$i} {
+      width: ($i + 0%) !important;
+    }
 
-  .h-lg-50 {
-    height: 50% !important;
+    .h-sm-#{$i} {
+      height: ($i + 0%) !important;
+    }
+  }
+  @include media-breakpoint-up(md) {
+    .w-md-#{$i} {
+      width: ($i + 0%) !important;
+    }
+
+    .h-md-#{$i} {
+      height: ($i + 0%) !important;
+    }
+  }
+  @include media-breakpoint-up(lg) {
+    .w-lg-#{$i} {
+      width: ($i + 0%) !important;
+    }
+
+    .h-lg-#{$i} {
+      height: ($i + 0%) !important;
+    }
   }
 }
 

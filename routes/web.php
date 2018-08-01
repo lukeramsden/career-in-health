@@ -100,7 +100,7 @@ Route::prefix('company')
 		 Route::get('/view/', 'CompanyController@showMe')->name('show.me');
 		 Route::get('/applications/', 'CompanyController@showApplications')->name('show.applications');
 
-		 Route::prefix('manage')
+		 Route::prefix('manage-users')
 			  ->name('manage-users.')
 			  ->group(function ()
 			  {
@@ -117,6 +117,11 @@ Route::prefix('company')
 					  ->name('update-permission-level');
 				  Route::any('{companyUser}/make-owner', 'CompanyUserManagementController@makeOwner')
 					  ->name('make-owner');
+
+				  Route::any('/{companyUser}/activate', 'CompanyUserManagementController@activateUser')
+					  ->name('activate-user');
+				  Route::any('{companyUser}/deactivate', 'CompanyUserManagementController@deactivateUser')
+					  ->name('deactivate-user');
 			  });
 	 });
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" class="h-100">
     <head>
         @if (env('APP_ENV') != 'local')
             <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109407615-2"></script>
@@ -23,7 +23,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         @yield('base_stylesheet')
     </head>
-    <body>
+    <body class="h-100">
         @yield('base_content')
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

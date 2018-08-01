@@ -7,7 +7,8 @@
             <div class="card-body">
                 <div class="media">
                     <a href="{{ route('company-user.show', $user) }}">
-                        <img class="mr-3 img-thumbnail" width="80" src="{{ $user->picture() ?? '/images/generic.png' }}">
+                        <img class="mr-3 img-thumbnail" width="80"
+                             src="{{ $user->picture() ?? '/images/generic.png' }}">
                     </a>
                     <div class="media-body">
                         <h4 class="my-0">
@@ -32,7 +33,8 @@
                     <div class="card-body">
                         <div class="media">
                             <a href="{{ route('company-user.show', $user) }}">
-                                <img class="mr-3 img-thumbnail" width="80" src="{{ $user->picture() ?? '/images/generic.png' }}">
+                                <img class="mr-3 img-thumbnail" width="80"
+                                     src="{{ $user->picture() ?? '/images/generic.png' }}">
                             </a>
                             <div class="media-body">
                                 <h4 class="my-0">
@@ -45,7 +47,7 @@
                                 </h4>
                                 
                                 <h5 class="mt-0">{{ $user->job_title ?? 'Unknown' }}</h5>
-                                
+                            
                             </div>
                         </div>
                     </div>
@@ -59,12 +61,15 @@
                                             'new_permission_level' => 'standard',
                                         ]) }}"
                                        class="btn btn-danger">Demote</a>
-    
+                                    
                                     @if(Auth::user()->userable->ownsCompany())
-                                        <a href="{{route('company.manage-users.make-owner', $user)}}" class="btn btn-golden">
+                                        <a href="{{route('company.manage-users.make-owner', $user)}}"
+                                           class="btn btn-golden">
                                             <span class="oi oi-star"></span>
                                             Make Owner
                                         </a>
+                                        <a href="{{ route('company.manage-users.deactivate-user', $user) }}"
+                                           class="btn btn-secondary">Deactivate</a>
                                     @endif
                                 @endif
                             </div>
@@ -80,7 +85,8 @@
                     <div class="card-body">
                         <div class="media">
                             <a href="{{ route('company-user.show', $user) }}">
-                                <img class="mr-3 img-thumbnail" width="80" src="{{ $user->picture() ?? '/images/generic.png' }}">
+                                <img class="mr-3 img-thumbnail" width="80"
+                                     src="{{ $user->picture() ?? '/images/generic.png' }}">
                             </a>
                             <div class="media-body">
                                 <h4 class="my-0">
@@ -93,7 +99,7 @@
                                 </h4>
                                 
                                 <h5 class="mt-0">{{ $user->job_title ?? 'Unknown' }}</h5>
-                                
+                            
                             </div>
                         </div>
                     </div>
@@ -106,6 +112,41 @@
                                                 'new_permission_level' => 'manager',
                                             ]) }}"
                                    class="btn btn-primary">Promote</a>
+                                @if(Auth::user()->userable->ownsCompany())
+                                    <a href="{{route('company.manage-users.make-owner', $user)}}"
+                                       class="btn btn-golden">
+                                        <span class="oi oi-star"></span>
+                                        Make Owner
+                                    </a>
+                                    <a href="{{ route('company.manage-users.deactivate-user', $user) }}"
+                                       class="btn btn-secondary">Deactivate</a>
+                                @endif
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <h2 class="my-3">Deactivated Users</h2>
+        <div class="card-columns mt-2">
+            @foreach($company->deactivatedUsers() as $user)
+                <div class="card card-custom">
+                    <div class="card-body">
+                        <div class="media">
+                            <img class="mr-3 img-thumbnail" width="80"
+                                 src="{{ $user->picture() ?? '/images/generic.png' }}">
+                            <div class="media-body">
+                                <h4 class="my-0">
+                                    {{ $user->full_name }}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer p-0">
+                        @if(Auth::user()->userable->ownsCompany())
+                            <div class="btn-group btn-group-sm btn-group-full" role="group">
+                                <a href="{{ route('company.manage-users.activate-user', $user) }}"
+                                   class="btn btn-secondary">Activate</a>
                             </div>
                         @endif
                     </div>
@@ -116,11 +157,13 @@
         <div class="card-columns mt-2">
             @foreach($company->invites as $invite)
                 <div class="card card-custom">
-                    <div class="card-header">Invited by <a href="{{ route('company-user.show', $invite->invitedBy) }}">{{$invite->invitedBy->full_name}}</a></div>
+                    <div class="card-header">Invited by <a
+                        href="{{ route('company-user.show', $invite->invitedBy) }}">{{$invite->invitedBy->full_name}}</a>
+                    </div>
                     <form action="{{ route('company.manage-users.invite.cancel', [$invite]) }}" method="post">
                         <div class="card-body">
                             {{ csrf_field() }}
-                    
+                            
                             <div class="form-group">
                                 <label>Email (<span class="text-action">*</span>)</label>
                                 <input
@@ -138,12 +181,13 @@
                                 value="{{ $invite->last_reminded_at->diffForHumans() }}"
                                 disabled>
                             </div>
-                
+                        
                         </div>
                         <div class="card-footer p-0">
                             <div class="btn-group btn-group-sm btn-group-full" role="group">
                                 <button type="submit" class="btn btn-danger">Cancel Invite</button>
-                                <a href="{{ route('company.manage-users.invite.remind', $invite) }}" class="btn btn-primary">Remind</a>
+                                <a href="{{ route('company.manage-users.invite.remind', $invite) }}"
+                                   class="btn btn-primary">Remind</a>
                             </div>
                         </div>
                     </form>
@@ -159,12 +203,12 @@
                         <div class="form-group">
                             <label>Email (<span class="text-action">*</span>)</label>
                             <input
-                                type="email"
-                                name="email"
-                                class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                placeholder="Email"
-                                value="{{ old('email') }}"
-                                required>
+                            type="email"
+                            name="email"
+                            class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                            placeholder="Email"
+                            value="{{ old('email') }}"
+                            required>
                             
                             @if ($errors->has('email'))
                                 <div class="invalid-feedback">{{ $errors->first('email') }}</div>
