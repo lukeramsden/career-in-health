@@ -439,19 +439,25 @@
                         
                         for(file in files)
                             options.data.append(file.model, this.model[file.model]);
-                        
-                        // iterate picked models
+
+                        /**
+                         * Iterates all models, and appends them to options.data
+                         * The catch is that value is run through JSON.stringify if it is an array
+                         */
+                        // iterate models
                         _.forIn(
+                            // only get model keys that are in schema
                             _.pick(this.model, models),
-                            // Creates a function that invokes func with its arguments transformed.
+                            // run "func" with "main args" after running "main args" through "transform"
+                            // key is left intact, v is : stringified if array, else left intact
                             (v, k) => _.overArgs(
+                                // func
                                 (k, v) => options.data.append(k, v),
-                                [ // transform args
-                                    // return intact
-                                    (k) => k,
-                                    // JSON encode if its an array
-                                    (v) => _.isArray(v) ? JSON.stringify(v) : v,
-                                ])(k, v) // call
+                                // transform
+                                [
+                                    k => k, // stays the same
+                                    v => _.isArray(v) ? JSON.stringify(v) : v, // JSON.stringify all arrays
+                                ])(k, v) // main args
                         );
                     } else {
                         // map internal model to schema
