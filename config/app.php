@@ -5,8 +5,8 @@ return [
     'support_number' => '01253 123123',
     'support_email' => 'support@careerinhealth.co.uk',
 
-    'stripe_publishable_key' => 'pk_test_qLldAO1YhwA1uoAxqfH4XNOg', // test key
-    'stripe_secret_key' => 'sk_test_lD0r6512NrHSwujpl1xOlyBY', // test key
+    'stripe_publishable_key' => env('STRIPE_PUBLISHABLE_KEY'),
+    'stripe_secret_key' => env('STRIPE_SECRET_KEY'),
 
     /*
     |--------------------------------------------------------------------------

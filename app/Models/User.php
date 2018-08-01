@@ -9,6 +9,7 @@ class User extends Authenticatable
 {
 	use Notifiable;
 	use \Calebporzio\Onboard\GetsOnboarded;
+	use \Laravel\Cashier\Billable;
 
 	protected $fillable = [
 		'email',

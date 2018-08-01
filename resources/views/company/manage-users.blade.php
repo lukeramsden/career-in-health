@@ -127,7 +127,7 @@
                 </div>
             @endforeach
         </div>
-        <h2 class="my-3">Deactivated Users</h2>
+        <h2 class="my-3"><em>Deactivated Users</em></h2>
         <div class="card-columns mt-2">
             @foreach($company->deactivatedUsers() as $user)
                 <div class="card card-custom">
