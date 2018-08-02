@@ -21,15 +21,13 @@ class JobListingApplicationController extends Controller
         $this->middleware('must-onboard');
     }
 
-    protected function rules(bool $internal)
-    {
-        return $internal ? [
-            'status' => 'nullable|integer',
-            'notes'  => 'nullable|string|max:500'
-        ] : [
-            'custom_cover_letter' => 'nullable|string|max:3000',
-        ];
-    }
+	protected function rules($custom = [])
+	{
+		return array_merge([
+			'status' => 'nullable|integer',
+   			'notes'  => 'nullable|string|max:500'
+		], $custom);
+	}
 
     public function index()
     {
@@ -81,7 +79,7 @@ class JobListingApplicationController extends Controller
             return redirect(route('job-listing.show', [$jobListing]));
         }
         
-        $data = $this->request->validate(self::rules(false));
+        $data = $this->request->validate(self::rules());
 
         $application = new JobListingApplication();
         $application->fill($data);
@@ -121,7 +119,9 @@ class JobListingApplicationController extends Controller
                 toast()->error('You must own the job_listing to update an application\'s status or notes.');
                 return back();
             } else {
-                $data = $this->request->validate(self::rules(true));
+                $data = $this->request->validate(self::rules([
+					'custom_cover_letter' => 'nullable|string|max:3000',
+				]));
 
                 if(isset($data['status']))
                     $application->status = $data['status'];
@@ -130,7 +130,7 @@ class JobListingApplicationController extends Controller
                     $application->notes = $data['notes'];
             }
         } else
-            $application->fill($this->request->validate(self::rules(false)));
+            $application->fill($this->request->validate(self::rules()));
 
         $application->last_edited = Carbon::now();
         $application->save();
