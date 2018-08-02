@@ -160,11 +160,18 @@ class CompanyController extends Controller
 		return redirect(route('dashboard'));
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function showApplications()
 	{
+		$company = Auth::user()->userable->company;
+		$this->authorize('update', $company);
+
 		return view('company.view-applications')
 			->with([
-				'applications' => Auth::user()->userable->company->applications,
+				'applications' => $company->applications,
 			]);
 	}
 }

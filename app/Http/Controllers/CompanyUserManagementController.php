@@ -67,26 +67,6 @@ class CompanyUserManagementController extends Controller
 		return back();
 	}
 
-	public function removeUser(CompanyUser $companyUser)
-	{
-		$curCompanyUser = Auth::user()->userable;
-
-		if (!$curCompanyUser->hasPermsOver($companyUser))
-		{
-			toast()->error('Access Denied');
-			return back();
-		}
-
-		/*
-		 * TODO: some sort of logic for removing users
-		 * problem is that how do we handle company users without companies?
-		 * need james' opinion
-		 */
-
-		toast()->warning('Work In Progress');
-		return back();
-	}
-
 	public function makeOwner(CompanyUser $companyUser)
 	{
 		if (!Auth::user()->userable->ownsCompany())
