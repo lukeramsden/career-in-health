@@ -192,8 +192,10 @@ class DashController extends Controller
 
         if($user->isCompany())
             return view('company.dashboard', ['items' => self::dashCompany()]);
-        else
+		elseif($user->isEmployee())
             return view('employee.dashboard', ['items' => self::dashEmployee()]);
+		else
+			return view('layouts.app');
     }
 
     /**
@@ -205,8 +207,10 @@ class DashController extends Controller
 
         if($user->isCompany())
             $paginator = $this->dashCompany();
-        else
+        elseif($user->isEmployee())
             $paginator = $this->dashEmployee();
+        else
+        	abort(403);
 
         return view('employee._dash-collection', ['items' => $paginator->items()])->render();
     }

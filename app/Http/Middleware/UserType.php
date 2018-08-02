@@ -34,6 +34,10 @@ class UserType
 						if($userable instanceof \App\Admin)
 							return $next($request);
 						break;
+					case 'advertiser':
+						if($userable instanceof \App\Advertiser)
+							return $next($request);
+						break;
 					default:
 						abort(500, '$type does not match any user type');
 				}

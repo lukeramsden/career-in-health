@@ -23,7 +23,8 @@ Route::prefix('job-listing')
 		 Route::post('/new', 'JobListingController@store')->name('store');
 
 		 Route::get('/{jobListing}/view', 'JobListingController@showInternal')->name('show.internal');
-		 Route::get('/{jobListing}/view/applications', 'JobListingController@showApplications')->name('show.applications');
+		 Route::get('/{jobListing}/view/applications', 'JobListingController@showApplications')
+			  ->name('show.applications');
 
 		 Route::get('/{jobListing}/edit', 'JobListingController@edit')->name('edit');
 		 Route::post('/{jobListing}/edit', 'JobListingController@update')->name('update');
@@ -114,14 +115,14 @@ Route::prefix('company')
 					   ->name('invite.remind');
 
 				  Route::any('/{companyUser}/update-permission-level', 'CompanyUserManagementController@updatePermissionForUser')
-					  ->name('update-permission-level');
+					   ->name('update-permission-level');
 				  Route::any('{companyUser}/make-owner', 'CompanyUserManagementController@makeOwner')
-					  ->name('make-owner');
+					   ->name('make-owner');
 
 				  Route::any('/{companyUser}/activate', 'CompanyUserManagementController@activateUser')
-					  ->name('activate-user');
+					   ->name('activate-user');
 				  Route::any('{companyUser}/deactivate', 'CompanyUserManagementController@deactivateUser')
-					  ->name('deactivate-user');
+					   ->name('deactivate-user');
 			  });
 	 });
 
@@ -196,4 +197,12 @@ Route::prefix('tracking')
 					  return redirect()->action('JobListingController@show', [$jobListing]);
 				  })->name('recommended.click');
 			  });
+	 });
+
+Route::prefix('advertising')
+	 ->name('advertising.')
+	 ->group(function ()
+	 {
+		Route::get('/registration/{code}/accept', 'Auth\Advertiser\RegisterController@show')->name('accept-code.show');
+		Route::post('/registration/{code}/accept', 'Auth\Advertiser\RegisterController@store')->name('accept-code');
 	 });

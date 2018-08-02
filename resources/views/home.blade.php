@@ -26,9 +26,6 @@
                                 
                                 <a href="{{ route('register') }}"
                                    class="btn scale-on-hover-3 btn-dark-primary">Register</a>
-                                
-                                <a href="{{ route('register') }}"
-                                   class="btn scale-on-hover-3 btn-dark-primary">Register as Advertiser</a>
                             @endguest
                         </div>
                     </div>
