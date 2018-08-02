@@ -1,36 +1,37 @@
 @extends('layouts.app')
 @section('base_content')
-    <div id="home">
-        <div class='banners'>
-            <div class='banner'>
-                <img src='images/banner-01.jpg'>
-                <div class='text'>
-                    <div class="container left">
-                        <div>
-                            <h1>Looking for a new career in Health Care?</h1>
-                            <h2>With over <b class='text-action'>19,000</b> jobs listed, start you career here!</h2>
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-12">
+                <div class="card card-custom mx-auto" style="max-width: 30rem;">
+                    <img src="/images/cih-logo.svg" class="card-img-top p-5">
+                    <div class="card-footer p-0">
+                        <div class="btn-group btn-group-lg btn-group-vertical btn-group-full" role="group">
+                            @auth
+                                <a href="{{ route('dashboard') }}"
+                                   class="btn scale-on-hover-3 btn-action">Dashboard</a>
                             
-                            <div class='buttons'>
-                                <a href='javascript:' class='btn btn-primary'>Pricing</a>
-                                <a href='{{ route('register') }}' class='btn btn-action'>Get Started</a>
-                            </div>
+                                <a href="{{ route('search') }}"
+                                   class="btn scale-on-hover-3 btn-primary">Search</a>
+                                
+                                <a href="{{ route('logout.get') }}"
+                                   class="btn scale-on-hover-3 btn-dark-primary">Log Out</a>
+                            @endauth
+                            @guest
+                                <a href="{{ route('login') }}"
+                                   class="btn scale-on-hover-3 btn-action">Log In</a>
+                                
+                                <a href="{{ route('search') }}"
+                                   class="btn scale-on-hover-3 btn-primary">Search</a>
+                                
+                                <a href="{{ route('register') }}"
+                                   class="btn scale-on-hover-3 btn-dark-primary">Register</a>
+                                
+                                <a href="{{ route('register') }}"
+                                   class="btn scale-on-hover-3 btn-dark-primary">Register as Advertiser</a>
+                            @endguest
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="container" style='padding: 100px 15px;'>
-            <div class='row'>
-                <div class='col-md-6'>
-                    <h2>Welcome to Career In Health</h2>
-                    <p>With over 50 years of recruitment industry experience, we offer executive search, selection and contingency recruitment services for permanent, contract and temporary requirements.
-                        <br /><br />
-                        Since our launch, we have significantly increased our recruitment services to cover a full range of job disciplines and market sectors. We have invested heavily to ensure our consultants have all available means possible to source the best key talent for a diverse range of clients, from FTSE 100 to Private owned organisations in today’s competitive job markets.</p>
-                </div>
-                
-                <div class='col-md-6'>
-
                 </div>
             </div>
         </div>
