@@ -70,7 +70,9 @@ class AddressController extends Controller
 				'address'     => $address,
 				'jobListings' => $address
 					->jobListings()
+					->where('published', true)
 					->orderBy('created_at', 'desc')
+					->with('jobRole')
 					->paginate(5),
 			]);
 	}
