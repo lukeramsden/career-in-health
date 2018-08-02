@@ -42,17 +42,15 @@ class Location extends Model
 		return Location::distinct()->get(['county'])->pluck('county');
 	}
 
+	/**
+	 * @throws \Exception
+	 */
 	public static function loadCsv()
 	{
 		ini_set('memory_limit', '-1');
 		ini_set('max_execution_time', 10000);
 
-		try
-		{
-			Location::where('id', '>', 0)->delete();
-		} catch (\Exception $e)
-		{
-		}
+		Location::where('id', '>', 0)->delete();
 
 		$csv = array_map('str_getcsv', file(base_path() . '/storage/app/public/uk-towns.csv'));
 

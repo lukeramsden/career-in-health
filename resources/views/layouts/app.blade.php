@@ -132,13 +132,15 @@
                         
                         @endif
                         
-                        <a class="nav-link {{ active_route('account.private-message.*') }}"
-                           href="{{ route('account.private-message.index') }}">
-                            Messages
-                            @if(Auth::user()->unreadMessages() > 0)
-                                <span class="badge badge-danger p-1">{{ Auth::user()->unreadMessages() }}</span>
-                            @endif
-                        </a>
+                        @can('sendMessages', App\PrivateMessage::class)
+                            <a class="nav-link {{ active_route('account.private-message.*') }}"
+                               href="{{ route('account.private-message.index') }}">
+                                Messages
+                                @if(Auth::user()->unreadMessages() > 0)
+                                    <span class="badge badge-danger p-1">{{ Auth::user()->unreadMessages() }}</span>
+                                @endif
+                            </a>
+                        @endcan
         
                         <li class="nav-item dropright {{ active_route('account.manage.*') }}">
                             <a class="nav-link dropdown-toggle"

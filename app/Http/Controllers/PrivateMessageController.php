@@ -21,20 +21,20 @@ class PrivateMessageController extends Controller
 
 		$this->middleware('auth');
 		$this->middleware('must-onboard');
-		$this->middleware(function ($request, Closure $next)
-		{
-			$message = $request->route('message');
-
-			if ($message && Auth::check() && !$message->wasSentTo(Auth::user()))
-			{
-				toast()->error('Cannot change read status of a message you didn\'t receive.');
-				return back();
-			}
-
-			return $next($request);
-		})->only('markAsRead', 'markAsUnread');
+		$this->middleware('can:sendMessages,'.PrivateMessage::class);
+		$this->middleware('can:changeReadStatus,privateMessage')->only('markAsRead', 'markAsUnread');
 		$this->middleware('user-type:employee')->only('showForJobListing');
 		$this->middleware('user-type:company')->only('showForJobListingAndEmployee');
+	}
+
+	protected function rules()
+	{
+		return [
+			'body'           => 'required|string|max:1000',
+			'job_listing_id' => 'required|integer|exists:jobListings,id',
+			'to_employee_id' => 'required_without:to_company_id|integer|exists:employees,id',
+			'to_company_id'  => 'required_without:to_employee_id|integer|exists:companies,id',
+		];
 	}
 
 	/**
@@ -174,15 +174,5 @@ class PrivateMessageController extends Controller
 
 		toast()->success('Message sent successfully');
 		return back();
-	}
-
-	protected function rules()
-	{
-		return [
-			'body'           => 'required|string|max:1000',
-			'job_listing_id'      => 'required|integer|exists:jobListings,id',
-			'to_employee_id' => 'required_without:to_company_id|integer|exists:employees,id',
-			'to_company_id'  => 'required_without:to_employee_id|integer|exists:companies,id',
-		];
 	}
 }
