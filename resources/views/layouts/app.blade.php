@@ -5,9 +5,10 @@
         @usertype('admin')
             <img class="logo svg-inline svg-logo-danger" src="/images/cih-logo.svg" alt="logo">
             <p class="logo-after-text">Admin Mode</p>
-        @elseusertype
-            <img class="logo" src="/images/cih-logo.svg" alt="logo">
         @endusertype
+        @guest
+            <img class="logo" src="/images/cih-logo.svg" alt="logo">
+        @endguest
         <div id="nav-inner">
             <nav class="nav flex-column">
                 @guest
