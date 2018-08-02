@@ -13,227 +13,230 @@ use Closure;
 
 class JobListingController extends Controller
 {
-    protected $request;
+	protected $request;
 
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
+	public function __construct(Request $request)
+	{
+		$this->request = $request;
 
-        $this->middleware('auth')->except('show');
-        $this->middleware('user-type:company')->except('show');
-        $this->middleware('company-created')->except('show');
+		$this->middleware('auth')->except('show');
+		$this->middleware('user-type:company')->except('show');
+		$this->middleware('company-created')->except('show');
+	}
 
-        // editor ownership
-        $this->middleware(function($request, Closure $next) {
-            $user   = Auth::user();
-            $jobListing = $request->route('job-listing');
+	public function index()
+	{
+		return view('job-listing.index')
+			->with([
+				'jobListings' =>
+					Auth::user()
+						->userable
+						->company
+						->jobListings()
+						->with('applications')
+						->get(),
+			]);
+	}
 
-            if(!isset($jobListing))
-                return $next($request);
+	/**
+	 * @param JobListing $jobListing
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
+	public function show(JobListing $jobListing)
+	{
+		$this->authorize('view', $jobListing);
 
-            if($user->isCompany() && $user->userable->company->id === $jobListing->company_id)
-                return $next($request);
+		session()->keep('clickThrough');
+		$jobListing->increment('page_views');
+		return view('job-listing.show')
+			->with([
+				'jobListing' => $jobListing,
+			]);
+	}
 
-            if(ajax())
-                return response()->json(['success' => false, 'message' => 'You cannot edit an job_listing you don\'t own'], 401);
+	/**
+	 * @param JobListing $jobListing
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
+	public function showApplications(JobListing $jobListing)
+	{
+		$this->authorize('update', $jobListing);
 
-            toast()->error('You cannot edit an job_listing you don\'t own');
-            return redirect(route('job-listing.show', ['jobListing' => $jobListing]));
-        })->only(['edit', 'update', 'showInternal', 'showApplications']);
+		return view('job-listing.view-applications')
+			->with([
+				'jobListing' => $jobListing,
+			]);
+	}
 
-        // address ownership
-        $this->middleware(function($request, Closure $next) {
-            $user = Auth::user();
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
+	public function create()
+	{
+		$this->authorize('create', JobListing::class);
 
-            try {
-                $address  = Address::findOrFail($request->get('address_id', -1));
-            } catch (ModelNotFoundException $exception) {
-                return $next($request);
-            }
+		return view('job-listing.create')
+			->with([
+				'jobListing' => new JobListing(),
+				'edit'       => false,
+			]);
+	}
 
-            if($user->isCompany() && $user->userable->company->id === $address->company_id)
-                return $next($request);
+	/**
+	 * @param JobListing $jobListing
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
+	public function edit(JobListing $jobListing)
+	{
+		$this->authorize('update', $jobListing);
 
-            if(ajax())
-                return response()->json(['success' => false, 'message' => 'You cannot use an address you don\'t own'], 401);
+		return view('job-listing.create')
+			->with([
+				'jobListing' => $jobListing,
+				'edit'       => true,
+			]);
+	}
 
-            toast()->error('You cannot use an address you don\'t own');
-            return back()->withInput();
-        })->only(['store', 'updated']);
+	/**
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
+	public function store()
+	{
+		$this->authorize('create', JobListing::class);
 
-        // public status
-        $this->middleware(function($request, Closure $next) {
-            $jobListing = $request->route('job-listing');
+		$data           = $this->request->validate(self::rules());
+		$savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater;
 
-            if(isset($jobListing) && $jobListing->isDraft())
-                return back();
+		if ($this->request->has('address_id'))
+		{
+			$this->authorize('useInJobListing', Address::find($this->request->address_id));
+		}
 
-            return $next($request);
+		$user     = Auth::user();
+		$userable = $user->userable;
+		$company  = $userable->company;
 
-        })->only('show');
-    }
+		$jobListing = new JobListing();
+		$jobListing->fill($data);
+		$jobListing->company_id         = $company->id;
+		$jobListing->created_by_user_id = $user->id;
+		$jobListing->published          = !$savingForLater;
+		$jobListing->last_edited        = Carbon::now();;
+		$jobListing->save();
 
-    protected function rules()
-    {
-        if ($this->request->has('savingForLater')
-            && $this->request->savingForLater == true)
-            return [
-                'title'       => 'required|max:120',
-                'address_id'  => 'nullable|integer|exists:addresses,id',
-                'description' => 'nullable|max:3000',
-                'job_role'    => 'nullable|integer|exists:job_roles,id',
-                'setting'     => ['nullable', Rule::in(array_keys(JobListing::$settings))],
-                'type'        => ['nullable', Rule::in(array_keys(JobListing::$types))],
-                'min_salary'  => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
-                'max_salary'  => 'nullable|integer|min:1|max:1000000|greater_than_field:min_salary',
-            ];
+		if (!$company->has_created_first_job_listing)
+		{
+			$company->has_created_first_job_listing = true;
+			$company->save();
+		}
 
-        return [
-                'title'       => 'required|max:120',
-                'address_id'  => 'required|integer|exists:addresses,id',
-                'description' => 'required|max:3000',
-                'job_role'    => 'required|integer|exists:job_roles,id',
-                'setting'     => ['required', Rule::in(array_keys(JobListing::$settings))],
-                'type'        => ['required', Rule::in(array_keys(JobListing::$types))],
-                'min_salary'  => 'required|integer|min:0|max:1000000|less_than_field:max_salary',
-                'max_salary'  => 'required|integer|min:1|max:1000000|greater_than_field:min_salary',
-            ];
-    }
+		if (ajax())
+			return response()->json(['success' => true, 'model' => $jobListing], 200);
 
-    public function index()
-    {
-        return view('job-listing.index')
-            ->with([
-                'jobListings' =>
-                    Auth
-                        ::user()
-                        ->userable
-                        ->company
-                        ->jobListings()
-                        ->with('applications')
-                        ->get()
-            ]);
-    }
+		if ($savingForLater)
+		{
+			toast()
+				->success('Created!')
+				->info('This listing is not public yet.');
+			return redirect(route('job-listing.edit', ['jobListing' => $jobListing]));
+		}
 
-    public function show(JobListing $jobListing)
-    {
-        session()->keep('clickThrough');
-        $jobListing->increment('page_views');
-        return view('job-listing.show')
-            ->with([
-                'jobListing' => $jobListing
-            ]);
-    }
+		toast()
+			->success('Created!')
+			->info('This listing has been published.');
+		return redirect(route('job-listing.show', ['jobListing' => $jobListing]));
+	}
 
-    public function showInternal(JobListing $jobListing)
-    {
-        return view('job-listing.show-internal')
-            ->with([
-                'jobListing' => $jobListing
-            ]);
-    }
+	/**
+	 * @return array
+	 */
+	protected function rules()
+	{
+		if ($this->request->has('savingForLater')
+			&& $this->request->savingForLater == true)
+			return [
+				'title'       => 'required|max:120',
+				'address_id'  => 'nullable|integer|exists:addresses,id',
+				'description' => 'nullable|max:3000',
+				'job_role'    => 'nullable|integer|exists:job_roles,id',
+				'setting'     => ['nullable', Rule::in(array_keys(JobListing::$settings))],
+				'type'        => ['nullable', Rule::in(array_keys(JobListing::$types))],
+				'min_salary'  => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
+				'max_salary'  => 'nullable|integer|min:1|max:1000000|greater_than_field:min_salary',
+			];
 
-    public function showApplications(JobListing $jobListing)
-    {
-        return view('job-listing.view-applications')
-            ->with([
-                'jobListing' => $jobListing
-            ]);
-    }
+		return [
+			'title'       => 'required|max:120',
+			'address_id'  => 'required|integer|exists:addresses,id',
+			'description' => 'required|max:3000',
+			'job_role'    => 'required|integer|exists:job_roles,id',
+			'setting'     => ['required', Rule::in(array_keys(JobListing::$settings))],
+			'type'        => ['required', Rule::in(array_keys(JobListing::$types))],
+			'min_salary'  => 'required|integer|min:0|max:1000000|less_than_field:max_salary',
+			'max_salary'  => 'required|integer|min:1|max:1000000|greater_than_field:min_salary',
+		];
+	}
 
-    public function create()
-    {
-        return view('job-listing.create')
-            ->with([
-                'jobListing' => new JobListing(),
-                'edit' => false
-            ]);
-    }
+	/**
+	 * @param JobListing $jobListing
+	 *
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
+	public function update(JobListing $jobListing)
+	{
+		$this->authorize('update', $jobListing);
 
-    public function edit(JobListing $jobListing)
-    {
-        return view('job-listing.create')
-            ->with([
-                'jobListing' => $jobListing,
-                'edit' => true
-            ]);
-    }
+		$data           = $this->request->validate(self::rules());
+		$savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater == true;
 
-    public function store()
-    {
-        $user = Auth::user();
-        $userable = $user->userable;
-        $company = $userable->company;
-        $data = $this->request->validate(self::rules());
+		if ($this->request->has('address_id'))
+		{
+			$this->authorize('useInJobListing', Address::find($this->request->address_id));
+		}
 
-        $savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater;
+		$jobListing->fill($data);
+		$jobListing->published   = !$savingForLater;
+		$jobListing->last_edited = Carbon::now();
+		$jobListing->save();
 
-        $jobListing = new JobListing();
-        $jobListing->fill($data);
-        $jobListing->company_id = $company->id;
-        $jobListing->created_by_user_id = $user->id;
-        $jobListing->published = !$savingForLater;
-        $jobListing->last_edited = Carbon::now();;
-        $jobListing->save();
+		if (ajax())
+			return response()->json(['success' => true, 'model' => $jobListing], 200);
 
-        if(!$company->has_created_first_job_listing)
-        {
-            $company->has_created_first_job_listing = true;
-            $company->save();
-        }
+		toast()->success('Updated!');
 
-        if(ajax())
-            return response()->json(['success' => true, 'model' => $jobListing], 200);
+		if ($savingForLater)
+			toast()->info('This listing is not public.');
+		else
+			toast()->info('This listing has been published successfully.<br><a href="' . route('job-listing.show', ['jobListing' => $jobListing]) . '" class="btn btn-action btn-sm mt-1">View JobListing</a>');
 
-        if($savingForLater) {
-            toast()
-                ->success('Created!')
-                ->info('This listing is not public yet.');
-            return redirect(route('job-listing.edit', ['jobListing' => $jobListing]));
-        }
+		return back();
+	}
 
-        toast()
-            ->success('Created!')
-            ->info('This listing has been published.');
-        return redirect(route('job-listing.show', ['jobListing' => $jobListing]));
-    }
+	/**
+	 * @param JobListing $jobListing
+	 *
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+	 * @throws \Exception
+	 */
+	public function destroy(JobListing $jobListing)
+	{
+		$this->authorize('delete', $jobListing);
 
-    public function update(JobListing $jobListing)
-    {
-        $data = $this->request->validate(self::rules());
-        $savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater == true;
+		$jobListing->delete();
 
-        $jobListing->fill($data);
-        $jobListing->published = !$savingForLater;
-        $jobListing->last_edited = Carbon::now();
-        $jobListing->save();
+		if (ajax())
+			return response()->json(['success' => true], 200);
 
-        if(ajax())
-            return response()->json(['success' => true, 'model' => $jobListing], 200);
-
-        toast()->success('Updated!');
-
-        if($savingForLater)
-            toast()->info('This listing is not public.');
-        else
-            toast()->info('This listing has been published successfully.<br><a href="' . route('job-listing.show', ['jobListing' => $jobListing]) . '" class="btn btn-action btn-sm mt-1">View JobListing</a>');
-
-        return back();
-    }
-
-    /**
-     * @param JobListing $jobListing
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function destroy(JobListing $jobListing)
-    {
-        $jobListing->delete();
-
-        if(ajax())
-            return response()->json(['success' => true], 200);
-
-        toast()->success('Deleted');
-        return redirect(route('job-listing.index'));
-    }
+		toast()->success('Deleted');
+		return redirect(route('job-listing.index'));
+	}
 }
