@@ -2,9 +2,12 @@
 @section('base_content')
     {{-- side nav --}}
     <div id="navbar" class="d-none d-lg-block">
-        <a href="{{ route(Auth::check() ? 'dashboard' : 'home') }}">
+        @usertype('admin')
+            <img class="logo svg-inline svg-logo-danger" src="/images/cih-logo.svg" alt="logo">
+            <p class="logo-after-text">Admin Mode</p>
+        @elseusertype
             <img class="logo" src="/images/cih-logo.svg" alt="logo">
-        </a>
+        @endusertype
         <div id="nav-inner">
             <nav class="nav flex-column">
                 @guest

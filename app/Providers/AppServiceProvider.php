@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Blade;
 use Laravel\Cashier\Cashier;
 
 class AppServiceProvider extends ServiceProvider
@@ -70,27 +70,30 @@ class AppServiceProvider extends ServiceProvider
 			return Auth::check() && Auth::user()->onboarding()->inProgress();
 		});
 
-		Blade::if('usertype', function ($types)
+		Blade::if('usertype', function ($types = '')
 		{
-			$user     = Auth::user();
-			$userable = $user->userable;
+			if (Auth::check())
+			{
+				$user     = Auth::user();
+				$userable = $user->userable;
 
-			foreach (explode(',', $types) as $type)
-				switch ($type)
-				{
-					case 'employee':
-						if ($userable instanceof \App\Employee)
-							return true;
-						break;
-					case 'company':
-						if ($userable instanceof \App\CompanyUser)
-							return true;
-						break;
-					case 'admin':
-						if ($userable instanceof \App\Admin)
-							return true;
-						break;
-				}
+				foreach (explode(',', $types) as $type)
+					switch ($type)
+					{
+						case 'employee':
+							if ($userable instanceof \App\Employee)
+								return true;
+							break;
+						case 'company':
+							if ($userable instanceof \App\CompanyUser)
+								return true;
+							break;
+						case 'admin':
+							if ($userable instanceof \App\Admin)
+								return true;
+							break;
+					}
+			}
 
 			return false;
 		});

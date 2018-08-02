@@ -255,6 +255,14 @@ $navbar-width: 240px;
   .logo {
     position: absolute;
     margin: 25px;
+
+    &-after-text {
+      color: $danger;
+      position: absolute;
+      text-align: center;
+      margin-top: 80px;
+      width: 100%;
+    }
   }
 }
 

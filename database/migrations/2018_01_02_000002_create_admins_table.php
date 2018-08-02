@@ -21,18 +21,20 @@ class CreateAdminsTable extends Migration
             $table->timestamps();
         });
 
-        $user = factory(\App\User::class)
-            ->create([
-                'email'             => 'admin@careerinhealth.co.uk',
-                'password'          => Hash::make('letmein'), // TODO: better password
-                'confirmed'         => 1,
-                'confirmation_code' => null,
-            ]);
-        $userable = new \App\Admin();
-        $userable->first_name = 'Admin';
-        $userable->save();
-        $user->userable()->associate($userable);
-        $user->save();
+        if(env('APP_DEBUG', false)) {
+			$user = factory(\App\User::class)
+				->create([
+					'email'             => 'admin@careerinhealth.co.uk',
+					'password'          => Hash::make('letmein'), // TODO: better password
+					'confirmed'         => 1,
+					'confirmation_code' => null,
+				]);
+			$userable = new \App\Admin();
+			$userable->first_name = 'Admin';
+			$userable->save();
+			$user->userable()->associate($userable);
+			$user->save();
+		}
     }
 
     /**
