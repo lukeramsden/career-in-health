@@ -11,8 +11,13 @@ use Webpatser\Uuid\Uuid;
 class AddressController extends Controller
 {
 	protected $request;
-	static $maxMedia = 20;
+	static    $maxMedia = 20;
 
+	/**
+	 * AddressController constructor.
+	 *
+	 * @param Request $request
+	 */
 	public function __construct(Request $request)
 	{
 		$this->request = $request;
@@ -22,6 +27,11 @@ class AddressController extends Controller
 		$this->middleware('company-created')->except('show');
 	}
 
+	/**
+	 * @param array $custom
+	 *
+	 * @return array
+	 */
 	protected function rules($custom = [])
 	{
 		return array_merge([
@@ -37,6 +47,9 @@ class AddressController extends Controller
 		], $custom);
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function index()
 	{
 		return view('address.index')
@@ -45,11 +58,16 @@ class AddressController extends Controller
 			]);
 	}
 
+	/**
+	 * @param Address $address
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
 	public function show(Address $address)
 	{
 		return view('address.show')
 			->with([
-				'address' => $address,
+				'address'     => $address,
 				'jobListings' => $address
 					->jobListings()
 					->orderBy('created_at', 'desc')
@@ -57,8 +75,14 @@ class AddressController extends Controller
 			]);
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function create()
 	{
+		$this->authorize('create', Address::class);
+
 		return view('address.create')
 			->with([
 				'address' => new Address(),
@@ -66,8 +90,16 @@ class AddressController extends Controller
 			]);
 	}
 
+	/**
+	 * @param Address $address
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function edit(Address $address)
 	{
+		$this->authorize('update', $address);
+
 		return view('address.create')
 			->with([
 				'address' => $address,
@@ -77,12 +109,14 @@ class AddressController extends Controller
 
 	/**
 	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-	 * @throws \Exception
+	 * @throws \Exception|\Illuminate\Auth\Access\AuthorizationException
 	 */
 	public function store()
 	{
+		$this->authorize('create', Address::class);
+
 		$data = $this->request->validate(self::rules([
-			'images'   => 'nullable|array|max:'.self::$maxMedia,
+			'images'   => 'nullable|array|max:' . self::$maxMedia,
 			'images.*' => 'image|max:10240|mimes:jpg,jpeg,png',
 		]));
 
@@ -94,9 +128,9 @@ class AddressController extends Controller
 
 		foreach ($this->request->file('images', []) as $image)
 		{
-			if($address->getMedia('images')->count() >= self::$maxMedia)
+			if ($address->getMedia('images')->count() >= self::$maxMedia)
 			{
-				toast()->error('Too many images, only the first '.self::$maxMedia.' have been added.');
+				toast()->error('Too many images, only the first ' . self::$maxMedia . ' have been added.');
 				break;
 			}
 
@@ -104,7 +138,7 @@ class AddressController extends Controller
 			{
 				$address
 					->addMedia($image)
-					->usingFileName(Uuid::generate(4)->string.'.'.$image->clientExtension())
+					->usingFileName(Uuid::generate(4)->string . '.' . $image->clientExtension())
 					->toMediaCollection('images');
 			} catch (FileCannotBeAdded $e)
 			{
@@ -119,8 +153,8 @@ class AddressController extends Controller
 
 		if (ajax())
 			return response()->json([
-				'success' => true,
-				'model' => $address,
+				'success'    => true,
+				'model'      => $address,
 				'redirectTo' => $redirectTo,
 			], 200);
 
@@ -128,8 +162,16 @@ class AddressController extends Controller
 		return redirect($redirectTo);
 	}
 
+	/**
+	 * @param Address $address
+	 *
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function update(Address $address)
 	{
+		$this->authorize('update', $address);
+
 		$data = $this->request->validate(self::rules());
 
 		$address->fill($data);
@@ -143,10 +185,12 @@ class AddressController extends Controller
 	}
 
 	/**
-	 * @throws \Exception
+	 * @throws \Exception|\Illuminate\Auth\Access\AuthorizationException
 	 */
 	public function destroy(Address $address)
 	{
+		$this->authorize('delete', $address);
+
 		if ($address->jobListings()->count() > 0)
 		{
 			if (ajax())
@@ -169,16 +213,18 @@ class AddressController extends Controller
 	 * @param Address $address
 	 *
 	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-	 * @throws \Exception
+	 * @throws \Exception|\Illuminate\Auth\Access\AuthorizationException
 	 */
 	public function addImage(Address $address)
 	{
-		if($address->getMedia('images')->count() >= self::$maxMedia)
+		$this->authorize('update', $address);
+
+		if ($address->getMedia('images')->count() >= self::$maxMedia)
 		{
 			if (ajax())
 				return response()->json([
 					'success' => false,
-					'error' => 'Too many images. Please remove an image to make space for a new one.',
+					'error'   => 'Too many images. Please remove an image to make space for a new one.',
 				], 400);
 
 			toast()->error('Too many images. Please remove an image to make space for a new one.');
@@ -195,7 +241,7 @@ class AddressController extends Controller
 		{
 			$file = $address
 				->addMedia($image)
-				->usingFileName(Uuid::generate(4)->string.'.'.$image->clientExtension())
+				->usingFileName(Uuid::generate(4)->string . '.' . $image->clientExtension())
 				->toMediaCollection('images');
 		} catch (FileCannotBeAdded $e)
 		{
