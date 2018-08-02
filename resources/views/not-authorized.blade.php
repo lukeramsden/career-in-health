@@ -11,8 +11,17 @@
                     </div>
                     <div class="card-footer p-0">
                         <div class="btn-group btn-group-sm btn-group-full" role="group">
-                            <a href="{{ route('dashboard') }}"
-                               class="btn btn-primary">Dashboard</a>
+                            @set('referer', Request::header('referer'))
+                            @empty($referer)
+                                <a href="{{ route('dashboard') }}"
+                                   class="btn btn-primary">Dashboard</a>
+                            @else
+                                <a href="{{ url()->previous() }}"
+                                   class="btn btn-primary">Go Back</a>
+                                <a href="{{ route('dashboard') }}"
+                                   class="btn btn-dark-primary">Dashboard</a>
+                            @endempty
+                            @unset($referer)
                             <a href="{{ route('logout.get') }}"
                                class="btn btn-dark-primary">Log Out</a>
                         </div>

@@ -9,7 +9,7 @@
                             <img class="card-img-top" src="/images/cih-logo.svg" alt="logo">
                         </a>
                         <div class="card-body">
-                            <p>You have been invited to join...</p>
+                            <p class="my-3">You have been invited to join...</p>
                             
                             <div class="media">
                                 <img class="align-self-start mr-3 img-thumbnail"
@@ -29,7 +29,20 @@
                                     @isset($invite->company->email)
                                         <h6><span class="oi oi-envelope-closed text-muted"></span> <span class="text-muted">Email:</span> <span>{{ $invite->company->email }}</span></h6>
                                     @endisset
-                                    <p class="mb-0"></p>
+                                </div>
+                            </div>
+                            
+                            <p class="my-3">By...</p>
+                            
+                            <div class="media">
+                                <img class="align-self-start mr-3 img-thumbnail"
+                                     width="80"
+                                     src="{{ $invite->invitedBy->picture() ?? '/images/generic.png' }}"
+                                     alt="Profile picture">
+                                <div class="media-body">
+                                    <a href="{{ route('company-user.show', $invite->invitedBy) }}">
+                                        <h5 class="mt-0">{{ $invite->invitedBy->full_name }}</h5>
+                                    </a>
                                 </div>
                             </div>
                         </div>

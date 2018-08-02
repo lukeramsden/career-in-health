@@ -20,19 +20,30 @@ class CompanyUserManagementController extends Controller
 		$this->middleware('auth');
 		$this->middleware('must-onboard');
 		$this->middleware('user-type:company');
-		$this->middleware('company-user-permission-level:owner,manager');
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function show()
 	{
+		$this->authorize('view', CompanyUser::class);
+
 		return view('company.manage-users')
 			->with([
 				'company' => Auth::user()->userable->company,
 			]);
 	}
 
+	/**
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function inviteUser()
 	{
+		$this->authorize('inviteUser', CompanyUser::class);
+
 		$data = $this->request->validate([
 			'email' => 'required|email|distinct|unique:users,email|unique:company_user_invites,email',
 		]);
@@ -50,8 +61,16 @@ class CompanyUserManagementController extends Controller
 		return back();
 	}
 
+	/**
+	 * @param CompanyUserInvite $invite
+	 *
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function cancelInvite(CompanyUserInvite $invite)
 	{
+		$this->authorize('inviteUser', CompanyUser::class);
+
 		try
 		{
 			$invite->delete();
@@ -67,13 +86,15 @@ class CompanyUserManagementController extends Controller
 		return back();
 	}
 
+	/**
+	 * @param CompanyUser $companyUser
+	 *
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function makeOwner(CompanyUser $companyUser)
 	{
-		if (!Auth::user()->userable->ownsCompany())
-		{
-			toast()->error('Access Denied');
-			return back();
-		}
+		$this->authorize('changeOwner', CompanyUser::class);
 
 		if (Auth::user()->userable->company->makeOwner($companyUser))
 		{
@@ -87,13 +108,15 @@ class CompanyUserManagementController extends Controller
 		}
 	}
 
+	/**
+	 * @param CompanyUser $companyUser
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function updatePermissionForUser(CompanyUser $companyUser)
 	{
-		if (!Auth::user()->userable->hasPermsOver($companyUser))
-		{
-			toast()->error('Access Denied');
-			return back();
-		}
+		$this->authorize('changePermissionLevel', $companyUser);
 
 		$data = $this->request->validate([
 			'new_permission_level' => ['required', Rule::in(['standard', 'manager'])],
@@ -111,20 +134,30 @@ class CompanyUserManagementController extends Controller
 		return back();
 	}
 
+	/**
+	 * @param CompanyUserInvite $invite
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function remindInvite(CompanyUserInvite $invite)
 	{
+		$this->authorize('inviteUser', CompanyUser::class);
+
 		$invite->remind();
 
 		return back();
 	}
 
+	/**
+	 * @param CompanyUser $companyUser
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function activateUser(CompanyUser $companyUser)
 	{
-		if (!Auth::user()->userable->ownsCompany())
-		{
-			toast()->error('Access Denied');
-			return back();
-		}
+		$this->authorize('activateUser', $companyUser);
 
 		$companyUser->activate();
 
@@ -132,13 +165,15 @@ class CompanyUserManagementController extends Controller
 		return back();
 	}
 
+	/**
+	 * @param CompanyUser $companyUser
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function deactivateUser(CompanyUser $companyUser)
 	{
-		if (!Auth::user()->userable->ownsCompany())
-		{
-			toast()->error('Access Denied');
-			return back();
-		}
+		$this->authorize('deactivateUser', $companyUser);
 
 		$companyUser->deactivate();
 

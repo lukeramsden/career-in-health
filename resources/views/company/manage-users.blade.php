@@ -54,24 +54,25 @@
                     <div class="card-footer p-0">
                         @if(Auth::user()->userable_id != $user->id)
                             <div class="btn-group btn-group-sm btn-group-full" role="group">
-                                @if(Auth::user()->userable->hasPermsOver($user))
+                                @can('changePermissionLevel', $user)
                                     <a href="{{
                                         route('company.manage-users.update-permission-level', [
                                             $user,
                                             'new_permission_level' => 'standard',
                                         ]) }}"
                                        class="btn btn-danger">Demote</a>
-                                    
-                                    @if(Auth::user()->userable->ownsCompany())
-                                        <a href="{{route('company.manage-users.make-owner', $user)}}"
-                                           class="btn btn-golden">
-                                            <span class="oi oi-star"></span>
-                                            Make Owner
-                                        </a>
-                                        <a href="{{ route('company.manage-users.deactivate-user', $user) }}"
-                                           class="btn btn-secondary">Deactivate</a>
-                                    @endif
-                                @endif
+                                @endcan
+                                @can('changeOwner', App\CompanyUser::class)
+                                    <a href="{{route('company.manage-users.make-owner', $user)}}"
+                                       class="btn btn-golden">
+                                        <span class="oi oi-star"></span>
+                                        Make Owner
+                                    </a>
+                                @endcan
+                                @can('deactivateUser', $user)
+                                    <a href="{{ route('company.manage-users.deactivate-user', $user) }}"
+                                       class="btn btn-secondary">Deactivate</a>
+                                @endcan
                             </div>
                         @endif
                     </div>
@@ -99,28 +100,31 @@
                                 </h4>
                                 
                                 <h5 class="mt-0">{{ $user->job_title ?? 'Unknown' }}</h5>
-                            
                             </div>
                         </div>
                     </div>
                     <div class="card-footer p-0">
                         @if(Auth::user()->userable_id != $user->id)
                             <div class="btn-group btn-group-sm btn-group-full" role="group">
-                                <a href="{{
-                                            route('company.manage-users.update-permission-level', [
-                                                $user,
-                                                'new_permission_level' => 'manager',
-                                            ]) }}"
-                                   class="btn btn-primary">Promote</a>
-                                @if(Auth::user()->userable->ownsCompany())
+                                @can('changePermissionLevel', $user)
+                                    <a href="{{
+                                                route('company.manage-users.update-permission-level', [
+                                                    $user,
+                                                    'new_permission_level' => 'manager',
+                                                ]) }}"
+                                       class="btn btn-primary">Promote</a>
+                                @endcan
+                                @can('changeOwner', App\CompanyUser::class)
                                     <a href="{{route('company.manage-users.make-owner', $user)}}"
                                        class="btn btn-golden">
                                         <span class="oi oi-star"></span>
                                         Make Owner
                                     </a>
+                                @endcan
+                                @can('deactivateUser', $user)
                                     <a href="{{ route('company.manage-users.deactivate-user', $user) }}"
                                        class="btn btn-secondary">Deactivate</a>
-                                @endif
+                                @endcan
                             </div>
                         @endif
                     </div>
@@ -143,12 +147,12 @@
                         </div>
                     </div>
                     <div class="card-footer p-0">
-                        @if(Auth::user()->userable->ownsCompany())
-                            <div class="btn-group btn-group-sm btn-group-full" role="group">
+                        <div class="btn-group btn-group-sm btn-group-full" role="group">
+                            @can('activateUser', $user)
                                 <a href="{{ route('company.manage-users.activate-user', $user) }}"
                                    class="btn btn-secondary">Activate</a>
-                            </div>
-                        @endif
+                            @endcan
+                        </div>
                     </div>
                 </div>
             @endforeach
