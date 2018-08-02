@@ -3,14 +3,14 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700');
 
 $action:       #f9834e;
-$primary:      #455782;
 $dark-primary: #354968;
+$primary:      #455782;
 $golden:  	   #ffcf40;
 
 $theme-colors: (
   "primary":      $primary,
-  "action":       $action,
   "dark-primary": $dark-primary,
+  "action":       $action,
   "golden":       $golden,
 );
 
@@ -372,14 +372,6 @@ $navbar-width: 240px;
           margin-left: $spacer * 1.5;
         }
       }
-    }
-  }
-}
-
-@each $color, $value in $theme-colors {
-  .card-custom-#{$color} {
-    &:before {
-      background-color: $value;
     }
   }
 }
@@ -894,3 +886,21 @@ $slick-button-offset: 10px;
     }
   }
 }
+
+/**
+ * All things based on theme colors
+ */
+@each $color, $value in $theme-colors {
+  .card-custom-#{$color} {
+    &:before {
+      background-color: $value;
+    }
+  }
+
+  .svg-logo-#{$color} {
+    .cls-2, .cls-3 {
+        fill: $value !important;
+    }
+  }
+}
+
