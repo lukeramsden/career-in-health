@@ -14549,6 +14549,50 @@ body {
   margin-left: 1.5rem;
 }
 
+.card-custom-primary:before {
+  background-color: #455782;
+}
+
+.card-custom-secondary:before {
+  background-color: #6c757d;
+}
+
+.card-custom-success:before {
+  background-color: #28a745;
+}
+
+.card-custom-info:before {
+  background-color: #17a2b8;
+}
+
+.card-custom-warning:before {
+  background-color: #ffc107;
+}
+
+.card-custom-danger:before {
+  background-color: #dc3545;
+}
+
+.card-custom-light:before {
+  background-color: #f8f9fa;
+}
+
+.card-custom-dark:before {
+  background-color: #343a40;
+}
+
+.card-custom-action:before {
+  background-color: #f9834e;
+}
+
+.card-custom-dark-primary:before {
+  background-color: #354968;
+}
+
+.card-custom-golden:before {
+  background-color: #ffcf40;
+}
+
 .pagination {
   margin: 0;
 }

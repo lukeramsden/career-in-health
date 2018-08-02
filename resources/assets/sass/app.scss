@@ -376,6 +376,14 @@ $navbar-width: 240px;
   }
 }
 
+@each $color, $value in $theme-colors {
+  .card-custom-#{$color} {
+    &:before {
+      background-color: $value;
+    }
+  }
+}
+
 .pagination {
   margin: 0;
 
