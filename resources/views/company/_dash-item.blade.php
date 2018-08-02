@@ -2,7 +2,7 @@
     @case('application')
         <div class="grid-item">
             <div class="card card-custom">
-                <div class="card-header"><span class="font-italic">Somebody applied to one of your adverts</span></div>
+                <div class="card-header"><span class="font-italic">Somebody applied to one of your jobListings</span></div>
                 <div class="card-body">
                     <p>
                         @if($item->custom_cover_letter)
@@ -11,7 +11,7 @@
                             <span class="text-muted font-italic">No cover letter</span>
                         @endif
                     </p>
-                    <a href="{{ route('advert.show.applications', ['advert' => $item->advert, 'highlight' => $item->id]) }}" class="btn btn-primary btn-sm px-4">View</a>
+                    <a href="{{ route('job-listing.show.applications', ['jobListing' => $item->job_listing, 'highlight' => $item->id]) }}" class="btn btn-primary btn-sm px-4">View</a>
                 </div>
                 <div class="card-footer">{{ $item->created_at->diffForHumans() }}</div>
             </div>

@@ -64,24 +64,24 @@
                 </a>
             </div>
             
-            @if($adverts->total() > 0)
+            @if($jobListings->total() > 0)
                 <div class="col-12 col-lg-5 mb-4">
                     <div class="card card-custom">
                         <div class="card-body">
                             <h4 class="card-title text-center"><em>Open Positions</em></h4>
-                            {!! $adverts->appends(Request::capture()->except('page'))->render("vendor.pagination") !!}
-                            @foreach($adverts as $advert)
-                                <a class="link-unstyled" href="{{ route('advert.show', $advert) }}">
-                                    <div class="advert scale-on-hover-2">
-                                        <h4>{{$advert->jobRole->name}}</h4>
-                                        <h5>{{ str_limit($advert->title, 50) }}</h5>
-                                        <h6>{{ $advert->getSetting() }}</h6>
+                            {!! $jobListings->appends(Request::capture()->except('page'))->render("vendor.pagination") !!}
+                            @foreach($jobListings as $jobListing)
+                                <a class="link-unstyled" href="{{ route('job-listing.show', $jobListing) }}">
+                                    <div class="job_listing scale-on-hover-2">
+                                        <h4>{{$jobListing->jobRole->name}}</h4>
+                                        <h5>{{ str_limit($jobListing->title, 50) }}</h5>
+                                        <h6>{{ $jobListing->getSetting() }}</h6>
                                     </div>
                                 </a>
                                 <hr>
                             @endforeach
                             <div class="text-center">
-                                <p class="font-italic">{{ $adverts->total() }} {{ str_plural('advert', $adverts->total()) }}</p>
+                                <p class="font-italic">{{ $jobListings->total() }} {{ str_plural('job listing', $jobListings->total()) }}</p>
                             </div>
                         </div>
                     </div>

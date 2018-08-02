@@ -18,25 +18,25 @@
                 @foreach($applications as $application)
                     <tr>
                         <td></td>
-                        <td data-search="{{ $application->advert->company->name }}">
-                            <p><a href="{{ route('company.show', [$application->advert->company]) }}">{{ $application->advert->company->name }}</a></p>
+                        <td data-search="{{ $application->job_listing->company->name }}">
+                            <p><a href="{{ route('company.show', [$application->job_listing->company]) }}">{{ $application->job_listing->company->name }}</a></p>
                         </td>
-                        <td data-search="{{ $application->advert->title }}">
-                            <p>{{ str_limit($application->advert->title, 80) }}</p>
+                        <td data-search="{{ $application->job_listing->title }}">
+                            <p>{{ str_limit($application->job_listing->title, 80) }}</p>
                         </td>
-                        <td data-search="{{ $application->advert->jobRole->name }}">
-                            <p>{{ $application->advert->jobRole->name }}</p>
+                        <td data-search="{{ $application->job_listing->jobRole->name }}">
+                            <p>{{ $application->job_listing->jobRole->name }}</p>
                         </td>
                         <td data-order="{{ $application->created_at->timestamp }}">
                             <p>{{ $application->created_at->toFormattedDateString() }}</p>
                         </td>
-                        <td data-search="{{ \App\AdvertApplication::$statuses[$application->status ?? 0] }}">
-                            <p>{{ \App\AdvertApplication::$statuses[$application->status ?? 0] }}</p>
+                        <td data-search="{{ \App\JobListingApplication::$statuses[$application->status ?? 0] }}">
+                            <p>{{ \App\JobListingApplication::$statuses[$application->status ?? 0] }}</p>
                         </td>
                         <td>
                             <div class="btn-group btn-group-sm" role="group">
-                                <a href="{{ route('advert.show', [$application->advert]) }}" class="btn btn-link">View Advert</a>
-                                <a href="{{ route('advert.application.show', [$application]) }}" class="btn btn-link">Edit</a>
+                                <a href="{{ route('job-listing.show', [$application->job_listing]) }}" class="btn btn-link">View JobListing</a>
+                                <a href="{{ route('job-listing.application.show', [$application]) }}" class="btn btn-link">Edit</a>
                             </div>
                         </td>
                     </tr>

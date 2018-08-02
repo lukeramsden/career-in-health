@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PrivateMessage extends Model
 {
-	protected $fillable = ['body', 'advert_id'];
+	protected $fillable = ['body', 'job_listing_id'];
 
 	public function company()
 	{
@@ -19,9 +19,9 @@ class PrivateMessage extends Model
 		return $this->belongsTo(Employee::class);
 	}
 
-	public function advert()
+	public function job_listing()
 	{
-		return $this->belongsTo(Advert::class);
+		return $this->belongsTo(JobListing::class);
 	}
 
 	/**

@@ -19,7 +19,7 @@ class CreatePrivateMessagesTable extends Migration
 			$table->integer('company_id');
 			$table->integer('employee_id');
 			$table->enum('direction', ['to_company', 'to_employee']);
-			$table->integer('advert_id');
+			$table->integer('job_listing_id');
 			$table->string('body', 1000);
 			$table->boolean('read')->default(0);
 			$table->timestamp('read_at')->nullable();

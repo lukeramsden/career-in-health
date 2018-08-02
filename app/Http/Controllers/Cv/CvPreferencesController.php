@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Cv;
 
-use App\Advert;
+use App\JobListing;
 use App\Cv\CvPreferences;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -25,8 +25,8 @@ class CvPreferencesController extends Controller
     {
         return [
             'job_role' => 'nullable|integer|exists:job_roles,id',
-            'setting'  => ['nullable', Rule::in(array_keys(Advert::$settings))],
-            'type'     => ['nullable', Rule::in(array_keys(Advert::$types))],
+            'setting'  => ['nullable', Rule::in(array_keys(JobListing::$settings))],
+            'type'     => ['nullable', Rule::in(array_keys(JobListing::$types))],
 
             'salary_number' => 'nullable|required_with:salary_type|numeric|min:0|max:150000',
             'salary_type'   => ['nullable', 'required_with:salary_number', Rule::in(array_keys(CvPreferences::$salaryTypes))],

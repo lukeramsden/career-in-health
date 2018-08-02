@@ -11,7 +11,7 @@
                         <div class="card-header">
                             <b>With:</b> <a href="{{ route('company.show', [$message->company]) }}">{{ $message->company->name }}</a>
                             <br>
-                            <b>Advert:</b> <a href="{{ route('advert.show', [$message->advert]) }}">{{ $message->advert->title }}</a>
+                            <b>JobListing:</b> <a href="{{ route('job-listing.show', [$message->job_listing]) }}">{{ $message->job_listing->title }}</a>
                         </div>
                         <div class="card-body">
                             <p>Latest Message:</p>
@@ -20,7 +20,7 @@
                             </p>
                         </div>
                         <div class="card-footer">
-                            <a href="{{ route('account.private-message.show-employee', [$message->advert]) }}">View Messages</a>
+                            <a href="{{ route('account.private-message.show-employee', [$message->job_listing]) }}">View Messages</a>
                         </div>
                     </div>
                 @endforeach
@@ -30,7 +30,7 @@
                         <div class="card-header">
                             <b>With:</b> <a href="{{ route('employee.show', [$message->employee]) }}">{{ $message->employee->full_name }}</a>
                             <br>
-                            <b>Advert:</b> <a href="{{ route('advert.show', [$message->advert]) }}">{{ $message->advert->title }}</a>
+                            <b>JobListing:</b> <a href="{{ route('job-listing.show', [$message->job_listing]) }}">{{ $message->job_listing->title }}</a>
                         </div>
                         <div class="card-body">
                             <h6>Latest:</h6>
@@ -40,7 +40,7 @@
                             </p>
                         </div>
                         <div class="card-footer">
-                            <a href="{{ route('account.private-message.show-company', [$message->advert, $message->employee]) }}">View Messages</a>
+                            <a href="{{ route('account.private-message.show-company', [$message->job_listing, $message->employee]) }}">View Messages</a>
                         </div>
                     </div>
                 @endforeach

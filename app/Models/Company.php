@@ -17,7 +17,7 @@ class Company extends Model
 
 		static::deleting(function (Company $company)
 		{
-			$company->adverts()->delete();
+			$company->jobListings()->delete();
 			$company->addresses()->delete();
 		});
 	}
@@ -25,9 +25,9 @@ class Company extends Model
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function adverts()
+	public function jobListings()
 	{
-		return $this->hasMany(\App\Advert::class);
+		return $this->hasMany(\App\JobListing::class);
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Company extends Model
 	 */
 	public function applications()
 	{
-		return $this->hasManyThrough(\App\AdvertApplication::class, \App\Advert::class);
+		return $this->hasManyThrough(\App\JobListingApplication::class, \App\JobListing::class);
 	}
 
 	/**

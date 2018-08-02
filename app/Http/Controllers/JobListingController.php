@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use Auth;
-use App\Advert;
+use App\JobListing;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Closure;
 
-class AdvertController extends Controller
+class JobListingController extends Controller
 {
     protected $request;
 
@@ -26,19 +26,19 @@ class AdvertController extends Controller
         // editor ownership
         $this->middleware(function($request, Closure $next) {
             $user   = Auth::user();
-            $advert = $request->route('advert');
+            $jobListing = $request->route('job-listing');
 
-            if(!isset($advert))
+            if(!isset($jobListing))
                 return $next($request);
 
-            if($user->isCompany() && $user->userable->company->id === $advert->company_id)
+            if($user->isCompany() && $user->userable->company->id === $jobListing->company_id)
                 return $next($request);
 
             if(ajax())
-                return response()->json(['success' => false, 'message' => 'You cannot edit an advert you don\'t own'], 401);
+                return response()->json(['success' => false, 'message' => 'You cannot edit an job_listing you don\'t own'], 401);
 
-            toast()->error('You cannot edit an advert you don\'t own');
-            return redirect(route('advert.show', ['advert' => $advert]));
+            toast()->error('You cannot edit an job_listing you don\'t own');
+            return redirect(route('job-listing.show', ['jobListing' => $jobListing]));
         })->only(['edit', 'update', 'showInternal', 'showApplications']);
 
         // address ownership
@@ -63,9 +63,9 @@ class AdvertController extends Controller
 
         // public status
         $this->middleware(function($request, Closure $next) {
-            $advert = $request->route('advert');
+            $jobListing = $request->route('job-listing');
 
-            if(isset($advert) && $advert->isDraft())
+            if(isset($jobListing) && $jobListing->isDraft())
                 return back();
 
             return $next($request);
@@ -82,8 +82,8 @@ class AdvertController extends Controller
                 'address_id'  => 'nullable|integer|exists:addresses,id',
                 'description' => 'nullable|max:3000',
                 'job_role'    => 'nullable|integer|exists:job_roles,id',
-                'setting'     => ['nullable', Rule::in(array_keys(Advert::$settings))],
-                'type'        => ['nullable', Rule::in(array_keys(Advert::$types))],
+                'setting'     => ['nullable', Rule::in(array_keys(JobListing::$settings))],
+                'type'        => ['nullable', Rule::in(array_keys(JobListing::$types))],
                 'min_salary'  => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
                 'max_salary'  => 'nullable|integer|min:1|max:1000000|greater_than_field:min_salary',
             ];
@@ -93,8 +93,8 @@ class AdvertController extends Controller
                 'address_id'  => 'required|integer|exists:addresses,id',
                 'description' => 'required|max:3000',
                 'job_role'    => 'required|integer|exists:job_roles,id',
-                'setting'     => ['required', Rule::in(array_keys(Advert::$settings))],
-                'type'        => ['required', Rule::in(array_keys(Advert::$types))],
+                'setting'     => ['required', Rule::in(array_keys(JobListing::$settings))],
+                'type'        => ['required', Rule::in(array_keys(JobListing::$types))],
                 'min_salary'  => 'required|integer|min:0|max:1000000|less_than_field:max_salary',
                 'max_salary'  => 'required|integer|min:1|max:1000000|greater_than_field:min_salary',
             ];
@@ -102,59 +102,59 @@ class AdvertController extends Controller
 
     public function index()
     {
-        return view('advert.index')
+        return view('job-listing.index')
             ->with([
-                'adverts' =>
+                'jobListings' =>
                     Auth
                         ::user()
                         ->userable
                         ->company
-                        ->adverts()
+                        ->jobListings()
                         ->with('applications')
                         ->get()
             ]);
     }
 
-    public function show(Advert $advert)
+    public function show(JobListing $jobListing)
     {
         session()->keep('clickThrough');
-        $advert->increment('page_views');
-        return view('advert.show')
+        $jobListing->increment('page_views');
+        return view('job-listing.show')
             ->with([
-                'advert' => $advert
+                'jobListing' => $jobListing
             ]);
     }
 
-    public function showInternal(Advert $advert)
+    public function showInternal(JobListing $jobListing)
     {
-        return view('advert.show-internal')
+        return view('job-listing.show-internal')
             ->with([
-                'advert' => $advert
+                'jobListing' => $jobListing
             ]);
     }
 
-    public function showApplications(Advert $advert)
+    public function showApplications(JobListing $jobListing)
     {
-        return view('advert.view-applications')
+        return view('job-listing.view-applications')
             ->with([
-                'advert' => $advert
+                'jobListing' => $jobListing
             ]);
     }
 
     public function create()
     {
-        return view('advert.create')
+        return view('job-listing.create')
             ->with([
-                'advert' => new Advert(),
+                'jobListing' => new JobListing(),
                 'edit' => false
             ]);
     }
 
-    public function edit(Advert $advert)
+    public function edit(JobListing $jobListing)
     {
-        return view('advert.create')
+        return view('job-listing.create')
             ->with([
-                'advert' => $advert,
+                'jobListing' => $jobListing,
                 'edit' => true
             ]);
     }
@@ -168,72 +168,72 @@ class AdvertController extends Controller
 
         $savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater;
 
-        $advert = new Advert();
-        $advert->fill($data);
-        $advert->company_id = $company->id;
-        $advert->created_by_user_id = $user->id;
-        $advert->published = !$savingForLater;
-        $advert->last_edited = Carbon::now();;
-        $advert->save();
+        $jobListing = new JobListing();
+        $jobListing->fill($data);
+        $jobListing->company_id = $company->id;
+        $jobListing->created_by_user_id = $user->id;
+        $jobListing->published = !$savingForLater;
+        $jobListing->last_edited = Carbon::now();;
+        $jobListing->save();
 
-        if(!$company->has_created_first_advert)
+        if(!$company->has_created_first_job_listing)
         {
-            $company->has_created_first_advert = true;
+            $company->has_created_first_job_listing = true;
             $company->save();
         }
 
         if(ajax())
-            return response()->json(['success' => true, 'model' => $advert], 200);
+            return response()->json(['success' => true, 'model' => $jobListing], 200);
 
         if($savingForLater) {
             toast()
                 ->success('Created!')
-                ->info('This advert is not public yet.');
-            return redirect(route('advert.edit', ['advert' => $advert]));
+                ->info('This listing is not public yet.');
+            return redirect(route('job-listing.edit', ['jobListing' => $jobListing]));
         }
 
         toast()
             ->success('Created!')
-            ->info('This advert has been published.');
-        return redirect(route('advert.show', ['advert' => $advert]));
+            ->info('This listing has been published.');
+        return redirect(route('job-listing.show', ['jobListing' => $jobListing]));
     }
 
-    public function update(Advert $advert)
+    public function update(JobListing $jobListing)
     {
         $data = $this->request->validate(self::rules());
         $savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater == true;
 
-        $advert->fill($data);
-        $advert->published = !$savingForLater;
-        $advert->last_edited = Carbon::now();
-        $advert->save();
+        $jobListing->fill($data);
+        $jobListing->published = !$savingForLater;
+        $jobListing->last_edited = Carbon::now();
+        $jobListing->save();
 
         if(ajax())
-            return response()->json(['success' => true, 'model' => $advert], 200);
+            return response()->json(['success' => true, 'model' => $jobListing], 200);
 
         toast()->success('Updated!');
 
         if($savingForLater)
-            toast()->info('This advert is not public.');
+            toast()->info('This listing is not public.');
         else
-            toast()->info('This advert has been published successfully.<br><a href="' . route('advert.show', ['advert' => $advert]) . '" class="btn btn-action btn-sm mt-1">View Advert</a>');
+            toast()->info('This listing has been published successfully.<br><a href="' . route('job-listing.show', ['jobListing' => $jobListing]) . '" class="btn btn-action btn-sm mt-1">View JobListing</a>');
 
         return back();
     }
 
     /**
-     * @param Advert $advert
+     * @param JobListing $jobListing
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(Advert $advert)
+    public function destroy(JobListing $jobListing)
     {
-        $advert->delete();
+        $jobListing->delete();
 
         if(ajax())
             return response()->json(['success' => true], 200);
 
         toast()->success('Deleted');
-        return redirect(route('advert.index'));
+        return redirect(route('job-listing.index'));
     }
 }

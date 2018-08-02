@@ -7,36 +7,36 @@
         <div class="card card-custom mx-lg-5 mb-4">
             <div class="card-header">
                 @usertype('employee')
-                    <b>Company:</b> <a href="{{ route('company.show', [$advert->company]) }}">{{ $advert->company->name }}</a>
+                    <b>Company:</b> <a href="{{ route('company.show', [$jobListing->company]) }}">{{ $jobListing->company->name }}</a>
                 @elseusertype('company')
                     <b>Employee:</b> <a href="{{ route('employee.show', [$employee]) }}">{{ $employee->full_name }}</a>
                 @endusertype
                 <br>
-                <b>Advert:</b> <a href="{{ route('advert.show', [$advert]) }}">{{ $advert->title }}</a>
+                <b>JobListing:</b> <a href="{{ route('job-listing.show', [$jobListing]) }}">{{ $jobListing->title }}</a>
                 
                 @usertype('employee')
-                    @if(\App\AdvertApplication::hasApplied(Auth::user()->userable, $advert))
+                    @if(\App\JobListingApplication::hasApplied(Auth::user()->userable, $jobListing))
                         <hr>
-                        <b>You have applied to this advert!</b>
+                        <b>You have applied to this job!</b>
                         <br>
                         <small class="text-muted">
                             {{ str_limit(
-                                \App\AdvertApplication::getApplication(
+                                \App\JobListingApplication::getApplication(
                                     Auth::user()->userable,
-                                    $advert
+                                    $jobListing
                                 )->custom_cover_letter ?? 'No cover letter', 100) }}
                         </small>
                     @endif
                 @elseusertype('company')
-                    @if(\App\AdvertApplication::hasApplied($employee, $advert))
+                    @if(\App\JobListingApplication::hasApplied($employee, $jobListing))
                         <hr>
-                        <b>They have applied to this advert!</b>
+                        <b>They have applied to this job!</b>
                         <br>
                         <small class="text-muted">
                             {{ str_limit(
-                                \App\AdvertApplication::getApplication(
+                                \App\JobListingApplication::getApplication(
                                     $employee,
-                                    $advert
+                                    $jobListing
                                 )->custom_cover_letter ?? 'No cover letter', 100) }}
                         </small>
                     @endif
@@ -75,10 +75,10 @@
                 method="post">
                     {{ csrf_field() }}
     
-                    <input type="hidden" name="advert_id" value="{{ $advert->id }}">
+                    <input type="hidden" name="job_listing_id" value="{{ $jobListing->id }}">
                     
                     @usertype('employee')
-                        <input type="hidden" name="to_company_id" value="{{ $advert->company->id }}">
+                        <input type="hidden" name="to_company_id" value="{{ $jobListing->company->id }}">
                     @elseusertype('company')
                         <input type="hidden" name="to_employee_id" value="{{ $employee->id }}">
                     @endusertype

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Advert;
+use App\JobListing;
 use App\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +46,7 @@ class SearchController extends Controller
 
         $data = $this->request->validate(self::rules());
         $town = Location::find($data['town']);
-        $results = Advert::with('address', 'address.location', 'jobRole', 'company');
+        $results = JobListing::with('address', 'address.location', 'jobRole', 'company');
 
         if (isset($data['radius']) && $data['radius'] < 50)
         {
@@ -82,13 +82,13 @@ class SearchController extends Controller
             ->orderBy('max_salary', 'desc')
             ->paginate(10);
 
-        $advertIds = array_map(
+        $jobListingIds = array_map(
             function($item) {
                 return $item->id;
             }, $results->items());
 
-        if(count($advertIds) > 0)
-            Advert::whereIn('id', $advertIds)->increment('search_impressions');
+        if(count($jobListingIds) > 0)
+            JobListing::whereIn('id', $jobListingIds)->increment('search_impressions');
 
         if(Auth::check() && Auth::user()->isEmployee())
             Auth::user()->userable()->increment('times_searched');

@@ -54,18 +54,18 @@
                                 </div>
                             </li>
                         
-                            <li class="nav-item dropright {{ active_route(['advert.*', 'company.show.applications']) }}">
+                            <li class="nav-item dropright {{ active_route(['job-listing.*', 'company.show.applications']) }}">
                                 <a class="nav-link dropdown-toggle"
                                    href="javascript:"
-                                   id="navdropdown-Adverts"
+                                   id="navdropdown-JobListings"
                                    data-toggle="dropdown"
                                    aria-haspopup="true"
                                    aria-expanded="false">
-                                    Adverts
+                                    Job Listings
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navdropdown-Adverts">
-                                    <a class="dropdown-item dropdown-item-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
-                                    <a class="dropdown-item {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">View Adverts</a>
+                                <div class="dropdown-menu" aria-labelledby="navdropdown-JobListings">
+                                    <a class="dropdown-item dropdown-item-action {{ active_route('job-listing.create') }}" href="{{ route('job-listing.create') }}">Create New Listing</a>
+                                    <a class="dropdown-item {{ active_route(['job-listing.index', 'job-listing.edit', 'job-listing.show.*']) }}" href="{{ route('job-listing.index') }}">View Listings</a>
                                     <a class="dropdown-item {{ active_route('company.show.applications') }}" href="{{ route('company.show.applications') }}">View Applications</a>
                                 </div>
                             </li>
@@ -109,7 +109,7 @@
                         
                             <a class="nav-link nav-link-action {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
                         
-                            <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
+                            <a class="nav-link {{ active_route('job-listing.application.*') }}" href="{{ route('job-listing.application.index') }}">My Applications</a>
                             
                             <small class="text-muted">You</small>
                         
@@ -226,13 +226,13 @@
                         
                             {{----}}
                         
-                            <small class="text-light">Adverts</small>
+                            <small class="text-light">JobListings</small>
                         
                             <li class="nav-item">
-                                <a class="nav-link nav-link-action {{ active_route('advert.create') }}" href="{{ route('advert.create') }}">Create New Advert</a>
+                                <a class="nav-link nav-link-action {{ active_route('job-listing.create') }}" href="{{ route('job-listing.create') }}">Create New JobListing</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ active_route(['advert.index', 'advert.edit', 'advert.show.*']) }}" href="{{ route('advert.index') }}">My Adverts</a>
+                                <a class="nav-link {{ active_route(['job-listing.index', 'job_listing.edit', 'job_listing.show.*']) }}" href="{{ route('job-listing.index') }}">My JobListings</a>
                             </li>
                         
                             {{----}}
@@ -273,7 +273,7 @@
                             </li>
                         
                             <li class="nav-item">
-                                <a class="nav-link {{ active_route('advert.application.*') }}" href="{{ route('advert.application.index') }}">My Applications</a>
+                                <a class="nav-link {{ active_route('job-listing.application.*') }}" href="{{ route('job-listing.application.index') }}">My Applications</a>
                             </li>
                         @endif
                     

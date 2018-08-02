@@ -3,7 +3,7 @@
     <div class="container mt-lg-5">
         <div class="card card-custom">
             <div class="card-body">
-                <form action="{{ route('advert.application.store', [$advert]) }}" method="post">
+                <form action="{{ route('job-listing.application.store', [$jobListing]) }}" method="post">
                     {{ csrf_field() }}
                     
                     <div class="form-group">

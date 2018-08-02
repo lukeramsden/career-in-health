@@ -664,7 +664,7 @@
                         label: 'Setting',
                         model: 'setting',
                         data: [
-                            @foreach(\App\Advert::$settings ?? [] as $id => $setting)
+                            @foreach(\App\JobListing::$settings ?? [] as $id => $setting)
                             {
                                 name: '{{ $setting }}',
                                 value: '{{ $id }}',
@@ -678,7 +678,7 @@
                         label: 'Type',
                         model: 'type',
                         data: [
-                            @foreach(\App\Advert::$types ?? [] as $id => $type)
+                            @foreach(\App\JobListing::$types ?? [] as $id => $type)
                             {
                                 name: '{{ $type }}',
                                 value: '{{ $id }}',

@@ -49,7 +49,7 @@ class Employee extends Model
 
     public function applications()
     {
-        return $this->hasMany(AdvertApplication::class);
+        return $this->hasMany(JobListingApplication::class);
     }
 
     public function location()

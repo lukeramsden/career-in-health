@@ -69,13 +69,13 @@ class User extends Authenticatable
 	 * @return bool
 	 * @throws \Exception
 	 */
-	public function hasCreatedAdvert()
+	public function hasCreatedJobListing()
 	{
 		static $b = null;
 		if (is_null($b))
-			// has_created_first_advert is here because we don't want to return to onboarding
-			// if the company deletes all the adverts they have created
-			$b = $this->isValidCompany() && $this->userable->company->has_created_first_advert;
+			// has_created_first_job_listing is here because we don't want to return to onboarding
+			// if the company deletes all the jobListings they have created
+			$b = $this->isValidCompany() && $this->userable->company->has_created_first_job_listing;
 		return $b;
 	}
 

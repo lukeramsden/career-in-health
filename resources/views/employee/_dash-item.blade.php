@@ -1,7 +1,7 @@
 @switch(optional($item)->_feed_type)
-    @case('advert')
+    @case('job_listing')
     <div class="grid-item">
-        <div class="card card-custom card-advert">
+        <div class="card card-custom card-job_listing">
             <div class="card-header"><span class="font-italic">A job that might interest you...</span></div>
             <div class="card-body">
                 <a href="{{ route('company.show', [$item->company]) }}" class="card-subtitle">
@@ -23,7 +23,7 @@
                         </p>
                     </div>
                     <div>
-                        <p><a href="{{ route('tracking.advert.recommended.click', ['advert' => $item]) }}" class="btn btn-action btn-sm btn-block badge-pill px-3">More Details</a></p>
+                        <p><a href="{{ route('tracking.job_listing.recommended.click', ['jobListing' => $item]) }}" class="btn btn-action btn-sm btn-block badge-pill px-3">More Details</a></p>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                     @endif
                 </p>
                 <span class="badge badge-primary badge-pill p-2 px-3">
-                        {{ \App\AdvertApplication::$statuses[$item->status ?? 0] }}
+                        {{ \App\JobListingApplication::$statuses[$item->status ?? 0] }}
                     </span>
             </div>
             <div class="card-footer">{{ $item->updated_at->diffForHumans() }}</div>
@@ -56,9 +56,9 @@
             <div class="card-header"><span class="font-italic">You have an unread message...</span></div>
             <div class="card-body">
                 <p>
-                    <b>From:</b> <a href="{{ route('company.show', [$item->advert->company]) }}">{{ $item->advert->company->name }}</a>
+                    <b>From:</b> <a href="{{ route('company.show', [$item->job_listing->company]) }}">{{ $item->job_listing->company->name }}</a>
                     <br>
-                    <b>Advert:</b> <a href="{{ route('advert.show', [$item->advert]) }}">{{ $item->advert->title }}</a>
+                    <b>JobListing:</b> <a href="{{ route('job-listing.show', [$item->job_listing]) }}">{{ $item->job_listing->title }}</a>
                 </p>
                 <p>{{ $item->body }}</p>
             </div>

@@ -1,9 +1,9 @@
 <?php
 
-use App\Advert;
+use App\JobListing;
 use Illuminate\Database\Seeder;
 
-class AdvertSeeder extends Seeder
+class JobListingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class AdvertSeeder extends Seeder
      */
     public function run()
     {
-        $adverts = factory(Advert::class, 150)->create([
+        $jobListings = factory(JobListing::class, 150)->create([
             'company_id' => 1,
             'created_by_user_id' => 3,
             'published' => true,
@@ -20,7 +20,7 @@ class AdvertSeeder extends Seeder
 
 		$company = \App\Company::find(1);
 
-		$company->has_created_first_advert = true;
+		$company->has_created_first_job_listing = true;
 		$company->save();
     }
 }

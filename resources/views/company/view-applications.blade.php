@@ -21,21 +21,21 @@
                         <td data-search="{{ $application->employee->full_name }}">
                             <p><a href="{{ route('employee.show', [$application->employee]) }}">{{ $application->employee->full_name }}</a></p>
                         </td>
-                        <td data-search="{{ $application->advert->title }}">
-                            <p>{{ str_limit($application->advert->title, 80) }}</p>
+                        <td data-search="{{ $application->job_listing->title }}">
+                            <p>{{ str_limit($application->job_listing->title, 80) }}</p>
                         </td>
-                        <td data-search="{{ $application->advert->jobRole->name }}">
-                            <p>{{ $application->advert->jobRole->name }}</p>
+                        <td data-search="{{ $application->job_listing->jobRole->name }}">
+                            <p>{{ $application->job_listing->jobRole->name }}</p>
                         </td>
                         <td data-order="{{ $application->created_at->timestamp }}">
                             <p>{{ $application->created_at->toFormattedDateString() }}</p>
                         </td>
-                        <td data-search="{{ \App\AdvertApplication::$statuses[$application->status ?? 0] }}">
-                            <p>{{ \App\AdvertApplication::$statuses[$application->status ?? 0] }}</p>
+                        <td data-search="{{ \App\JobListingApplication::$statuses[$application->status ?? 0] }}">
+                            <p>{{ \App\JobListingApplication::$statuses[$application->status ?? 0] }}</p>
                         </td>
                         <td>
                             <div class="btn-group btn-group-sm" role="group">
-                                <a href="{{ route('advert.show.applications', [$application->advert, 'highlight' => $application->id]) }}" class="btn btn-link">View</a>
+                                <a href="{{ route('job-listing.show.applications', [$application->job_listing, 'highlight' => $application->id]) }}" class="btn btn-link">View</a>
                             </div>
                         </td>
                     </tr>

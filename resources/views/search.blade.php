@@ -41,7 +41,7 @@
                             <div class="form-group">
                                 <label>Settings</label>
                                 
-                                @foreach(\App\Advert::$settings as $id => $setting)
+                                @foreach(\App\JobListing::$settings as $id => $setting)
                                     <div class="custom-control custom-checkbox">
                                       <input type="checkbox" class="custom-control-input" {{ collect(old('setting_filter', Request::get('setting_filter')))->contains($id) ? 'checked':'' }} name="setting_filter[]" value="{{ $id }}" id="setting-check{{ $id }}">
                                       <label class="custom-control-label" for="setting-check{{ $id }}">{{ $setting }}</label>
@@ -53,7 +53,7 @@
                             <div class="form-group">
                                 <label>Types</label>
                                 
-                                @foreach(\App\Advert::$types as $id => $type)
+                                @foreach(\App\JobListing::$types as $id => $type)
                                     <div class="custom-control custom-checkbox">
                                       <input type="checkbox" class="custom-control-input" {{ collect(old('type_filter', Request::get('type_filter')))->contains($id) ? 'checked':'' }} name="type_filter[]" value="{{ $id }}" id="type-check{{ $id }}">
                                       <label class="custom-control-label" for="type-check{{ $id }}">{{ $type }}</label>
@@ -72,31 +72,31 @@
                         @isset($results)
                             {!! $results->appends(Request::capture()->except('page'))->render("vendor.pagination") !!}
                             <div class="text-center">
-                                <p class="font-italic">Found {{ $results->total() }} matching {{ str_plural('advert', $results->total()) }}</p>
+                                <p class="font-italic">Found {{ $results->total() }} matching {{ str_plural('job listing', $results->total()) }}</p>
                             </div>
-                            @foreach($results as $advert)
-                                <div class="card card-custom card-advert">
+                            @foreach($results as $jobListing)
+                                <div class="card card-custom card-job_listing">
                                     <div class="card-body">
-                                        <a href="{{ route('company.show', [$advert->company]) }}" class="card-subtitle">
-                                            {{$advert->company->name}}
+                                        <a href="{{ route('company.show', [$jobListing->company]) }}" class="card-subtitle">
+                                            {{$jobListing->company->name}}
                                         </a>
-                                        <h4 class="card-title">{{$advert->jobRole->name}}</h4>
-                                        <h5><a href="{{ route('advert.show', [$advert]) }}">{{ $advert->title }}</a></h5>
-                                        <h6>{{ $advert->getSetting() }}</h6>
+                                        <h4 class="card-title">{{$jobListing->jobRole->name}}</h4>
+                                        <h5><a href="{{ route('job-listing.show', [$jobListing]) }}">{{ $jobListing->title }}</a></h5>
+                                        <h6>{{ $jobListing->getSetting() }}</h6>
                                         <div id="small-details">
                                             <div>
-                                                <p><span class="badge badge-secondary badge-pill p-2 px-3">{{ $advert->getType() }}</span></p>
+                                                <p><span class="badge badge-secondary badge-pill p-2 px-3">{{ $jobListing->getType() }}</span></p>
                                             </div>
                                             <div>
-                                                <p><span class="oi oi-map-marker mr-3"></span>{{ $advert->address->location->name }} (<b>{{ number_format((float)$advert->getDistanceToLocation($town), 0, '.', '') }}</b> miles away)</p>
+                                                <p><span class="oi oi-map-marker mr-3"></span>{{ $jobListing->address->location->name }} (<b>{{ number_format((float)$jobListing->getDistanceToLocation($town), 0, '.', '') }}</b> miles away)</p>
                                             </div>
                                             <div>
                                                 <p>
-                                                    @money($advert->min_salary * 100, 'GBP') - @money($advert->max_salary * 100, 'GBP')
+                                                    @money($jobListing->min_salary * 100, 'GBP') - @money($jobListing->max_salary * 100, 'GBP')
                                                 </p>
                                             </div>
                                             <div>
-                                                <a href="{{ route('tracking.advert.search.click', [$advert]) }}"
+                                                <a href="{{ route('tracking.job_listing.search.click', [$jobListing]) }}"
                                                    class="btn btn-outline-primary">View</a>
                                             </div>
                                         </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Advert;
+use App\JobListing;
 use App\Employee;
 use App\PrivateMessage;
 use Closure;
@@ -33,8 +33,8 @@ class PrivateMessageController extends Controller
 
 			return $next($request);
 		})->only('markAsRead', 'markAsUnread');
-		$this->middleware('user-type:employee')->only('showForAdvert');
-		$this->middleware('user-type:company')->only('showForAdvertAndEmployee');
+		$this->middleware('user-type:employee')->only('showForJobListing');
+		$this->middleware('user-type:company')->only('showForJobListingAndEmployee');
 	}
 
 	/**
@@ -47,25 +47,25 @@ class PrivateMessageController extends Controller
 
 		if($user->isEmployee()) {
 			$messages = PrivateMessage
-				::with('company', 'advert.address', 'advert.address.location')
+				::with('company', 'job_listing.address', 'job_listing.address.location')
 				->findMany(
 					PrivateMessage
 						::whereEmployeeId($userable->id)
-						->select(DB::raw('MAX(`id`) as `id`'), 'company_id', 'advert_id', DB::raw('MAX(`created_at`) as `created_at`'))
+						->select(DB::raw('MAX(`id`) as `id`'), 'company_id', 'job_listing_id', DB::raw('MAX(`created_at`) as `created_at`'))
 						->orderByDesc('created_at')
-						->groupBy('employee_id', 'advert_id', 'company_id')
+						->groupBy('employee_id', 'job_listing_id', 'company_id')
 						->get()
 						->pluck('id')
 				)->reverse();
 		} elseif ($user->isValidCompany()) {
 			$messages = PrivateMessage
-				::with('advert.address', 'advert.address.location', 'employee', 'employee.location')
+				::with('job_listing.address', 'job_listing.address.location', 'employee', 'employee.location')
 				->findMany(
 					PrivateMessage
 						::whereCompanyId($userable->company->id)
-						->select(DB::raw('MAX(`id`) as `id`'), 'employee_id', 'advert_id', DB::raw('MAX(`created_at`) as `created_at`'))
+						->select(DB::raw('MAX(`id`) as `id`'), 'employee_id', 'job_listing_id', DB::raw('MAX(`created_at`) as `created_at`'))
 						->orderByDesc('created_at')
-						->groupBy('employee_id', 'advert_id', 'company_id')
+						->groupBy('employee_id', 'job_listing_id', 'company_id')
 						->get()
 						->pluck('id')
 				)->reverse();
@@ -97,15 +97,15 @@ class PrivateMessageController extends Controller
 		return $result;
 	}
 
-	public function showForAdvert(Advert $advert)
+	public function showForJobListing(JobListing $jobListing)
 	{
 		$user     = Auth::user();
 		$userable = $user->userable;
 
 		$messages = PrivateMessage
-			::whereAdvertId($advert->id)
+			::whereJobListingId($jobListing->id)
 			->whereEmployeeId($userable->id)
-			->whereCompanyId($advert->company->id);
+			->whereCompanyId($jobListing->company->id);
 
 		(clone $messages)
 			->whereDirection('to_employee')
@@ -117,16 +117,16 @@ class PrivateMessageController extends Controller
 		return view('account.private-message.show')
 			->with([
 				'messages' => $messages->get(),
-				'advert'   => $advert,
+				'job_listing'   => $jobListing,
 			]);
 	}
 
-	public function showForAdvertAndEmployee(Advert $advert, Employee $employee)
+	public function showForJobListingAndEmployee(JobListing $jobListing, Employee $employee)
 	{
 		$messages = PrivateMessage
-			::whereAdvertId($advert->id)
+			::whereJobListingId($jobListing->id)
 			->whereEmployeeId($employee->id)
-			->whereCompanyId($advert->company->id);
+			->whereCompanyId($jobListing->company->id);
 
 		(clone $messages)
 			->whereDirection('to_company')
@@ -138,7 +138,7 @@ class PrivateMessageController extends Controller
 		return view('account.private-message.show')
 			->with([
 				'messages' => $messages->get(),
-				'advert'   => $advert,
+				'job_listing'   => $jobListing,
 				'employee' => $employee,
 			]);
 	}
@@ -180,7 +180,7 @@ class PrivateMessageController extends Controller
 	{
 		return [
 			'body'           => 'required|string|max:1000',
-			'advert_id'      => 'required|integer|exists:adverts,id',
+			'job_listing_id'      => 'required|integer|exists:jobListings,id',
 			'to_employee_id' => 'required_without:to_company_id|integer|exists:employees,id',
 			'to_company_id'  => 'required_without:to_employee_id|integer|exists:companies,id',
 		];

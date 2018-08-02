@@ -5,7 +5,7 @@ namespace App;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
-class AdvertApplication extends Model
+class JobListingApplication extends Model
 {
     static $statuses = [
         '0' => 'Applied',
@@ -22,38 +22,38 @@ class AdvertApplication extends Model
         return $this->belongsTo(\App\Employee::class);
     }
     
-    public function advert()
+    public function job_listing()
     {
-        return $this->belongsTo(\App\Advert::class);
+        return $this->belongsTo(\App\JobListing::class);
     }
 
     /**
      * @param \App\Employee|null $employee
-     * @param Advert|null $advert
-     * @return AdvertApplication|null
+     * @param JobListing|null $jobListing
+     * @return JobListingApplication|null
      */
-    static public function getApplication(Employee $employee = null, Advert $advert = null)
+    static public function getApplication(Employee $employee = null, JobListing $jobListing = null)
     {
-        if($employee == null || $advert == null) return null;
+        if($employee == null || $jobListing == null) return null;
 
         return static::where([
             ['employee_id', $employee->id],
-            ['advert_id', $advert->id]
+            ['job_listing_id', $jobListing->id]
         ])->first();
     }
 
     /**
      * @param \App\Employee|null $employee
-     * @param Advert|null $advert
+     * @param JobListing|null $jobListing
      * @return bool
      */
-    static public function hasApplied(Employee $employee = null, Advert $advert = null)
+    static public function hasApplied(Employee $employee = null, JobListing $jobListing = null)
     {
-        if($employee == null || $advert == null) return false;
+        if($employee == null || $jobListing == null) return false;
 
         return static::where([
             ['employee_id', $employee->id],
-            ['advert_id', $advert->id]
+            ['job_listing_id', $jobListing->id]
         ])->count() > 0 ? true : false;
     }
 

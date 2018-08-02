@@ -50,8 +50,8 @@ class AddressController extends Controller
 		return view('address.show')
 			->with([
 				'address' => $address,
-				'adverts' => $address
-					->adverts()
+				'jobListings' => $address
+					->jobListings()
 					->orderBy('created_at', 'desc')
 					->paginate(5),
 			]);
@@ -147,12 +147,12 @@ class AddressController extends Controller
 	 */
 	public function destroy(Address $address)
 	{
-		if ($address->adverts()->count() > 0)
+		if ($address->jobListings()->count() > 0)
 		{
 			if (ajax())
 				return response()->json(['success' => false], 409);
 
-			toast()->error('There are still adverts for this address, please remove them first.');
+			toast()->error('There are still jobListings for this address, please remove them first.');
 			return back();
 		}
 

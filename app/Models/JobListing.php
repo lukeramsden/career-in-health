@@ -6,7 +6,7 @@ use App\Location;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class Advert extends Model
+class JobListing extends Model
 {
     protected $with = ['address'];
 
@@ -36,9 +36,9 @@ class Advert extends Model
     protected static function boot() {
         parent::boot();
 
-        static::deleting(function(Advert $advert) {
-             $advert->applications()->delete();
-             $advert->messages()->delete();
+        static::deleting(function(JobListing $jobListing) {
+             $jobListing->applications()->delete();
+             $jobListing->messages()->delete();
         });
     }
 
@@ -59,7 +59,7 @@ class Advert extends Model
 
     public function applications()
     {
-        return $this->hasMany(\App\AdvertApplication::class);
+        return $this->hasMany(\App\JobListingApplication::class);
     }
 
     public function getSetting()
@@ -74,7 +74,7 @@ class Advert extends Model
 
     public function linkEdit()
     {
-        return route('advert.edit', [
+        return route('job-listing.edit', [
             $this->id
         ]);
     }
@@ -112,6 +112,6 @@ class Advert extends Model
 
     public function messages()
     {
-        return $this->hasMany(PrivateMessage::class, 'advert_id');
+        return $this->hasMany(PrivateMessage::class, 'job_listing_id');
     }
 }

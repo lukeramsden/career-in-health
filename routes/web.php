@@ -14,34 +14,34 @@ Route::get('/register/verify', 'Auth\RegisterController@prompt')->name('prompt-c
 Route::get('/dashboard', 'DashController@index')->name('dashboard');
 Route::post('/dashboard', 'DashController@get')->name('dashboard.get');
 
-Route::prefix('advert')
-	 ->name('advert.')
+Route::prefix('job-listing')
+	 ->name('job-listing.')
 	 ->group(function ()
 	 {
-		 Route::get('/', 'AdvertController@index')->name('index');
-		 Route::get('/new', 'AdvertController@create')->name('create');
-		 Route::post('/new', 'AdvertController@store')->name('store');
+		 Route::get('/', 'JobListingController@index')->name('index');
+		 Route::get('/new', 'JobListingController@create')->name('create');
+		 Route::post('/new', 'JobListingController@store')->name('store');
 
-		 Route::get('/{advert}/view', 'AdvertController@showInternal')->name('show.internal');
-		 Route::get('/{advert}/view/applications', 'AdvertController@showApplications')->name('show.applications');
+		 Route::get('/{jobListing}/view', 'JobListingController@showInternal')->name('show.internal');
+		 Route::get('/{jobListing}/view/applications', 'JobListingController@showApplications')->name('show.applications');
 
-		 Route::get('/{advert}/edit', 'AdvertController@edit')->name('edit');
-		 Route::post('/{advert}/edit', 'AdvertController@update')->name('update');
-		 Route::any('/{advert}/delete', 'AdvertController@destroy')->name('destroy');
+		 Route::get('/{jobListing}/edit', 'JobListingController@edit')->name('edit');
+		 Route::post('/{jobListing}/edit', 'JobListingController@update')->name('update');
+		 Route::any('/{jobListing}/delete', 'JobListingController@destroy')->name('destroy');
 
-		 Route::get('/{advert}', 'AdvertController@show')->name('show');
+		 Route::get('/{jobListing}', 'JobListingController@show')->name('show');
 
 		 Route::prefix('application')
 			  ->name('application.')
 			  ->group(function ()
 			  {
-				  Route::get('/all', 'AdvertApplicationController@index')->name('index');
+				  Route::get('/all', 'JobListingApplicationController@index')->name('index');
 
-				  Route::get('/{advert}/create', 'AdvertApplicationController@create')->name('create');
-				  Route::post('/{advert}/create', 'AdvertApplicationController@store')->name('store');
+				  Route::get('/{jobListing}/create', 'JobListingApplicationController@create')->name('create');
+				  Route::post('/{jobListing}/create', 'JobListingApplicationController@store')->name('store');
 
-				  Route::post('/{application}/update', 'AdvertApplicationController@update')->name('update');
-				  Route::get('/{application}', 'AdvertApplicationController@show')->name('show');
+				  Route::post('/{application}/update', 'JobListingApplicationController@update')->name('update');
+				  Route::get('/{application}', 'JobListingApplicationController@show')->name('show');
 			  });
 	 });
 
@@ -72,9 +72,9 @@ Route::prefix('account')
 
 		 Route::get('/private-messages', 'PrivateMessageController@index')->name('private-message.index');
 		 Route::post('/private-messages/send', 'PrivateMessageController@store')->name('private-message.store');
-		 Route::get('/private-messages/{advert}', 'PrivateMessageController@showForAdvert')
+		 Route::get('/private-messages/{jobListing}', 'PrivateMessageController@showForJobListing')
 			  ->name('private-message.show-employee');
-		 Route::get('/private-messages/{advert}/{employee}', 'PrivateMessageController@showForAdvertAndEmployee')
+		 Route::get('/private-messages/{jobListing}/{employee}', 'PrivateMessageController@showForJobListingAndEmployee')
 			  ->name('private-message.show-company');
 	 });
 
@@ -178,22 +178,22 @@ Route::prefix('tracking')
 	 ->name('tracking.')
 	 ->group(function ()
 	 {
-		 Route::prefix('advert')
-			  ->name('advert.')
+		 Route::prefix('job-listing')
+			  ->name('job-listing.')
 			  ->group(function ()
 			  {
-				  Route::get('/{advert}/search/click', function (\App\Advert $advert)
+				  Route::get('/{jobListing}/search/click', function (\App\JobListing $jobListing)
 				  {
-					  $advert->increment('search_clicks');
+					  $jobListing->increment('search_clicks');
 					  session()->flash('clickThrough', 'search');
-					  return redirect()->action('AdvertController@show', [$advert]);
+					  return redirect()->action('JobListingController@show', [$jobListing]);
 				  })->name('search.click');
 
-				  Route::get('/{advert}/recommended/click', function (\App\Advert $advert)
+				  Route::get('/{jobListing}/recommended/click', function (\App\JobListing $jobListing)
 				  {
-					  $advert->increment('recommended_clicks');
+					  $jobListing->increment('recommended_clicks');
 					  session()->flash('clickThrough', 'recommended');
-					  return redirect()->action('AdvertController@show', [$advert]);
+					  return redirect()->action('JobListingController@show', [$jobListing]);
 				  })->name('recommended.click');
 			  });
 	 });

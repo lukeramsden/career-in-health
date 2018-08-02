@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Advert;
+use App\JobListing;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
@@ -86,31 +86,31 @@ class DashController extends Controller
                     return $item;
                 });
 
-        // Adverts
+        // JobListings
 
-        $adverts =
-            Advert
+        $jobListings =
+            JobListing
                 ::wherePublished(true)
                 ->with(['jobRole', 'company', 'address']);
 
         if(isset(optional($user)->cv->preferences->job_role))
-            $adverts->whereJobRole($user->cv->preferences->job_role);
+            $jobListings->whereJobRole($user->cv->preferences->job_role);
 
         if(isset(optional($user)->cv->preferences->setting))
-            $adverts->whereSetting($user->cv->preferences->setting);
+            $jobListings->whereSetting($user->cv->preferences->setting);
 
         if(isset(optional($user)->cv->preferences->type))
-            $adverts->whereType($user->cv->preferences->type);
+            $jobListings->whereType($user->cv->preferences->type);
 
-        $advertsCount = $adverts->count();
-        $adverts =
-            $adverts
+        $jobListingsCount = $jobListings->count();
+        $jobListings =
+            $jobListings
                 ->inRandomOrder()
                 ->skip(self::$perPage * ($currentPage - 1))
                 ->take(self::$perPage)
                 ->get()
                 ->map(function ($item, $key) {
-                    $item['_feed_type'] = 'advert';
+                    $item['_feed_type'] = 'job_listing';
                     return $item;
                 });
 
@@ -132,21 +132,21 @@ class DashController extends Controller
         // collect all together
 
         $applications    = collect($applications);
-        $adverts         = collect($adverts);
+        $jobListings         = collect($jobListings);
 //        $privateMessages = collect($privateMessages);
         $feed            = collect([]);
 
         $count  = $applicationsCount;
-        $count += $advertsCount;
+        $count += $jobListingsCount;
 //        $count += $privateMessagesCount;
 
-        if($advertsCount > 0 && $applicationsCount > 0)
+        if($jobListingsCount > 0 && $applicationsCount > 0)
             while($feed->count() < self::$perPage)
             {
                 $item = null;
                 switch(random_int(0, 1)) {
                     case 0:
-                        $item = $adverts->shift();
+                        $item = $jobListings->shift();
                         break;
                     case 1:
                         $item = $applications->shift();
@@ -169,19 +169,19 @@ class DashController extends Controller
             [ 'path' => $this->request->path() ]
         );
 
-        $advertIds = array_map(
+        $jobListingIds = array_map(
             function($item) {
                 return $item->id;
             },
             array_filter($paginator->items(),
                 function($item) {
-                    return $item['_feed_type'] === 'advert';
+                    return $item['_feed_type'] === 'job_listing';
                 }
             )
         );
 
-        if(count($advertIds) > 0)
-            Advert::whereIn('id', $advertIds)->increment('recommended_impressions');
+        if(count($jobListingIds) > 0)
+            JobListing::whereIn('id', $jobListingIds)->increment('recommended_impressions');
 
         return $paginator;
     }

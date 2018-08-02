@@ -1,30 +1,30 @@
 @extends('layouts.app')
 @section('content')
     <div class="container-fluid p-0 m-0">
-        <div class="row m-0 p-4" id="advert-show-row">
+        <div class="row m-0 p-4" id="job_listing-show-row">
             <div class="col-12">
-                <div class="card card-custom card-advert">
+                <div class="card card-custom card-job_listing">
                     <div class="card-body">
-                        <a href="{{ route('company.show', [$advert->company]) }}" class="card-subtitle">
-                            {{$advert->company->name}}
+                        <a href="{{ route('company.show', [$jobListing->company]) }}" class="card-subtitle">
+                            {{$jobListing->company->name}}
                         </a>
-                        <h4 class="card-title">{{$advert->jobRole->name}}</h4>
-                        <h5>{{ $advert->title }}</h5>
-                        <h6>{{ $advert->getSetting() }}</h6>
+                        <h4 class="card-title">{{$jobListing->jobRole->name}}</h4>
+                        <h5>{{ $jobListing->title }}</h5>
+                        <h6>{{ $jobListing->getSetting() }}</h6>
                         <div id="small-details">
                             <div>
-                                <p><span class="badge badge-primary badge-pill p-2 px-3">{{ $advert->getType() }}</span></p>
+                                <p><span class="badge badge-primary badge-pill p-2 px-3">{{ $jobListing->getType() }}</span></p>
                             </div>
                             <div>
-                                <p><span class="oi oi-map-marker mr-3"></span>{{ $advert->address->location->name }}</p>
+                                <p><span class="oi oi-map-marker mr-3"></span>{{ $jobListing->address->location->name }}</p>
                             </div>
                             <div>
                                 <p>
-                                    @money($advert->min_salary * 100, 'GBP') - @money($advert->max_salary * 100, 'GBP')
+                                    @money($jobListing->min_salary * 100, 'GBP') - @money($jobListing->max_salary * 100, 'GBP')
                                 </p>
                             </div>
                             <div>
-                                <p><span class="oi oi-calendar"></span> <span class="text-muted">Last Updated</span> {{ $advert->updated_at->diffForHumans() }}</p>
+                                <p><span class="oi oi-calendar"></span> <span class="text-muted">Last Updated</span> {{ $jobListing->updated_at->diffForHumans() }}</p>
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
             
             <div class="col-12">
                 <div class="card-columns m-0">
-                    @foreach($advert->applications as $application)
+                    @foreach($jobListing->applications as $application)
                         <div class="card card-custom" id="application{{$application->id}}">
                             <div class="card-body">
                                 <p>
@@ -50,14 +50,14 @@
     
                                 <hr>
                                 
-                                <form action="{{ route('advert.application.update', [$application]) }}" method="post">
+                                <form action="{{ route('job-listing.application.update', [$application]) }}" method="post">
                                     {{ csrf_field() }}
                                     
                                     <div class="form-group">
                                         <label for="status">Status</label>
                                         <select class="custom-select" name="status" id="status">
                                             <option {{ !isset($application->status) ? 'selected' : '' }} disabled>-</option>
-                                            @foreach(App\AdvertApplication::$statuses as $id => $status)
+                                            @foreach(App\JobListingApplication::$statuses as $id => $status)
                                                 <option {{ $application->status == $id ? 'selected' : '' }} value="{{ $id }}">{{ $status }}</option>
                                             @endforeach
                                         </select>

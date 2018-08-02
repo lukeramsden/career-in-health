@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container mt-lg-5">
-        <advert-form :model="model" :url="url" :create-new="createNew"></advert-form>
+        <job_listing-form :model="model" :url="url" :create-new="createNew"></job_listing-form>
     </div>
 @endsection
 @section('script')
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.0.3/nouislider.min.js"></script>
 
     @verbatim
-        <script type="text/x-template" id="template__advert-form">
+        <script type="text/x-template" id="template__job_listing-form">
             <form @submit="submit" :action="url" method="post" >
                 @endverbatim
                     {{ csrf_field() }}
@@ -65,7 +65,7 @@
     
                     <div class="card card-custom">
                         <div class="card-body">
-                            @foreach(\App\Advert::$settings as $id => $setting)
+                            @foreach(\App\JobListing::$settings as $id => $setting)
                                 <div class="custom-control custom-radio">
                                     <input type="radio" class="custom-control-input" value="{{ $id }}" name="setting" v-model="model.setting" id="setting-{{ $id }}" :required="!model.savingForLater">
                                     <label class="custom-control-label" for="setting-{{ $id }}">{{ $setting }}</label>
@@ -76,7 +76,7 @@
     
                     <div class="card card-custom">
                         <div class="card-body">
-                            @foreach(\App\Advert::$types as $id => $type)
+                            @foreach(\App\JobListing::$types as $id => $type)
                                 <div class="custom-control custom-radio">
                                     <input type="radio" class="custom-control-input" value="{{ $id }}" name="type" v-model="model.type" id="type-{{ $id }}" :required="!model.savingForLater">
                                     <label class="custom-control-label" for="type-{{ $id }}">{{ $type }}</label>
@@ -108,7 +108,7 @@
                                 
                                 @endverbatim
                                 @if($edit)
-                                    <a href="{{ route('advert.destroy', [$advert]) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-block">Delete</a>
+                                    <a href="{{ route('job-listing.destroy', [$jobListing]) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-block">Delete</a>
                                 @endif
                                 @verbatim
                             </div>
@@ -167,8 +167,8 @@
             }
         });
         
-        Vue.component('advert-form', {
-            template: '#template__advert-form',
+        Vue.component('job_listing-form', {
+            template: '#template__job_listing-form',
             props: ['model', 'url', 'method', 'createNew'],
             methods: {
                 submit(event) {
@@ -185,9 +185,9 @@
                             if(response.data.success) {
                                 toastr.success('Updated!')
                                 if (_.get(response, 'data.model.published', false))
-                                    toastr.info('This advert has been published successfully.<br><a href="{{ route('advert.show', ['advert' => $advert]) }}" class="btn btn-action btn-sm mt-1">View Advert</a>');
+                                    toastr.info('This listing has been published successfully.<br><a href="{{ route('job-listing.show', ['jobListing' => $jobListing]) }}" class="btn btn-action btn-sm mt-1">View JobListing</a>');
                                 else
-                                    toastr.info('This advert is not public.')
+                                    toastr.info('This listing is not public.')
                             }
                         })
                         .catch((error) => {
@@ -262,13 +262,13 @@
         });
 
         let data = {
-            model: {!! $edit ? $advert : json_encode(Session::getOldInput()) ?: '{}' !!},
-            url: '{{ $edit ? route('advert.update', ['advert' => $advert]) : route('advert.store') }}',
+            model: {!! $edit ? $jobListing : json_encode(Session::getOldInput()) ?: '{}' !!},
+            url: '{{ $edit ? route('job-listing.update', ['jobListing' => $jobListing]) : route('job-listing.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
             {{-- TODO: old: {{  }},--}}
         };
         
-        @if($advert->isDraft())
+        @if($jobListing->isDraft())
             data.model.savingForLater = true;
         @else
             data.model.savingForLater = false;

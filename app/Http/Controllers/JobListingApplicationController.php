@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Advert;
-use App\AdvertApplication;
+use App\JobListing;
+use App\JobListingApplication;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdvertApplicationController extends Controller
+class JobListingApplicationController extends Controller
 {
     protected $request;
 
@@ -40,85 +40,85 @@ class AdvertApplicationController extends Controller
                         ::user()
                         ->userable
                         ->applications()
-                        ->with('employee', 'advert', 'advert.company', 'advert.jobRole')
+                        ->with('employee', 'job_listing', 'job_listing.company', 'job_listing.jobRole')
                         ->orderBy('created_at', 'desc')
                         ->paginate(15)
             ]);
     }
 
-    public function show(AdvertApplication $application)
+    public function show(JobListingApplication $application)
     {
-        return view('employee.advert.view-application')
+        return view('employee.job_listing.view-application')
             ->with([
                 'application' => $application
             ]);
     }
 
-    public function create(Advert $advert)
+    public function create(JobListing $jobListing)
     {
         if(Auth::guest()) {
-            session(['jobApplyId' => $advert->id]);
+            session(['jobApplyId' => $jobListing->id]);
             return redirect(route('register'));
         }
 
-        if(AdvertApplication::hasApplied(Auth::user()->userable, $advert))
+        if(JobListingApplication::hasApplied(Auth::user()->userable, $jobListing))
         {
             toast()->error('You have already applied to this job!');
-            return redirect(route('advert.show', [$advert]));
+            return redirect(route('job-listing.show', [$jobListing]));
         }
 
         session()->keep('clickThrough');
 
-        return view('employee.advert.apply')
-            ->with(['advert' => $advert]);
+        return view('employee.job_listing.apply')
+            ->with(['jobListing' => $jobListing]);
     }
 
-    public function store(Advert $advert)
+    public function store(JobListing $jobListing)
     {
-        if(AdvertApplication::hasApplied(Auth::user()->userable, $advert))
+        if(JobListingApplication::hasApplied(Auth::user()->userable, $jobListing))
         {
             toast()->error('You have already applied to this job!');
-            return redirect(route('advert.show', [$advert]));
+            return redirect(route('job-listing.show', [$jobListing]));
         }
         
         $data = $this->request->validate(self::rules(false));
 
-        $application = new AdvertApplication();
+        $application = new JobListingApplication();
         $application->fill($data);
         $application->employee_id = Auth::user()->userable->id;
         $application->last_edited = Carbon::now();;
-        $advert->applications()->save($application);
+        $jobListing->applications()->save($application);
 
         switch (session()->get('clickThrough', 'search')) {
             case 'search':
-                $advert->increment('search_conversions');
+                $jobListing->increment('search_conversions');
                 break;
             case 'recommended':
-                $advert->increment('recommended_conversions');
+                $jobListing->increment('recommended_conversions');
                 break;
         }
 
         toast()->success('Applied!');
-        return redirect(route('advert.show', [$advert]));
+        return redirect(route('job-listing.show', [$jobListing]));
     }
 
 	/**
-	 * @param AdvertApplication $application
+	 * @param JobListingApplication $application
 	 *
 	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
 	 * @throws \Exception
 	 */
-	public function update(AdvertApplication $application)
+	public function update(JobListingApplication $application)
     {
         $user = Auth::user();
         // if editing status or notes
         if ($this->request->has('status') || $this->request->has('notes')) {
-            // dont let non-owners edit status or notes for applications for adverts they dont own
-            if(!$user->isValidCompany() || $application->advert->company->id !== $user->userable->company->id) {
+            // dont let non-owners edit status or notes for applications for jobListings they dont own
+            if(!$user->isValidCompany() || $application->job_listing->company->id !== $user->userable->company->id) {
                 if(ajax())
-                    return response()->json(['success' => false, 'message' => 'You must own the advert to update an application\'s status or notes.'], 401);
+                    return response()->json(['success' => false, 'message' => 'You must own the job_listing to update an application\'s status or notes.'], 401);
 
-                toast()->error('You must own the advert to update an application\'s status or notes.');
+                toast()->error('You must own the job_listing to update an application\'s status or notes.');
                 return back();
             } else {
                 $data = $this->request->validate(self::rules(true));

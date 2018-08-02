@@ -49,12 +49,12 @@ class RegisterOnboardingSteps
 						   return $user->hasCreatedAddress();
 					   });
 
-				Onboard::addStep('Create An Advert')
-					   ->link(route('advert.create'))
+				Onboard::addStep('Create A Job Listing')
+					   ->link(route('job-listing.create'))
 					   ->cta('Create')
 					   ->completeIf(function (User $user)
 					   {
-						   return $user->hasCreatedAdvert();
+						   return $user->hasCreatedJobListing();
 					   });
 
 			}
@@ -82,7 +82,7 @@ class RegisterOnboardingSteps
 						   return $result;
 					   });
 
-				Onboard::addStep('Search For An Advert')
+				Onboard::addStep('Search For An JobListing')
 					   ->link(route('search', ['advanced' => true]))
 					   ->cta('Search')
 					   ->completeIf(function (User $user)

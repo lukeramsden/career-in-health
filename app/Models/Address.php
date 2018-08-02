@@ -27,7 +27,7 @@ class Address extends Model implements HasMedia
         parent::boot();
 
         static::deleting(function(Address $address) {
-            $address->adverts()->delete();
+            $address->jobListings()->delete();
         });
     }
 
@@ -51,8 +51,8 @@ class Address extends Model implements HasMedia
         return $this->belongsTo(\App\Company::class, 'company_id', 'id');
     }
 
-    public function adverts()
+    public function jobListings()
     {
-        return $this->hasMany(\App\Advert::class);
+        return $this->hasMany(\App\JobListing::class);
     }
 }

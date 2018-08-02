@@ -3,7 +3,7 @@
     <div class="container mt-lg-3">
         <div class="card card-custom">
             <div class="card-body">
-                <form action="{{ route('advert.application.update', [$application]) }}" method="post">
+                <form action="{{ route('job-listing.application.update', [$application]) }}" method="post">
                     {{ csrf_field() }}
                     
                     <div class="form-group">
@@ -19,7 +19,7 @@
                         <p>
                             Status:
                             <span class="text-action">
-                                {{ \App\AdvertApplication::$statuses[$item->status ?? 0] }}
+                                {{ \App\JobListingApplication::$statuses[$item->status ?? 0] }}
                             </span>
                         </p>
                     </div>
