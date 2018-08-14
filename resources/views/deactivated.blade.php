@@ -7,11 +7,21 @@
                     <img src="/images/cih-logo.svg" class="card-img-top p-5">
                     <div class="card-body">
                         <h4 class="card-title">Your account has been deactivated</h4>
-                        <p>Please contact your company administrator to have your account reinstated.</p>
+                        @usertype('company')
+                            <p>Please contact your company administrator to have your account reinstated.</p>
+                        @endusertype
+                        @usertype('advertiser')
+                            <p>Please contact support to have your account reinstated.</p>
+                        @endusertype
                     </div>
                     @auth
                         <div class="card-footer">
+                            @usertype('company')
                             You are signed in as {{Auth::user()->userable->full_name}}, <a href="{{route('logout.get') }}">click here to log out.</a>
+                            @endusertype
+                            @usertype('advertiser')
+                            You are signed in as {{Auth::user()->userable->name}}, <a href="{{route('logout.get') }}">click here to log out.</a>
+                            @endusertype
                         </div>
                     @endif
                 </div>
