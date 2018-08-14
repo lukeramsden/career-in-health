@@ -41,7 +41,7 @@
                     @else
                         <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
                     
-                        @if(Auth::user()->isValidCompany())
+                        @usertype('company')
                             <small class="text-muted">Your Company</small>
                         
                             <li class="nav-item dropright {{ active_route(['company.show.me', 'company.edit', 'company.manage-users.show']) }}">
@@ -110,7 +110,8 @@
                                 </div>
                             </li>
                             
-                        @elseif(Auth::user()->isEmployee())
+                        @endusertype
+                        @usertype('employee')
                             {{----}}
                         
                             <small class="text-muted">Get Hired</small>
@@ -137,11 +138,31 @@
                                 </div>
                             </li>
                         
-                        @elseif(Auth::user()->isAdmin())
+                        @endusertype
+                    
+                        @usertype('advertiser')
+                            {{----}}
+                            <li class="nav-item dropright {{ active_route([]) }}">
+                                <a class="nav-link dropdown-toggle"
+                                   href="javascript:"
+                                   id="navdropdown-Addresses"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false">
+                                    Adverts
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navdropdown-Addresses">
+                                    <a class="dropdown-item dropdown-item-action {{ active_route([]) }}" href="{{ route('home') }}">Create New</a>
+                                    <a class="dropdown-item {{ active_route([]) }}" href="{{ route('home') }}">Manage Adverts</a>
+                                </div>
+                            </li>
+                        @endusertype
+                    
+                        @usertype('admin')
                             {{----}}
                             
                             <a class="nav-link {{ active_route('admin.manage-advertisers.*') }}" href="{{ route('admin.manage-advertisers.show') }}">Manage Advertisers</a>
-                        @endif
+                        @endusertype
                         
                         @can('sendMessages', App\PrivateMessage::class)
                             <a class="nav-link {{ active_route('account.private-message.*') }}"
