@@ -65,6 +65,21 @@ class User extends Authenticatable
 		return $this->userable instanceof CompanyUser;
 	}
 
+	public function isEmployee()
+	{
+		return $this->userable instanceof Employee;
+	}
+
+	public function isAdmin()
+	{
+		return $this->userable instanceof Admin;
+	}
+
+	public function isAdvertiser()
+	{
+		return $this->userable instanceof Advertiser;
+	}
+
 	/**
 	 * @return bool
 	 * @throws \Exception
@@ -77,11 +92,6 @@ class User extends Authenticatable
 			// if the company deletes all the jobListings they have created
 			$b = $this->isValidCompany() && $this->userable->company->has_created_first_job_listing;
 		return $b;
-	}
-
-	public function isAdmin()
-	{
-		return $this->userable instanceof Admin;
 	}
 
 	/**
@@ -109,11 +119,6 @@ class User extends Authenticatable
 					->count();
 		}
 		return $unread;
-	}
-
-	public function isEmployee()
-	{
-		return $this->userable instanceof Employee;
 	}
 
 	/**

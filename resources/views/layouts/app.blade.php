@@ -142,7 +142,7 @@
                     
                         @usertype('advertiser')
                             {{----}}
-                            <li class="nav-item dropright {{ active_route([]) }}">
+                            <li class="nav-item dropright {{ active_route(['advertising.*']) }}">
                                 <a class="nav-link dropdown-toggle"
                                    href="javascript:"
                                    id="navdropdown-Addresses"
@@ -152,7 +152,7 @@
                                     Adverts
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navdropdown-Addresses">
-                                    <a class="dropdown-item dropdown-item-action {{ active_route([]) }}" href="{{ route('home') }}">Create New</a>
+                                    <a class="dropdown-item dropdown-item-action {{ active_route('advertising.create') }}" href="{{ route('advertising.create') }}">Create New</a>
                                     <a class="dropdown-item {{ active_route([]) }}" href="{{ route('home') }}">Manage Adverts</a>
                                 </div>
                             </li>

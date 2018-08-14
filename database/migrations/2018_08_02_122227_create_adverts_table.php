@@ -19,7 +19,7 @@ class CreateAdvertsTable extends Migration
 			$table->integer('advertiser_id')->unsigned();
 			$table->foreign('advertiser_id')->references('id')->on('advertisers');
 
-			$table->string('title')->nullable();
+			$table->string('title');
 			$table->string('body')->nullable();
 			$table->string('image_path')->nullable();
 

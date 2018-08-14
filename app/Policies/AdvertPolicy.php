@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Advert;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -18,4 +19,43 @@ class AdvertPolicy
     {
         //
     }
+
+	/**
+	 * Determine if a user can create adverts
+	 *
+	 * @param User $user
+	 *
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function create(User $user)
+	{
+		return $user->isAdvertiser();
+	}
+
+	/**
+	 * Determine if a user can edit a given advert
+	 *
+	 * @param User   $user
+	 * @param Advert $advert
+	 *
+	 * @return bool
+	 */
+	public function edit(User $user, Advert $advert)
+	{
+		return $user->isAdvertiser() && $advert->advertiser_id === $user->userable_id;
+	}
+
+	/**
+	 * Determine if a user can be shown a given advert
+	 *
+	 * @param User   $user
+	 * @param Advert $advert
+	 *
+	 * @return bool
+	 */
+	public function beShown(User $user, Advert $advert)
+	{
+		return $user->isEmployee() && $advert->active;
+	}
 }

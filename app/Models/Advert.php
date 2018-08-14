@@ -17,13 +17,13 @@ class Advert extends Model
 	{
 		parent::boot();
 
-		static::created(function (Advertiser $advertiser)
+		static::created(function (Advert $advert)
 		{
 		});
 
-		static::deleting(function (Advertiser $advertiser)
+		static::deleting(function (Advert $advert)
 		{
-			Storage::delete($advertiser->image_path);
+			Storage::delete($advert->image_path);
 		});
 	}
 

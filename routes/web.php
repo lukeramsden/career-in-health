@@ -205,6 +205,14 @@ Route::prefix('advertising')
 	 {
 		 Route::get('/registration/{advertiserInvite}/accept', 'Advertiser\RegisterController@show')->name('accept-invite.show');
 		 Route::post('/registration/{advertiserInvite}/accept', 'Advertiser\RegisterController@store')->name('accept-invite');
+
+		 Route::get('/create', 'Advertiser\AdvertController@create')->name('create');
+		 Route::post('/create', 'Advertiser\AdvertController@store')->name('store');
+
+		 Route::get('/{advert}/edit', 'Advertiser\AdvertController@edit')->name('edit');
+		 Route::post('/{advert}/edit', 'Advertiser\AdvertController@update')->name('update');
+
+		 Route::any('/{advert}/delete', 'Advertiser\AdvertController@destroy')->name('destroy');
 	 });
 
 Route::prefix('admin')
