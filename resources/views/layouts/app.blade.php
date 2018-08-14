@@ -4,7 +4,11 @@
     <div id="navbar" class="d-none d-lg-block">
         @usertype('admin')
             <img class="logo svg-inline svg-logo-danger" src="/images/cih-logo.svg" alt="logo">
-            <p class="logo-after-text">Admin Mode</p>
+            <p class="logo-after-text text-danger">Admin</p>
+        @endusertype
+        @usertype('advertiser')
+            <img class="logo svg-inline svg-logo-success" src="/images/cih-logo.svg" alt="logo">
+            <p class="logo-after-text text-success">Advertiser</p>
         @endusertype
         @guest
             <img class="logo" src="/images/cih-logo.svg" alt="logo">
@@ -133,7 +137,10 @@
                                 </div>
                             </li>
                         
-                        
+                        @elseif(Auth::user()->isAdmin())
+                            {{----}}
+                            
+                            <a class="nav-link {{ active_route('admin.manage-advertisers.*') }}" href="{{ route('admin.manage-advertisers.show') }}">Manage Advertisers</a>
                         @endif
                         
                         @can('sendMessages', App\PrivateMessage::class)

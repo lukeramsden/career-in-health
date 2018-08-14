@@ -24,10 +24,10 @@ class CompanyUserInviteController extends Controller
 	protected function rules($custom = [])
 	{
 		return array_merge([
-			'first_name'  => 'required|string|max:255',
-			'last_name'   => 'nullable|string|max:255',
-			'password'    => 'required|string|min:6|confirmed',
-			'terms'       => 'required'
+			'first_name' => 'required|string|max:255',
+			'last_name'  => 'nullable|string|max:255',
+			'password'   => 'required|string|min:6|confirmed',
+			'terms'      => 'required'
 		], $custom);
 	}
 

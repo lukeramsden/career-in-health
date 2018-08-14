@@ -203,6 +203,30 @@ Route::prefix('advertising')
 	 ->name('advertising.')
 	 ->group(function ()
 	 {
-		Route::get('/registration/{code}/accept', 'Auth\Advertiser\RegisterController@show')->name('accept-code.show');
-		Route::post('/registration/{code}/accept', 'Auth\Advertiser\RegisterController@store')->name('accept-code');
+		 Route::get('/registration/{advertiserInvite}/accept', 'Advertiser\RegisterController@show')->name('accept-invite.show');
+		 Route::post('/registration/{advertiserInvite}/accept', 'Advertiser\RegisterController@store')->name('accept-invite');
+	 });
+
+Route::prefix('admin')
+	 ->name('admin.')
+	 ->group(function ()
+	 {
+		 Route::prefix('manage-advertisers')
+			  ->name('manage-advertisers.')
+			  ->group(function ()
+			  {
+				  Route::get('/', 'Admin\AdvertiserManagementController@show')
+					   ->name('show');
+				  Route::post('/invite', 'Admin\AdvertiserManagementController@inviteUser')
+					   ->name('invite');
+				  Route::any('/invite/{invite}/cancel', 'Admin\AdvertiserManagementController@cancelInvite')
+					   ->name('invite.cancel');
+				  Route::any('/invite/{invite}/remind', 'Admin\AdvertiserManagementController@remindInvite')
+					   ->name('invite.remind');
+
+				  Route::any('/{advertiser}/activate', 'Admin\AdvertiserManagementController@activateUser')
+					   ->name('activate-user');
+				  Route::any('{advertiser}/deactivate', 'Admin\AdvertiserManagementController@deactivateUser')
+					   ->name('deactivate-user');
+			  });
 	 });

@@ -31,4 +31,19 @@ class Advertiser extends Model
 	{
 		return $this->hasMany(Advert::class);
 	}
+
+	public function isActive()
+	{
+		return !$this->user->deactivated;
+	}
+
+	public function activate()
+	{
+		$this->user->activate();
+	}
+
+	public function deactivate()
+	{
+		$this->user->deactivate();
+	}
 }

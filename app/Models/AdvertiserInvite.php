@@ -6,15 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Webpatser\Uuid\Uuid;
 
-class CompanyUserInvite extends Model
+class AdvertiserInvite extends Model
 {
 	use Notifiable;
 
 	public    $incrementing = false;
-	protected $table        = 'company_user_invites';
 	protected $primaryKey   = 'email';
 	protected $fillable     = [];
 	protected $dates        = ['created_at', 'updated_at', 'last_reminded_at'];
+
+	/**
+	 * Get the route key for the model.
+	 *
+	 * @return string
+	 */
+	public function getRouteKeyName()
+	{
+		return 'accept_code';
+	}
 
 	public static function boot()
 	{
@@ -25,19 +34,10 @@ class CompanyUserInvite extends Model
 		});
 	}
 
-	public function company()
-	{
-		return $this->belongsTo(Company::class, 'company_id');
-	}
-
-	public function invitedBy()
-	{
-		return $this->belongsTo(CompanyUser::class, 'invited_by_id');
-	}
-
 	public function remind()
 	{
-		$this->notify(new \App\Notifications\CompanyInvite($this));
+		// TODO: advertiser invite notification
+//		$this->notify(new \App\Notifications\CompanyInvite($this));
 
 		$this->last_reminded_at = now();
 		$this->times_reminded   = $this->times_reminded++ ?? 1;

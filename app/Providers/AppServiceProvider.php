@@ -78,6 +78,9 @@ class AppServiceProvider extends ServiceProvider
 				$userable = $user->userable;
 
 				foreach (explode(',', $types) as $type)
+				{
+					debug($userable);
+
 					switch ($type)
 					{
 						case 'employee':
@@ -92,7 +95,12 @@ class AppServiceProvider extends ServiceProvider
 							if ($userable instanceof \App\Admin)
 								return true;
 							break;
+						case 'advertiser':
+							if ($userable instanceof \App\Advertiser)
+								return true;
+							break;
 					}
+				}
 			}
 
 			return false;

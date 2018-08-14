@@ -91,6 +91,11 @@ class CompanyUser extends Model
 		return false;
 	}
 
+	public function isActive()
+	{
+		return !$this->user->deactivated;
+	}
+
 	public function activate()
 	{
 		$this->user->activate();
