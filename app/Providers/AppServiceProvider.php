@@ -79,8 +79,6 @@ class AppServiceProvider extends ServiceProvider
 
 				foreach (explode(',', $types) as $type)
 				{
-					debug($userable);
-
 					switch ($type)
 					{
 						case 'employee':

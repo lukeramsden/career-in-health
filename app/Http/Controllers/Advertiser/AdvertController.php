@@ -36,7 +36,7 @@ class AdvertController extends Controller
 				'savingForLater' => 'nullable|boolean',
 				'title'          => 'required|string',
 				'body'           => 'nullable|string',
-				'image'          => 'nullable|required|image|max:3072|mimes:jpg,jpeg,png',
+				'image'          => 'nullable|image|max:3072|mimes:jpg,jpeg,png',
 				'removeImage'    => 'nullable|boolean',
 				'links_to'       => 'nullable|string|max:500',
 			], $custom);
@@ -47,7 +47,7 @@ class AdvertController extends Controller
 				'savingForLater' => 'nullable|boolean',
 				'title'          => 'required|string',
 				'body'           => 'nullable|string',
-				'image'          => 'nullable|required|image|max:3072|mimes:jpg,jpeg,png',
+				'image'          => 'nullable|image|max:3072|mimes:jpg,jpeg,png',
 				'removeImage'    => 'nullable|boolean',
 				'links_to'       => 'required|string|max:500',
 			], $custom);
@@ -123,7 +123,7 @@ class AdvertController extends Controller
 
 		$data = $this->request->validate(self::rules([]));
 
-		if ($data['removeImage'])
+		if ($this->request->has('removeImage') && $data['removeImage'])
 		{
 			Storage::delete($advert->image_path);
 			$advert->image_path = null;

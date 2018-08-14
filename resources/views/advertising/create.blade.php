@@ -154,10 +154,22 @@
                         return true;
                     }
                     
+                    let formData = new FormData();
+                    let model = _.omit(this.model, ['imagePreview']);
+                    console.log(model);
+                    
+                    for(k in model)
+                    {
+                        let v = model[k];
+                        if(_.isBoolean(v) && v)
+                            formData.append(k, '1');
+                        else formData.append(k, v);
+                    }
+                    
                     axios({
                         url: this.url,
                         method: 'post',
-                        data: _.omit(this.model, ['imagePreview']),
+                        data: formData,
                     })
                         .then((response) => {
                             if(response.data.success) {
@@ -212,6 +224,10 @@
         @else
             data.model.savingForLater = true;
         @endif
+        
+        @isset($advert->image_path)
+            data.model.imagePreview = '{{ Storage::url($advert->image_path) }}';
+        @endisset
         
         const app = new Vue({
             el: '#app',
