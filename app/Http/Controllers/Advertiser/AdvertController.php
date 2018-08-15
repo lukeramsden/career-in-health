@@ -34,16 +34,16 @@ class AdvertController extends Controller
 			'savingForLater'    => 'present|boolean',
 			// core
 			'title'             => 'required|string',
-			'body'              => 'present|string',
-			'image'             => 'present|image|max:3072|mimes:jpg,jpeg,png',
-			'removeImage'       => 'present|boolean',
-			'location_id'       => 'present|integer|exists:locations,id',
+			'body'              => 'nullable|string',
+			'image'             => 'nullable|image|max:3072|mimes:jpg,jpeg,png',
+			'removeImage'       => 'nullable|boolean',
+			'location_id'       => 'nullable|integer|exists:locations,id',
 			// demographics
-			'dem_location_id'   => 'present|integer|exists:locations,id',
-			'dem_location_any'  => 'present|boolean',
-			'dem_job_role_id'   => 'present|integer|exists:job_roles,id',
-			'dem_job_role_any'  => 'present|boolean',
-			'dem_will_relocate' => 'present|boolean',
+			'dem_location_id'   => 'nullable|integer|exists:locations,id',
+			'dem_location_any'  => 'nullable|boolean',
+			'dem_job_role_id'   => 'nullable|integer|exists:job_roles,id',
+			'dem_job_role_any'  => 'nullable|boolean',
+			'dem_will_relocate' => 'nullable|boolean',
 		];
 
 		if ($this->request->has('savingForLater')
@@ -157,6 +157,19 @@ class AdvertController extends Controller
 		}
 
 		$advert->fill($data);
+
+		if($this->request->has('dem_location_id'))
+		{
+			$advert->dem_location_id = $data['dem_location_id'] ?? null;
+			$advert->dem_location_any = $data['dem_location_id'] == null ? true : false;
+		}
+
+		if($this->request->has('dem_job_role_id'))
+		{
+			$advert->dem_job_role_id = $data['dem_job_role_id'] ?? null;
+			$advert->dem_job_role_any = $data['dem_job_role_id'] == null ? true : false;
+		}
+
 		$advert->save();
 
 		if (ajax())

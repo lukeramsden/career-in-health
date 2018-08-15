@@ -30,6 +30,7 @@
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
@@ -112,24 +113,61 @@
                         </div>
                     </div>
                     
+                    @endverbatim
                     <div class="card card-custom">
                         <div class="card-body">
-                            <p>location_id</p>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <select2 v-model="model.location_id" name="location_id">
+                                    <option :value="null">-</option>
+                                    @foreach(\App\Location::getAllLocations() as $loc)
+                                        <option value="{{ $loc->id }}">{{ $loc->name }}</option>
+                                    @endforeach
+                                </select2>
+                            </div>
                         </div>
                     </div>
+                    @verbatim
                     
                     <div class="card card-custom">
-                        <div class="card-body">
-                            <p>dem_location_id</p>
-                            <p>dem_location_any</p>
-                            <p>dem_will_relocate</p>
+                        <div class="card-header">
+                            <em>Target Audience</em>
                         </div>
-                    </div>
-                    
-                    <div class="card card-custom">
                         <div class="card-body">
-                            <p>dem_job_role_id</p>
-                            <p>dem_job_role_any</p>
+                            @endverbatim
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    <select2 v-model="model.dem_location_id" name="dem_location_id">
+                                        <option :value="null">Any location</option>
+                                        @foreach(\App\Location::getAllLocations() as $loc)
+                                            <option value="{{ $loc->id }}">{{ $loc->name }}</option>
+                                        @endforeach
+                                    </select2>
+                                </div>
+                            
+                                <div class="form-group">
+                                    <label>Job Role</label>
+                                    <select2 v-model="model.dem_job_role_id" name="dem_job_role_id">
+                                        <option :value="null">Any role</option>
+                                        @foreach(\App\JobRole::all() as $job)
+                                            <option value="{{ $job->id }}">{{ $job->name }}</option>
+                                        @endforeach
+                                    </select2>
+                                </div>
+                            @verbatim
+        
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox"
+                                           class="custom-control-input"
+                                           id="inputDemWillRelocate"
+                                           value="1"
+                                           name="dem_will_relocate"
+                                           v-model="model.dem_will_relocate">
+                                    <label class="custom-control-label"
+                                           for="inputDemWillRelocate">Must be able to relocate</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -155,6 +193,12 @@
                 </div>
             </form>
         </script>
+        
+        <script type="text/x-template" id="template__select2">
+          <select :name="name">
+            <slot></slot>
+          </select>
+        </script>
     @endverbatim
 
     <script>
@@ -164,6 +208,40 @@
             "positionClass": "toast-top-right",
             "progressBar": true,
         };
+        
+        Vue.component('select2', {
+            template: '#template__select2',
+            props: ['name', 'options', 'value'],
+            mounted() {
+                const self = this;
+                $(this.$el)
+                    .select2({ // init select2
+                        dropdownAutoWidth : true,
+                        width: 'auto'
+                    })
+                    .val(this.value)
+                    .trigger('change')
+                    // emit event on change.
+                    .on('change', function () {
+                        self.$emit('input', this.value)
+                    })
+            },
+            watch: {
+                value(value) {
+                    // update value
+                    $(this.$el)
+                        .val(value)
+                        .trigger('change')
+                },
+                options(options) {
+                    // update options
+                    $(this.$el).empty().select2({ data: options })
+                }
+            },
+            destroyed() {
+                $(this.$el).off().select2('destroy')
+            }
+        });
         
         Vue.component('advert-form', {
             template: '#template__advert-form',
@@ -183,7 +261,8 @@
                         let v = model[k];
                         if(_.isBoolean(v))
                             formData.append(k, v ? '1' : '0');
-                        else formData.append(k, v);
+                        else if(!_.isNull(v))
+                            formData.append(k, v);
                     }
                     
                     axios({
@@ -260,5 +339,15 @@
     </script>
 @endsection
 @section('stylesheet')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <style>
+        .select2 {
+            display: block;
+        }
+        
+        .select2-container--default .select2-selection--single {
+            border-color: #ced4da;
+        }
+    </style>
 @endsection
