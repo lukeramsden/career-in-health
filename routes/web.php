@@ -197,6 +197,8 @@ Route::prefix('tracking')
 					  return redirect()->action('JobListingController@show', [$jobListing]);
 				  })->name('recommended.click');
 			  });
+
+		 Route::any('/{advert}/click', 'TrackingController@advertClickThrough')->name('advert.click');
 	 });
 
 Route::prefix('advertising')
