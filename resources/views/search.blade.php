@@ -96,7 +96,7 @@
                                                 </p>
                                             </div>
                                             <div>
-                                                <a href="{{ route('tracking.job_listing.search.click', [$jobListing]) }}"
+                                                <a href="{{ route('tracking.job-listing.search.click', [$jobListing]) }}"
                                                    class="btn btn-outline-primary">View</a>
                                             </div>
                                         </div>

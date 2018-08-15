@@ -21,8 +21,8 @@ class CreateAdvertsTable extends Migration
 			$table->integer('advertiser_id')->unsigned();
 			$table->foreign('advertiser_id')->references('id')->on('advertisers');
 			$table->boolean('active')->default(false);
-			$table->timestamp('started_at')->nullable();
-			$table->timestamp('expires_at')->nullable();
+			$table->timestamp('started_at')->useCurrent();
+			$table->timestamp('expires_at')->useCurrent();
 			$table->timestamps();
 
 			/**

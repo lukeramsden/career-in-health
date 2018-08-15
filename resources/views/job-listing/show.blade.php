@@ -45,7 +45,7 @@
                                 <h5 class="align-middle"><span class="oi oi-envelope-closed text-muted"></span> <span class="text-muted">Email:</span> <span>{{ $jobListing->company->contact_email }}</span></h5>
                             </div>
                         @endisset
-                    
+                        
                         @guest
                             <a href="{{ route('register') }}" class="btn btn-block btn-action">Sign Up To Apply</a>
                         @endguest

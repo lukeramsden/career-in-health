@@ -23,7 +23,7 @@
                         </p>
                     </div>
                     <div>
-                        <p><a href="{{ route('tracking.job_listing.recommended.click', ['jobListing' => $item]) }}" class="btn btn-action btn-sm btn-block badge-pill px-3">More Details</a></p>
+                        <p><a href="{{ route('tracking.job-listing.recommended.click', ['jobListing' => $item]) }}" class="btn btn-action btn-sm btn-block badge-pill px-3">More Details</a></p>
                     </div>
                 </div>
             </div>

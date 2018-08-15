@@ -917,10 +917,6 @@ $slick-button-offset: 10px;
   $advert-height: 200px;
   @extend .link-unstyled;
 
-  display: inline-block;
-
-  @extend .m-2;
-
   .card-advert-image-preview {
     min-width: $advert-width + 2px;
     min-height: $advert-height + 2px;
@@ -936,10 +932,10 @@ $slick-button-offset: 10px;
     img {
       @extend .card-img;
 
-      min-width: $advert-width;
-      min-height: $advert-height;
-      max-width: $advert-width;
-      max-height: $advert-height;
+      //min-width: $advert-width;
+      //min-height: $advert-height;
+      //max-width: $advert-width;
+      //max-height: $advert-height;
 
       & + div {
         @extend .card-img-overlay;
@@ -961,10 +957,10 @@ $slick-button-offset: 10px;
     @extend .scale-on-hover-2;
     @extend .m-0;
 
-    min-width: $advert-width + 2px;
-    min-height: $advert-height + 2px;
-    max-width: $advert-width + 2px;
-    max-height: $advert-height + 2px;
+    //min-width: $advert-width + 2px;
+    //min-height: $advert-height + 2px;
+    //max-width: $advert-width + 2px;
+    //max-height: $advert-height + 2px;
 
     div {
       &:nth-of-type(1) {

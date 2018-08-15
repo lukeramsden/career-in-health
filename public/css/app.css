@@ -9301,8 +9301,7 @@ button.bg-golden:focus {
   margin-left: 0.25rem !important;
 }
 
-.m-2,
-#advert {
+.m-2 {
   margin: 0.5rem !important;
 }
 
@@ -16789,25 +16788,7 @@ body {
   fill: #ffcf40 !important;
 }
 
-#advert {
-  display: inline-block;
-}
-
 #advert .card-advert-image-preview {
-  min-width: 502px;
-  min-height: 202px;
-  max-width: 502px;
-  max-height: 202px;
-}
-
-#advert .card-advert-image-preview img {
-  min-width: 500px;
-  min-height: 200px;
-  max-width: 500px;
-  max-height: 200px;
-}
-
-#advert .card-advert-text {
   min-width: 502px;
   min-height: 202px;
   max-width: 502px;
