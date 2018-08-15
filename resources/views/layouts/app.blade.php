@@ -2,14 +2,19 @@
 @section('base_content')
     {{-- side nav --}}
     <div id="navbar" class="d-none d-lg-block">
-        @usertype('admin')
-            <img class="logo svg-inline svg-logo-danger" src="/images/cih-logo.svg" alt="logo">
-            <p class="logo-after-text text-danger">Admin</p>
-        @endusertype
-        @usertype('advertiser')
-            <img class="logo svg-inline svg-logo-success" src="/images/cih-logo.svg" alt="logo">
-            <p class="logo-after-text text-success">Advertiser</p>
-        @endusertype
+        @auth
+            @usertype('admin')
+                <img class="logo svg-inline svg-logo-danger" src="/images/cih-logo.svg" alt="logo">
+                <p class="logo-after-text text-danger">Admin</p>
+            @endusertype
+            @usertype('advertiser')
+                <img class="logo svg-inline svg-logo-success" src="/images/cih-logo.svg" alt="logo">
+                <p class="logo-after-text text-success">Advertiser</p>
+            @endusertype
+            @usertype('employee,company')
+                <img class="logo" src="/images/cih-logo.svg" alt="logo">
+            @endusertype
+        @endauth
         @guest
             <img class="logo" src="/images/cih-logo.svg" alt="logo">
         @endguest
