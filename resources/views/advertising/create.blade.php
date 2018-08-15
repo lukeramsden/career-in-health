@@ -2,30 +2,27 @@
 @section('content')
     <div class="container mt-lg-5">
         <h2 class="my-3"><em>Preview</em></h2>
-        {{--<a id="advert" :href="model.links_to" target="_blank">--}}
-            {{--<template v-if="model.imagePreview && !model.removeImage">--}}
-                {{--<div class="card-advert-image-preview">--}}
-                    {{--<img :src="model.imagePreview">--}}
-                    {{--<div>--}}
-                        {{--<h5>@{{ model.title }}</h5>--}}
-                        {{--<p>@{{ model.body }}</p>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</template>--}}
-            {{--<template v-else>--}}
-                {{--<div class="card-advert-text">--}}
-                    {{--<div>--}}
-                        {{--@{{ model.title }}--}}
-                    {{--</div>--}}
-                    {{--<div v-if="model.body">--}}
-                        {{--<p>@{{ model.body }}</p>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</template>--}}
-        {{--</a>--}}
-        @if($edit)
-            @include('advertising._advert', [$advert])
-        @endif
+        <a id="advert" :href="model.links_to" target="_blank">
+            <template v-if="model.imagePreview && !model.removeImage">
+                <div class="card-advert-image-preview">
+                    <img :src="model.imagePreview">
+                    <div>
+                        <h5>@{{ model.title }}</h5>
+                        <p>@{{ model.body }}</p>
+                    </div>
+                </div>
+            </template>
+            <template v-else>
+                <div class="card-advert-text">
+                    <div>
+                        @{{ model.title }}
+                    </div>
+                    <div v-if="model.body">
+                        <p>@{{ model.body }}</p>
+                    </div>
+                </div>
+            </template>
+        </a>
         <hr>
         <advert-form :model="model" :url="url" :create-new="createNew"></advert-form>
     </div>
@@ -112,6 +109,27 @@
                                            for="inputRemoveImage">Remove image?</label>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-custom">
+                        <div class="card-body">
+                            <p>location_id</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-custom">
+                        <div class="card-body">
+                            <p>dem_location_id</p>
+                            <p>dem_location_any</p>
+                            <p>dem_will_relocate</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card card-custom">
+                        <div class="card-body">
+                            <p>dem_job_role_id</p>
+                            <p>dem_job_role_any</p>
                         </div>
                     </div>
                     

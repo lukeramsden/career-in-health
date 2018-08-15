@@ -4,63 +4,64 @@ use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        $this->createEmployeeUser();
-        $this->createCompanyUser();
-    }
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+		self::createEmployeeUser();
+		self::createCompanyUser();
+		self::createAdvertiserUser();
+	}
 
-    private function createEmployeeUser()
-    {
-        $user = factory(\App\User::class)
-            ->create([
-                'email' => 'employee@karma.com',
-            ]);
+	private function createEmployeeUser()
+	{
+		$user = factory(\App\User::class)
+			->create([
+				'email' => 'employee@karma.com',
+			]);
 
-        $userable = new \App\Employee([
-            'first_name'  => 'Luke',
-            'last_name'   => 'Ramsden',
-            'location_id' => 4018,
-        ]);
+		$userable = new \App\Employee([
+			'first_name'  => 'Luke',
+			'last_name'   => 'Ramsden',
+			'location_id' => 4018,
+		]);
 
-        $userable->save();
-        $user->userable()->associate($userable);
-        $user->save();
-    }
+		$userable->save();
+		$user->userable()->associate($userable);
+		$user->save();
+	}
 
-    private function createCompanyUser()
-    {
-        $user = factory(\App\User::class)
-            ->create([
-                'email' => 'company@karma.com',
-            ]);
+	private function createCompanyUser()
+	{
+		$user = factory(\App\User::class)
+			->create([
+				'email' => 'company@karma.com',
+			]);
 
-        $userable = new \App\CompanyUser([
-            'first_name'      => 'James',
-            'last_name'       => 'Waring',
-            'has_been_filled' => true,
-        ]);
+		$userable = new \App\CompanyUser([
+			'first_name'      => 'James',
+			'last_name'       => 'Waring',
+			'has_been_filled' => true,
+		]);
 
-        $userable->save();
-        $user->userable()->associate($userable);
-        $user->save();
+		$userable->save();
+		$user->userable()->associate($userable);
+		$user->save();
 
-        $company = factory(\App\Company::class)
-            ->create([
-                'name'        => 'Karma AS',
-                'owner_id'    => $userable->id,
-                'location_id' => 4018,
-            ]);
+		$company = factory(\App\Company::class)
+			->create([
+				'name'        => 'Karma AS',
+				'owner_id'    => $userable->id,
+				'location_id' => 4018,
+			]);
 
-        $company->users()->save($userable);
-        $company->save();
-        $userable->save();
-        $user->save();
+		$company->users()->save($userable);
+		$company->save();
+		$userable->save();
+		$user->save();
 
 		DB
 			::table('company_user_permissions')
@@ -69,5 +70,21 @@ class UserSeeder extends Seeder
 				'company_user_id'  => $userable->id,
 				'permission_level' => 'owner',
 			]);
-    }
+	}
+
+	public function createAdvertiserUser()
+	{
+		$user = factory(\App\User::class)
+			->create([
+				'email' => 'advertiser@karma.com',
+			]);
+
+		$userable = new \App\Advertiser([
+			'name' => 'Sponsor',
+		]);
+
+		$userable->save();
+		$user->userable()->associate($userable);
+		$user->save();
+	}
 }

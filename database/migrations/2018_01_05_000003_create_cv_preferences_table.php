@@ -15,7 +15,8 @@ class CreateCvPreferencesTable extends Migration
     {
         Schema::create('cv_preferences', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('job_role')->nullable();
+			$table->integer('job_role')->nullable()->unsigned();
+   			$table->foreign('job_role')->references('id')->on('job_roles');
             $table->integer('setting')->nullable();
             $table->integer('type')->nullable();
             $table->double('salary_number')->nullable();

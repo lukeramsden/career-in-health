@@ -8,9 +8,18 @@ use Illuminate\Support\Facades\Storage;
 class Advert extends Model
 {
 	protected $fillable = [
+		// core
 		'title',
 		'body',
+		'image_path',
 		'links_to',
+		'location_id',
+		// demographics
+		'dem_location_id',
+		'dem_location_any',
+		'dem_job_role_id',
+		'dem_job_role_any',
+		'dem_will_relocate',
 	];
 
 	protected static function boot()

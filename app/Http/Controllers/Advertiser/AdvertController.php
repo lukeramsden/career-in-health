@@ -30,29 +30,33 @@ class AdvertController extends Controller
 	 */
 	protected function rules($custom = [])
 	{
+		$rules = [
+			'savingForLater'    => 'present|boolean',
+			// core
+			'title'             => 'required|string',
+			'body'              => 'present|string',
+			'image'             => 'present|image|max:3072|mimes:jpg,jpeg,png',
+			'removeImage'       => 'present|boolean',
+			'location_id'       => 'present|integer|exists:locations,id',
+			// demographics
+			'dem_location_id'   => 'present|integer|exists:locations,id',
+			'dem_location_any'  => 'present|boolean',
+			'dem_job_role_id'   => 'present|integer|exists:job_roles,id',
+			'dem_job_role_any'  => 'present|boolean',
+			'dem_will_relocate' => 'present|boolean',
+		];
+
 		if ($this->request->has('savingForLater')
 			&& $this->request->savingForLater == true)
-		{
-			return array_merge([
-				'savingForLater' => 'nullable|boolean',
-				'title'          => 'required|string',
-				'body'           => 'nullable|string',
-				'image'          => 'nullable|image|max:3072|mimes:jpg,jpeg,png',
-				'removeImage'    => 'nullable|boolean',
-				'links_to'       => 'nullable|string|max:500',
-			], $custom);
-		}
+			$rules = array_merge($rules, [
+				'links_to' => 'nullable|string|max:500',
+			]);
 		else
-		{
-			return array_merge([
-				'savingForLater' => 'nullable|boolean',
-				'title'          => 'required|string',
-				'body'           => 'nullable|string',
-				'image'          => 'nullable|image|max:3072|mimes:jpg,jpeg,png',
-				'removeImage'    => 'nullable|boolean',
-				'links_to'       => 'required|string|max:500',
-			], $custom);
-		}
+			$rules = array_merge($rules, [
+				'links_to' => 'required|string|max:500',
+			]);
+
+		return array_merge($rules, $custom);
 	}
 
 	/**
