@@ -29,8 +29,7 @@
                             type="email"
                             name="email"
                             id="email"
-                            value="{{ old('email', $user->email) }}"
-                            placeholder="joebloggs@example.com"
+                            value="{{ old('email') }}"
                             autocomplete="off"
                             required>
                         
@@ -47,7 +46,6 @@
                         name="email_confirmation"
                         id="email_confirmation"
                         value="{{ old('email_confirmation') }}"
-                        placeholder="joebloggs@email.com"
                         autocomplete="off"
                         required>
     

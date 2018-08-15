@@ -13,7 +13,7 @@
                         type="password"
                         name="password"
                         id="password"
-                        value="{{ old('password', 'password1') }}"
+                        value="{{ old('password') }}"
                         autocomplete="off"
                         required>
     
