@@ -153,7 +153,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navdropdown-Addresses">
                                     <a class="dropdown-item dropdown-item-action {{ active_route('advertising.create') }}" href="{{ route('advertising.create') }}">Create New</a>
-                                    <a class="dropdown-item {{ active_route([]) }}" href="{{ route('home') }}">Manage Adverts</a>
+                                    <a class="dropdown-item {{ active_route('advertising.index') }}" href="{{ route('advertising.index') }}">Manage Adverts</a>
                                 </div>
                             </li>
                         @endusertype

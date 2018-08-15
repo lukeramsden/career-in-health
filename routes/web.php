@@ -213,6 +213,8 @@ Route::prefix('advertising')
 		 Route::post('/{advert}/edit', 'Advertiser\AdvertController@update')->name('update');
 
 		 Route::any('/{advert}/delete', 'Advertiser\AdvertController@destroy')->name('destroy');
+
+		 Route::get('/', 'Advertiser\AdvertController@index')->name('index');
 	 });
 
 Route::prefix('admin')

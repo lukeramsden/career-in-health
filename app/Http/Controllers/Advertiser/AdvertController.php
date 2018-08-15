@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Advertiser;
 
 use App\Advert;
+use App\Advertiser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +87,22 @@ class AdvertController extends Controller
 	}
 
 	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
+	public function index()
+	{
+		$this->authorize('create', Advert::class);
+
+		/** @var Advertiser $advertiser */
+		$advertiser = Auth::user()->userable;
+		return view('advertising.index')
+			->with([
+				'adverts' => $advertiser->adverts,
+			]);
+	}
+
+	/**
 	 * @throws \Illuminate\Auth\Access\AuthorizationException
 	 */
 	public function store()
@@ -142,5 +159,25 @@ class AdvertController extends Controller
 			return response()->json(['success' => true, 'model' => $advert], 200);
 
 		return redirect(route('advertising.edit', [$advert]));
+	}
+
+	/**
+	 * @param Advert $advert
+	 *
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 * @throws \Exception
+	 */
+	public function destroy(Advert $advert)
+	{
+		$this->authorize('edit', $advert);
+
+		$advert->delete();
+
+		if (ajax())
+			return response()->json(['success' => true], 200);
+
+		return redirect(route('advertising.index'));
+
 	}
 }

@@ -1,45 +1,31 @@
 @extends('layouts.app')
 @section('content')
     <div class="container-fluid">
-        <table class="table table-striped table-hover" id="jobListings"
+        <table class="table table-striped table-hover" id="adverts"
                data-order="[[ 1, &quot;desc&quot; ]]">
             <thead>
                 <tr>
                     <th scope="col" data-searchable="false" data-orderable="false" data-visible="false">ID</th>
-                    <th scope="col" data-searchable="false" data-orderable="true">Last Updated</th>
                     <th scope="col" data-searchable="true"  data-orderable="true">Title</th>
-                    <th scope="col" data-searchable="true"  data-orderable="true">Address</th>
                     <th scope="col" data-searchable="true"  data-orderable="true">Status</th>
                     <th scope="col" data-searchable="false" data-orderable="false" data-width="100px"></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($jobListings as $jobListing)
+            {{-- TODO: more fields --}}
+                @foreach($adverts as $advert)
                     <tr>
                         <td>
-                            <p>{{ $jobListing->id }}</p>
+                            <p>{{ $advert->id }}</p>
                         </td>
-                        <td data-order="{{ $jobListing->last_edited->timestamp }}">
-                            <p>{{ $jobListing->last_edited->diffForHumans() }}</p>
+                        <td data-search="{{ $advert->title }}">
+                            <p>{{ $advert->title }}</p>
                         </td>
-                        <td data-search="{{ $jobListing->title }}">
-                            <p>{{ $jobListing->title }}</p>
-                        </td>
-                        <td data-search="{{ optional($jobListing->address)->name }}">
-                            <p>{{ optional($jobListing->address)->name }}</p>
-                        </td>
-                        <td data-search="{{ $jobListing->isPublished() ? 'Published' : 'Draft' }}" data-order="{{ $jobListing->status }}">
-                            <p>{{ $jobListing->isPublished() ? 'Published' : 'Draft' }}</p>
+                        <td data-search="{{ $advert->active ? 'Active' : 'Inactive' }}" data-order="{{ $advert->status }}">
+                            <p>{{ $advert->active ? 'Active' : 'Inactive' }}</p>
                         </td>
                         <td>
-                            @if($jobListing->isPublished())
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{ route('job-listing.show', [$jobListing]) }}" class="btn btn-link">View</a>
-                                    <a href="{{ route('job-listing.edit', [$jobListing]) }}" class="btn btn-link">Edit</a>
-                                </div>
-                            @else
-                                <a href="{{ route('job-listing.edit', [$jobListing]) }}" class="btn btn-sm btn-block btn-link">Edit</a>
-                            @endif
+                            <a href="{{ route('advertising.edit', [$advert]) }}" class="btn btn-sm btn-block btn-link">Edit</a>
                         </td>
                     </tr>
                 @endforeach
@@ -55,7 +41,7 @@
     
     <script>
         $(function() {
-            $('#jobListings').DataTable({
+            $('#adverts').DataTable({
                 responsive: true,
                 stateSave: true,
                 pageLength: 15,
