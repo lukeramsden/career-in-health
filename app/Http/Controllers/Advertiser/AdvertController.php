@@ -109,7 +109,7 @@ class AdvertController extends Controller
 		if (ajax())
 			return response()->json(['success' => true, 'model' => $advert], 200);
 
-		return route('advertising.edit', [$advert]);
+		return redirect(route('advertising.edit', [$advert]));
 	}
 
 	/**
