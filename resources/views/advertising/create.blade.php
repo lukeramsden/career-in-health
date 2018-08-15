@@ -4,7 +4,7 @@
         <h2 class="my-3"><em>Preview</em></h2>
         <a class="link-unstyled" :href="model.links_to" target="_blank">
             <template v-if="model.imagePreview && !model.removeImage">
-                <div class="card bg-dark border-dark scale-on-hover-2 mt-3 mb-5">
+                <div class="card bg-light border-dark scale-on-hover-2 mt-3 mb-5">
                     <img class="card-img" :src="model.imagePreview" style="max-height: 200px">
                     <div class="card-img-overlay">
                         <h5 class="card-title">@{{ model.title }}</h5>
