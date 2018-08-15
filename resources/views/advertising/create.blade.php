@@ -2,29 +2,31 @@
 @section('content')
     <div class="container mt-lg-5">
         <h2 class="my-3"><em>Preview</em></h2>
-        <a class="link-unstyled" :href="model.links_to" target="_blank">
-            <template v-if="model.imagePreview && !model.removeImage">
-                <div class="card bg-light border-dark scale-on-hover-2 mt-3 mb-5">
-                    <img class="card-img" :src="model.imagePreview" style="max-height: 200px">
-                    <div class="card-img-overlay">
-                        <h5 class="card-title">@{{ model.title }}</h5>
-                        <p class="card-text">@{{ model.body }}</p>
-                        <a :href="model.links_to" class="card-text">Click here</a>
-                    </div>
-                </div>
-            </template>
-            <template v-else>
-                <div class="card card-custom scale-on-hover-2 mt-3 mb-5">
-                    <div class="card-header">
-                        @{{ model.title }}
-                    </div>
-                    <div class="card-body" v-if="model.body">
-                        <p>@{{ model.body }}</p>
-                    </div>
-                </div>
-            </template>
-        </a>
-        
+        {{--<a id="advert" :href="model.links_to" target="_blank">--}}
+            {{--<template v-if="model.imagePreview && !model.removeImage">--}}
+                {{--<div class="card-advert-image-preview">--}}
+                    {{--<img :src="model.imagePreview">--}}
+                    {{--<div>--}}
+                        {{--<h5>@{{ model.title }}</h5>--}}
+                        {{--<p>@{{ model.body }}</p>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</template>--}}
+            {{--<template v-else>--}}
+                {{--<div class="card-advert-text">--}}
+                    {{--<div>--}}
+                        {{--@{{ model.title }}--}}
+                    {{--</div>--}}
+                    {{--<div v-if="model.body">--}}
+                        {{--<p>@{{ model.body }}</p>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</template>--}}
+        {{--</a>--}}
+        @if($edit)
+            @include('advertising._advert', [$advert])
+        @endif
+        <hr>
         <advert-form :model="model" :url="url" :create-new="createNew"></advert-form>
     </div>
 @endsection
@@ -161,8 +163,8 @@
                     for(k in model)
                     {
                         let v = model[k];
-                        if(_.isBoolean(v) && v)
-                            formData.append(k, '1');
+                        if(_.isBoolean(v))
+                            formData.append(k, v ? '1' : '0');
                         else formData.append(k, v);
                     }
                     
