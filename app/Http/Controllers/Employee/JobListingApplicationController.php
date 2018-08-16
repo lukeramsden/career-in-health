@@ -46,7 +46,7 @@ class JobListingApplicationController extends Controller
 
     public function show(JobListingApplication $application)
     {
-        return view('job-listing.view-application')
+        return view('employee.job-listing.view-application')
             ->with([
                 'application' => $application
             ]);
