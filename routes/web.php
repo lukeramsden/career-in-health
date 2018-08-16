@@ -198,7 +198,7 @@ Route::prefix('tracking')
 				  })->name('recommended.click');
 			  });
 
-		 Route::any('/{advert}/click', 'TrackingController@advertClickThrough')->name('advert.click');
+		 Route::any('/{job-listing}/click', 'TrackingController@advertClickThrough')->name('job-listing.click');
 	 });
 
 Route::prefix('advertising')
@@ -211,10 +211,10 @@ Route::prefix('advertising')
 		 Route::get('/create', 'Advertiser\AdvertController@create')->name('create');
 		 Route::post('/create', 'Advertiser\AdvertController@store')->name('store');
 
-		 Route::get('/{advert}/edit', 'Advertiser\AdvertController@edit')->name('edit');
-		 Route::post('/{advert}/edit', 'Advertiser\AdvertController@update')->name('update');
+		 Route::get('/{job-listing}/edit', 'Advertiser\AdvertController@edit')->name('edit');
+		 Route::post('/{job-listing}/edit', 'Advertiser\AdvertController@update')->name('update');
 
-		 Route::any('/{advert}/delete', 'Advertiser\AdvertController@destroy')->name('destroy');
+		 Route::any('/{job-listing}/delete', 'Advertiser\AdvertController@destroy')->name('destroy');
 
 		 Route::get('/', 'Advertiser\AdvertController@index')->name('index');
 	 });

@@ -274,9 +274,9 @@
                             if(response.data.success) {
                                 toastr.success('Updated!');
                                 if (_.get(response, 'data.model.active', false))
-                                    toastr.info('This advert is now live.');
+                                    toastr.info('This job-listing is now live.');
                                 else
-                                    toastr.info('This advert is not yet live.');
+                                    toastr.info('This job-listing is not yet live.');
                             }
                         })
                         .catch((error) => {

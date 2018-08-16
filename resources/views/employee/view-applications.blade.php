@@ -35,7 +35,7 @@
                         </td>
                         <td>
                             <div class="btn-group btn-group-sm" role="group">
-                                <a href="{{ route('job-listing.show', [$application->job_listing]) }}" class="btn btn-link">View JobListing</a>
+                                <a href="{{ route('job-listing.show', [$application->job_listing]) }}" class="btn btn-link">View Listing</a>
                                 <a href="{{ route('job-listing.application.show', [$application]) }}" class="btn btn-link">Edit</a>
                             </div>
                         </td>

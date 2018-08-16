@@ -15,7 +15,7 @@ class AdvertRepository
 	const advertTake = 10;
 
 	/**
-	 * Get advert
+	 * Get job-listing
 	 * Stores "advertTake" number of adverts on first call, and returns one each time its called
 	 *
 	 * @throws \Exception
@@ -73,7 +73,7 @@ class AdvertRepository
 						});
 
 				// if employee is not willing to relocate
-				// filter out adverts in different areas where advert
+				// filter out adverts in different areas where job-listing
 				// has specified that user must relocate
 				if ($employee->cv->preferences->willing_to_relocate !== true)
 					$q = $q
@@ -90,7 +90,7 @@ class AdvertRepository
 			}
 			else
 			{
-				// get any advert
+				// get any job-listing
 				$adverts =
 					Advert
 						::whereActive(true)

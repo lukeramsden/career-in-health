@@ -69,7 +69,7 @@ class AdvertController extends Controller
 
 		return view('advertising.create')
 			->with([
-				'advert' => new Advert(),
+				'job-listing' => new Advert(),
 				'edit'   => false,
 			]);
 	}
@@ -85,7 +85,7 @@ class AdvertController extends Controller
 
 		return view('advertising.create')
 			->with([
-				'advert' => $advert,
+				'job-listing' => $advert,
 				'edit'   => true,
 			]);
 	}

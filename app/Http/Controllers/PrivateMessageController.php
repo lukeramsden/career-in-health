@@ -31,7 +31,7 @@ class PrivateMessageController extends Controller
 	{
 		return [
 			'body'           => 'required|string|max:1000',
-			'job_listing_id' => 'required|integer|exists:jobListings,id',
+			'job_listing_id' => 'required|integer|exists:job_listings,id',
 			'to_employee_id' => 'required_without:to_company_id|integer|exists:employees,id',
 			'to_company_id'  => 'required_without:to_employee_id|integer|exists:companies,id',
 		];
@@ -117,7 +117,7 @@ class PrivateMessageController extends Controller
 		return view('account.private-message.show')
 			->with([
 				'messages' => $messages->get(),
-				'job_listing'   => $jobListing,
+				'jobListing'   => $jobListing,
 			]);
 	}
 
@@ -138,7 +138,7 @@ class PrivateMessageController extends Controller
 		return view('account.private-message.show')
 			->with([
 				'messages' => $messages->get(),
-				'job_listing'   => $jobListing,
+				'jobListing'   => $jobListing,
 				'employee' => $employee,
 			]);
 	}

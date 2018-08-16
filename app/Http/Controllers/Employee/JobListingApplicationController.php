@@ -46,7 +46,7 @@ class JobListingApplicationController extends Controller
 
     public function show(JobListingApplication $application)
     {
-        return view('employee.job_listing.view-application')
+        return view('job-listing.view-application')
             ->with([
                 'application' => $application
             ]);
@@ -67,7 +67,7 @@ class JobListingApplicationController extends Controller
 
         session()->keep('clickThrough');
 
-        return view('employee.job_listing.apply')
+        return view('employee.job-listing.apply')
             ->with(['jobListing' => $jobListing]);
     }
 
@@ -114,9 +114,9 @@ class JobListingApplicationController extends Controller
             // dont let non-owners edit status or notes for applications for jobListings they dont own
             if(!$user->isValidCompany() || $application->job_listing->company->id !== $user->userable->company->id) {
                 if(ajax())
-                    return response()->json(['success' => false, 'message' => 'You must own the job_listing to update an application\'s status or notes.'], 401);
+                    return response()->json(['success' => false, 'message' => 'You must own the listing to update an application\'s status or notes.'], 401);
 
-                toast()->error('You must own the job_listing to update an application\'s status or notes.');
+                toast()->error('You must own the listing to update an application\'s status or notes.');
                 return back();
             } else {
                 $data = $this->request->validate(self::rules([

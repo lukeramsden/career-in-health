@@ -34,7 +34,7 @@ class AdvertPolicy
 	}
 
 	/**
-	 * Determine if a user can edit a given advert
+	 * Determine if a user can edit a given job-listing
 	 *
 	 * @param User   $user
 	 * @param Advert $advert
@@ -47,7 +47,7 @@ class AdvertPolicy
 	}
 
 	/**
-	 * Determine if a user can be shown a given advert
+	 * Determine if a user can be shown a given job-listing
 	 *
 	 * @param User   $user
 	 * @param Advert $advert
