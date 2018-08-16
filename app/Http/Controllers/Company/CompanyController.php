@@ -128,7 +128,7 @@ class CompanyController extends Controller
 		$user = Auth::user();
 
 		$company           = new Company();
-		$company->owner_id = $user->id;
+		$company->owner_id = $user->userable->id;
 		$company->fill($data);
 
 		if ($this->request->hasFile('avatar'))
