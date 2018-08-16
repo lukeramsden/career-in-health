@@ -41,6 +41,12 @@ $navbar-width: 240px;
   }
 }
 
+.btn-group-square {
+  .btn {
+    border-radius: 0 !important;
+  }
+}
+
 #app {
   @include media-breakpoint-up(lg) {
     margin-left: $navbar-width;

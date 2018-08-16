@@ -11519,6 +11519,10 @@ body {
           flex: 1;
 }
 
+.btn-group-square .btn {
+  border-radius: 0 !important;
+}
+
 #app {
   z-index: 1;
 }
@@ -14955,11 +14959,6 @@ body {
 
 #search-form form button {
   margin: 40px 0;
-}
-
-#first-search-row {
-  margin: 0;
-  margin-top: 8rem;
 }
 
 @media (min-width: 768px) {
