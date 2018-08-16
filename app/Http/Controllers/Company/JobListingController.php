@@ -6,6 +6,7 @@ use App\Address;
 use Auth;
 use App\JobListing;
 use Carbon\Carbon;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -46,7 +47,10 @@ class JobListingController extends Controller
 	 */
 	public function show(JobListing $jobListing)
 	{
-		$this->authorize('view', $jobListing);
+		if(Auth::check())
+			$this->authorize('view', $jobListing);
+		else if(!$jobListing->isPublished())
+			throw new AuthorizationException();
 
 		session()->keep('clickThrough');
 		$jobListing->increment('page_views');
