@@ -504,13 +504,6 @@ $navbar-width: 240px;
   }
 }
 
-#first-search {
-  &-row {
-    margin: 0;
-    margin-top: $spacer * 8;
-  }
-}
-
 #job_listing-show-row {
   & .col-12 {
     @include media-breakpoint-up(md) {
