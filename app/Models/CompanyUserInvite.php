@@ -37,7 +37,7 @@ class CompanyUserInvite extends Model
 
 	public function remind()
 	{
-		$this->notify(new \App\Notifications\CompanyInvite($this));
+		$this->notify(new \App\Notifications\CompanyUserInviteNotification($this));
 
 		$this->last_reminded_at = now();
 		$this->times_reminded   = $this->times_reminded++ ?? 1;

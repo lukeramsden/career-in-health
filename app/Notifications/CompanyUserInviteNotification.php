@@ -7,10 +7,11 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CompanyInvite extends Notification
+class CompanyUserInviteNotification extends Notification
 {
 	use Queueable;
 
+	/* @var CompanyUserInvite $invite */
 	protected $invite;
 
 	public function __construct(CompanyUserInvite $invite)
@@ -27,7 +28,6 @@ class CompanyInvite extends Notification
 	{
 		return (new MailMessage)
 			->line('You have been invited to a company at Career in Health.')
-			->action('Accept Invite', url('/'))
-			->line('Thank you for using our application!');
+			->action('Accept Invite', route('accept-invite.show', [$this->invite->accept_code]));
 	}
 }
