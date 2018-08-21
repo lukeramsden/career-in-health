@@ -4,7 +4,6 @@
         @isset($messages)
             {!! $messages->appends(Request::capture()->except('page'))->render('vendor.pagination') !!}
 
-            {{-- TODO: improve UX for this --}}
             @usertype('employee')
                 @foreach($messages as $message)
                     <div class="card card-custom mb-3">

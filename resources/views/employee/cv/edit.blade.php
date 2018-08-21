@@ -25,7 +25,7 @@
                         class="btn btn-action disabled" id="next-step">Next Step</a>
                         @endonboarding
                         @verbatim
-                            <button class="btn btn-primary" @click="show">View CV</button> <!-- TODO: fix this -->
+                            <button class="btn btn-primary" @click="show">View CV</button>
                         @endverbatim
                         <a href="{{ route('cv.pdf.download') }}" target="_blank" class="btn btn-primary">Download CV</a>
                         @verbatim

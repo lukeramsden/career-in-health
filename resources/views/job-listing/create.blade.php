@@ -265,7 +265,6 @@
             model: {!! $edit ? $jobListing : json_encode(Session::getOldInput()) ?: '{}' !!},
             url: '{{ $edit ? route('job-listing.update', ['jobListing' => $jobListing]) : route('job-listing.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
-            {{-- TODO: old: {{  }},--}}
         };
         
         @if($jobListing->isDraft())

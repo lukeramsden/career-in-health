@@ -315,7 +315,6 @@
             model: {!! $edit ? $advert:json_encode(Session::getOldInput()) ?: '{}' !!},
             url: '{{ $edit ? route('advertising.update', [$advert]):route('advertising.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
-            {{-- TODO: old: {{  }},--}}
         };
         
         @if($advert->active)
