@@ -11,7 +11,7 @@ return array(
         'env'     => array(),
     ),
     'image' => array(
-        'enabled' => true,
+        'enabled' => false,
         'binary'  => '/usr/local/bin/wkhtmltoimage',
         'timeout' => false,
         'options' => array(),
