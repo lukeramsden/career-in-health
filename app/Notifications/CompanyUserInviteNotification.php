@@ -16,7 +16,7 @@ class CompanyUserInviteNotification extends Notification
 
 	public function __construct(CompanyUserInvite $invite)
 	{
-		$this->$invite = $invite;
+		$this->invite = $invite;
 	}
 
 	public function via($notifiable)
