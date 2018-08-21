@@ -348,7 +348,7 @@
                                         <a class="nav-link nav-link-sub {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
                                     </div>
                                 </div>
-                                @unset('activeRoute')
+                                @unset($activeRoute)
                             </div>
                         </li>
                         <li class="nav-item">
