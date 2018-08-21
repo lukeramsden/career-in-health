@@ -177,14 +177,16 @@
                                 disabled>
                             </div>
                             
-                            <div class="form-group">
-                                <label>Last Reminded</label>
-                                <input
-                                type="text"
-                                class="form-control"
-                                value="{{ $invite->last_reminded_at->diffForHumans() }}"
-                                disabled>
-                            </div>
+                            @isset($invite->last_reminded_at)
+                                <div class="form-group">
+                                    <label>Last Reminded</label>
+                                    <input
+                                    type="text"
+                                    class="form-control"
+                                    value="{{ $invite->last_reminded_at->diffForHumans() }}"
+                                    disabled>
+                                </div>
+                            @endisset
                         
                         </div>
                         <div class="card-footer p-0">

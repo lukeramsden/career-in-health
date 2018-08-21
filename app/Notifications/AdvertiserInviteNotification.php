@@ -17,7 +17,7 @@ class AdvertiserInviteNotification extends Notification
 
 	public function __construct(AdvertiserInvite $invite)
 	{
-		$this->$invite = $invite;
+		$this->invite = $invite;
 	}
 
 	public function via($notifiable)
