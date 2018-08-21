@@ -119,7 +119,8 @@ class JobListingController extends Controller
 		$data           = $this->request->validate(self::rules());
 		$savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater;
 
-		if ($this->request->has('address_id'))
+		if ($this->request->has('address_id')
+			&& !is_null($this->request->address_id))
 		{
 			$this->authorize('useInJobListing', Address::find($this->request->address_id));
 		}
@@ -202,7 +203,8 @@ class JobListingController extends Controller
 		$data           = $this->request->validate(self::rules());
 		$savingForLater = $this->request->has('savingForLater') && $this->request->savingForLater == true;
 
-		if ($this->request->has('address_id'))
+		if ($this->request->has('address_id')
+			&& !is_null($this->request->address_id))
 		{
 			$this->authorize('useInJobListing', Address::find($this->request->address_id));
 		}
