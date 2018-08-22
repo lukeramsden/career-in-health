@@ -2,25 +2,14 @@
 @section('content')
     <div class="container mt-lg-5">
         <h2 class="my-3"><em>Preview</em></h2>
-        <a id="advert" :href="model.links_to" target="_blank">
-            <template v-if="model.imagePreview && !model.removeImage">
-                <div class="card-advert-image-preview">
-                    <img :src="model.imagePreview">
-                    <div>
-                        <h5>@{{ model.title }}</h5>
-                        <p>@{{ model.body }}</p>
-                    </div>
+        <a class="advert" :href="model.links_to" target="_blank">
+            <template v-if="model.advert_type == {{ \App\Advertising\Advert::TYPE_HOMEPAGE }}">
+                <div class="advert-homepage">
+                    <img :src="model.imagePreview || 'https://via.placeholder.com/800x200'">
                 </div>
             </template>
             <template v-else>
-                <div class="card-advert-text">
-                    <div>
-                        @{{ model.title }}
-                    </div>
-                    <div v-if="model.body">
-                        <p>@{{ model.body }}</p>
-                    </div>
-                </div>
+                <code>Please select an advert type.</code>
             </template>
         </a>
         <hr>
@@ -42,141 +31,54 @@
                 @verbatim
                 
                 <div class="card-columns smaller-card-columns">
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Title (<span class='text-action'>*</span>)</label>
-                                <input
-                                type="text"
-                                class="form-control"
-                                v-model="model.title"
-                                name="title"
-                                maxlength="255"
-                                required>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Body</label>
-                                <textarea
-                                v-model="model.body"
-                                class="form-control"
-                                name="body"
-                                rows="10"
-                                maxlength="255"></textarea>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Click-through Link (<span class='text-action'>*</span>)</label>
-                                <input
-                                type="text"
-                                class="form-control"
-                                v-model="model.links_to"
-                                name="links_to"
-                                maxlength="500"
-                                required>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Background Image</label>
-                                <input
-                                type="file"
-                                class="form-control-file"
-                                v-on:change="imageChanged"
-                                name="image"
-                                accept="image/png, image/jpeg">
-                            </div>
-                            
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox"
-                                           class="custom-control-input"
-                                           id="inputRemoveImage"
-                                           value="1"
-                                           name="removeImage"
-                                           v-model="model.removeImage">
-                                    <label class="custom-control-label"
-                                           for="inputRemoveImage">Remove image?</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
                     @endverbatim
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Location</label>
-                                <select2 v-model="model.location_id" name="location_id">
-                                    <option :value="null">-</option>
-                                    @foreach(\App\Location::getAllLocations() as $loc)
-                                        <option value="{{ $loc->id }}">{{ $loc->name }}</option>
-                                    @endforeach
-                                </select2>
-                            </div>
-                        </div>
-                    </div>
+                    <template v-if="model.advert_type == {{ \App\Advertising\Advert::TYPE_HOMEPAGE }}">
                     @verbatim
-                    
-                    <div class="card card-custom">
-                        <div class="card-header">
-                            <em>Target Audience</em>
-                        </div>
-                        <div class="card-body">
-                            @endverbatim
+                        <div class="card card-custom">
+                            <div class="card-body">
                                 <div class="form-group">
-                                    <label>Location</label>
-                                    <select2 v-model="model.dem_location_id" name="dem_location_id">
-                                        <option :value="null">Any location</option>
-                                        @foreach(\App\Location::getAllLocations() as $loc)
-                                            <option value="{{ $loc->id }}">{{ $loc->name }}</option>
-                                        @endforeach
-                                    </select2>
-                                </div>
-                            
-                                <div class="form-group">
-                                    <label>Job Role</label>
-                                    <select2 v-model="model.dem_job_role_id" name="dem_job_role_id">
-                                        <option :value="null">Any role</option>
-                                        @foreach(\App\JobRole::all() as $job)
-                                            <option value="{{ $job->id }}">{{ $job->name }}</option>
-                                        @endforeach
-                                    </select2>
-                                </div>
-                            @verbatim
-        
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox"
-                                           class="custom-control-input"
-                                           id="inputDemWillRelocate"
-                                           value="1"
-                                           name="dem_will_relocate"
-                                           v-model="model.dem_will_relocate">
-                                    <label class="custom-control-label"
-                                           for="inputDemWillRelocate">Must be able to relocate</label>
+                                    <label>Click-through Link</label>
+                                    <input
+                                    type="text"
+                                    class="form-control"
+                                    v-model="model.links_to"
+                                    name="links_to"
+                                    maxlength="500">
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        
+                        <div class="card card-custom">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Banner Image (<span class='text-action'>*</span>)</label>
+                                    <input
+                                    type="file"
+                                    class="form-control-file"
+                                    v-on:change="imageChanged"
+                                    name="image"
+                                    accept="image/png, image/jpeg"
+                                    required>
+                                    <small>Image must be at least 800x200px, and width must be exactly 4x the height.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
                     
                     <div class="card card-custom">
                         <div class="card-body">
                             <div class="form-group">
+                                <select class="custom-select" name="advert_type" v-model="model.advert_type">
+                                    <option value="undefined" selected>Select an advert type</option>
+                                    @endverbatim
+                                    <option value="{{ \App\Advertising\Advert::TYPE_HOMEPAGE }}">Home Page Advert</option>
+                                    @verbatim
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="inputSaveForLater" name="savingForLater" value="1" v-model="model.savingForLater">
-                                    <label class="custom-control-label" for="inputSaveForLater">Save For Later?</label>
+                                    <input type="checkbox" class="custom-control-input" id="inputActive" name="active" value="1" v-model="model.active">
+                                    <label class="custom-control-label" for="inputActive">Active?</label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -274,9 +176,9 @@
                             if(response.data.success) {
                                 toastr.success('Updated!');
                                 if (_.get(response, 'data.model.active', false))
-                                    toastr.info('This job-listing is now live.');
+                                    toastr.info('This advert is now live.');
                                 else
-                                    toastr.info('This job-listing is not yet live.');
+                                    toastr.info('This advert is not yet live.');
                             }
                         })
                         .catch((error) => {
@@ -312,20 +214,12 @@
         });
 
         let data = {
-            model: {!! $edit ? $advert:json_encode(Session::getOldInput()) ?: '{}' !!},
+            model: {!! $edit?$advert??'{}':Session::hasOldInput()?json_encode(Session::getOldInput())??'{}':'{}'!!},
             url: '{{ $edit ? route('advertising.update', [$advert]):route('advertising.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
         };
         
-        @if($advert->active)
-            data.model.savingForLater = false;
-        @else
-            data.model.savingForLater = true;
-        @endif
-        
-        @isset($advert->image_path)
-            data.model.imagePreview = '{{ Storage::url($advert->image_path) }}';
-        @endisset
+        data.model.active = {{ $advert->active ? 'true' : 'false' }};
         
         const app = new Vue({
             el: '#app',

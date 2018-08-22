@@ -211,10 +211,10 @@ Route::prefix('advertising')
 		 Route::get('/create', 'Advertising\AdvertController@create')->name('create');
 		 Route::post('/create', 'Advertising\AdvertController@store')->name('store');
 
-		 Route::get('/{job-listing}/edit', 'Advertising\AdvertController@edit')->name('edit');
-		 Route::post('/{job-listing}/edit', 'Advertising\AdvertController@update')->name('update');
+		 Route::get('/{advert}/edit', 'Advertising\AdvertController@edit')->name('edit');
+		 Route::post('/{advert}/edit', 'Advertising\AdvertController@update')->name('update');
 
-		 Route::any('/{job-listing}/delete', 'Advertising\AdvertController@destroy')->name('destroy');
+		 Route::any('/{advert}/delete', 'Advertising\AdvertController@destroy')->name('destroy');
 
 		 Route::get('/', 'Advertising\AdvertController@index')->name('index');
 	 });

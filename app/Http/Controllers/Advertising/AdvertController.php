@@ -32,14 +32,16 @@ class AdvertController extends Controller
 	 */
 	protected function rules($custom = [])
 	{
-		$advertType = ($this->request->validate([
+		$data = $this->request->validate([
 			'advert_type' => [
-				'required|integer',
+				'required', 'integer',
 				Rule::in([
 					Advert::TYPE_HOMEPAGE,
 				]),
 			],
-		]))['advert_type'];
+		]);
+
+		$advertType = $data['advert_type'];
 
 		$rules = [
 			'active' => 'boolean',
@@ -49,7 +51,7 @@ class AdvertController extends Controller
 		{
 			case Advert::TYPE_HOMEPAGE:
 				$rules = array_merge($rules, [
-					'image'    => 'required|image|size:|max:2048|mimes:jpg,jpeg,png|min_height:270,ratio:24/9',
+					'image'    => 'required|image|max:2048|mimes:jpg,jpeg,png|dimensions:min_height=200,ratio=4/1',
 					'links_to' => 'nullable|string|max:500',
 				]);
 				break;
@@ -119,18 +121,19 @@ class AdvertController extends Controller
 		switch ($this->request->has('advert_type') ? $this->request->advert_type : null)
 		{
 			case Advert::TYPE_HOMEPAGE:
-				($advertable = new HomePageAdvert([
+				$advertable = new HomePageAdvert([
 					'links_to'   =>
 						$data['links_to'],
 					'image_path' =>
 						$this->request->file('image')->store('home_page_advert_images'),
-				]))->save();
+				]);
+				$advertable->save();
 				break;
 			default:
 				throw new BadRequestHttpException('invalid advert_type');
 		}
 
-		$advert                = new Advert($data);
+		$advert                = new Advert();
 		$advert->active        = $data['active'] ?? false;
 		$advert->advertiser_id = Auth::user()->userable_id;
 		$advert->advertable()->associate($advertable);
