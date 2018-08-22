@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Advertiser;
+namespace App\Http\Controllers\Advertising;
 
-use App\Advertiser;
-use App\AdvertiserInvite;
+use App\Advertising\Advertiser;
+use App\Advertising\AdvertiserInvite;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;

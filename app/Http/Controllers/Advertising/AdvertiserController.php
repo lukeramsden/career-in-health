@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Advertiser;
+namespace App\Http\Controllers\Advertising;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -25,8 +25,8 @@ class AdvertiserController extends Controller
 	 */
 	protected function rules($custom = [])
 	{
-		return array_merge([
+		$rules = [];
 
-		], $custom);
+		return array_merge($rules, $custom);
 	}
 }

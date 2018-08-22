@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Advertising;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Advertiser extends Model

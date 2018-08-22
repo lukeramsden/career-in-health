@@ -205,18 +205,18 @@ Route::prefix('advertising')
 	 ->name('advertising.')
 	 ->group(function ()
 	 {
-		 Route::get('/registration/{advertiserInvite}/accept', 'Advertiser\RegisterController@show')->name('accept-invite.show');
-		 Route::post('/registration/{advertiserInvite}/accept', 'Advertiser\RegisterController@store')->name('accept-invite');
+		 Route::get('/registration/{advertiserInvite}/accept', 'Advertising\RegisterController@show')->name('accept-invite.show');
+		 Route::post('/registration/{advertiserInvite}/accept', 'Advertising\RegisterController@store')->name('accept-invite');
 
-		 Route::get('/create', 'Advertiser\AdvertController@create')->name('create');
-		 Route::post('/create', 'Advertiser\AdvertController@store')->name('store');
+		 Route::get('/create', 'Advertising\AdvertController@create')->name('create');
+		 Route::post('/create', 'Advertising\AdvertController@store')->name('store');
 
-		 Route::get('/{job-listing}/edit', 'Advertiser\AdvertController@edit')->name('edit');
-		 Route::post('/{job-listing}/edit', 'Advertiser\AdvertController@update')->name('update');
+		 Route::get('/{job-listing}/edit', 'Advertising\AdvertController@edit')->name('edit');
+		 Route::post('/{job-listing}/edit', 'Advertising\AdvertController@update')->name('update');
 
-		 Route::any('/{job-listing}/delete', 'Advertiser\AdvertController@destroy')->name('destroy');
+		 Route::any('/{job-listing}/delete', 'Advertising\AdvertController@destroy')->name('destroy');
 
-		 Route::get('/', 'Advertiser\AdvertController@index')->name('index');
+		 Route::get('/', 'Advertising\AdvertController@index')->name('index');
 	 });
 
 Route::prefix('admin')

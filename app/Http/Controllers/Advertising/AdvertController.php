@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Advertiser;
+namespace App\Http\Controllers\Advertising;
 
-use App\Advert;
-use App\Advertiser;
+use App\Advertising\Advert;
+use App\Advertising\Advertiser;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,31 +30,7 @@ class AdvertController extends Controller
 	 */
 	protected function rules($custom = [])
 	{
-		$rules = [
-			'savingForLater'    => 'present|boolean',
-			// core
-			'title'             => 'required|string',
-			'body'              => 'nullable|string',
-			'image'             => 'nullable|image|max:3072|mimes:jpg,jpeg,png',
-			'removeImage'       => 'nullable|boolean',
-			'location_id'       => 'nullable|integer|exists:locations,id',
-			// demographics
-			'dem_location_id'   => 'nullable|integer|exists:locations,id',
-			'dem_location_any'  => 'nullable|boolean',
-			'dem_job_role_id'   => 'nullable|integer|exists:job_roles,id',
-			'dem_job_role_any'  => 'nullable|boolean',
-			'dem_will_relocate' => 'nullable|boolean',
-		];
-
-		if ($this->request->has('savingForLater')
-			&& $this->request->savingForLater == true)
-			$rules = array_merge($rules, [
-				'links_to' => 'nullable|string|max:500',
-			]);
-		else
-			$rules = array_merge($rules, [
-				'links_to' => 'required|string|max:500',
-			]);
+		$rules = [];
 
 		return array_merge($rules, $custom);
 	}
@@ -69,7 +45,7 @@ class AdvertController extends Controller
 
 		return view('advertising.create')
 			->with([
-				'job-listing' => new Advert(),
+				'advert' => new Advert(),
 				'edit'   => false,
 			]);
 	}
@@ -85,7 +61,7 @@ class AdvertController extends Controller
 
 		return view('advertising.create')
 			->with([
-				'job-listing' => $advert,
+				'advert' => $advert,
 				'edit'   => true,
 			]);
 	}
@@ -118,14 +94,9 @@ class AdvertController extends Controller
 		$advert                = new Advert($data);
 		$advert->active        = $data['active'] ?? false;
 		$advert->advertiser_id = Auth::user()->userable_id;
-
-		if ($this->request->hasFile('image'))
-		{
-			$path               = $this->request->file('image')->storePublicly('advert_images');
-			$advert->image_path = $path;
-		}
-
 		$advert->save();
+
+		//
 
 		if (ajax())
 			return response()->json(['success' => true, 'model' => $advert], 200);
@@ -143,33 +114,7 @@ class AdvertController extends Controller
 		$this->authorize('edit', $advert);
 
 		$data = $this->request->validate(self::rules([]));
-
-		if ($this->request->has('removeImage') && $data['removeImage'])
-		{
-			Storage::delete($advert->image_path);
-			$advert->image_path = null;
-		}
-		elseif ($this->request->hasFile('image'))
-		{
-			$path = $this->request->file('image')->storePublicly('advert_images');
-			Storage::delete($advert->image_path);
-			$advert->image_path = $path;
-		}
-
 		$advert->fill($data);
-
-		if($this->request->has('dem_location_id'))
-		{
-			$advert->dem_location_id = $data['dem_location_id'] ?? null;
-			$advert->dem_location_any = $data['dem_location_id'] == null ? true : false;
-		}
-
-		if($this->request->has('dem_job_role_id'))
-		{
-			$advert->dem_job_role_id = $data['dem_job_role_id'] ?? null;
-			$advert->dem_job_role_any = $data['dem_job_role_id'] == null ? true : false;
-		}
-
 		$advert->save();
 
 		if (ajax())
