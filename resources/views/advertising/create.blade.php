@@ -58,7 +58,7 @@
                                     v-on:change="imageChanged"
                                     name="image"
                                     accept="image/png, image/jpeg"
-                                    required>
+                                    :required="createNew">
                                     <small>Image must be at least 800x200px, and width must be exactly 4x the height.</small>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                     
                     <div class="card card-custom">
                         <div class="card-body">
-                            <div class="form-group">
+                            <div class="form-group" v-if="createNew">
                                 <select class="custom-select" name="advert_type" v-model="model.advert_type">
                                     <option value="undefined" selected>Select an advert type</option>
                                     @endverbatim
@@ -175,7 +175,8 @@
                         .then((response) => {
                             if(response.data.success) {
                                 toastr.success('Updated!');
-                                if (_.get(response, 'data.model.active', false))
+                                console.log(response.data.model);
+                                if (_.get(response, 'data.model.active', "0") === "1")
                                     toastr.info('This advert is now live.');
                                 else
                                     toastr.info('This advert is not yet live.');
@@ -214,12 +215,19 @@
         });
 
         let data = {
-            model: {!! $edit?$advert??'{}':Session::hasOldInput()?json_encode(Session::getOldInput())??'{}':'{}'!!},
+            model: {!! $edit?($advert??'{}'):(Session::hasOldInput()?json_encode(Session::getOldInput()):'{}')!!},
             url: '{{ $edit ? route('advertising.update', [$advert]):route('advertising.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
         };
         
         data.model.active = {{ $advert->active ? 'true' : 'false' }};
+        @if($edit)
+            data.model.advert_type = {{ $advert->type() }}
+            data.model.links_to = '{{$advert->advertable->links_to}}';
+            @isset($advert->advertable->image_path)
+                data.model.imagePreview = '{{Storage::url($advert->advertable->image_path)}}'
+            @endisset
+        @endif
         
         const app = new Vue({
             el: '#app',

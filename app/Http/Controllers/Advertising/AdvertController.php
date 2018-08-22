@@ -8,6 +8,8 @@ use App\Advertising\HomePageAdvert;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -30,7 +32,7 @@ class AdvertController extends Controller
 	 *
 	 * @return array
 	 */
-	protected function rules($custom = [])
+	protected function rules($custom = [], $update = false)
 	{
 		$data = $this->request->validate([
 			'advert_type' => [
@@ -51,7 +53,7 @@ class AdvertController extends Controller
 		{
 			case Advert::TYPE_HOMEPAGE:
 				$rules = array_merge($rules, [
-					'image'    => 'required|image|max:2048|mimes:jpg,jpeg,png|dimensions:min_height=200,ratio=4/1',
+					'image'    => ($update ? 'nullable' : 'required') . '|image|max:2048|mimes:jpg,jpeg,png|dimensions:min_height=200,ratio=4/1',
 					'links_to' => 'nullable|string|max:500',
 				]);
 				break;
@@ -111,6 +113,7 @@ class AdvertController extends Controller
 
 	/**
 	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 * @throws \Throwable
 	 */
 	public function store()
 	{
@@ -127,7 +130,6 @@ class AdvertController extends Controller
 					'image_path' =>
 						$this->request->file('image')->store('home_page_advert_images'),
 				]);
-				$advertable->save();
 				break;
 			default:
 				throw new BadRequestHttpException('invalid advert_type');
@@ -136,8 +138,13 @@ class AdvertController extends Controller
 		$advert                = new Advert();
 		$advert->active        = $data['active'] ?? false;
 		$advert->advertiser_id = Auth::user()->userable_id;
-		$advert->advertable()->associate($advertable);
-		$advert->save();
+
+		DB::transaction(function () use ($advert, $advertable)
+		{
+			$advertable->save();
+			$advert->advertable()->associate($advertable);
+			$advert->save();
+		});
 
 		if (ajax())
 			return response()->json(['success' => true, 'model' => $advert], 200);
@@ -149,15 +156,41 @@ class AdvertController extends Controller
 	 * @param Advert $advert
 	 *
 	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 * @throws \Throwable
 	 */
 	public function update(Advert $advert)
 	{
-		abort(500);
 		$this->authorize('edit', $advert);
 
-		$data = $this->request->validate(self::rules([]));
-		$advert->fill($data);
-		$advert->save();
+		$data = $this->request->validate(self::rules([], true));
+
+		switch ($this->request->has('advert_type') ? $this->request->advert_type : null)
+		{
+			case Advert::TYPE_HOMEPAGE:
+				/** @var HomePageAdvert $advertable */
+				$advertable = $advert->advertable;
+
+				$advertable->links_to = $data['links_to'];
+
+				if ($this->request->hasFile('image'))
+				{
+					$old_path = $advertable->image_path;
+
+					$advertable->image_path =
+						$this->request->file('image')->store('home_page_advert_images');
+					Storage::delete($old_path);
+				}
+
+				$advert->active = $data['active'] ?? false;
+				DB::transaction(function () use ($advert, $advertable)
+				{
+					$advertable->save();
+					$advert->save();
+				});
+				break;
+			default:
+				throw new BadRequestHttpException('invalid advert_type');
+		}
 
 		if (ajax())
 			return response()->json(['success' => true, 'model' => $advert], 200);

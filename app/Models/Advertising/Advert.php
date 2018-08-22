@@ -40,7 +40,7 @@ class Advert extends Model
 	 * @return int
 	 * @throws \Exception
 	 */
-	public function advertType()
+	public function type()
 	{
 		if($this->advertable instanceof HomePageAdvert)
 			return static::TYPE_HOMEPAGE;
