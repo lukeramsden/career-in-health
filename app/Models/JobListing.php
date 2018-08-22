@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class JobListing extends Model
 {
+	use \Watson\Rememberable\Rememberable;
+
     protected $with = ['address'];
 
     protected $guarded = ['_token', 'id', 'savingForLater'];
