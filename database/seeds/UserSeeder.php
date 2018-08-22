@@ -79,7 +79,7 @@ class UserSeeder extends Seeder
 				'email' => 'advertiser@karma.com',
 			]);
 
-		$userable = new \App\Advertiser([
+		$userable = new \App\Advertising\Advertiser([
 			'name' => 'Sponsor',
 		]);
 

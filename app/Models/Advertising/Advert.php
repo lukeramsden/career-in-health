@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\Storage;
 
 class Advert extends Model
 {
+	const TYPE_HOMEPAGE = 1;
+
 	protected $fillable = [];
+	protected $with = ['advertable'];
 
 	protected static function boot()
 	{
@@ -31,5 +34,17 @@ class Advert extends Model
 	public function advertiser()
 	{
 		return $this->belongsTo(Advertiser::class);
+	}
+
+	/**
+	 * @return int
+	 * @throws \Exception
+	 */
+	public function advertType()
+	{
+		if($this->advertable instanceof HomePageAdvert)
+			return static::TYPE_HOMEPAGE;
+
+		throw new \Exception('advertable not instanceof any known type');
 	}
 }

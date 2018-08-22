@@ -2,9 +2,10 @@
 
 namespace App\Policies;
 
-use App\Advert;
+use App\Advertising\Advert;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+
 
 class AdvertPolicy
 {

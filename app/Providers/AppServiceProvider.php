@@ -94,7 +94,7 @@ class AppServiceProvider extends ServiceProvider
 								return true;
 							break;
 						case 'advertiser':
-							if ($userable instanceof \App\Advertiser)
+							if ($userable instanceof \App\Advertising\Advertiser)
 								return true;
 							break;
 					}

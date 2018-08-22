@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Advertising;
 
 use App\Advertising\Advert;
 use App\Advertising\Advertiser;
+use App\Advertising\HomePageAdvert;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class AdvertController extends Controller
 {
@@ -30,7 +32,30 @@ class AdvertController extends Controller
 	 */
 	protected function rules($custom = [])
 	{
-		$rules = [];
+		$advertType = ($this->request->validate([
+			'advert_type' => [
+				'required|integer',
+				Rule::in([
+					Advert::TYPE_HOMEPAGE,
+				]),
+			],
+		]))['advert_type'];
+
+		$rules = [
+			'active' => 'boolean',
+		];
+
+		switch ($advertType)
+		{
+			case Advert::TYPE_HOMEPAGE:
+				$rules = array_merge($rules, [
+					'image'    => 'required|image|size:|max:2048|mimes:jpg,jpeg,png|min_height:270,ratio:24/9',
+					'links_to' => 'nullable|string|max:500',
+				]);
+				break;
+			default:
+				throw new BadRequestHttpException('invalid advert_type');
+		}
 
 		return array_merge($rules, $custom);
 	}
@@ -91,12 +116,25 @@ class AdvertController extends Controller
 
 		$data = $this->request->validate(self::rules([]));
 
+		switch ($this->request->has('advert_type') ? $this->request->advert_type : null)
+		{
+			case Advert::TYPE_HOMEPAGE:
+				($advertable = new HomePageAdvert([
+					'links_to'   =>
+						$data['links_to'],
+					'image_path' =>
+						$this->request->file('image')->store('home_page_advert_images'),
+				]))->save();
+				break;
+			default:
+				throw new BadRequestHttpException('invalid advert_type');
+		}
+
 		$advert                = new Advert($data);
 		$advert->active        = $data['active'] ?? false;
 		$advert->advertiser_id = Auth::user()->userable_id;
+		$advert->advertable()->associate($advertable);
 		$advert->save();
-
-		//
 
 		if (ajax())
 			return response()->json(['success' => true, 'model' => $advert], 200);
@@ -111,6 +149,7 @@ class AdvertController extends Controller
 	 */
 	public function update(Advert $advert)
 	{
+		abort(500);
 		$this->authorize('edit', $advert);
 
 		$data = $this->request->validate(self::rules([]));

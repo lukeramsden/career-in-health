@@ -38,7 +38,7 @@ class UserType
 							return $next($request);
 						break;
 					case 'advertiser':
-						if ($userable instanceof \App\Advertiser)
+						if ($userable instanceof \App\Advertising\Advertiser)
 							return $next($request);
 						break;
 					default:

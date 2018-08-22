@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Address;
-use App\Advert;
+use App\Advertising\Advert;
 use App\Company;
 use App\CompanyUser;
 use App\JobListing;
