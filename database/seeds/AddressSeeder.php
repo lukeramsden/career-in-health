@@ -11,7 +11,7 @@ class AddressSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Address::class, 5)
+        factory(\App\Address::class, 15)
 			->create([
 				'company_id' => 1,
 			]);

@@ -24,7 +24,8 @@ class AdvertRepository
 			$q->whereActive(true);
 		})->inRandomOrder()->first();
 
-		$advert->increment('stat_views');
+		if ($advert !== null)
+			$advert->increment('stat_views');
 		return $advert;
 	}
 

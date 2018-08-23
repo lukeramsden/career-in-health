@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 @section('content')
-    <div class="container-fluid sleek-form-parent">
+    <div class="container-fluid sleek-form-parent mt-5">
         <div class="card sleek-form">
             <div class="card-body">
                 <div class="form-row">
