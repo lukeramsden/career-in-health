@@ -3,11 +3,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12 mt-5">
-                <form>
+                <form action="{{ route('search') }}">
                     <div class="form-row">
                         <div class="col-12 col-md-5">
                             <label for="what-input" class="h1">what</label>
-                            <input id="what-input" class="form-control" list="what-list">
+                            <input id="what-input" name="what" class="form-control" list="what-list" required>
                             <datalist id="what-list">
                                 @foreach(\App\JobRole::all() as $job)
                                     <option>{{ $job->name }}</option>
@@ -17,12 +17,12 @@
                         <div class="col-12 col-md-5">
                             <div class="form-group">
                                 <label for="where-input" class="h1">where</label>
-                                <input id="where-input" class="form-control" list="where-list">
-                                <datalist id="where-list">
+                                <select id="where-input" name="where" class="custom-select" required>
+                                    <option selected disabled></option>
                                     @foreach (\App\Location::getAllLocations() as $loc)
-                                        <option>{{ $loc->name }}</option>
+                                        <option value='{{ $loc->id }}'>{{ $loc->name }}</option>
                                     @endforeach
-                                </datalist>
+                                </select>
                             </div>
                         </div>
                         <div class="col-12 col-md-2 d-flex align-items-end">
@@ -44,6 +44,8 @@
 @endsection
 @section('stylesheet')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+   
     <style>
         .awesomplete {
             display: block;
@@ -52,6 +54,7 @@
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
     
     <script>
         $(function () {
@@ -64,11 +67,9 @@
             });
 
             let $where = $('#where-input');
-            const whereDropdown = new Awesomplete('#where-input');
-
-            $where.on('awesomplete-selectcomplete', function (event) {
-                $where[0].dispatchEvent(new Event('input', {'bubbles': true}));
-                whereDropdown.close();
+            $where.select2({
+                dropdownAutoWidth: true,
+                width: '100%'
             });
         });
     </script>

@@ -169,6 +169,7 @@ return [
         Rukhsar\ActiveRoute\ActiveRouteServiceProvider::class,
         Radic\BladeExtensions\BladeExtensionsServiceProvider::class,
         Calebporzio\Onboard\OnboardServiceProvider::class,
+		TomLingham\Searchy\SearchyServiceProvider::class,
     ],
 
     /*
@@ -221,6 +222,7 @@ return [
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'Active' =>  Rukhsar\ActiveRoute\Facades\Active::class,
         'Onboard' => Calebporzio\Onboard\OnboardFacade::class,
+		'Searchy' => TomLingham\Searchy\Facades\Searchy::class,
     ],
 
     'faker_locale' => 'en_GB',

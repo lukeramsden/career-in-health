@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
+	use \Watson\Rememberable\Rememberable;
+
 	/**
 	 * Returns all locations that match type 'City' or 'Town'
 	 *
@@ -13,7 +15,8 @@ class Location extends Model
 	 */
 	public static function getAllLocations()
 	{
-		$locations = Location::select(['id', 'name', 'county'])
+		$locations = Location::remember(1440)
+							 ->select(['id', 'name', 'county'])
 							 ->whereIn('type', ['City', 'Town'])
 							 ->get();
 

@@ -2,16 +2,16 @@
 // @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700');
 
-$action:       #f9834e;
+$action: #f9834e;
 $dark-primary: #354968;
-$primary:      #455782;
-$golden:  	   #ffcf40;
+$primary: #455782;
+$golden: #ffcf40;
 
 $theme-colors: (
-  "primary":      $primary,
-  "dark-primary": $dark-primary,
-  "action":       $action,
-  "golden":       $golden,
+        "primary": $primary,
+        "dark-primary": $dark-primary,
+        "action": $action,
+        "golden": $golden,
 );
 
 // Bootstrap
@@ -472,6 +472,10 @@ $navbar-width: 240px;
     &-parent {
       margin-top: $spacer;
     }
+
+    .pagination {
+      //@extend .mx-auto;
+    }
   }
 
   &-form {
@@ -889,8 +893,8 @@ $slick-button-offset: 10px;
     img {
       width: 100% !important;
       height: 100% !important;
-     }
-   }
+    }
+  }
 
   .dz-progress {
     border-radius: 0 !important;
@@ -914,7 +918,7 @@ $slick-button-offset: 10px;
 
   .svg-logo-#{$color} {
     .cls-2, .cls-3 {
-        fill: $value !important;
+      fill: $value !important;
     }
   }
 }
