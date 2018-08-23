@@ -925,9 +925,14 @@ $slick-button-offset: 10px;
 
 .advert {
   .advert-homepage {
+    display: flex;
+    align-content: center;
+
     img {
-      width: 800px;
-      height: 200px;
+      max-width: 800px;
+      max-height: 200px;
+      @extend .mx-auto;
+      @extend .mb-4;
     }
   }
 }

@@ -9222,6 +9222,7 @@ button.bg-golden:focus {
 }
 
 .mb-4,
+.advert .advert-homepage img,
 .my-4 {
   margin-bottom: 1.5rem !important;
 }
@@ -9409,7 +9410,8 @@ button.bg-golden:focus {
 }
 
 .mr-auto,
-.mx-auto {
+.mx-auto,
+.advert .advert-homepage img {
   margin-right: auto !important;
 }
 
@@ -9419,7 +9421,8 @@ button.bg-golden:focus {
 }
 
 .ml-auto,
-.mx-auto {
+.mx-auto,
+.advert .advert-homepage img {
   margin-left: auto !important;
 }
 
@@ -16616,8 +16619,16 @@ body {
   fill: #ffcf40 !important;
 }
 
+.advert .advert-homepage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
 .advert .advert-homepage img {
-  width: 800px;
-  height: 200px;
+  max-width: 800px;
+  max-height: 200px;
 }
 

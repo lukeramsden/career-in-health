@@ -1,8 +1,17 @@
 @extends('layouts.frontend')
 @section('content')
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
-            <div class="col-12 mt-5">
+            @if(null !== ($advert = App\Repositories\AdvertRepository::homepage()))
+                <div class="col-12">
+                    <a class="advert" href="{{ route('tracking.advert.homepage.click', [$advert]) }}" target="_blank">
+                        <div class="advert-homepage">
+                            <img src="{{ Storage::url($advert->image_path) }}">
+                        </div>
+                    </a>
+                </div>
+            @endif
+            <div class="col-12">
                 <form action="{{ route('search') }}">
                     <div class="form-row">
                         <div class="col-12 col-md-5">

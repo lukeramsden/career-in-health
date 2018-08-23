@@ -196,17 +196,27 @@ Route::prefix('tracking')
 					  session()->flash('clickThrough', 'recommended');
 					  return redirect()->action('JobListingController@show', [$jobListing]);
 				  })->name('recommended.click');
+
+				  Route::any('/{job-listing}/click', 'TrackingController@advertClickThrough')
+					   ->name('click');
 			  });
 
-		 Route::any('/{job-listing}/click', 'TrackingController@advertClickThrough')->name('job-listing.click');
+		Route::prefix('advertising')
+			->name('advert.')
+			->group(function ()
+			{
+				Route::any('/homepage/{homePageAdvert}/click', 'TrackingController@homePageAdvertClick')->name('homepage.click');
+			});
 	 });
 
 Route::prefix('advertising')
 	 ->name('advertising.')
 	 ->group(function ()
 	 {
-		 Route::get('/registration/{advertiserInvite}/accept', 'Advertising\RegisterController@show')->name('accept-invite.show');
-		 Route::post('/registration/{advertiserInvite}/accept', 'Advertising\RegisterController@store')->name('accept-invite');
+		 Route::get('/registration/{advertiserInvite}/accept', 'Advertising\RegisterController@show')
+			  ->name('accept-invite.show');
+		 Route::post('/registration/{advertiserInvite}/accept', 'Advertising\RegisterController@store')
+			  ->name('accept-invite');
 
 		 Route::get('/create', 'Advertising\AdvertController@create')->name('create');
 		 Route::post('/create', 'Advertising\AdvertController@store')->name('store');

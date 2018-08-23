@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Advert;
+use App\Advertising\HomePageAdvert;
 use Illuminate\Http\Request;
 
 class TrackingController extends Controller
@@ -20,11 +20,11 @@ class TrackingController extends Controller
     }
 
 	/**
-	 * @param Advert $advert
+	 * @param HomePageAdvert $homePageAdvert
 	 */
-	public function advertClickThrough(Advert $advert)
+	public function homePageAdvertClick(HomePageAdvert $homePageAdvert)
 	{
-		$advert->increment('stat_clicks');
-		return redirect($advert->links_to);
+		$homePageAdvert->increment('stat_clicks');
+		return redirect($homePageAdvert->links_to);
 	}
 }
