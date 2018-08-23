@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('base_content')
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <a class="navbar-brand" href="{{ route('home') }}">
             <img src="/images/cih-logo.svg" height="40" alt="Career In Health Logo">
         </a>

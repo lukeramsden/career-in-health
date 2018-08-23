@@ -1,7 +1,7 @@
 @extends('layouts.frontend')
 @section('content')
-    <div class="container h-100">
-        <div class="row h-100 justify-content-center align-items-center">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
             <div class="col-12">
                 <div class="card-deck">
                     <div class="card card-custom">
