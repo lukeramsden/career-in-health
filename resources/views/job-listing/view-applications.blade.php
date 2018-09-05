@@ -82,17 +82,6 @@
         </div>
     </div>
 @endsection
-@section('stylesheet')
-    <style>
-        .highlight {
-            border: 3px solid #455782 !important;
-            outline: 0;
-            -webkit-box-shadow: 0px 0px 67px -18px rgba(0,0,0,0.47);
-            -moz-box-shadow: 0px 0px 67px -18px rgba(0,0,0,0.47);
-            box-shadow: 0px 0px 67px -18px rgba(0,0,0,0.47);
-        }
-    </style>
-@endsection
 @section('script')
     <script>
         $(function() {

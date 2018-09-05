@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\JobListing;
+use App\CompanyUser;
 use App\Employee;
+use App\JobListing;
 use App\PrivateMessage;
-use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +21,7 @@ class PrivateMessageController extends Controller
 
 		$this->middleware('auth');
 		$this->middleware('must-onboard');
-		$this->middleware('can:sendMessages,'.PrivateMessage::class);
+		$this->middleware('can:sendMessages,' . PrivateMessage::class);
 		$this->middleware('can:changeReadStatus,privateMessage')->only('markAsRead', 'markAsUnread');
 		$this->middleware('user-type:employee')->only('showForJobListing');
 		$this->middleware('user-type:company')->only('showForJobListingAndEmployee');
@@ -42,10 +42,11 @@ class PrivateMessageController extends Controller
 	 */
 	public function index()
 	{
-		$user = Auth::user();
+		$user     = Auth::user();
 		$userable = $user->userable;
 
-		if($user->isEmployee()) {
+		if ($user->isEmployee())
+		{
 			$messages = PrivateMessage
 				::with('company', 'job_listing.address', 'job_listing.address.location')
 				->findMany(
@@ -57,7 +58,9 @@ class PrivateMessageController extends Controller
 						->get()
 						->pluck('id')
 				)->reverse();
-		} elseif ($user->isValidCompany()) {
+		}
+		elseif ($user->isValidCompany())
+		{
 			$messages = PrivateMessage
 				::with('job_listing.address', 'job_listing.address.location', 'employee', 'employee.location')
 				->findMany(
@@ -72,10 +75,10 @@ class PrivateMessageController extends Controller
 		}
 
 		$messages = collect($messages);
-		$result = view('account.private-message.index');
-		if($messages->count() > 0)
+		$result   = view('account.private-message.index');
+		if ($messages->count() > 0)
 		{
-			$perPage = 10;
+			$perPage     = 10;
 			$currentPage = $this->request->query('page', 1);
 
 			$paginator = new LengthAwarePaginator(
@@ -87,10 +90,10 @@ class PrivateMessageController extends Controller
 				$messages->count(),
 				$perPage,
 				$currentPage,
-    			[ 'path' => '/'.$this->request->path() ]
+				['path' => '/' . $this->request->path()]
 			);
 			$result->with([
-				'messages' => $paginator
+				'messages' => $paginator,
 			]);
 		}
 
@@ -116,8 +119,8 @@ class PrivateMessageController extends Controller
 
 		return view('account.private-message.show')
 			->with([
-				'messages' => $messages->get(),
-				'jobListing'   => $jobListing,
+				'messages'   => $messages->get(),
+				'jobListing' => $jobListing,
 			]);
 	}
 
@@ -137,14 +140,27 @@ class PrivateMessageController extends Controller
 
 		return view('account.private-message.show')
 			->with([
-				'messages' => $messages->get(),
-				'jobListing'   => $jobListing,
-				'employee' => $employee,
+				'messages'   => $messages->get(),
+				'jobListing' => $jobListing,
+				'employee'   => $employee,
 			]);
 	}
 
 	public function store()
 	{
+
+		/**
+		 * CURRENT ISSUES
+		 * --------------
+		 *
+		 * 1. Notification actions seem to be wrong when receiver is an employee
+		 * 2. Message direction doesn't seem to work properly
+		 * 3. Clicking a notification doesn't mark it as read
+		 * 4. No way for users to opt out of email notifications
+		 * 5. It's broke as owt
+		 *
+		 */
+
 		$data = $this->request->validate(self::rules());
 
 		$message = new PrivateMessage();
@@ -152,13 +168,13 @@ class PrivateMessageController extends Controller
 		$user     = Auth::user();
 		$userable = $user->userable;
 
-		if (isset($data['to_employee_id']))
+		if (isset($data['to_employee_id']) && $userable instanceof CompanyUser)
 		{
 			$message->direction   = 'to_employee';
 			$message->employee_id = $data['to_employee_id'];
 			$message->company_id  = $userable->company_id;
 		}
-		elseif (isset($data['to_company_id']))
+		elseif (isset($data['to_company_id']) && $userable instanceof Employee)
 		{
 			$message->direction   = 'to_company';
 			$message->company_id  = $data['to_company_id'];
@@ -168,6 +184,21 @@ class PrivateMessageController extends Controller
 
 		$message->fill($data);
 		$message->save();
+
+		if ($userable instanceof CompanyUser)
+		{
+			$message->employee->user->notify(new \App\Notifications\ReceivedPrivateMessage($message));
+		}
+		elseif ($userable instanceof Employee)
+		{
+			\Notification::send(
+				$message
+					->receiver()
+					->users
+					->map(returns('user')),
+				new \App\Notifications\ReceivedPrivateMessage($message)
+			);
+		}
 
 		if (ajax())
 			return response()->json(['success' => true, 'model' => $message], 200);

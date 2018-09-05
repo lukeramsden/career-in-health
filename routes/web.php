@@ -94,7 +94,7 @@ Route::prefix('employee')
 
 		 Route::any('/next-onboard-step', function ()
 		 {
-		 	return redirect(Auth::user()->onboarding()->nextUnfinishedStep()->link);
+			 return redirect(Auth::user()->onboarding()->nextUnfinishedStep()->link);
 		 })->name('next-onboard-step');
 	 });
 
@@ -210,12 +210,13 @@ Route::prefix('tracking')
 					   ->name('click');
 			  });
 
-		Route::prefix('advertising')
-			->name('advert.')
-			->group(function ()
-			{
-				Route::any('/homepage/{homePageAdvert}/click', 'TrackingController@homePageAdvertClick')->name('homepage.click');
-			});
+		 Route::prefix('advertising')
+			  ->name('advert.')
+			  ->group(function ()
+			  {
+				  Route::any('/homepage/{homePageAdvert}/click', 'TrackingController@homePageAdvertClick')
+					   ->name('homepage.click');
+			  });
 	 });
 
 Route::prefix('advertising')
@@ -260,4 +261,13 @@ Route::prefix('admin')
 				  Route::any('{advertiser}/deactivate', 'Admin\AdvertiserManagementController@deactivateUser')
 					   ->name('deactivate-user');
 			  });
+	 });
+
+Route::prefix('notifications')
+	 ->name('notifications.')
+	 ->group(function ()
+	 {
+		 Route::get('/all', 'NotificationController@index')->name('index');
+		 Route::any('/all/mark/read', 'NotificationController@markAllAsRead')->name('mark-all-as-read');
+		 Route::any('/all/mark/unread', 'NotificationController@markAllAsUnread')->name('mark-all-as-unread');
 	 });

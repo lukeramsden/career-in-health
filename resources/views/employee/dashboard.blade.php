@@ -1,19 +1,19 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container-fluid mt-lg-4">
-        <div class="grid">
-            @include('employee._dash-collection', ['items' => $items])
-        </div>
-        @if($items->hasPages())
-            <div class="row">
-                <div class="col"></div>
-                <div class="col-auto">
-                    <button class="btn btn-action px-5 my-5 load-more" onclick="loadMore()">Load More</button>
-                </div>
-                <div class="col"></div>
-            </div>
-        @endif
-    </div>
+    {{--<div class="container-fluid mt-lg-4">--}}
+        {{--<div class="grid">--}}
+            {{--@include('employee._dash-collection', ['items' => $items])--}}
+        {{--</div>--}}
+        {{--@if($items->hasPages())--}}
+            {{--<div class="row">--}}
+                {{--<div class="col"></div>--}}
+                {{--<div class="col-auto">--}}
+                    {{--<button class="btn btn-action px-5 my-5 load-more" onclick="loadMore()">Load More</button>--}}
+                {{--</div>--}}
+                {{--<div class="col"></div>--}}
+            {{--</div>--}}
+        {{--@endif--}}
+    {{--</div>--}}
 @endsection
 @section('script')
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>

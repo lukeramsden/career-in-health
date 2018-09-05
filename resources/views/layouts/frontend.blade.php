@@ -18,12 +18,19 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item {{ active_route('login') }}">
-                    <a href="{{ route('login') }}" class="nav-link">Log In</a>
-                </li>
-                <li class="nav-item {{ active_route('register') }}">
-                    <a href="{{ route('register') }}" class="nav-link">Register</a>
-                </li>
+                @guest
+                    <li class="nav-item {{ active_route('login') }}">
+                        <a href="{{ route('login') }}" class="nav-link">Log In</a>
+                    </li>
+                    <li class="nav-item {{ active_route('register') }}">
+                        <a href="{{ route('register') }}" class="nav-link">Register</a>
+                    </li>
+                @endguest
+                @auth
+                    <li class="nav-item {{ active_route('dashboard') }}">
+                        <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
+                    </li>
+                @endauth
             </ul>
         </div>
     </nav>

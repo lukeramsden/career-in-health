@@ -60,6 +60,22 @@ class PrivateMessage extends Model
 		return false;
 	}
 
+	/**
+	 * @return Company|Employee
+	 */
+	public function sender()
+	{
+		return $this->direction === 'to_employee' ? $this->company : $this->employee;
+	}
+
+	/**
+	 * @return Company|Employee
+	 */
+	public function receiver()
+	{
+		return $this->direction === 'to_company' ? $this->company : $this->employee;
+	}
+
 	public function markAsRead()
 	{
 		if ($this->read) return;

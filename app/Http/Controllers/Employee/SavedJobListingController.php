@@ -48,7 +48,7 @@ class SavedJobListingController extends Controller
 		$employee->saveJobListing($jobListing);
 
 		if(ajax())
-			return response()->json(['success' => true], 201);
+			return response()->json(['success' => true], 200);
 
 		toast()->success('Listing added to your saved list');
 		return back();
@@ -61,7 +61,7 @@ class SavedJobListingController extends Controller
 		$employee->unsaveJobListing($jobListing);
 
 		if(ajax())
-			return response()->json(['success' => true], 201);
+			return response()->json(['success' => true], 200);
 
 		toast()->success('Listing removed from your saved list');
 		return back();

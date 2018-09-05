@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('base_content')
     {{-- side nav --}}
-    <div id="navbar" class="d-none d-lg-block">
+    <div id="navbar">
         @auth
             @usertype('admin')
                 <img class="logo svg-inline svg-logo-danger" src="/images/cih-logo.svg" alt="logo">
@@ -18,7 +18,7 @@
         @guest
             <img class="logo" src="/images/cih-logo.svg" alt="logo">
         @endguest
-        <div id="nav-inner">
+        <div id="navbar-inner">
             <nav class="nav flex-column">
                 @guest
                     <a class="nav-link {{ active_route('home') }}" href="{{ route('home') }}">Home</a>
@@ -181,6 +181,14 @@
                             </a>
                         @endcan
         
+                        <a href="javascript:toggleNotificationDrawer()"
+                           class="nav-link"
+                           id="navbar-notification-toggle">Notifications
+                            @if(($unread_notif_count = Auth::user()->unreadNotifications()->count()) > 0)
+                                <span class="badge badge-danger" id="navbar-notification-unread-badge">{{ $unread_notif_count }}</span>
+                            @endif
+                        </a>
+                    
                         <li class="nav-item dropright {{ active_route('account.manage.*') }}">
                             <a class="nav-link dropdown-toggle"
                                href="javascript:"
@@ -200,6 +208,23 @@
                         @endonboarding
                     @endauth
             </nav>
+        </div>
+        <div id="navbar-notification-panel" class="">
+            <div class="btn-group-vertical btn-group-full">
+                <a class="view-all-notifications" href="{{ route('notifications.index') }}">View All</a>
+                <button class="mark-as-read">Mark All As Read</button>
+            </div>
+            @foreach(Auth::user()->notifications()->orderByRaw('-read_at ASC')->take(10)->get() as $notif)
+                @switch($notif->type)
+                    @case(\App\Notifications\ReceivedPrivateMessage::class)
+                        <a href="{{ $notif->data['action'] }}" class="link-unstyled">
+                            <div class="notification {{$notif->unread()?'unread':''}}">
+                                {{ str_limit($notif->data['body'], 30) }}
+                            </div>
+                        </a>
+                        @break;
+                @endswitch
+            @endforeach
         </div>
     </div>
     {{-- mobile nav --}}
@@ -374,5 +399,36 @@
 @endsection
 @section('base_script')
     @routes
+    <script>
+        function toggleNotificationDrawer()
+        {
+            $('#navbar-notification-panel').toggleClass('open');
+            $('#navbar-notification-toggle').toggleClass('active');
+        }
+        
+        $(function() {
+           $('#navbar-notification-panel .mark-as-read').click(function() {
+               var self = $(this);
+               self.prop('disabled', true);
+
+               axios
+                   .post('{{ route('notifications.mark-all-as-read') }}')
+                   .then(function (resp) {
+                       if (resp.data.success)
+                       {
+                           $('.notification').removeClass('unread');
+                           $('#navbar-notification-unread-badge').remove();
+                       }
+                   })
+                   .catch(function (e) {
+                       console.log(e);
+                       toastr.error('Could not mark messages as read');
+                   })
+                   .then(function () {
+                       self.prop('disabled', false);
+                   })
+           })
+        });
+    </script>
     @yield('script')
 @endsection

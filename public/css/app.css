@@ -2418,7 +2418,15 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .input-group-prepend > .form-control-plaintext.input-group-text,
 .input-group-sm > .input-group-append > .form-control-plaintext.input-group-text,
 .input-group-sm > .input-group-prepend > .form-control-plaintext.btn,
+#navbar-notification-panel
+.input-group-sm > .input-group-prepend > .form-control-plaintext.view-all-notifications,
+#navbar-notification-panel
+.input-group-sm > .input-group-prepend > .form-control-plaintext.mark-as-read,
 .input-group-sm > .input-group-append > .form-control-plaintext.btn,
+#navbar-notification-panel
+.input-group-sm > .input-group-append > .form-control-plaintext.view-all-notifications,
+#navbar-notification-panel
+.input-group-sm > .input-group-append > .form-control-plaintext.mark-as-read,
 .form-control-plaintext.form-control-lg,
 .input-group-lg > .form-control-plaintext.form-control,
 #jobListings_wrapper .input-group-lg > input.form-control-plaintext,
@@ -2428,7 +2436,15 @@ select.form-control:focus::-ms-value {
 .input-group-lg > .input-group-prepend > .form-control-plaintext.input-group-text,
 .input-group-lg > .input-group-append > .form-control-plaintext.input-group-text,
 .input-group-lg > .input-group-prepend > .form-control-plaintext.btn,
-.input-group-lg > .input-group-append > .form-control-plaintext.btn {
+#navbar-notification-panel
+.input-group-lg > .input-group-prepend > .form-control-plaintext.view-all-notifications,
+#navbar-notification-panel
+.input-group-lg > .input-group-prepend > .form-control-plaintext.mark-as-read,
+.input-group-lg > .input-group-append > .form-control-plaintext.btn,
+#navbar-notification-panel
+.input-group-lg > .input-group-append > .form-control-plaintext.view-all-notifications,
+#navbar-notification-panel
+.input-group-lg > .input-group-append > .form-control-plaintext.mark-as-read {
   padding-right: 0;
   padding-left: 0;
 }
@@ -2442,7 +2458,15 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .input-group-prepend > .input-group-text,
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,
-.input-group-sm > .input-group-append > .btn {
+#navbar-notification-panel
+.input-group-sm > .input-group-prepend > .view-all-notifications,
+#navbar-notification-panel
+.input-group-sm > .input-group-prepend > .mark-as-read,
+.input-group-sm > .input-group-append > .btn,
+#navbar-notification-panel
+.input-group-sm > .input-group-append > .view-all-notifications,
+#navbar-notification-panel
+.input-group-sm > .input-group-append > .mark-as-read {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -2454,7 +2478,15 @@ select.form-control-sm:not([size]):not([multiple]),
 .input-group-sm > .input-group-prepend > select.input-group-text:not([size]):not([multiple]),
 .input-group-sm > .input-group-append > select.input-group-text:not([size]):not([multiple]),
 .input-group-sm > .input-group-prepend > select.btn:not([size]):not([multiple]),
-.input-group-sm > .input-group-append > select.btn:not([size]):not([multiple]) {
+#navbar-notification-panel
+.input-group-sm > .input-group-prepend > select.view-all-notifications:not([size]):not([multiple]),
+#navbar-notification-panel
+.input-group-sm > .input-group-prepend > select.mark-as-read:not([size]):not([multiple]),
+.input-group-sm > .input-group-append > select.btn:not([size]):not([multiple]),
+#navbar-notification-panel
+.input-group-sm > .input-group-append > select.view-all-notifications:not([size]):not([multiple]),
+#navbar-notification-panel
+.input-group-sm > .input-group-append > select.mark-as-read:not([size]):not([multiple]) {
   height: calc(1.8125rem + 2px);
 }
 
@@ -2467,7 +2499,15 @@ select.form-control-sm:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > .input-group-text,
 .input-group-lg > .input-group-append > .input-group-text,
 .input-group-lg > .input-group-prepend > .btn,
-.input-group-lg > .input-group-append > .btn {
+#navbar-notification-panel
+.input-group-lg > .input-group-prepend > .view-all-notifications,
+#navbar-notification-panel
+.input-group-lg > .input-group-prepend > .mark-as-read,
+.input-group-lg > .input-group-append > .btn,
+#navbar-notification-panel
+.input-group-lg > .input-group-append > .view-all-notifications,
+#navbar-notification-panel
+.input-group-lg > .input-group-append > .mark-as-read {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
@@ -2479,7 +2519,15 @@ select.form-control-lg:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > select.input-group-text:not([size]):not([multiple]),
 .input-group-lg > .input-group-append > select.input-group-text:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > select.btn:not([size]):not([multiple]),
-.input-group-lg > .input-group-append > select.btn:not([size]):not([multiple]) {
+#navbar-notification-panel
+.input-group-lg > .input-group-prepend > select.view-all-notifications:not([size]):not([multiple]),
+#navbar-notification-panel
+.input-group-lg > .input-group-prepend > select.mark-as-read:not([size]):not([multiple]),
+.input-group-lg > .input-group-append > select.btn:not([size]):not([multiple]),
+#navbar-notification-panel
+.input-group-lg > .input-group-append > select.view-all-notifications:not([size]):not([multiple]),
+#navbar-notification-panel
+.input-group-lg > .input-group-append > select.mark-as-read:not([size]):not([multiple]) {
   height: calc(2.875rem + 2px);
 }
 
@@ -3144,7 +3192,9 @@ select.form-control-lg:not([size]):not([multiple]),
   }
 }
 
-.btn {
+.btn,
+#navbar-notification-panel .view-all-notifications,
+#navbar-notification-panel .mark-as-read {
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -3166,112 +3216,166 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 .btn:hover,
-.btn:focus {
+#navbar-notification-panel .view-all-notifications:hover,
+#navbar-notification-panel .mark-as-read:hover,
+.btn:focus,
+#navbar-notification-panel .view-all-notifications:focus,
+#navbar-notification-panel .mark-as-read:focus {
   text-decoration: none;
 }
 
 .btn:focus,
-.btn.focus {
+#navbar-notification-panel .view-all-notifications:focus,
+#navbar-notification-panel .mark-as-read:focus,
+.btn.focus,
+#navbar-notification-panel .focus.view-all-notifications,
+#navbar-notification-panel .focus.mark-as-read {
   outline: 0;
   -webkit-box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.25);
           box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.25);
 }
 
 .btn.disabled,
-.btn:disabled {
+#navbar-notification-panel .disabled.view-all-notifications,
+#navbar-notification-panel .disabled.mark-as-read,
+.btn:disabled,
+#navbar-notification-panel .view-all-notifications:disabled,
+#navbar-notification-panel .mark-as-read:disabled {
   opacity: 0.65;
 }
 
-.btn:not(:disabled):not(.disabled) {
+.btn:not(:disabled):not(.disabled),
+#navbar-notification-panel .view-all-notifications:not(:disabled):not(.disabled),
+#navbar-notification-panel .mark-as-read:not(:disabled):not(.disabled) {
   cursor: pointer;
 }
 
 .btn:not(:disabled):not(.disabled):active,
-.btn:not(:disabled):not(.disabled).active {
+#navbar-notification-panel .view-all-notifications:not(:disabled):not(.disabled):active,
+#navbar-notification-panel .mark-as-read:not(:disabled):not(.disabled):active,
+.btn:not(:disabled):not(.disabled).active,
+#navbar-notification-panel .view-all-notifications:not(:disabled):not(.disabled).active,
+#navbar-notification-panel .mark-as-read:not(:disabled):not(.disabled).active {
   background-image: none;
 }
 
 a.btn.disabled,
-fieldset:disabled a.btn {
+#navbar-notification-panel a.disabled.view-all-notifications,
+#navbar-notification-panel a.disabled.mark-as-read,
+fieldset:disabled a.btn,
+fieldset:disabled #navbar-notification-panel a.view-all-notifications,
+#navbar-notification-panel
+fieldset:disabled a.view-all-notifications,
+fieldset:disabled #navbar-notification-panel a.mark-as-read,
+#navbar-notification-panel
+fieldset:disabled a.mark-as-read {
   pointer-events: none;
 }
 
-.btn-primary {
+.btn-primary,
+#navbar-notification-panel .view-all-notifications {
   color: #fff;
   background-color: #455782;
   border-color: #455782;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+#navbar-notification-panel .view-all-notifications:hover {
   color: #fff;
   background-color: #384669;
   border-color: #334161;
 }
 
 .btn-primary:focus,
-.btn-primary.focus {
+#navbar-notification-panel .view-all-notifications:focus,
+.btn-primary.focus,
+#navbar-notification-panel .focus.view-all-notifications {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.5);
 }
 
 .btn-primary.disabled,
-.btn-primary:disabled {
+#navbar-notification-panel .disabled.view-all-notifications,
+.btn-primary:disabled,
+#navbar-notification-panel .view-all-notifications:disabled {
   color: #fff;
   background-color: #455782;
   border-color: #455782;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active,
+#navbar-notification-panel .view-all-notifications:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
-.show > .btn-primary.dropdown-toggle {
+#navbar-notification-panel .view-all-notifications:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle,
+#navbar-notification-panel
+.show > .dropdown-toggle.view-all-notifications {
   color: #fff;
   background-color: #334161;
   border-color: #2f3b58;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus,
+#navbar-notification-panel .view-all-notifications:not(:disabled):not(.disabled):active:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus,
-.show > .btn-primary.dropdown-toggle:focus {
+#navbar-notification-panel .view-all-notifications:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus,
+#navbar-notification-panel
+.show > .dropdown-toggle.view-all-notifications:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.5);
 }
 
-.btn-secondary {
+.btn-secondary,
+#navbar-notification-panel .mark-as-read {
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover,
+#navbar-notification-panel .mark-as-read:hover {
   color: #fff;
   background-color: #5a6268;
   border-color: #545b62;
 }
 
 .btn-secondary:focus,
-.btn-secondary.focus {
+#navbar-notification-panel .mark-as-read:focus,
+.btn-secondary.focus,
+#navbar-notification-panel .focus.mark-as-read {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
 }
 
 .btn-secondary.disabled,
-.btn-secondary:disabled {
+#navbar-notification-panel .disabled.mark-as-read,
+.btn-secondary:disabled,
+#navbar-notification-panel .mark-as-read:disabled {
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
 }
 
 .btn-secondary:not(:disabled):not(.disabled):active,
+#navbar-notification-panel .mark-as-read:not(:disabled):not(.disabled):active,
 .btn-secondary:not(:disabled):not(.disabled).active,
-.show > .btn-secondary.dropdown-toggle {
+#navbar-notification-panel .mark-as-read:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle,
+#navbar-notification-panel
+.show > .dropdown-toggle.mark-as-read {
   color: #fff;
   background-color: #545b62;
   border-color: #4e555b;
 }
 
 .btn-secondary:not(:disabled):not(.disabled):active:focus,
+#navbar-notification-panel .mark-as-read:not(:disabled):not(.disabled):active:focus,
 .btn-secondary:not(:disabled):not(.disabled).active:focus,
-.show > .btn-secondary.dropdown-toggle:focus {
+#navbar-notification-panel .mark-as-read:not(:disabled):not(.disabled).active:focus,
+.show > .btn-secondary.dropdown-toggle:focus,
+#navbar-notification-panel
+.show > .dropdown-toggle.mark-as-read:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
 }
@@ -4103,7 +4207,9 @@ fieldset:disabled a.btn {
 }
 
 .btn-lg,
-.btn-group-lg > .btn {
+.btn-group-lg > .btn,
+#navbar-notification-panel .btn-group-lg > .view-all-notifications,
+#navbar-notification-panel .btn-group-lg > .mark-as-read {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
@@ -4111,25 +4217,43 @@ fieldset:disabled a.btn {
 }
 
 .btn-sm,
-.btn-group-sm > .btn {
+.btn-group-sm > .btn,
+#navbar-notification-panel .btn-group-sm > .view-all-notifications,
+#navbar-notification-panel .mark-as-read {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.2rem;
 }
 
-.btn-block {
+.btn-block,
+#navbar-notification-panel .view-all-notifications,
+#navbar-notification-panel .mark-as-read {
   display: block;
   width: 100%;
 }
 
-.btn-block + .btn-block {
+.btn-block + .btn-block,
+#navbar-notification-panel .view-all-notifications + .btn-block,
+#navbar-notification-panel .mark-as-read + .btn-block,
+#navbar-notification-panel .btn-block + .view-all-notifications,
+#navbar-notification-panel .view-all-notifications + .view-all-notifications,
+#navbar-notification-panel .mark-as-read + .view-all-notifications,
+#navbar-notification-panel .btn-block + .mark-as-read,
+#navbar-notification-panel .view-all-notifications + .mark-as-read,
+#navbar-notification-panel .mark-as-read + .mark-as-read {
   margin-top: 0.5rem;
 }
 
 input[type="submit"].btn-block,
+#navbar-notification-panel input[type="submit"].view-all-notifications,
+#navbar-notification-panel input[type="submit"].mark-as-read,
 input[type="reset"].btn-block,
-input[type="button"].btn-block {
+#navbar-notification-panel input[type="reset"].view-all-notifications,
+#navbar-notification-panel input[type="reset"].mark-as-read,
+input[type="button"].btn-block,
+#navbar-notification-panel input[type="button"].view-all-notifications,
+#navbar-notification-panel input[type="button"].mark-as-read {
   width: 100%;
 }
 
@@ -4357,7 +4481,13 @@ tbody.collapse.show {
 }
 
 .btn-group > .btn,
-.btn-group-vertical > .btn {
+#navbar-notification-panel .btn-group > .view-all-notifications,
+#navbar-notification-panel .btn-group > .mark-as-read,
+.btn-group-vertical > .btn,
+#navbar-notification-panel
+.btn-group-vertical > .view-all-notifications,
+#navbar-notification-panel
+.btn-group-vertical > .mark-as-read {
   position: relative;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 auto;
@@ -4365,26 +4495,114 @@ tbody.collapse.show {
 }
 
 .btn-group > .btn:hover,
-.btn-group-vertical > .btn:hover {
+#navbar-notification-panel .btn-group > .view-all-notifications:hover,
+#navbar-notification-panel .btn-group > .mark-as-read:hover,
+.btn-group-vertical > .btn:hover,
+#navbar-notification-panel
+.btn-group-vertical > .view-all-notifications:hover,
+#navbar-notification-panel
+.btn-group-vertical > .mark-as-read:hover {
   z-index: 1;
 }
 
 .btn-group > .btn:focus,
+#navbar-notification-panel .btn-group > .view-all-notifications:focus,
+#navbar-notification-panel .btn-group > .mark-as-read:focus,
 .btn-group > .btn:active,
+#navbar-notification-panel .btn-group > .view-all-notifications:active,
+#navbar-notification-panel .btn-group > .mark-as-read:active,
 .btn-group > .btn.active,
+#navbar-notification-panel .btn-group > .active.view-all-notifications,
+#navbar-notification-panel .btn-group > .active.mark-as-read,
 .btn-group-vertical > .btn:focus,
+#navbar-notification-panel
+.btn-group-vertical > .view-all-notifications:focus,
+#navbar-notification-panel
+.btn-group-vertical > .mark-as-read:focus,
 .btn-group-vertical > .btn:active,
-.btn-group-vertical > .btn.active {
+#navbar-notification-panel
+.btn-group-vertical > .view-all-notifications:active,
+#navbar-notification-panel
+.btn-group-vertical > .mark-as-read:active,
+.btn-group-vertical > .btn.active,
+#navbar-notification-panel
+.btn-group-vertical > .active.view-all-notifications,
+#navbar-notification-panel
+.btn-group-vertical > .active.mark-as-read {
   z-index: 1;
 }
 
 .btn-group .btn + .btn,
+.btn-group #navbar-notification-panel .view-all-notifications + .btn,
+#navbar-notification-panel .btn-group .view-all-notifications + .btn,
+.btn-group #navbar-notification-panel .mark-as-read + .btn,
+#navbar-notification-panel .btn-group .mark-as-read + .btn,
+.btn-group #navbar-notification-panel .btn + .view-all-notifications,
+#navbar-notification-panel .btn-group .btn + .view-all-notifications,
+.btn-group #navbar-notification-panel .view-all-notifications + .view-all-notifications,
+#navbar-notification-panel .btn-group .view-all-notifications + .view-all-notifications,
+.btn-group #navbar-notification-panel .mark-as-read + .view-all-notifications,
+#navbar-notification-panel .btn-group .mark-as-read + .view-all-notifications,
+.btn-group #navbar-notification-panel .btn + .mark-as-read,
+#navbar-notification-panel .btn-group .btn + .mark-as-read,
+.btn-group #navbar-notification-panel .view-all-notifications + .mark-as-read,
+#navbar-notification-panel .btn-group .view-all-notifications + .mark-as-read,
+.btn-group #navbar-notification-panel .mark-as-read + .mark-as-read,
+#navbar-notification-panel .btn-group .mark-as-read + .mark-as-read,
 .btn-group .btn + .btn-group,
+.btn-group #navbar-notification-panel .view-all-notifications + .btn-group,
+#navbar-notification-panel
+.btn-group .view-all-notifications + .btn-group,
+.btn-group #navbar-notification-panel .mark-as-read + .btn-group,
+#navbar-notification-panel
+.btn-group .mark-as-read + .btn-group,
 .btn-group .btn-group + .btn,
+.btn-group #navbar-notification-panel .btn-group + .view-all-notifications,
+#navbar-notification-panel
+.btn-group .btn-group + .view-all-notifications,
+.btn-group #navbar-notification-panel .btn-group + .mark-as-read,
+#navbar-notification-panel
+.btn-group .btn-group + .mark-as-read,
 .btn-group .btn-group + .btn-group,
 .btn-group-vertical .btn + .btn,
+.btn-group-vertical #navbar-notification-panel .view-all-notifications + .btn,
+#navbar-notification-panel
+.btn-group-vertical .view-all-notifications + .btn,
+.btn-group-vertical #navbar-notification-panel .mark-as-read + .btn,
+#navbar-notification-panel
+.btn-group-vertical .mark-as-read + .btn,
+.btn-group-vertical #navbar-notification-panel .btn + .view-all-notifications,
+#navbar-notification-panel
+.btn-group-vertical .btn + .view-all-notifications,
+.btn-group-vertical #navbar-notification-panel .view-all-notifications + .view-all-notifications,
+#navbar-notification-panel
+.btn-group-vertical .view-all-notifications + .view-all-notifications,
+.btn-group-vertical #navbar-notification-panel .mark-as-read + .view-all-notifications,
+#navbar-notification-panel
+.btn-group-vertical .mark-as-read + .view-all-notifications,
+.btn-group-vertical #navbar-notification-panel .btn + .mark-as-read,
+#navbar-notification-panel
+.btn-group-vertical .btn + .mark-as-read,
+.btn-group-vertical #navbar-notification-panel .view-all-notifications + .mark-as-read,
+#navbar-notification-panel
+.btn-group-vertical .view-all-notifications + .mark-as-read,
+.btn-group-vertical #navbar-notification-panel .mark-as-read + .mark-as-read,
+#navbar-notification-panel
+.btn-group-vertical .mark-as-read + .mark-as-read,
 .btn-group-vertical .btn + .btn-group,
+.btn-group-vertical #navbar-notification-panel .view-all-notifications + .btn-group,
+#navbar-notification-panel
+.btn-group-vertical .view-all-notifications + .btn-group,
+.btn-group-vertical #navbar-notification-panel .mark-as-read + .btn-group,
+#navbar-notification-panel
+.btn-group-vertical .mark-as-read + .btn-group,
 .btn-group-vertical .btn-group + .btn,
+.btn-group-vertical #navbar-notification-panel .btn-group + .view-all-notifications,
+#navbar-notification-panel
+.btn-group-vertical .btn-group + .view-all-notifications,
+.btn-group-vertical #navbar-notification-panel .btn-group + .mark-as-read,
+#navbar-notification-panel
+.btn-group-vertical .btn-group + .mark-as-read,
 .btn-group-vertical .btn-group + .btn-group {
   margin-left: -1px;
 }
@@ -4404,18 +4622,32 @@ tbody.collapse.show {
   width: auto;
 }
 
-.btn-group > .btn:first-child {
+.btn-group > .btn:first-child,
+#navbar-notification-panel .btn-group > .view-all-notifications:first-child,
+#navbar-notification-panel .btn-group > .mark-as-read:first-child {
   margin-left: 0;
 }
 
 .btn-group > .btn:not(:last-child):not(.dropdown-toggle),
-.btn-group > .btn-group:not(:last-child) > .btn {
+#navbar-notification-panel .btn-group > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
+#navbar-notification-panel .btn-group > .mark-as-read:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn-group:not(:last-child) > .btn,
+#navbar-notification-panel
+.btn-group > .btn-group:not(:last-child) > .view-all-notifications,
+#navbar-notification-panel
+.btn-group > .btn-group:not(:last-child) > .mark-as-read {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 .btn-group > .btn:not(:first-child),
-.btn-group > .btn-group:not(:first-child) > .btn {
+#navbar-notification-panel .btn-group > .view-all-notifications:not(:first-child),
+#navbar-notification-panel .btn-group > .mark-as-read:not(:first-child),
+.btn-group > .btn-group:not(:first-child) > .btn,
+#navbar-notification-panel
+.btn-group > .btn-group:not(:first-child) > .view-all-notifications,
+#navbar-notification-panel
+.btn-group > .btn-group:not(:first-child) > .mark-as-read {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -4430,13 +4662,18 @@ tbody.collapse.show {
 }
 
 .btn-sm + .dropdown-toggle-split,
-.btn-group-sm > .btn + .dropdown-toggle-split {
+.btn-group-sm > .btn + .dropdown-toggle-split,
+#navbar-notification-panel .btn-group-sm > .view-all-notifications + .dropdown-toggle-split,
+#navbar-notification-panel .btn-group-sm > .mark-as-read + .dropdown-toggle-split,
+#navbar-notification-panel .mark-as-read + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem;
 }
 
 .btn-lg + .dropdown-toggle-split,
-.btn-group-lg > .btn + .dropdown-toggle-split {
+.btn-group-lg > .btn + .dropdown-toggle-split,
+#navbar-notification-panel .btn-group-lg > .view-all-notifications + .dropdown-toggle-split,
+#navbar-notification-panel .btn-group-lg > .mark-as-read + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem;
 }
@@ -4455,39 +4692,91 @@ tbody.collapse.show {
 }
 
 .btn-group-vertical .btn,
+.btn-group-vertical #navbar-notification-panel .view-all-notifications,
+#navbar-notification-panel .btn-group-vertical .view-all-notifications,
+.btn-group-vertical #navbar-notification-panel .mark-as-read,
+#navbar-notification-panel .btn-group-vertical .mark-as-read,
 .btn-group-vertical .btn-group {
   width: 100%;
 }
 
 .btn-group-vertical > .btn + .btn,
+#navbar-notification-panel .btn-group-vertical > .view-all-notifications + .btn,
+#navbar-notification-panel .btn-group-vertical > .mark-as-read + .btn,
+#navbar-notification-panel .btn-group-vertical > .btn + .view-all-notifications,
+#navbar-notification-panel .btn-group-vertical > .view-all-notifications + .view-all-notifications,
+#navbar-notification-panel .btn-group-vertical > .mark-as-read + .view-all-notifications,
+#navbar-notification-panel .btn-group-vertical > .btn + .mark-as-read,
+#navbar-notification-panel .btn-group-vertical > .view-all-notifications + .mark-as-read,
+#navbar-notification-panel .btn-group-vertical > .mark-as-read + .mark-as-read,
 .btn-group-vertical > .btn + .btn-group,
+#navbar-notification-panel
+.btn-group-vertical > .view-all-notifications + .btn-group,
+#navbar-notification-panel
+.btn-group-vertical > .mark-as-read + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
+#navbar-notification-panel
+.btn-group-vertical > .btn-group + .view-all-notifications,
+#navbar-notification-panel
+.btn-group-vertical > .btn-group + .mark-as-read,
 .btn-group-vertical > .btn-group + .btn-group {
   margin-top: -1px;
   margin-left: 0;
 }
 
 .btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle),
-.btn-group-vertical > .btn-group:not(:last-child) > .btn {
+#navbar-notification-panel .btn-group-vertical > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
+#navbar-notification-panel .btn-group-vertical > .mark-as-read:not(:last-child):not(.dropdown-toggle),
+.btn-group-vertical > .btn-group:not(:last-child) > .btn,
+#navbar-notification-panel
+.btn-group-vertical > .btn-group:not(:last-child) > .view-all-notifications,
+#navbar-notification-panel
+.btn-group-vertical > .btn-group:not(:last-child) > .mark-as-read {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 .btn-group-vertical > .btn:not(:first-child),
-.btn-group-vertical > .btn-group:not(:first-child) > .btn {
+#navbar-notification-panel .btn-group-vertical > .view-all-notifications:not(:first-child),
+#navbar-notification-panel .btn-group-vertical > .mark-as-read:not(:first-child),
+.btn-group-vertical > .btn-group:not(:first-child) > .btn,
+#navbar-notification-panel
+.btn-group-vertical > .btn-group:not(:first-child) > .view-all-notifications,
+#navbar-notification-panel
+.btn-group-vertical > .btn-group:not(:first-child) > .mark-as-read {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
 .btn-group-toggle > .btn,
-.btn-group-toggle > .btn-group > .btn {
+#navbar-notification-panel .btn-group-toggle > .view-all-notifications,
+#navbar-notification-panel .btn-group-toggle > .mark-as-read,
+.btn-group-toggle > .btn-group > .btn,
+#navbar-notification-panel
+.btn-group-toggle > .btn-group > .view-all-notifications,
+#navbar-notification-panel
+.btn-group-toggle > .btn-group > .mark-as-read {
   margin-bottom: 0;
 }
 
 .btn-group-toggle > .btn input[type="radio"],
+#navbar-notification-panel .btn-group-toggle > .view-all-notifications input[type="radio"],
+#navbar-notification-panel .btn-group-toggle > .mark-as-read input[type="radio"],
 .btn-group-toggle > .btn input[type="checkbox"],
+#navbar-notification-panel
+.btn-group-toggle > .view-all-notifications input[type="checkbox"],
+#navbar-notification-panel
+.btn-group-toggle > .mark-as-read input[type="checkbox"],
 .btn-group-toggle > .btn-group > .btn input[type="radio"],
-.btn-group-toggle > .btn-group > .btn input[type="checkbox"] {
+#navbar-notification-panel
+.btn-group-toggle > .btn-group > .view-all-notifications input[type="radio"],
+#navbar-notification-panel
+.btn-group-toggle > .btn-group > .mark-as-read input[type="radio"],
+.btn-group-toggle > .btn-group > .btn input[type="checkbox"],
+#navbar-notification-panel
+.btn-group-toggle > .btn-group > .view-all-notifications input[type="checkbox"],
+#navbar-notification-panel
+.btn-group-toggle > .btn-group > .mark-as-read input[type="checkbox"] {
   position: absolute;
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
@@ -4740,19 +5029,93 @@ tbody.collapse.show {
 }
 
 .input-group-prepend .btn,
-.input-group-append .btn {
+.input-group-prepend #navbar-notification-panel .view-all-notifications,
+#navbar-notification-panel .input-group-prepend .view-all-notifications,
+.input-group-prepend #navbar-notification-panel .mark-as-read,
+#navbar-notification-panel .input-group-prepend .mark-as-read,
+.input-group-append .btn,
+.input-group-append #navbar-notification-panel .view-all-notifications,
+#navbar-notification-panel
+.input-group-append .view-all-notifications,
+.input-group-append #navbar-notification-panel .mark-as-read,
+#navbar-notification-panel
+.input-group-append .mark-as-read {
   position: relative;
   z-index: 2;
 }
 
 .input-group-prepend .btn + .btn,
+.input-group-prepend #navbar-notification-panel .view-all-notifications + .btn,
+#navbar-notification-panel .input-group-prepend .view-all-notifications + .btn,
+.input-group-prepend #navbar-notification-panel .mark-as-read + .btn,
+#navbar-notification-panel .input-group-prepend .mark-as-read + .btn,
+.input-group-prepend #navbar-notification-panel .btn + .view-all-notifications,
+#navbar-notification-panel .input-group-prepend .btn + .view-all-notifications,
+.input-group-prepend #navbar-notification-panel .view-all-notifications + .view-all-notifications,
+#navbar-notification-panel .input-group-prepend .view-all-notifications + .view-all-notifications,
+.input-group-prepend #navbar-notification-panel .mark-as-read + .view-all-notifications,
+#navbar-notification-panel .input-group-prepend .mark-as-read + .view-all-notifications,
+.input-group-prepend #navbar-notification-panel .btn + .mark-as-read,
+#navbar-notification-panel .input-group-prepend .btn + .mark-as-read,
+.input-group-prepend #navbar-notification-panel .view-all-notifications + .mark-as-read,
+#navbar-notification-panel .input-group-prepend .view-all-notifications + .mark-as-read,
+.input-group-prepend #navbar-notification-panel .mark-as-read + .mark-as-read,
+#navbar-notification-panel .input-group-prepend .mark-as-read + .mark-as-read,
 .input-group-prepend .btn + .input-group-text,
+.input-group-prepend #navbar-notification-panel .view-all-notifications + .input-group-text,
+#navbar-notification-panel
+.input-group-prepend .view-all-notifications + .input-group-text,
+.input-group-prepend #navbar-notification-panel .mark-as-read + .input-group-text,
+#navbar-notification-panel
+.input-group-prepend .mark-as-read + .input-group-text,
 .input-group-prepend .input-group-text + .input-group-text,
 .input-group-prepend .input-group-text + .btn,
+.input-group-prepend #navbar-notification-panel .input-group-text + .view-all-notifications,
+#navbar-notification-panel
+.input-group-prepend .input-group-text + .view-all-notifications,
+.input-group-prepend #navbar-notification-panel .input-group-text + .mark-as-read,
+#navbar-notification-panel
+.input-group-prepend .input-group-text + .mark-as-read,
 .input-group-append .btn + .btn,
+.input-group-append #navbar-notification-panel .view-all-notifications + .btn,
+#navbar-notification-panel
+.input-group-append .view-all-notifications + .btn,
+.input-group-append #navbar-notification-panel .mark-as-read + .btn,
+#navbar-notification-panel
+.input-group-append .mark-as-read + .btn,
+.input-group-append #navbar-notification-panel .btn + .view-all-notifications,
+#navbar-notification-panel
+.input-group-append .btn + .view-all-notifications,
+.input-group-append #navbar-notification-panel .view-all-notifications + .view-all-notifications,
+#navbar-notification-panel
+.input-group-append .view-all-notifications + .view-all-notifications,
+.input-group-append #navbar-notification-panel .mark-as-read + .view-all-notifications,
+#navbar-notification-panel
+.input-group-append .mark-as-read + .view-all-notifications,
+.input-group-append #navbar-notification-panel .btn + .mark-as-read,
+#navbar-notification-panel
+.input-group-append .btn + .mark-as-read,
+.input-group-append #navbar-notification-panel .view-all-notifications + .mark-as-read,
+#navbar-notification-panel
+.input-group-append .view-all-notifications + .mark-as-read,
+.input-group-append #navbar-notification-panel .mark-as-read + .mark-as-read,
+#navbar-notification-panel
+.input-group-append .mark-as-read + .mark-as-read,
 .input-group-append .btn + .input-group-text,
+.input-group-append #navbar-notification-panel .view-all-notifications + .input-group-text,
+#navbar-notification-panel
+.input-group-append .view-all-notifications + .input-group-text,
+.input-group-append #navbar-notification-panel .mark-as-read + .input-group-text,
+#navbar-notification-panel
+.input-group-append .mark-as-read + .input-group-text,
 .input-group-append .input-group-text + .input-group-text,
-.input-group-append .input-group-text + .btn {
+.input-group-append .input-group-text + .btn,
+.input-group-append #navbar-notification-panel .input-group-text + .view-all-notifications,
+#navbar-notification-panel
+.input-group-append .input-group-text + .view-all-notifications,
+.input-group-append #navbar-notification-panel .input-group-text + .mark-as-read,
+#navbar-notification-panel
+.input-group-append .input-group-text + .mark-as-read {
   margin-left: -1px;
 }
 
@@ -4790,20 +5153,40 @@ tbody.collapse.show {
 }
 
 .input-group > .input-group-prepend > .btn,
+#navbar-notification-panel .input-group > .input-group-prepend > .view-all-notifications,
+#navbar-notification-panel .input-group > .input-group-prepend > .mark-as-read,
 .input-group > .input-group-prepend > .input-group-text,
 .input-group > .input-group-append:not(:last-child) > .btn,
+#navbar-notification-panel
+.input-group > .input-group-append:not(:last-child) > .view-all-notifications,
+#navbar-notification-panel
+.input-group > .input-group-append:not(:last-child) > .mark-as-read,
 .input-group > .input-group-append:not(:last-child) > .input-group-text,
 .input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+#navbar-notification-panel
+.input-group > .input-group-append:last-child > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
+#navbar-notification-panel
+.input-group > .input-group-append:last-child > .mark-as-read:not(:last-child):not(.dropdown-toggle),
 .input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 .input-group > .input-group-append > .btn,
+#navbar-notification-panel .input-group > .input-group-append > .view-all-notifications,
+#navbar-notification-panel .input-group > .input-group-append > .mark-as-read,
 .input-group > .input-group-append > .input-group-text,
 .input-group > .input-group-prepend:not(:first-child) > .btn,
+#navbar-notification-panel
+.input-group > .input-group-prepend:not(:first-child) > .view-all-notifications,
+#navbar-notification-panel
+.input-group > .input-group-prepend:not(:first-child) > .mark-as-read,
 .input-group > .input-group-prepend:not(:first-child) > .input-group-text,
 .input-group > .input-group-prepend:first-child > .btn:not(:first-child),
+#navbar-notification-panel
+.input-group > .input-group-prepend:first-child > .view-all-notifications:not(:first-child),
+#navbar-notification-panel
+.input-group > .input-group-prepend:first-child > .mark-as-read:not(:first-child),
 .input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -6127,7 +6510,9 @@ tbody.collapse.show {
   display: none;
 }
 
-.btn .badge {
+.btn .badge,
+#navbar-notification-panel .view-all-notifications .badge,
+#navbar-notification-panel .mark-as-read .badge {
   position: relative;
   top: -1px;
 }
@@ -7821,7 +8206,8 @@ button.bg-golden:focus {
   content: "";
 }
 
-.d-none {
+.d-none,
+#navbar {
   display: none !important;
 }
 
@@ -7958,7 +8344,8 @@ button.bg-golden:focus {
     display: inline-block !important;
   }
 
-  .d-lg-block {
+  .d-lg-block,
+  #navbar {
     display: block !important;
   }
 
@@ -10924,7 +11311,7 @@ a.text-golden:focus {
             box-shadow: none !important;
   }
 
-  a:not(.btn) {
+  a:not(.btn):not(#navbar-notification-panel .view-all-notifications):not(#navbar-notification-panel .mark-as-read) {
     text-decoration: underline;
   }
 
@@ -11374,13 +11761,27 @@ body {
   display: flex;
 }
 
-.btn-group-full .btn {
+.btn-group-full .btn,
+.btn-group-full #navbar-notification-panel .view-all-notifications,
+#navbar-notification-panel .btn-group-full .view-all-notifications,
+.btn-group-full #navbar-notification-panel .mark-as-read,
+#navbar-notification-panel .btn-group-full .mark-as-read {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
 
-.btn-group-square .btn {
+.btn-group-square .btn,
+.btn-group-square #navbar-notification-panel .view-all-notifications,
+#navbar-notification-panel .btn-group-square .view-all-notifications,
+.btn-group-square #navbar-notification-panel .mark-as-read,
+#navbar-notification-panel .btn-group-square .mark-as-read {
+  border-radius: 0 !important;
+}
+
+.btn-square,
+#navbar-notification-panel .view-all-notifications,
+#navbar-notification-panel .mark-as-read {
   border-radius: 0 !important;
 }
 
@@ -14434,18 +14835,19 @@ body {
   height: 100%;
   width: 240px;
   padding: 0;
-  border-right: #adb5bd solid 1px;
-  background-color: white;
 }
 
-#navbar #nav-inner {
+#navbar-inner {
+  z-index: 200;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 100%;
+  height: 100vh;
+  border-right: #adb5bd solid 1px;
+  background-color: white;
 }
 
 #navbar nav {
@@ -14579,6 +14981,50 @@ body {
   width: 100%;
 }
 
+#navbar-notification-panel {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow: hidden;
+  text-overflow: clip;
+  padding-bottom: 3rem;
+  width: 360px;
+  border-right: #adb5bd solid 1px;
+  background-color: white;
+  -webkit-box-shadow: inset 5px 0 35px -21px rgba(0, 0, 0, 0.47);
+          box-shadow: inset 5px 0 35px -21px rgba(0, 0, 0, 0.47);
+  margin-left: -240px;
+}
+
+#navbar-notification-panel .notification {
+  text-overflow: clip;
+  max-width: 100%;
+  height: 80.00000016px;
+  margin: 1rem 1.4rem;
+  border: #adb5bd solid 1px;
+}
+
+#navbar-notification-panel .notification:hover {
+  border-width: 2px;
+}
+
+#navbar-notification-panel .notification.unread {
+  background-color: #e9ecef;
+}
+
+#navbar-notification-panel.open {
+  margin-left: 240px;
+}
+
+.highlight {
+  border: 3px solid #455782 !important;
+  outline: 0;
+  -webkit-box-shadow: 0 0 67px -18px rgba(0, 0, 0, 0.47);
+          box-shadow: 0 0 67px -18px rgba(0, 0, 0, 0.47);
+}
+
 #home .banners {
   width: 100%;
   height: 400px;
@@ -14631,7 +15077,11 @@ body {
   height: 50px;
 }
 
-#home .banners .banner .text .container .buttons .btn {
+#home .banners .banner .text .container .buttons .btn,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .view-all-notifications,
+#navbar-notification-panel #home .banners .banner .text .container .buttons .view-all-notifications,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .mark-as-read,
+#navbar-notification-panel #home .banners .banner .text .container .buttons .mark-as-read {
   padding: 0px 50px;
   height: 50px;
   line-height: 52px;
@@ -14639,7 +15089,23 @@ body {
   font-size: 16px;
 }
 
-#home .banners .banner .text .container .buttons .btn + .btn {
+#home .banners .banner .text .container .buttons .btn + .btn,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .view-all-notifications + .btn,
+#navbar-notification-panel #home .banners .banner .text .container .buttons .view-all-notifications + .btn,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .mark-as-read + .btn,
+#navbar-notification-panel #home .banners .banner .text .container .buttons .mark-as-read + .btn,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .btn + .view-all-notifications,
+#navbar-notification-panel #home .banners .banner .text .container .buttons .btn + .view-all-notifications,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .view-all-notifications + .view-all-notifications,
+#navbar-notification-panel #home .banners .banner .text .container .buttons .view-all-notifications + .view-all-notifications,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .mark-as-read + .view-all-notifications,
+#navbar-notification-panel #home .banners .banner .text .container .buttons .mark-as-read + .view-all-notifications,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .btn + .mark-as-read,
+#navbar-notification-panel #home .banners .banner .text .container .buttons .btn + .mark-as-read,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .view-all-notifications + .mark-as-read,
+#navbar-notification-panel #home .banners .banner .text .container .buttons .view-all-notifications + .mark-as-read,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .mark-as-read + .mark-as-read,
+#navbar-notification-panel #home .banners .banner .text .container .buttons .mark-as-read + .mark-as-read {
   margin-left: 30px;
 }
 
@@ -15490,8 +15956,8 @@ body {
 }
 
 .scale-on-hover-1 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-1:hover {
@@ -15500,8 +15966,8 @@ body {
 }
 
 .scale-on-hover-2 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-2:hover {
@@ -15510,8 +15976,8 @@ body {
 }
 
 .scale-on-hover-3 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-3:hover {
@@ -15520,8 +15986,8 @@ body {
 }
 
 .scale-on-hover-4 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-4:hover {
@@ -15530,8 +15996,8 @@ body {
 }
 
 .scale-on-hover-5 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-5:hover {
@@ -15540,8 +16006,8 @@ body {
 }
 
 .scale-on-hover-6 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-6:hover {
@@ -15550,8 +16016,8 @@ body {
 }
 
 .scale-on-hover-7 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-7:hover {
@@ -15560,8 +16026,8 @@ body {
 }
 
 .scale-on-hover-8 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-8:hover {
@@ -15570,8 +16036,8 @@ body {
 }
 
 .scale-on-hover-9 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-9:hover {
@@ -15580,8 +16046,8 @@ body {
 }
 
 .scale-on-hover-10 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-10:hover {
@@ -15590,8 +16056,8 @@ body {
 }
 
 .scale-on-hover-11 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-11:hover {
@@ -15600,8 +16066,8 @@ body {
 }
 
 .scale-on-hover-12 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-12:hover {
@@ -15610,8 +16076,8 @@ body {
 }
 
 .scale-on-hover-13 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-13:hover {
@@ -15620,8 +16086,8 @@ body {
 }
 
 .scale-on-hover-14 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-14:hover {
@@ -15630,8 +16096,8 @@ body {
 }
 
 .scale-on-hover-15 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-15:hover {
@@ -15640,8 +16106,8 @@ body {
 }
 
 .scale-on-hover-16 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-16:hover {
@@ -15650,8 +16116,8 @@ body {
 }
 
 .scale-on-hover-17 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-17:hover {
@@ -15660,8 +16126,8 @@ body {
 }
 
 .scale-on-hover-18 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-18:hover {
@@ -15670,8 +16136,8 @@ body {
 }
 
 .scale-on-hover-19 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-19:hover {
@@ -15680,8 +16146,8 @@ body {
 }
 
 .scale-on-hover-20 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-20:hover {
@@ -15690,8 +16156,8 @@ body {
 }
 
 .scale-on-hover-21 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-21:hover {
@@ -15700,8 +16166,8 @@ body {
 }
 
 .scale-on-hover-22 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-22:hover {
@@ -15710,8 +16176,8 @@ body {
 }
 
 .scale-on-hover-23 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-23:hover {
@@ -15720,8 +16186,8 @@ body {
 }
 
 .scale-on-hover-24 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-24:hover {
@@ -15730,8 +16196,8 @@ body {
 }
 
 .scale-on-hover-25 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-25:hover {
@@ -15740,8 +16206,8 @@ body {
 }
 
 .scale-on-hover-26 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-26:hover {
@@ -15750,8 +16216,8 @@ body {
 }
 
 .scale-on-hover-27 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-27:hover {
@@ -15760,8 +16226,8 @@ body {
 }
 
 .scale-on-hover-28 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-28:hover {
@@ -15770,8 +16236,8 @@ body {
 }
 
 .scale-on-hover-29 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-29:hover {
@@ -15780,8 +16246,8 @@ body {
 }
 
 .scale-on-hover-30 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-30:hover {
@@ -15790,8 +16256,8 @@ body {
 }
 
 .scale-on-hover-31 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-31:hover {
@@ -15800,8 +16266,8 @@ body {
 }
 
 .scale-on-hover-32 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-32:hover {
@@ -15810,8 +16276,8 @@ body {
 }
 
 .scale-on-hover-33 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-33:hover {
@@ -15820,8 +16286,8 @@ body {
 }
 
 .scale-on-hover-34 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-34:hover {
@@ -15830,8 +16296,8 @@ body {
 }
 
 .scale-on-hover-35 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-35:hover {
@@ -15840,8 +16306,8 @@ body {
 }
 
 .scale-on-hover-36 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-36:hover {
@@ -15850,8 +16316,8 @@ body {
 }
 
 .scale-on-hover-37 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-37:hover {
@@ -15860,8 +16326,8 @@ body {
 }
 
 .scale-on-hover-38 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-38:hover {
@@ -15870,8 +16336,8 @@ body {
 }
 
 .scale-on-hover-39 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-39:hover {
@@ -15880,8 +16346,8 @@ body {
 }
 
 .scale-on-hover-40 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-40:hover {
@@ -15890,8 +16356,8 @@ body {
 }
 
 .scale-on-hover-41 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-41:hover {
@@ -15900,8 +16366,8 @@ body {
 }
 
 .scale-on-hover-42 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-42:hover {
@@ -15910,8 +16376,8 @@ body {
 }
 
 .scale-on-hover-43 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-43:hover {
@@ -15920,8 +16386,8 @@ body {
 }
 
 .scale-on-hover-44 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-44:hover {
@@ -15930,8 +16396,8 @@ body {
 }
 
 .scale-on-hover-45 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-45:hover {
@@ -15940,8 +16406,8 @@ body {
 }
 
 .scale-on-hover-46 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-46:hover {
@@ -15950,8 +16416,8 @@ body {
 }
 
 .scale-on-hover-47 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-47:hover {
@@ -15960,8 +16426,8 @@ body {
 }
 
 .scale-on-hover-48 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-48:hover {
@@ -15970,8 +16436,8 @@ body {
 }
 
 .scale-on-hover-49 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-49:hover {
@@ -15980,8 +16446,8 @@ body {
 }
 
 .scale-on-hover-50 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-50:hover {
@@ -15990,8 +16456,8 @@ body {
 }
 
 .scale-on-hover-51 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-51:hover {
@@ -16000,8 +16466,8 @@ body {
 }
 
 .scale-on-hover-52 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-52:hover {
@@ -16010,8 +16476,8 @@ body {
 }
 
 .scale-on-hover-53 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-53:hover {
@@ -16020,8 +16486,8 @@ body {
 }
 
 .scale-on-hover-54 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-54:hover {
@@ -16030,8 +16496,8 @@ body {
 }
 
 .scale-on-hover-55 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-55:hover {
@@ -16040,8 +16506,8 @@ body {
 }
 
 .scale-on-hover-56 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-56:hover {
@@ -16050,8 +16516,8 @@ body {
 }
 
 .scale-on-hover-57 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-57:hover {
@@ -16060,8 +16526,8 @@ body {
 }
 
 .scale-on-hover-58 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-58:hover {
@@ -16070,8 +16536,8 @@ body {
 }
 
 .scale-on-hover-59 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-59:hover {
@@ -16080,8 +16546,8 @@ body {
 }
 
 .scale-on-hover-60 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-60:hover {
@@ -16090,8 +16556,8 @@ body {
 }
 
 .scale-on-hover-61 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-61:hover {
@@ -16100,8 +16566,8 @@ body {
 }
 
 .scale-on-hover-62 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-62:hover {
@@ -16110,8 +16576,8 @@ body {
 }
 
 .scale-on-hover-63 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-63:hover {
@@ -16120,8 +16586,8 @@ body {
 }
 
 .scale-on-hover-64 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-64:hover {
@@ -16130,8 +16596,8 @@ body {
 }
 
 .scale-on-hover-65 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-65:hover {
@@ -16140,8 +16606,8 @@ body {
 }
 
 .scale-on-hover-66 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-66:hover {
@@ -16150,8 +16616,8 @@ body {
 }
 
 .scale-on-hover-67 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-67:hover {
@@ -16160,8 +16626,8 @@ body {
 }
 
 .scale-on-hover-68 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-68:hover {
@@ -16170,8 +16636,8 @@ body {
 }
 
 .scale-on-hover-69 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-69:hover {
@@ -16180,8 +16646,8 @@ body {
 }
 
 .scale-on-hover-70 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-70:hover {
@@ -16190,8 +16656,8 @@ body {
 }
 
 .scale-on-hover-71 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-71:hover {
@@ -16200,8 +16666,8 @@ body {
 }
 
 .scale-on-hover-72 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-72:hover {
@@ -16210,8 +16676,8 @@ body {
 }
 
 .scale-on-hover-73 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-73:hover {
@@ -16220,8 +16686,8 @@ body {
 }
 
 .scale-on-hover-74 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-74:hover {
@@ -16230,8 +16696,8 @@ body {
 }
 
 .scale-on-hover-75 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-75:hover {
@@ -16240,8 +16706,8 @@ body {
 }
 
 .scale-on-hover-76 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-76:hover {
@@ -16250,8 +16716,8 @@ body {
 }
 
 .scale-on-hover-77 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-77:hover {
@@ -16260,8 +16726,8 @@ body {
 }
 
 .scale-on-hover-78 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-78:hover {
@@ -16270,8 +16736,8 @@ body {
 }
 
 .scale-on-hover-79 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-79:hover {
@@ -16280,8 +16746,8 @@ body {
 }
 
 .scale-on-hover-80 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-80:hover {
@@ -16290,8 +16756,8 @@ body {
 }
 
 .scale-on-hover-81 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-81:hover {
@@ -16300,8 +16766,8 @@ body {
 }
 
 .scale-on-hover-82 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-82:hover {
@@ -16310,8 +16776,8 @@ body {
 }
 
 .scale-on-hover-83 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-83:hover {
@@ -16320,8 +16786,8 @@ body {
 }
 
 .scale-on-hover-84 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-84:hover {
@@ -16330,8 +16796,8 @@ body {
 }
 
 .scale-on-hover-85 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-85:hover {
@@ -16340,8 +16806,8 @@ body {
 }
 
 .scale-on-hover-86 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-86:hover {
@@ -16350,8 +16816,8 @@ body {
 }
 
 .scale-on-hover-87 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-87:hover {
@@ -16360,8 +16826,8 @@ body {
 }
 
 .scale-on-hover-88 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-88:hover {
@@ -16370,8 +16836,8 @@ body {
 }
 
 .scale-on-hover-89 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-89:hover {
@@ -16380,8 +16846,8 @@ body {
 }
 
 .scale-on-hover-90 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-90:hover {
@@ -16390,8 +16856,8 @@ body {
 }
 
 .scale-on-hover-91 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-91:hover {
@@ -16400,8 +16866,8 @@ body {
 }
 
 .scale-on-hover-92 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-92:hover {
@@ -16410,8 +16876,8 @@ body {
 }
 
 .scale-on-hover-93 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-93:hover {
@@ -16420,8 +16886,8 @@ body {
 }
 
 .scale-on-hover-94 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-94:hover {
@@ -16430,8 +16896,8 @@ body {
 }
 
 .scale-on-hover-95 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-95:hover {
@@ -16440,8 +16906,8 @@ body {
 }
 
 .scale-on-hover-96 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-96:hover {
@@ -16450,8 +16916,8 @@ body {
 }
 
 .scale-on-hover-97 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-97:hover {
@@ -16460,8 +16926,8 @@ body {
 }
 
 .scale-on-hover-98 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-98:hover {
@@ -16470,8 +16936,8 @@ body {
 }
 
 .scale-on-hover-99 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-99:hover {
@@ -16480,8 +16946,8 @@ body {
 }
 
 .scale-on-hover-100 {
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
+  -webkit-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
 }
 
 .scale-on-hover-100:hover {
