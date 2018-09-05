@@ -124,10 +124,12 @@
                             <a class="nav-link nav-link-action {{ active_route('search') }}" href="{{ route('search') }}">Search</a>
                         
                             <a class="nav-link {{ active_route('job-listing.application.*') }}" href="{{ route('job-listing.application.index') }}">My Applications</a>
-                            
+        
+                            <a class="nav-link {{ active_route('employee.saved-job-listings') }}" href="{{ route('employee.saved-job-listings') }}">Saved Job Listings</a>
+                    
                             <small class="text-muted">You</small>
                         
-                            <li class="nav-item dropright {{ active_route(['employee.*', 'cv.*']) }}">
+                            <li class="nav-item dropright {{ active_route(['employee.show.*', 'employee.edit', 'cv.*']) }}">
                                 <a class="nav-link dropdown-toggle"
                                    href="javascript:"
                                    id="navdropdown-Profile"

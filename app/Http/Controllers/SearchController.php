@@ -36,6 +36,9 @@ class SearchController extends Controller
 
 	public function search()
 	{
+		if(!$this->request->has('what') && !$this->request->has('where'))
+			return view('search');
+
 		$data    = $this->request->validate(self::rules());
 		$town    = Location::remember(1440)->find($data['where']);
 		$results = JobListing::with('address', 'address.location', 'jobRole', 'company');

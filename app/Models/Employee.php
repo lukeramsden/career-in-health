@@ -66,4 +66,40 @@ class Employee extends Model
     {
         return $this->avatar ? Storage::url($this->avatar) : null;
     }
+
+	public function saveJobListing(JobListing $jobListing)
+	{
+		if (SavedJobListing::where([
+				'employee_id'    => $this->id,
+				'job_listing_id' => $jobListing->id,
+			])->count() == 0)
+		{
+
+			$savedJobListing                 = new SavedJobListing();
+			$savedJobListing->employee_id    = $this->id;
+			$savedJobListing->job_listing_id = $jobListing->id;
+			$savedJobListing->save();
+		}
+	}
+
+	public function unsaveJobListing(JobListing $jobListing)
+	{
+		try
+		{
+			SavedJobListing::where([
+				'employee_id'    => $this->id,
+				'job_listing_id' => $jobListing->id,
+			])->delete();
+		} catch (\Exception $e)
+		{
+		}
+	}
+
+	public function isJobListingSaved(JobListing $jobListing)
+	{
+		return SavedJobListing::where([
+				'employee_id'    => $this->id,
+				'job_listing_id' => $jobListing->id,
+			])->count() > 0;
+	}
 }

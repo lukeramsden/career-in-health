@@ -83,7 +83,7 @@ class RegisterOnboardingSteps
 					   });
 
 				Onboard::addStep('Search')
-					   ->link(route('search', ['advanced' => true]))
+					   ->link(route('search'))
 					   ->cta('Search')
 					   ->completeIf(function (User $user)
 					   {

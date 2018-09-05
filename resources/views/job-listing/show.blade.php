@@ -46,23 +46,45 @@
                             </div>
                         @endisset
                         
-                        @guest
-                            <a href="{{ route('register') }}" class="btn btn-block btn-action">Sign Up To Apply</a>
-                        @endguest
-                        @auth
-                            @if($isOwner)
-                                <a href="{{ route('job-listing.show.applications', [$jobListing]) }}" class="btn btn-block btn-link">View Applications</a>
-                            @elseif(Auth::user()->isValidCompany())
-                                <button type="button" disabled class="btn btn-block btn-secondary">You can't apply</button>
-                            @else
-                                @if(Auth::user()->isEmployee() && !\App\JobListingApplication::hasApplied(Auth::user()->userable, $jobListing))
-                                    <a href="{{ route('job-listing.application.create', [$jobListing]) }}" class="btn btn-block btn-action">Apply</a>
-                                @else
-                                    <button type="button" disabled class="btn btn-block btn-secondary">Already Applied!</button>
-                                @endif
-                                <a href="{{ route('account.private-message.show-employee', [$jobListing]) }}" class="btn btn-block btn-primary">Send a Message</a>
-                            @endif
-                        @endauth
+                        <div class="btn-group btn-group-vertical btn-group-full btn-group-square">
+                            @guest
+                                <a href="{{ route('register') }}" class="btn btn-block btn-action">Sign Up To Apply</a>
+                            @endguest
+                                @auth
+                                    @if($isOwner)
+                                        <a href="{{ route('job-listing.show.applications', [$jobListing]) }}"
+                                           class="btn btn-block btn-link">View Applications</a>
+                                    @elseif(Auth::user()->isValidCompany())
+                                        <button type="button" disabled class="btn btn-block btn-secondary">You can't
+                                            apply
+                                        </button>
+                                    @else
+                                        @usertype('employee')
+                                            @if(!\App\JobListingApplication::hasApplied(Auth::user()->userable, $jobListing))
+                                                <a href="{{ route('job-listing.application.create', [$jobListing]) }}"
+                                                   class="btn btn-block btn-action">Apply</a>
+                                            @else
+                                                <button type="button" disabled class="btn btn-block btn-secondary">Already
+                                                    Applied!
+                                                </button>
+                                            @endif
+                                        @endusertype
+            
+                                        <a href="{{ route('account.private-message.show-employee', [$jobListing]) }}"
+                                           class="btn btn-block btn-primary">Send a Message</a>
+                                    
+                                        @usertype('employee')
+                                            @if(Auth::user()->userable->isJobListingSaved($jobListing))
+                                                <a href="{{ route('employee.unsave-job-listing', $jobListing) }}"
+                                                   class="btn btn-block btn-sm btn-secondary">Remove From Saved Listings</a>
+                                            @else
+                                                <a href="{{ route('employee.save-job-listing', $jobListing) }}"
+                                                   class="btn btn-block btn-sm btn-golden">Save Job Listing</a>
+                                            @endif
+                                        @endusertype
+                                    @endif
+                                @endauth
+                        </div>
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@
                         @endverbatim
                         @onboarding
                         <a
-                        href="{{ Auth::user()->onboarding()->nextUnfinishedStep()->link }}"
+                        href="{{ route('employee.next-onboard-step') }}"
                         class="btn btn-action disabled" id="next-step">Next Step</a>
                         @endonboarding
                         @verbatim
