@@ -82,6 +82,16 @@ class RegisterOnboardingSteps
 						   return $result;
 					   });
 
+				Onboard::addStep('Set Preferences')
+					   ->link(action('UserController@editNotificationPreferences'))
+					   ->cta('Complete')
+					   ->completeIf(function (User $user)
+					   {
+						   return ($pref = $user->notificationPreferences()->first())
+							   && !is_null($pref->created_at) && !is_null($pref->updated_at)
+							   && $pref->created_at != $pref->updated_at;
+					   });
+
 				Onboard::addStep('Search')
 					   ->link(route('search'))
 					   ->cta('Search')

@@ -70,6 +70,8 @@ Route::prefix('account')
 		 Route::post('/email', 'UserController@updateEmail')->name('manage.email');
 		 Route::get('/password', 'UserController@showPassword')->name('manage.password');
 		 Route::post('/password', 'UserController@updatePassword')->name('manage.password');
+		 Route::get('/notification-preferences', 'UserController@editNotificationPreferences')->name('manage.notification-preferences');
+		 Route::post('/notification-preferences', 'UserController@updateNotificationPreferences')->name('manage.notification-preferences');
 
 		 Route::get('/private-messages', 'PrivateMessageController@index')->name('private-message.index');
 		 Route::post('/private-messages/send', 'PrivateMessageController@store')->name('private-message.store');

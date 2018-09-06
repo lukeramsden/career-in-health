@@ -40,6 +40,16 @@ class User extends Authenticatable
 		});
 	}
 
+	/**
+	 * @return \Illuminate\Database\Query\Builder
+	 */
+	public function notificationPreferences()
+	{
+		return DB
+			::table('notification_preferences')
+			->where('id', $this->id);
+	}
+
 	public function userable()
 	{
 		return $this->morphTo();

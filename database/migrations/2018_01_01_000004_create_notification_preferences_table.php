@@ -22,6 +22,8 @@ class CreateNotificationPreferencesTable extends Migration
 			$table->boolean('email_private_message')->default(false);
 			$table->boolean('email_listing_application')->default(false);
 			$table->boolean('email_analytics')->default(false);
+
+			$table->timestamps();
 		});
 	}
 
