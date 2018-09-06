@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\CompanyUser;
 use App\Employee;
 use App\JobListing;
 use App\PrivateMessage;
@@ -146,6 +145,10 @@ class PrivateMessageController extends Controller
 			]);
 	}
 
+	/**
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+	 * @throws \Exception
+	 */
 	public function store()
 	{
 
@@ -168,13 +171,15 @@ class PrivateMessageController extends Controller
 		$user     = Auth::user();
 		$userable = $user->userable;
 
-		if (isset($data['to_employee_id']) && $userable instanceof CompanyUser)
+		$is_to_employee = isset($data['to_employee_id']) && $user->isValidCompany();
+		$is_to_company  = isset($data['to_company_id']) && $user->isEmployee();
+		if ($is_to_employee)
 		{
 			$message->direction   = 'to_employee';
 			$message->employee_id = $data['to_employee_id'];
 			$message->company_id  = $userable->company_id;
 		}
-		elseif (isset($data['to_company_id']) && $userable instanceof Employee)
+		elseif ($is_to_company)
 		{
 			$message->direction   = 'to_company';
 			$message->company_id  = $data['to_company_id'];
@@ -185,15 +190,15 @@ class PrivateMessageController extends Controller
 		$message->fill($data);
 		$message->save();
 
-		if ($userable instanceof CompanyUser)
+		if ($is_to_employee)
 		{
 			$message->employee->user->notify(new \App\Notifications\ReceivedPrivateMessage($message));
 		}
-		elseif ($userable instanceof Employee)
+		elseif ($is_to_company)
 		{
 			\Notification::send(
 				$message
-					->receiver()
+					->company
 					->users
 					->map(returns('user')),
 				new \App\Notifications\ReceivedPrivateMessage($message)

@@ -210,16 +210,19 @@
             </nav>
         </div>
         <div id="navbar-notification-panel" class="">
-            <div class="btn-group-vertical btn-group-full">
+            <div class="notification notification-actions">
                 <a class="view-all-notifications" href="{{ route('notifications.index') }}">View All</a>
                 <button class="mark-as-read">Mark All As Read</button>
             </div>
             @foreach(Auth::user()->notifications()->orderByRaw('-read_at ASC')->take(10)->get() as $notif)
                 @switch($notif->type)
                     @case(\App\Notifications\ReceivedPrivateMessage::class)
-                        <a href="{{ $notif->data['action'] }}" class="link-unstyled">
-                            <div class="notification {{$notif->unread()?'unread':''}}">
-                                {{ str_limit($notif->data['body'], 30) }}
+                        <a href="{{ action('NotificationController@clickThrough', ['notification' => $notif]) }}" class="link-unstyled">
+                            <div class="notification {{$notif->unread()?'unread':''}} notification-private-message">
+                                <div class="notification-inner">
+                                    <p>Message from <b>{{ $notif->data['sender_name'] }}</b></p>
+                                    <p>{{ str_limit($notif->data['body']) }}</p>
+                                </div>
                             </div>
                         </a>
                         @break;

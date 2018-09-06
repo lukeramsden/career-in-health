@@ -288,39 +288,86 @@ $navbar-width: 240px;
     padding-bottom: 3rem;
     width: $navbar-width * 1.5;
     border-right: $gray-500 solid 1px;
-    background-color: white;
-
-    box-shadow: inset 5px 0 35px -21px rgba(0,0,0,0.47);
+    background-color: $gray-300;
 
     & .notification {
       text-overflow: clip;
       max-width: 100%;
       height: $navbar-width * 0.333333334;
-      margin: 1rem 1.4rem;
-      border: $gray-500 solid 1px;
+      margin: 0.8rem 0.8rem 0 0.8rem;
+
+      background-color: $gray-200;
+      border-radius: 4px;
+      box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+      transition: box-shadow 0.1s ease-in-out;
 
       &:hover {
-        border-width: 2px;
+        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
       }
 
       &.unread {
-        background-color: $gray-200;
+        background-color: $white;
       }
-    }
 
-    & .view-all-notifications {
-      @extend .btn;
-      @extend .btn-primary;
-      @extend .btn-square;
-      @extend .btn-block;
-    }
+      &.notification-actions {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        padding: 0;
 
-    & .mark-as-read {
-      @extend .btn;
-      @extend .btn-secondary;
-      @extend .btn-square;
-      @extend .btn-block;
-      @extend .btn-sm;
+        height: $navbar-width * 0.2;
+
+        .btn {
+          margin: 0;
+        }
+
+        & .view-all-notifications,
+        & .mark-as-read {
+          @extend .btn;
+          flex-grow: 1;
+          padding: 0;
+          margin: 0;
+          border-radius: 0;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          text-align: center;
+        }
+
+        & .view-all-notifications {
+          @extend .btn-action;
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
+        }
+
+        & .mark-as-read {
+          @extend .btn-primary;
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+      }
+
+      &.notification-private-message {
+        padding: 0;
+
+        .notification-inner {
+          padding: 1rem;
+        }
+
+        p {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          // title
+          &:nth-child(1) {
+            @extend .mb-0;
+          }
+          // body
+          &:nth-child(2) {
+            @extend .small;
+          }
+        }
+      }
     }
 
     margin-left: -$navbar-width;
@@ -332,9 +379,9 @@ $navbar-width: 240px;
 }
 
 .highlight {
-    border: 3px solid #455782 !important;
-    outline: 0;
-    box-shadow: 0 0 67px -18px rgba(0,0,0,0.47);
+  border: 3px solid #455782 !important;
+  outline: 0;
+  box-shadow: 0 0 67px -18px rgba(0, 0, 0, 0.47);
 }
 
 #home {

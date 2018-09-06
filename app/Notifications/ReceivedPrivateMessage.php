@@ -2,8 +2,6 @@
 
 namespace App\Notifications;
 
-use App\Company;
-use App\Employee;
 use App\PrivateMessage;
 use App\User;
 use Illuminate\Bus\Queueable;
@@ -55,7 +53,7 @@ class ReceivedPrivateMessage extends Notification
 	{
 		return [
 			'sender_name' => self::getSenderName(),
-			'body'	      => $this->privateMessage->body,
+			'body'        => $this->privateMessage->body,
 			'action'      => self::getAction($this->privateMessage),
 		];
 	}
@@ -65,21 +63,20 @@ class ReceivedPrivateMessage extends Notification
 	 */
 	protected function getSenderName()
 	{
-		$userable = $this->privateMessage->sender();
+		$pm = $this->privateMessage;
 
-		if ($userable instanceof Employee)
-			return $userable->full_name;
-
-		if ($userable instanceof Company)
-			return $userable->name;
+		if ($pm->direction === 'to_company')
+			return $pm->employee->full_name;
+		elseif ($pm->direction === 'to_employee')
+			return $pm->company->name;
 
 		throw new \Exception();
 	}
 
-	protected function getAction($privateMessage)
+	protected function getAction($pm)
 	{
-		return $url = $privateMessage->direction === 'to_company' ?
-			route('account.private-message.show-company', [$privateMessage->job_listing, $privateMessage->employee])
-			: route('account.private-message.show-employee', $privateMessage->job_listing);
+		return $url = $pm->direction === 'to_company' ?
+			route('account.private-message.show-company', [$pm->job_listing, $pm->employee])
+			: route('account.private-message.show-employee', $pm->job_listing);
 	}
 }
