@@ -156,11 +156,7 @@ class PrivateMessageController extends Controller
 		 * CURRENT ISSUES
 		 * --------------
 		 *
-		 * 1. Notification actions seem to be wrong when receiver is an employee
-		 * 2. Message direction doesn't seem to work properly
-		 * 3. Clicking a notification doesn't mark it as read
-		 * 4. No way for users to opt out of email notifications
-		 * 5. It's broke as owt
+		 * 1. No way for users to opt out of email notifications
 		 *
 		 */
 

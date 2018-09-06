@@ -11,6 +11,8 @@
                             <b>{{ $notif->data['sender_name'] }}</b></div>
                         <div class="card-body">
                             <p>{{ str_limit($notif->data['body']) }}</p>
+                            <hr>
+                            <p class="mb-0 text-right small">{{ $notif->created_at->diffForHumans() }}</p>
                         </div>
                         <div class="card-footer p-0">
                             <div class="btn-group btn-group-full btn-group-sm">

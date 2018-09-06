@@ -222,6 +222,8 @@
                                 <div class="notification-inner">
                                     <p>Message from <b>{{ $notif->data['sender_name'] }}</b></p>
                                     <p>{{ str_limit($notif->data['body']) }}</p>
+                                    <hr>
+                                    <p>{{ $notif->created_at->diffForHumans() }}</p>
                                 </div>
                             </div>
                         </a>
