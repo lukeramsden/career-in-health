@@ -35,10 +35,11 @@
                             </div>
                             <div>
                                 <button
-                                    class="btn btn-golden"
-                                    id="save-toggle-button"
-                                    state="saved"
-                                    job-listing="{{ $jobListing->id }}"><span class="oi oi-star"></span> Remove</button>
+                                class="btn btn-golden"
+                                id="save-toggle-button"
+                                state="saved"
+                                job-listing="{{ $jobListing->id }}"><span class="oi oi-star"></span> Remove
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -51,51 +52,54 @@
 @endsection
 @section('script')
     <script>
-        $(function() {
-            $('#save-toggle-button').click(function(e) {
+        $(function () {
+            $('#save-toggle-button').click(function (e) {
                 var self = $(this);
-                self.prop('disabled', true );
-                switch(self.attr('state'))
-                {
-                    case 'saved':
-                    {
+                self.prop('disabled', true);
+                switch (self.attr('state')) {
+                    case 'saved': {
                         axios
                             .post(route('employee.unsave-job-listing', self.attr('job-listing')).toString())
-                            .then(function(response) {
-                                if(response.data.success)
-                                    toastr.success('Listing removed');
+                            .then(function (response) {
+                                if (response.data.success) {
+                                    self.attr('state', 'unsaved')
+                                        .removeClass('btn-golden')
+                                        .addClass('btn-secondary')
+                                        .html('<span class="oi oi-star"></span> Save');
+                                }
+                                else {
+                                    toastr.error('Could not remove listing.');
+                                }
                             })
-                            .catch(function(error) {
+                            .catch(function (error) {
                                 console.error(error);
                                 toastr.error('Error');
                             })
-                            .then(function() {
+                            .then(function () {
                                 self.prop('disabled', false);
-                                self.attr('state', 'unsaved');
-                                self.removeClass('btn-golden');
-                                self.addClass('btn-secondary');
-                                self.html('<span class="oi oi-star"></span> Save')
                             });
                         break;
                     }
-                    case 'unsaved':
-                    {
+                    case 'unsaved': {
                         axios
                             .post(route('employee.save-job-listing', self.attr('job-listing')).toString())
-                            .then(function(response) {
-                                if(!response.data.success)
-                                    toastr.error('Error');
+                            .then(function (response) {
+                                if (response.data.success) {
+                                    self.attr('state', 'saved')
+                                        .removeClass('btn-secondary')
+                                        .addClass('btn-golden')
+                                        .html('<span class="oi oi-star"></span> Remove');
+                                }
+                                else {
+                                    toastr.error('Could not save listing.');
+                                }
                             })
-                            .catch(function(error) {
+                            .catch(function (error) {
                                 console.error(error);
                                 toastr.error('Error');
                             })
-                            .then(function() {
+                            .then(function () {
                                 self.prop('disabled', false);
-                                self.attr('state', 'saved');
-                                self.removeClass('btn-secondary');
-                                self.addClass('btn-golden');
-                                self.html('<span class="oi oi-star"></span> Remove')
                             });
                         break;
                     }
