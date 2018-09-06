@@ -53,6 +53,46 @@ class NotificationController extends Controller
 		return back();
 	}
 
+	public function markAsRead(DatabaseNotification $notification)
+	{
+		$notification->markAsRead();
+
+		if (ajax())
+			return response()->json(['success' => true], 200);
+
+		return back();
+	}
+
+	public function markAsUnread(DatabaseNotification $notification)
+	{
+		$notification->markAsUnread();
+
+		if (ajax())
+			return response()->json(['success' => true], 200);
+
+		return back();
+	}
+
+	public function delete(DatabaseNotification $notification)
+	{
+		try
+		{
+			$notification->delete();
+		} catch (\Exception $e)
+		{
+			if (ajax())
+				return response()->json(['success' => false], 200);
+
+			toast()->error('Could not delete');
+			return back();
+		}
+
+		if (ajax())
+			return response()->json(['success' => true], 200);
+
+		return back();
+	}
+
 	/**
 	 * @param DatabaseNotification $notification
 	 *

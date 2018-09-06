@@ -928,13 +928,21 @@ $navbar-width: 240px;
   }
 }
 
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @for $i from 1 through 10 {
+      .column-count#{$infix}-#{$i} {
+        column-count: $i;
+      }
+    }
+  }
+}
+
 .smaller-card-columns {
-  @include media-breakpoint-up(sm) {
-    column-count: 1;
-  }
-  @include media-breakpoint-up(lg) {
-    column-count: 2;
-  }
+  @extend .column-count-1;
+  @extend .column-count-lg-2;
 }
 
 #message-index-filter {

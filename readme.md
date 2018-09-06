@@ -5,7 +5,9 @@
 - PHP 7.0
 - NPM
 - MariaDB
+- Redis
 
+#### Set-up Commands
 ```bash
 npm install
 npm run prod
@@ -18,6 +20,10 @@ cp vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf-amd64 /usr/local/bin/ # maybe s
 chmod +x /usr/local/bin/wkhtmltopdf-amd64                              # maybe sudo
 ```
 
+#### Cron Jobs
+```
+* * * * * php /path-to-application/artisan schedule:run >> /dev/null 2>&1
+```
 
 ### General Ideas
 - Post Jobs (care home)

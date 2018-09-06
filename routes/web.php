@@ -272,4 +272,8 @@ Route::prefix('notifications')
 		 Route::any('/all/mark/unread', 'NotificationController@markAllAsUnread')->name('mark-all-as-unread');
 
 		 Route::any('/click-through/{notification}/{prop?}', 'NotificationController@clickThrough')->name('click-through');
+
+		 Route::any('/{notification}/mark-as-read', 'NotificationController@markAsRead')->name('mark-as-read');
+		 Route::any('/{notification}/mark-as-unread', 'NotificationController@markAsUnread')->name('mark-as-unread');
+		 Route::any('/{notification}/delete', 'NotificationController@delete')->name('delete');
 	 });
