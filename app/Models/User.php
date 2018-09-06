@@ -5,6 +5,7 @@ namespace App;
 use App\Advertising\Advertiser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -24,9 +25,18 @@ class User extends Authenticatable
 	{
 		parent::boot();
 
+		static::created(function (User $user)
+		{
+			DB
+				::table('notification_preferences')
+				->insert(['id' => $user->id]);
+		});
+
 		static::deleting(function (User $user)
 		{
-			$user->userable()->delete();
+			$user
+				->userable()
+				->delete();
 		});
 	}
 
@@ -142,7 +152,8 @@ class User extends Authenticatable
 
 	public function activate()
 	{
-		if($this->deactivated) {
+		if ($this->deactivated)
+		{
 			$this->deactivated = false;
 			$this->save();
 		}
@@ -150,7 +161,8 @@ class User extends Authenticatable
 
 	public function deactivate()
 	{
-		if(!$this->deactivated) {
+		if (!$this->deactivated)
+		{
 			$this->deactivated = true;
 			$this->save();
 		}
