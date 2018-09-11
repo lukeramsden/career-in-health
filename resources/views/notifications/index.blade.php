@@ -5,32 +5,63 @@
             @foreach($notifications as $notif)
                 @switch($notif->type)
                     @case(\App\Notifications\ReceivedPrivateMessage::class)
-                    <div id="notification-{{$notif->id}}"
-                         class="card card-custom {{$notif->unread()?'card-custom-primary':'card-custom-secondary'}}">
-                        <div class="card-header pl-3 p-2">Message from
-                            <b>{{ $notif->data['sender_name'] }}</b></div>
-                        <div class="card-body">
-                            <p>{{ str_limit($notif->data['body']) }}</p>
-                            <hr>
-                            <p class="mb-0 text-right small">{{ $notif->created_at->diffForHumans() }}</p>
-                        </div>
-                        <div class="card-footer p-0">
-                            <div class="btn-group btn-group-full btn-group-sm">
-                                <a
-                                href="{{ action('NotificationController@clickThrough', ['notification' => $notif]) }}"
-                                class="btn btn-primary" title="View Message">
-                                    <span class="oi oi-comment-square"></span>
-                                </a>
-                                @if($notif->unread())
-                                    <button class="btn btn-dark-primary" title="Mark As Read" onclick="markNotifRead(this)"><span
-                                        class="oi oi-check"></span></button>
-                                @endif
-                                <button class="btn btn-danger" title="Delete" onclick="deleteNotif(this)"><span
-                                    class="oi oi-trash"></span></button>
+                        <div id="notification-{{$notif->id}}"
+                             class="card card-custom {{$notif->unread()?'card-custom-primary':'card-custom-secondary'}}">
+                            <div class="card-header pl-3 p-2">Message from
+                                <b>{{ $notif->data['sender_name'] }}</b></div>
+                            <div class="card-body">
+                                <p>{{ str_limit($notif->data['body']) }}</p>
+                                <hr>
+                                <p class="mb-0 text-right small">{{ $notif->created_at->diffForHumans() }}</p>
+                            </div>
+                            <div class="card-footer p-0">
+                                <div class="btn-group btn-group-full btn-group-sm">
+                                    <a
+                                    href="{{ action('NotificationController@clickThrough', ['notification' => $notif]) }}"
+                                    class="btn btn-primary" title="View Message">
+                                        <span class="oi oi-comment-square"></span>
+                                    </a>
+                                    @if($notif->unread())
+                                        <button class="btn btn-dark-primary" title="Mark As Read" onclick="markNotifRead(this)"><span
+                                            class="oi oi-check"></span></button>
+                                    @endif
+                                    <button class="btn btn-danger" title="Delete" onclick="deleteNotif(this)"><span
+                                        class="oi oi-trash"></span></button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    @break;
+                        @break
+                    @case(\App\Notifications\CompanyReceivedListingApplication::class)
+                        <div id="notification-{{$notif->id}}"
+                             class="card card-custom {{$notif->unread()?'card-custom-primary':'card-custom-secondary'}}">
+                            <div class="card-header pl-3 p-2">Message from
+                                <b>{{ $notif->data['sender_name'] }}</b></div>
+                            <div class="card-body">
+                                @if($notif->data['body'])
+                                    <p>{{ str_limit($notif->data['body']) }}</p>
+                                @else
+                                    <p><span class="text-muted font-italic">No cover letter</span></p>
+                                @endif
+                                <hr>
+                                <p class="mb-0 text-right small">{{ $notif->created_at->diffForHumans() }}</p>
+                            </div>
+                            <div class="card-footer p-0">
+                                <div class="btn-group btn-group-full btn-group-sm">
+                                    <a
+                                    href="{{ action('NotificationController@clickThrough', ['notification' => $notif]) }}"
+                                    class="btn btn-primary" title="View Message">
+                                        <span class="oi oi-comment-square"></span>
+                                    </a>
+                                    @if($notif->unread())
+                                        <button class="btn btn-dark-primary" title="Mark As Read" onclick="markNotifRead(this)"><span
+                                            class="oi oi-check"></span></button>
+                                    @endif
+                                    <button class="btn btn-danger" title="Delete" onclick="deleteNotif(this)"><span
+                                        class="oi oi-trash"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        @break
                 @endswitch
             @endforeach
         </div>
