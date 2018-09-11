@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\JobListing;
 use App\Location;
+use App\Repositories\SearchHistoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
 
 class SearchController extends Controller
 {
@@ -34,9 +37,13 @@ class SearchController extends Controller
 		return array_merge($rules, $custom);
 	}
 
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Exception
+	 */
 	public function search()
 	{
-		if(!$this->request->has('what') && !$this->request->has('where'))
+		if (!$this->request->has('what') && !$this->request->has('where'))
 			return view('search');
 
 		$data    = $this->request->validate(self::rules());
@@ -91,6 +98,12 @@ class SearchController extends Controller
 
 		if (Auth::check() && Auth::user()->isEmployee())
 			Auth::user()->userable()->increment('times_searched');
+
+		DB::table('search_history')
+		  ->insert([
+			  'searcher' => SearchHistoryRepository::getUuid(),
+			  'data'     => json_encode($data),
+		  ]);
 
 		return view('search')
 			->with([

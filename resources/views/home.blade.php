@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+    @extends('layouts.frontend')
 @section('content')
     <div class="container mt-4">
         <div class="row">
@@ -47,6 +47,27 @@
                     <span class="text-action">{{ App\JobListing::remember(60)->whereDate('created_at', '>=', Carbon\Carbon::today()->subDays(7))->count() }}</span>
                     new jobs in the last 7 days.
                 </p>
+                <div class="text-center">
+                    <p><b>Recent searches</b></p>
+                    @foreach(
+                        \App\Repositories\SearchHistoryRepository::find()
+                        ->whereRaw('id IN (SELECT MAX(id) FROM search_history GROUP BY searcher, data)')
+                        ->orderBy('created_at', 'desc')->take(5)->get()
+                        as $recentSearch)
+                        @set('data', json_decode($recentSearch->data))
+                        <p>
+                            <a href="{{ route('search', (array)$data) }}">
+                                {{ $data->what }} - {{ App\Location::find($data->where)->name }}
+                                @isset($data->radius)
+                                    @if($data->radius < 50)
+                                        - within {{ $data->radius }} {{ str_plural('mile', $data->radius) }}
+                                    @endif
+                                @endisset
+                            </a>
+                        </p>
+                        @unset($data)
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
