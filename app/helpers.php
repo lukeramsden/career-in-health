@@ -31,3 +31,14 @@ if (!function_exists('map_to'))
 		return array_map(returns($property), $array);
 	}
 }
+
+if (!function_exists('verified_badge'))
+{
+	function verified_badge($item)
+	{
+		if($item instanceof \App\Company && $item->verified)
+			return '<span class="oi oi-circle-check verified-badge"></span>';
+
+		return '';
+	}
+}

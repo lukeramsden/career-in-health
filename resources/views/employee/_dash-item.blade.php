@@ -5,7 +5,7 @@
             <div class="card-header"><span class="font-italic">A job that might interest you...</span></div>
             <div class="card-body">
                 <a href="{{ route('company.show', [$item->company]) }}" class="card-subtitle">
-                    {{$item->company->name}}
+                    {{$item->company->name}} {!!verified_badge($item->company)!!}
                 </a>
                 <h4 class="card-title">{{$item->jobRole->name}}</h4>
                 <h5>{{ $item->title }}</h5>
@@ -56,7 +56,7 @@
             <div class="card-header"><span class="font-italic">You have an unread message...</span></div>
             <div class="card-body">
                 <p>
-                    <b>From:</b> <a href="{{ route('company.show', [$item->job_listing->company]) }}">{{ $item->job_listing->company->name }}</a>
+                    <b>From:</b> <a href="{{ route('company.show', [$item->job_listing->company]) }}">{{ $item->job_listing->company->name }}{!!verified_badge($item->job_listing->company)!!}</a>
                     <br>
                     <b>JobListing:</b> <a href="{{ route('job-listing.show', [$item->job_listing]) }}">{{ $item->job_listing->title }}</a>
                 </p>

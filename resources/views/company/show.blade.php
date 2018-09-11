@@ -5,7 +5,7 @@
             <div class="card-body">
                 <img src="{{ $company->picture() ?? '/images/generic.png' }}" alt="Profile picture" width="200" class="img-thumbnail mx-auto d-block">
                 <div class="text-center">
-                    <h1 class="mt-3">{{ $company->name }}</h1>
+                    <h1 class="mt-3">{{ $company->name }} {!!verified_badge($company)!!}</h1>
                     <h5><b>{{ $company->location->name }}</b></h5>
                 </div>
             </div>

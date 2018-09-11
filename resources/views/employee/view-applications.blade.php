@@ -19,7 +19,7 @@
                     <tr>
                         <td></td>
                         <td data-search="{{ $application->job_listing->company->name }}">
-                            <p><a href="{{ route('company.show', [$application->job_listing->company]) }}">{{ $application->job_listing->company->name }}</a></p>
+                            <p><a href="{{ route('company.show', [$application->job_listing->company]) }}">{{ $application->job_listing->company->name }}{!!verified_badge($application->job_listing->company)!!}</a></p>
                         </td>
                         <td data-search="{{ $application->job_listing->title }}">
                             <p>{{ str_limit($application->job_listing->title, 80) }}</p>

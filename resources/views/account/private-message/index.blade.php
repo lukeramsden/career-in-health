@@ -8,7 +8,7 @@
                 @foreach($messages as $message)
                     <div class="card card-custom mb-3">
                         <div class="card-header">
-                            <b>With:</b> <a href="{{ route('company.show', [$message->company]) }}">{{ $message->company->name }}</a>
+                            <b>With:</b> <a href="{{ route('company.show', [$message->company]) }}">{{ $message->company->name }} {!!verified_badge($message->company)!!}</a>
                             <br>
                             <b>JobListing:</b> <a href="{{ route('job-listing.show', [$message->job_listing]) }}">{{ $message->job_listing->title }}</a>
                         </div>

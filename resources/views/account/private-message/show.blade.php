@@ -7,7 +7,7 @@
         <div class="card card-custom mx-lg-5 mb-4">
             <div class="card-header">
                 @usertype('employee')
-                    <b>Company:</b> <a href="{{ route('company.show', [$jobListing->company]) }}">{{ $jobListing->company->name }}</a>
+                    <b>Company:</b> <a href="{{ route('company.show', [$jobListing->company]) }}">{{ $jobListing->company->name }} {!!verified_badge($jobListing->company)!!}</a>
                 @elseusertype('company')
                     <b>Employee:</b> <a href="{{ route('employee.show', [$employee]) }}">{{ $employee->full_name }}</a>
                 @endusertype
@@ -54,7 +54,7 @@
             >
                 @if($isReceiver)
                     @usertype('employee')
-                        <div class="card-header"><b>From:</b> {{ $message->company->name }}</div>
+                        <div class="card-header"><b>From:</b> {{ $message->company->name }} {!!verified_badge($message->company)!!}</div>
                     @elseusertype('company')
                         <div class="card-header"><b>From:</b> {{ $message->employee->full_name }}</div>
                     @endusertype

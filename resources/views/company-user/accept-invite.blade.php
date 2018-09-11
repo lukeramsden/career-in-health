@@ -18,7 +18,7 @@
                                      alt="Profile picture">
                                 <div class="media-body">
                                     <a href="{{ route('company.show', $invite->company) }}">
-                                        <h5 class="mt-0">{{ $invite->company->name }}</h5>
+                                        <h5 class="mt-0">{{ $invite->company->name }} {!!verified_badge($invite->company)!!}</h5>
                                     </a>
                                     @isset($invite->company->about)
                                         <p>{!! str_limit(nl2br(e($invite->company->about)), 100) !!}</p>

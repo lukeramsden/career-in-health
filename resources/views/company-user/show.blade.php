@@ -23,7 +23,7 @@
                                 <h5 class="mt-0">
                                     at
                                     <a href="{{ route('company.show', $companyUser->company) }}">
-                                        {{ $companyUser->company->name }}
+                                        {{ $companyUser->company->name }} {!!verified_badge($companyUser->company)!!}
                                     </a>
                                 </h5>
                                 {{-- get only first line and then str_limit it --}}

@@ -56,6 +56,7 @@ class UserSeeder extends Seeder
 				'name'        => 'Karma AS',
 				'owner_id'    => $userable->id,
 				'location_id' => 4018,
+				'verified'    => true,
 			]);
 
 		$company->users()->save($userable);

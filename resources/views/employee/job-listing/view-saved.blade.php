@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <a href="{{ route('company.show', [$jobListing->company]) }}"
                            class="card-subtitle">
-                            {{$jobListing->company->name}}
+                            {{$jobListing->company->name}} {!!verified_badge($jobListing->company)!!}
                         </a>
                         <h4 class="card-title">{{$jobListing->jobRole->name}}</h4>
                         <h5><a

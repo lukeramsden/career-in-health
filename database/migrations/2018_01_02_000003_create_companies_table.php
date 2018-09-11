@@ -25,6 +25,7 @@ class CreateCompaniesTable extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->boolean('has_created_first_job_listing')->default(0);
+            $table->boolean('verified')->default(false);
             $table->timestamps();
         });
     }
