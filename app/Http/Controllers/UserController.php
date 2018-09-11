@@ -90,6 +90,7 @@ class UserController extends Controller
 		return view('account.notification-preferences')
 			->with([
 				'user' => Auth::user(),
+				'prefs' => Auth::user()->notificationPreferences()->first(),
 			]);
 	}
 
@@ -108,15 +109,12 @@ class UserController extends Controller
 		if ($user->notificationPreferences()->count() === 0)
 			DB::table('notification_preferences')
 			  ->insert([
-				  'id'         => $user->id,
-				  'created_at' => Carbon::now(),
-				  'updated_at' => Carbon::now(),
+				  'id' => $user->id,
 			  ]);
 
 		$user
 			->notificationPreferences()
 			->update([
-				'id'                        => $user->id,
 				'email_promotions'          => $data['email_promotions'] ?? false,
 				'email_private_message'     => $data['email_private_message'] ?? false,
 				'email_listing_application' => $data['email_listing_application'] ?? false,

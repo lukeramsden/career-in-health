@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class ReceivedPrivateMessage extends Notification
 {
@@ -26,7 +27,10 @@ class ReceivedPrivateMessage extends Notification
 
 	public function via($notifiable)
 	{
-		return ['mail', 'database'];
+		$via = ['database'];
+		if (Auth::user()->notificationPreferences()->first()->email_private_message)
+			array_push($via, 'mail');
+		return $via;
 	}
 
 	/**

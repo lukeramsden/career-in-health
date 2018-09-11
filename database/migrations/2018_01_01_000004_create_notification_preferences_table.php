@@ -23,7 +23,8 @@ class CreateNotificationPreferencesTable extends Migration
 			$table->boolean('email_listing_application')->default(false);
 			$table->boolean('email_analytics')->default(false);
 
-			$table->timestamps();
+			$table->timestamp('created_at')->useCurrent();
+			$table->timestamp('updated_at')->useCurrent();
 		});
 	}
 

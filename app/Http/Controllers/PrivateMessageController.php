@@ -151,15 +151,6 @@ class PrivateMessageController extends Controller
 	 */
 	public function store()
 	{
-
-		/**
-		 * CURRENT ISSUES
-		 * --------------
-		 *
-		 * 1. No way for users to opt out of email notifications
-		 *
-		 */
-
 		$data = $this->request->validate(self::rules());
 
 		$message = new PrivateMessage();

@@ -469,7 +469,9 @@ hr {
 small,
 .small,
 #navbar-notification-panel .notification.notification-private-message p:nth-child(2),
-#navbar-notification-panel .notification.notification-private-message p:nth-child(4) {
+#navbar-notification-panel .notification.notification-application p:nth-child(2),
+#navbar-notification-panel .notification.notification-private-message p:nth-child(4),
+#navbar-notification-panel .notification.notification-application p:nth-child(4) {
   font-size: 80%;
   font-weight: 400;
 }
@@ -9519,6 +9521,7 @@ button.bg-golden:focus {
 
 .mb-0,
 #navbar-notification-panel .notification.notification-private-message p,
+#navbar-notification-panel .notification.notification-application p,
 .my-0 {
   margin-bottom: 0 !important;
 }
@@ -11094,7 +11097,8 @@ button.bg-golden:focus {
 }
 
 .text-right,
-#navbar-notification-panel .notification.notification-private-message p:nth-child(4) {
+#navbar-notification-panel .notification.notification-private-message p:nth-child(4),
+#navbar-notification-panel .notification.notification-application p:nth-child(4) {
   text-align: right !important;
 }
 
@@ -15083,19 +15087,23 @@ body {
   border-bottom-right-radius: 4px;
 }
 
-#navbar-notification-panel .notification.notification-private-message {
+#navbar-notification-panel .notification.notification-private-message,
+#navbar-notification-panel .notification.notification-application {
   padding: 0;
 }
 
-#navbar-notification-panel .notification.notification-private-message .notification-inner {
+#navbar-notification-panel .notification.notification-private-message .notification-inner,
+#navbar-notification-panel .notification.notification-application .notification-inner {
   padding: 1rem;
 }
 
-#navbar-notification-panel .notification.notification-private-message hr {
+#navbar-notification-panel .notification.notification-private-message hr,
+#navbar-notification-panel .notification.notification-application hr {
   margin: 8px 1rem;
 }
 
-#navbar-notification-panel .notification.notification-private-message p {
+#navbar-notification-panel .notification.notification-private-message p,
+#navbar-notification-panel .notification.notification-application p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

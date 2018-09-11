@@ -41,6 +41,16 @@ class RegisterOnboardingSteps
 						   return $user->isValidCompany();
 					   });
 
+				Onboard::addStep('Set Preferences')
+					   ->link(action('UserController@editNotificationPreferences'))
+					   ->cta('Complete')
+					   ->completeIf(function (User $user)
+					   {
+						   return ($pref = $user->notificationPreferences()->first())
+							   && !is_null($pref->created_at) && !is_null($pref->updated_at)
+							   && $pref->created_at != $pref->updated_at;
+					   });
+
 				Onboard::addStep('Add An Address')
 					   ->link(route('address.create'))
 					   ->cta('Add')

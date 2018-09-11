@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Advertising\AdvertiserInvite;
+use Illuminate\Support\Facades\Auth;
 
 class AdvertiserInviteNotification extends Notification
 {

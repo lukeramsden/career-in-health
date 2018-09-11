@@ -189,7 +189,7 @@
                             @endif
                         </a>
                     
-                        <li class="nav-item dropright {{ active_route('account.manage.*') }}">
+                        <li class="nav-item dropright {{ active_route('account.manage.*', 'account.manage.notification-preferences') }}">
                             <a class="nav-link dropdown-toggle"
                                href="javascript:"
                                id="navdropdown-Account"
@@ -201,6 +201,7 @@
                             <div class="dropdown-menu" aria-labelledby="navdropdown-Account">
                                 <a class="dropdown-item {{ active_route('account.manage.email') }}" href="{{ route('account.manage.email') }}">Change Email</a>
                                 <a class="dropdown-item {{ active_route('account.manage.password') }}" href="{{ route('account.manage.password') }}">Change Password</a>
+                                <a class="dropdown-item {{ active_route('account.manage.notification-preferences') }}" href="{{ route('account.manage.notification-preferences') }}">Notification Preferences</a>
                                 <a class="dropdown-item" href="{{ route('logout.get') }}">Log Out</a>
                             </div>
                         </li>
@@ -227,7 +228,23 @@
                                 </div>
                             </div>
                         </a>
-                        @break;
+                        @break
+                    @case(\App\Notifications\CompanyReceivedListingApplication::class)
+                        <a href="{{ action('NotificationController@clickThrough', ['notification' => $notif]) }}" class="link-unstyled">
+                            <div class="notification {{$notif->unread()?'unread':''}} notification-application">
+                                <div class="notification-inner">
+                                    <p>Application from <b>{{ $notif->data['sender_name'] }}</b></p>
+                                    @if($notif->data['body'])
+                                        <p>{{ str_limit($notif->data['body']) }}</p>
+                                    @else
+                                        <p><span class="text-muted font-italic">No cover letter</span></p>
+                                    @endif
+                                    <hr>
+                                    <p>{{ $notif->created_at->diffForHumans() }}</p>
+                                </div>
+                            </div>
+                        </a>
+                        @break
                 @endswitch
             @endforeach
         </div>

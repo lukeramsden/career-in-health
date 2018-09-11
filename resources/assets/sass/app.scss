@@ -378,6 +378,10 @@ $navbar-width: 240px;
           }
         }
       }
+
+      &.notification-application {
+        @extend .notification-private-message;
+      }
     }
 
     margin-left: -$navbar-width;
