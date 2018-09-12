@@ -52,7 +52,7 @@
                             @endguest
                                 @auth
                                     @if($isOwner)
-                                        <a href="{{ route('job-listing.show.applications', [$jobListing]) }}"
+                                        <a href="{{ route('job-listing.application.index', [$jobListing]) }}"
                                            class="btn btn-block btn-link">View Applications</a>
                                     @elseif(Auth::user()->isValidCompany())
                                         <button type="button" disabled class="btn btn-block btn-secondary">You can't

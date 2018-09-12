@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\JobListingApplication;
 use Auth;
 use App\JobListing;
 use Carbon\Carbon;
@@ -70,12 +71,31 @@ class JobListingController extends Controller
 	{
 		$this->authorize('update', $jobListing);
 
-		return view('job-listing.view-applications')
+		return view('job-listing.application.index')
 			->with([
 				'jobListing'   => $jobListing,
 				'applications' => $jobListing->applications->load('employee', 'job_listing'),
 			]);
 	}
+
+	/**
+	 * @param JobListingApplication $application
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
+	public function showApplication(JobListingApplication $application)
+	{
+		$application->load('employee', 'job_listing');
+		$this->authorize('update', $application->job_listing);
+
+		return view('job-listing.application.show')
+			->with([
+				'jobListing'   => $application->job_listing,
+				'application' => $application,
+			]);
+	}
+
 
 	/**
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

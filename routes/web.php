@@ -23,14 +23,15 @@ Route::prefix('job-listing')
 		 Route::post('/new', 'JobListingController@store')->name('store');
 
 		 Route::get('/{jobListing}/view', 'JobListingController@showInternal')->name('show.internal');
-		 Route::get('/{jobListing}/view/applications', 'JobListingController@showApplications')
-			  ->name('show.applications');
 
 		 Route::get('/{jobListing}/edit', 'JobListingController@edit')->name('edit');
 		 Route::post('/{jobListing}/edit', 'JobListingController@update')->name('update');
 		 Route::any('/{jobListing}/delete', 'JobListingController@destroy')->name('destroy');
 
 		 Route::get('/{jobListing}', 'JobListingController@show')->name('show');
+
+		 Route::get('/{jobListing}/view/applications', 'JobListingController@showApplications')
+			  ->name('application.index');
 
 		 Route::prefix('application')
 			  ->name('application.')
@@ -44,6 +45,8 @@ Route::prefix('job-listing')
 				  Route::post('/{application}/update', 'JobListingApplicationController@update')->name('update');
 				  Route::get('/{application}', 'JobListingApplicationController@show')->name('show');
 			  });
+
+		 Route::get('/application/{application}', 'JobListingController@showApplication')->name('company.application.show');
 	 });
 
 Route::prefix('address')
@@ -110,7 +113,7 @@ Route::prefix('company')
 		 Route::post('/edit', 'CompanyController@update')->name('update');
 		 Route::get('/view/{company}', 'CompanyController@show')->name('show');
 		 Route::get('/view/', 'CompanyController@showMe')->name('show.me');
-		 Route::get('/applications/', 'CompanyController@showApplications')->name('show.applications');
+		 Route::get('/applications/', 'CompanyController@showApplications')->name('application.index');
 
 		 Route::prefix('manage-users')
 			  ->name('manage-users.')

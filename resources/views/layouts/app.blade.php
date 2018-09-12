@@ -67,7 +67,7 @@
                                 </div>
                             </li>
                         
-                            <li class="nav-item dropright {{ active_route(['job-listing.*', 'company.show.applications']) }}">
+                            <li class="nav-item dropright {{ active_route(['job-listing.*', 'company.application.index']) }}">
                                 <a class="nav-link dropdown-toggle"
                                    href="javascript:"
                                    id="navdropdown-JobListings"
@@ -79,7 +79,7 @@
                                 <div class="dropdown-menu" aria-labelledby="navdropdown-JobListings">
                                     <a class="dropdown-item dropdown-item-action {{ active_route('job-listing.create') }}" href="{{ route('job-listing.create') }}">Create New Listing</a>
                                     <a class="dropdown-item {{ active_route(['job-listing.index', 'job-listing.edit', 'job-listing.show.*']) }}" href="{{ route('job-listing.index') }}">View Listings</a>
-                                    <a class="dropdown-item {{ active_route('company.show.applications') }}" href="{{ route('company.show.applications') }}">View Applications</a>
+                                    <a class="dropdown-item {{ active_route('company.application.index') }}" href="{{ route('company.application.index') }}">View Applications</a>
                                 </div>
                             </li>
                             

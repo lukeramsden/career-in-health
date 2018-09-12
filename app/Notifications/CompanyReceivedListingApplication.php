@@ -27,10 +27,7 @@ class CompanyReceivedListingApplication extends Notification
 
 	public static function getAction($application)
 	{
-		return action('JobListingController@showApplications', [
-			'jobListing' => $application->job_listing,
-			'highlight'  => $application->id,
-		]);
+		return $application->permalink;
 	}
 
 	/**

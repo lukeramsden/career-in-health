@@ -11,7 +11,7 @@
                             <span class="text-muted font-italic">No cover letter</span>
                         @endif
                     </p>
-                    <a href="{{ route('job-listing.show.applications', ['jobListing' => $item->job_listing, 'highlight' => $item->id]) }}" class="btn btn-primary btn-sm px-4">View</a>
+                    <a href="{{ $item->permalink  }}" class="btn btn-primary btn-sm px-4">View</a>
                 </div>
                 <div class="card-footer">{{ $item->created_at->diffForHumans() }}</div>
             </div>

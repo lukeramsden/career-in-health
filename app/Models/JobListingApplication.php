@@ -25,7 +25,7 @@ class JobListingApplication extends Model
 
 	public function getPermalinkAttribute()
 	{
-		return '';
+		return route('job-listing.company.application.show', ['application' => $this]);
 	}
 
     public function employee()
