@@ -171,7 +171,7 @@ class CompanyController extends Controller
 
 		return view('company.view-applications')
 			->with([
-				'applications' => $company->applications,
+				'applications' => $company->applications->load('employee', 'job_listing'),
 			]);
 	}
 }

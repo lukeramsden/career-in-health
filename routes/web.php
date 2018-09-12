@@ -43,7 +43,7 @@ Route::prefix('job-listing')
 				  Route::post('/{jobListing}/create', 'JobListingApplicationController@store')->name('store');
 
 				  Route::post('/{application}/update', 'JobListingApplicationController@update')->name('update');
-				  Route::get('/{application}', 'JobListingApplicationController@show')->name('show');
+				  Route::get('/{application}/edit', 'JobListingApplicationController@show')->name('show');
 			  });
 
 		 Route::get('/application/{application}', 'JobListingController@showApplication')->name('company.application.show');

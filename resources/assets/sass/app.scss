@@ -1105,3 +1105,24 @@ $slick-button-offset: 10px;
   color: #1db8b8;
   font-size: 60%;
 }
+
+#application {
+  .profile-picture {
+    & img {
+      @extend .img-thumbnail;
+      display: block;
+      width: 75%;
+      margin: 0 auto;
+      //border-radius: 50%;
+
+      @include media-breakpoint-up(lg) {
+        width: 50%;
+      }
+    }
+  }
+}
+
+.text-one-line {
+  //white-space: nowrap;
+  text-overflow: ellipsis;
+}

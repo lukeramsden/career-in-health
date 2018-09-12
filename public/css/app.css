@@ -526,7 +526,8 @@ mark,
 }
 
 .img-thumbnail,
-.dropzone .dz-preview .dz-image {
+.dropzone .dz-preview .dz-image,
+#application .profile-picture img {
   padding: 0.25rem;
   background-color: #fff;
   border: 1px solid #dee2e6;
@@ -17362,5 +17363,21 @@ body {
 .verified-badge {
   color: #1db8b8;
   font-size: 60%;
+}
+
+#application .profile-picture img {
+  display: block;
+  width: 75%;
+  margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+  #application .profile-picture img {
+    width: 50%;
+  }
+}
+
+.text-one-line {
+  text-overflow: ellipsis;
 }
 

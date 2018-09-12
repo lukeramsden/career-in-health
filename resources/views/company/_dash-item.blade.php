@@ -2,7 +2,7 @@
     @case('application')
         <div class="grid-item">
             <div class="card card-custom">
-                <div class="card-header"><span class="font-italic">Somebody applied to one of your jobListings</span></div>
+                <div class="card-header"><span class="font-italic">Somebody applied to one of your listings</span></div>
                 <div class="card-body">
                     <p>
                         @if($item->custom_cover_letter)

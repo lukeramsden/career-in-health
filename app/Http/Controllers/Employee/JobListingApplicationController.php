@@ -147,7 +147,9 @@ class JobListingApplicationController extends Controller
 			}
 		}
 		else
-			$application->fill($this->request->validate(self::rules()));
+			$application->fill($this->request->validate(self::rules([
+				'custom_cover_letter' => 'nullable|string|max:3000',
+			])));
 
 		$application->last_edited = Carbon::now();
 		$application->save();

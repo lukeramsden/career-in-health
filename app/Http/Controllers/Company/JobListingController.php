@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Address;
-use App\JobListingApplication;
-use Auth;
 use App\JobListing;
+use App\JobListingApplication;
+use App\PrivateMessage;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Closure;
 
 class JobListingController extends Controller
 {
@@ -48,9 +47,9 @@ class JobListingController extends Controller
 	 */
 	public function show(JobListing $jobListing)
 	{
-		if(Auth::check())
+		if (Auth::check())
 			$this->authorize('view', $jobListing);
-		else if(!$jobListing->isPublished())
+		elseif (!$jobListing->isPublished())
 			throw new AuthorizationException();
 
 		session()->keep('clickThrough');
@@ -86,13 +85,21 @@ class JobListingController extends Controller
 	 */
 	public function showApplication(JobListingApplication $application)
 	{
-		$application->load('employee', 'job_listing');
 		$this->authorize('update', $application->job_listing);
 
-		return view('job-listing.application.show')
+		return view('job-listing.application.show-for-company')
 			->with([
-				'jobListing'   => $application->job_listing,
 				'application' => $application,
+				'jobListing'  => $application->job_listing,
+				'employee'    => $application->employee,
+				'cv'          => $application->employee->cv,
+				'messages'    =>
+					PrivateMessage
+						::whereJobListingId($application->job_listing->id)
+						->whereEmployeeId($application->employee->id)
+						->whereCompanyId($application->job_listing->company->id)
+						->orderBy('created_at', 'desc')
+						->paginate(5),
 			]);
 	}
 
