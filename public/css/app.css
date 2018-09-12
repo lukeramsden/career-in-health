@@ -52,7 +52,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 @-ms-viewport {
@@ -530,7 +530,7 @@ mark,
   padding: 0.25rem;
   background-color: #fff;
   border: 1px solid #dee2e6;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
   max-width: 100%;
   height: auto;
 }
@@ -571,7 +571,7 @@ kbd {
   font-size: 87.5%;
   color: #fff;
   background-color: #212529;
-  border-radius: 0.2rem;
+  border-radius: 0.1rem;
 }
 
 kbd kbd {
@@ -2285,7 +2285,7 @@ pre code {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -2422,15 +2422,11 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .input-group-prepend > .form-control-plaintext.input-group-text,
 .input-group-sm > .input-group-append > .form-control-plaintext.input-group-text,
 .input-group-sm > .input-group-prepend > .form-control-plaintext.btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-prepend > .form-control-plaintext.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-prepend > .form-control-plaintext.mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > .form-control-plaintext.view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > .form-control-plaintext.mark-as-read,
 .input-group-sm > .input-group-append > .form-control-plaintext.btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-append > .form-control-plaintext.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-append > .form-control-plaintext.mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > .form-control-plaintext.view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > .form-control-plaintext.mark-as-read,
 .form-control-plaintext.form-control-lg,
 .input-group-lg > .form-control-plaintext.form-control,
 #jobListings_wrapper .input-group-lg > input.form-control-plaintext,
@@ -2440,15 +2436,11 @@ select.form-control:focus::-ms-value {
 .input-group-lg > .input-group-prepend > .form-control-plaintext.input-group-text,
 .input-group-lg > .input-group-append > .form-control-plaintext.input-group-text,
 .input-group-lg > .input-group-prepend > .form-control-plaintext.btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-prepend > .form-control-plaintext.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-prepend > .form-control-plaintext.mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > .form-control-plaintext.view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > .form-control-plaintext.mark-as-read,
 .input-group-lg > .input-group-append > .form-control-plaintext.btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-append > .form-control-plaintext.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-append > .form-control-plaintext.mark-as-read {
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > .form-control-plaintext.view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > .form-control-plaintext.mark-as-read {
   padding-right: 0;
   padding-left: 0;
 }
@@ -2462,19 +2454,15 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .input-group-prepend > .input-group-text,
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-prepend > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-prepend > .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > .mark-as-read,
 .input-group-sm > .input-group-append > .btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-append > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-append > .mark-as-read {
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > .mark-as-read {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
-  border-radius: 0.2rem;
+  border-radius: 0.1rem;
 }
 
 select.form-control-sm:not([size]):not([multiple]),
@@ -2482,15 +2470,11 @@ select.form-control-sm:not([size]):not([multiple]),
 .input-group-sm > .input-group-prepend > select.input-group-text:not([size]):not([multiple]),
 .input-group-sm > .input-group-append > select.input-group-text:not([size]):not([multiple]),
 .input-group-sm > .input-group-prepend > select.btn:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-prepend > select.view-all-notifications:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-prepend > select.mark-as-read:not([size]):not([multiple]),
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > select.view-all-notifications:not([size]):not([multiple]),
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > select.mark-as-read:not([size]):not([multiple]),
 .input-group-sm > .input-group-append > select.btn:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-append > select.view-all-notifications:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions
-.input-group-sm > .input-group-append > select.mark-as-read:not([size]):not([multiple]) {
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > select.view-all-notifications:not([size]):not([multiple]),
+#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > select.mark-as-read:not([size]):not([multiple]) {
   height: calc(1.8125rem + 2px);
 }
 
@@ -2503,19 +2487,15 @@ select.form-control-sm:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > .input-group-text,
 .input-group-lg > .input-group-append > .input-group-text,
 .input-group-lg > .input-group-prepend > .btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-prepend > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-prepend > .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > .mark-as-read,
 .input-group-lg > .input-group-append > .btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-append > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-append > .mark-as-read {
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > .mark-as-read {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
-  border-radius: 0.3rem;
+  border-radius: 0.2rem;
 }
 
 select.form-control-lg:not([size]):not([multiple]),
@@ -2523,15 +2503,11 @@ select.form-control-lg:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > select.input-group-text:not([size]):not([multiple]),
 .input-group-lg > .input-group-append > select.input-group-text:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > select.btn:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-prepend > select.view-all-notifications:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-prepend > select.mark-as-read:not([size]):not([multiple]),
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > select.view-all-notifications:not([size]):not([multiple]),
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > select.mark-as-read:not([size]):not([multiple]),
 .input-group-lg > .input-group-append > select.btn:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-append > select.view-all-notifications:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions
-.input-group-lg > .input-group-append > select.mark-as-read:not([size]):not([multiple]) {
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > select.view-all-notifications:not([size]):not([multiple]),
+#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > select.mark-as-read:not([size]):not([multiple]) {
   height: calc(2.875rem + 2px);
 }
 
@@ -2624,32 +2600,25 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:valid,
 .was-validated #jobListings_wrapper input:valid,
 #jobListings_wrapper .was-validated input:valid,
-.was-validated
-#applications_wrapper input:valid,
+.was-validated #applications_wrapper input:valid,
 #applications_wrapper .was-validated input:valid,
-.was-validated
-#addresses_wrapper input:valid,
+.was-validated #addresses_wrapper input:valid,
 #addresses_wrapper .was-validated input:valid,
-.was-validated
-#adverts_wrapper input:valid,
+.was-validated #adverts_wrapper input:valid,
 #adverts_wrapper .was-validated input:valid,
 .form-control.is-valid,
 #jobListings_wrapper input.is-valid,
 #applications_wrapper input.is-valid,
 #addresses_wrapper input.is-valid,
 #adverts_wrapper input.is-valid,
-.was-validated
-.custom-select:valid,
+.was-validated .custom-select:valid,
 .was-validated #jobListings_wrapper select:valid,
 #jobListings_wrapper .was-validated select:valid,
-.was-validated
-#applications_wrapper select:valid,
+.was-validated #applications_wrapper select:valid,
 #applications_wrapper .was-validated select:valid,
-.was-validated
-#addresses_wrapper select:valid,
+.was-validated #addresses_wrapper select:valid,
 #addresses_wrapper .was-validated select:valid,
-.was-validated
-#adverts_wrapper select:valid,
+.was-validated #adverts_wrapper select:valid,
 #adverts_wrapper .was-validated select:valid,
 .custom-select.is-valid,
 #jobListings_wrapper select.is-valid,
@@ -2662,32 +2631,25 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:valid:focus,
 .was-validated #jobListings_wrapper input:valid:focus,
 #jobListings_wrapper .was-validated input:valid:focus,
-.was-validated
-#applications_wrapper input:valid:focus,
+.was-validated #applications_wrapper input:valid:focus,
 #applications_wrapper .was-validated input:valid:focus,
-.was-validated
-#addresses_wrapper input:valid:focus,
+.was-validated #addresses_wrapper input:valid:focus,
 #addresses_wrapper .was-validated input:valid:focus,
-.was-validated
-#adverts_wrapper input:valid:focus,
+.was-validated #adverts_wrapper input:valid:focus,
 #adverts_wrapper .was-validated input:valid:focus,
 .form-control.is-valid:focus,
 #jobListings_wrapper input.is-valid:focus,
 #applications_wrapper input.is-valid:focus,
 #addresses_wrapper input.is-valid:focus,
 #adverts_wrapper input.is-valid:focus,
-.was-validated
-.custom-select:valid:focus,
+.was-validated .custom-select:valid:focus,
 .was-validated #jobListings_wrapper select:valid:focus,
 #jobListings_wrapper .was-validated select:valid:focus,
-.was-validated
-#applications_wrapper select:valid:focus,
+.was-validated #applications_wrapper select:valid:focus,
 #applications_wrapper .was-validated select:valid:focus,
-.was-validated
-#addresses_wrapper select:valid:focus,
+.was-validated #addresses_wrapper select:valid:focus,
 #addresses_wrapper .was-validated select:valid:focus,
-.was-validated
-#adverts_wrapper select:valid:focus,
+.was-validated #adverts_wrapper select:valid:focus,
 #adverts_wrapper .was-validated select:valid:focus,
 .custom-select.is-valid:focus,
 #jobListings_wrapper select.is-valid:focus,
@@ -2702,31 +2664,21 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:valid ~ .valid-feedback,
 .was-validated #jobListings_wrapper input:valid ~ .valid-feedback,
 #jobListings_wrapper .was-validated input:valid ~ .valid-feedback,
-.was-validated
-#applications_wrapper input:valid ~ .valid-feedback,
+.was-validated #applications_wrapper input:valid ~ .valid-feedback,
 #applications_wrapper .was-validated input:valid ~ .valid-feedback,
-.was-validated
-#addresses_wrapper input:valid ~ .valid-feedback,
+.was-validated #addresses_wrapper input:valid ~ .valid-feedback,
 #addresses_wrapper .was-validated input:valid ~ .valid-feedback,
-.was-validated
-#adverts_wrapper input:valid ~ .valid-feedback,
+.was-validated #adverts_wrapper input:valid ~ .valid-feedback,
 #adverts_wrapper .was-validated input:valid ~ .valid-feedback,
 .was-validated .form-control:valid ~ .valid-tooltip,
 .was-validated #jobListings_wrapper input:valid ~ .valid-tooltip,
-#jobListings_wrapper
-.was-validated input:valid ~ .valid-tooltip,
-.was-validated
-#applications_wrapper input:valid ~ .valid-tooltip,
-#applications_wrapper
-.was-validated input:valid ~ .valid-tooltip,
-.was-validated
-#addresses_wrapper input:valid ~ .valid-tooltip,
-#addresses_wrapper
-.was-validated input:valid ~ .valid-tooltip,
-.was-validated
-#adverts_wrapper input:valid ~ .valid-tooltip,
-#adverts_wrapper
-.was-validated input:valid ~ .valid-tooltip,
+#jobListings_wrapper .was-validated input:valid ~ .valid-tooltip,
+.was-validated #applications_wrapper input:valid ~ .valid-tooltip,
+#applications_wrapper .was-validated input:valid ~ .valid-tooltip,
+.was-validated #addresses_wrapper input:valid ~ .valid-tooltip,
+#addresses_wrapper .was-validated input:valid ~ .valid-tooltip,
+.was-validated #adverts_wrapper input:valid ~ .valid-tooltip,
+#adverts_wrapper .was-validated input:valid ~ .valid-tooltip,
 .form-control.is-valid ~ .valid-feedback,
 #jobListings_wrapper input.is-valid ~ .valid-feedback,
 #applications_wrapper input.is-valid ~ .valid-feedback,
@@ -2737,36 +2689,24 @@ select.form-control-lg:not([size]):not([multiple]),
 #applications_wrapper input.is-valid ~ .valid-tooltip,
 #addresses_wrapper input.is-valid ~ .valid-tooltip,
 #adverts_wrapper input.is-valid ~ .valid-tooltip,
-.was-validated
-.custom-select:valid ~ .valid-feedback,
+.was-validated .custom-select:valid ~ .valid-feedback,
 .was-validated #jobListings_wrapper select:valid ~ .valid-feedback,
 #jobListings_wrapper .was-validated select:valid ~ .valid-feedback,
-.was-validated
-#applications_wrapper select:valid ~ .valid-feedback,
+.was-validated #applications_wrapper select:valid ~ .valid-feedback,
 #applications_wrapper .was-validated select:valid ~ .valid-feedback,
-.was-validated
-#addresses_wrapper select:valid ~ .valid-feedback,
+.was-validated #addresses_wrapper select:valid ~ .valid-feedback,
 #addresses_wrapper .was-validated select:valid ~ .valid-feedback,
-.was-validated
-#adverts_wrapper select:valid ~ .valid-feedback,
+.was-validated #adverts_wrapper select:valid ~ .valid-feedback,
 #adverts_wrapper .was-validated select:valid ~ .valid-feedback,
-.was-validated
-.custom-select:valid ~ .valid-tooltip,
+.was-validated .custom-select:valid ~ .valid-tooltip,
 .was-validated #jobListings_wrapper select:valid ~ .valid-tooltip,
-#jobListings_wrapper
-.was-validated select:valid ~ .valid-tooltip,
-.was-validated
-#applications_wrapper select:valid ~ .valid-tooltip,
-#applications_wrapper
-.was-validated select:valid ~ .valid-tooltip,
-.was-validated
-#addresses_wrapper select:valid ~ .valid-tooltip,
-#addresses_wrapper
-.was-validated select:valid ~ .valid-tooltip,
-.was-validated
-#adverts_wrapper select:valid ~ .valid-tooltip,
-#adverts_wrapper
-.was-validated select:valid ~ .valid-tooltip,
+#jobListings_wrapper .was-validated select:valid ~ .valid-tooltip,
+.was-validated #applications_wrapper select:valid ~ .valid-tooltip,
+#applications_wrapper .was-validated select:valid ~ .valid-tooltip,
+.was-validated #addresses_wrapper select:valid ~ .valid-tooltip,
+#addresses_wrapper .was-validated select:valid ~ .valid-tooltip,
+.was-validated #adverts_wrapper select:valid ~ .valid-tooltip,
+#adverts_wrapper .was-validated select:valid ~ .valid-tooltip,
 .custom-select.is-valid ~ .valid-feedback,
 #jobListings_wrapper select.is-valid ~ .valid-feedback,
 #applications_wrapper select.is-valid ~ .valid-feedback,
@@ -2869,32 +2809,25 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:invalid,
 .was-validated #jobListings_wrapper input:invalid,
 #jobListings_wrapper .was-validated input:invalid,
-.was-validated
-#applications_wrapper input:invalid,
+.was-validated #applications_wrapper input:invalid,
 #applications_wrapper .was-validated input:invalid,
-.was-validated
-#addresses_wrapper input:invalid,
+.was-validated #addresses_wrapper input:invalid,
 #addresses_wrapper .was-validated input:invalid,
-.was-validated
-#adverts_wrapper input:invalid,
+.was-validated #adverts_wrapper input:invalid,
 #adverts_wrapper .was-validated input:invalid,
 .form-control.is-invalid,
 #jobListings_wrapper input.is-invalid,
 #applications_wrapper input.is-invalid,
 #addresses_wrapper input.is-invalid,
 #adverts_wrapper input.is-invalid,
-.was-validated
-.custom-select:invalid,
+.was-validated .custom-select:invalid,
 .was-validated #jobListings_wrapper select:invalid,
 #jobListings_wrapper .was-validated select:invalid,
-.was-validated
-#applications_wrapper select:invalid,
+.was-validated #applications_wrapper select:invalid,
 #applications_wrapper .was-validated select:invalid,
-.was-validated
-#addresses_wrapper select:invalid,
+.was-validated #addresses_wrapper select:invalid,
 #addresses_wrapper .was-validated select:invalid,
-.was-validated
-#adverts_wrapper select:invalid,
+.was-validated #adverts_wrapper select:invalid,
 #adverts_wrapper .was-validated select:invalid,
 .custom-select.is-invalid,
 #jobListings_wrapper select.is-invalid,
@@ -2907,32 +2840,25 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:invalid:focus,
 .was-validated #jobListings_wrapper input:invalid:focus,
 #jobListings_wrapper .was-validated input:invalid:focus,
-.was-validated
-#applications_wrapper input:invalid:focus,
+.was-validated #applications_wrapper input:invalid:focus,
 #applications_wrapper .was-validated input:invalid:focus,
-.was-validated
-#addresses_wrapper input:invalid:focus,
+.was-validated #addresses_wrapper input:invalid:focus,
 #addresses_wrapper .was-validated input:invalid:focus,
-.was-validated
-#adverts_wrapper input:invalid:focus,
+.was-validated #adverts_wrapper input:invalid:focus,
 #adverts_wrapper .was-validated input:invalid:focus,
 .form-control.is-invalid:focus,
 #jobListings_wrapper input.is-invalid:focus,
 #applications_wrapper input.is-invalid:focus,
 #addresses_wrapper input.is-invalid:focus,
 #adverts_wrapper input.is-invalid:focus,
-.was-validated
-.custom-select:invalid:focus,
+.was-validated .custom-select:invalid:focus,
 .was-validated #jobListings_wrapper select:invalid:focus,
 #jobListings_wrapper .was-validated select:invalid:focus,
-.was-validated
-#applications_wrapper select:invalid:focus,
+.was-validated #applications_wrapper select:invalid:focus,
 #applications_wrapper .was-validated select:invalid:focus,
-.was-validated
-#addresses_wrapper select:invalid:focus,
+.was-validated #addresses_wrapper select:invalid:focus,
 #addresses_wrapper .was-validated select:invalid:focus,
-.was-validated
-#adverts_wrapper select:invalid:focus,
+.was-validated #adverts_wrapper select:invalid:focus,
 #adverts_wrapper .was-validated select:invalid:focus,
 .custom-select.is-invalid:focus,
 #jobListings_wrapper select.is-invalid:focus,
@@ -2947,31 +2873,21 @@ select.form-control-lg:not([size]):not([multiple]),
 .was-validated .form-control:invalid ~ .invalid-feedback,
 .was-validated #jobListings_wrapper input:invalid ~ .invalid-feedback,
 #jobListings_wrapper .was-validated input:invalid ~ .invalid-feedback,
-.was-validated
-#applications_wrapper input:invalid ~ .invalid-feedback,
+.was-validated #applications_wrapper input:invalid ~ .invalid-feedback,
 #applications_wrapper .was-validated input:invalid ~ .invalid-feedback,
-.was-validated
-#addresses_wrapper input:invalid ~ .invalid-feedback,
+.was-validated #addresses_wrapper input:invalid ~ .invalid-feedback,
 #addresses_wrapper .was-validated input:invalid ~ .invalid-feedback,
-.was-validated
-#adverts_wrapper input:invalid ~ .invalid-feedback,
+.was-validated #adverts_wrapper input:invalid ~ .invalid-feedback,
 #adverts_wrapper .was-validated input:invalid ~ .invalid-feedback,
 .was-validated .form-control:invalid ~ .invalid-tooltip,
 .was-validated #jobListings_wrapper input:invalid ~ .invalid-tooltip,
-#jobListings_wrapper
-.was-validated input:invalid ~ .invalid-tooltip,
-.was-validated
-#applications_wrapper input:invalid ~ .invalid-tooltip,
-#applications_wrapper
-.was-validated input:invalid ~ .invalid-tooltip,
-.was-validated
-#addresses_wrapper input:invalid ~ .invalid-tooltip,
-#addresses_wrapper
-.was-validated input:invalid ~ .invalid-tooltip,
-.was-validated
-#adverts_wrapper input:invalid ~ .invalid-tooltip,
-#adverts_wrapper
-.was-validated input:invalid ~ .invalid-tooltip,
+#jobListings_wrapper .was-validated input:invalid ~ .invalid-tooltip,
+.was-validated #applications_wrapper input:invalid ~ .invalid-tooltip,
+#applications_wrapper .was-validated input:invalid ~ .invalid-tooltip,
+.was-validated #addresses_wrapper input:invalid ~ .invalid-tooltip,
+#addresses_wrapper .was-validated input:invalid ~ .invalid-tooltip,
+.was-validated #adverts_wrapper input:invalid ~ .invalid-tooltip,
+#adverts_wrapper .was-validated input:invalid ~ .invalid-tooltip,
 .form-control.is-invalid ~ .invalid-feedback,
 #jobListings_wrapper input.is-invalid ~ .invalid-feedback,
 #applications_wrapper input.is-invalid ~ .invalid-feedback,
@@ -2982,36 +2898,24 @@ select.form-control-lg:not([size]):not([multiple]),
 #applications_wrapper input.is-invalid ~ .invalid-tooltip,
 #addresses_wrapper input.is-invalid ~ .invalid-tooltip,
 #adverts_wrapper input.is-invalid ~ .invalid-tooltip,
-.was-validated
-.custom-select:invalid ~ .invalid-feedback,
+.was-validated .custom-select:invalid ~ .invalid-feedback,
 .was-validated #jobListings_wrapper select:invalid ~ .invalid-feedback,
 #jobListings_wrapper .was-validated select:invalid ~ .invalid-feedback,
-.was-validated
-#applications_wrapper select:invalid ~ .invalid-feedback,
+.was-validated #applications_wrapper select:invalid ~ .invalid-feedback,
 #applications_wrapper .was-validated select:invalid ~ .invalid-feedback,
-.was-validated
-#addresses_wrapper select:invalid ~ .invalid-feedback,
+.was-validated #addresses_wrapper select:invalid ~ .invalid-feedback,
 #addresses_wrapper .was-validated select:invalid ~ .invalid-feedback,
-.was-validated
-#adverts_wrapper select:invalid ~ .invalid-feedback,
+.was-validated #adverts_wrapper select:invalid ~ .invalid-feedback,
 #adverts_wrapper .was-validated select:invalid ~ .invalid-feedback,
-.was-validated
-.custom-select:invalid ~ .invalid-tooltip,
+.was-validated .custom-select:invalid ~ .invalid-tooltip,
 .was-validated #jobListings_wrapper select:invalid ~ .invalid-tooltip,
-#jobListings_wrapper
-.was-validated select:invalid ~ .invalid-tooltip,
-.was-validated
-#applications_wrapper select:invalid ~ .invalid-tooltip,
-#applications_wrapper
-.was-validated select:invalid ~ .invalid-tooltip,
-.was-validated
-#addresses_wrapper select:invalid ~ .invalid-tooltip,
-#addresses_wrapper
-.was-validated select:invalid ~ .invalid-tooltip,
-.was-validated
-#adverts_wrapper select:invalid ~ .invalid-tooltip,
-#adverts_wrapper
-.was-validated select:invalid ~ .invalid-tooltip,
+#jobListings_wrapper .was-validated select:invalid ~ .invalid-tooltip,
+.was-validated #applications_wrapper select:invalid ~ .invalid-tooltip,
+#applications_wrapper .was-validated select:invalid ~ .invalid-tooltip,
+.was-validated #addresses_wrapper select:invalid ~ .invalid-tooltip,
+#addresses_wrapper .was-validated select:invalid ~ .invalid-tooltip,
+.was-validated #adverts_wrapper select:invalid ~ .invalid-tooltip,
+#adverts_wrapper .was-validated select:invalid ~ .invalid-tooltip,
 .custom-select.is-invalid ~ .invalid-feedback,
 #jobListings_wrapper select.is-invalid ~ .invalid-feedback,
 #applications_wrapper select.is-invalid ~ .invalid-feedback,
@@ -3139,14 +3043,11 @@ select.form-control-lg:not([size]):not([multiple]),
   .form-inline .form-control,
   .form-inline #jobListings_wrapper input,
   #jobListings_wrapper .form-inline input,
-  .form-inline
-  #applications_wrapper input,
+  .form-inline #applications_wrapper input,
   #applications_wrapper .form-inline input,
-  .form-inline
-  #addresses_wrapper input,
+  .form-inline #addresses_wrapper input,
   #addresses_wrapper .form-inline input,
-  .form-inline
-  #adverts_wrapper input,
+  .form-inline #adverts_wrapper input,
   #adverts_wrapper .form-inline input {
     display: inline-block;
     width: auto;
@@ -3212,7 +3113,7 @@ select.form-control-lg:not([size]):not([multiple]),
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
   -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -3268,12 +3169,9 @@ a.btn.disabled,
 #navbar-notification-panel .notification.notification-actions a.disabled.mark-as-read,
 fieldset:disabled a.btn,
 fieldset:disabled #navbar-notification-panel .notification.notification-actions a.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-fieldset:disabled a.view-all-notifications,
-fieldset:disabled
-#navbar-notification-panel .notification.notification-actions a.mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-fieldset:disabled a.mark-as-read {
+#navbar-notification-panel .notification.notification-actions fieldset:disabled a.view-all-notifications,
+fieldset:disabled #navbar-notification-panel .notification.notification-actions a.mark-as-read,
+#navbar-notification-panel .notification.notification-actions fieldset:disabled a.mark-as-read {
   pointer-events: none;
 }
 
@@ -3313,8 +3211,7 @@ fieldset:disabled a.mark-as-read {
 .btn-primary:not(:disabled):not(.disabled).active,
 #navbar-notification-panel .notification.notification-actions .mark-as-read:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle,
-#navbar-notification-panel .notification.notification-actions
-.show > .dropdown-toggle.mark-as-read {
+#navbar-notification-panel .notification.notification-actions .show > .dropdown-toggle.mark-as-read {
   color: #fff;
   background-color: #334161;
   border-color: #2f3b58;
@@ -3325,8 +3222,7 @@ fieldset:disabled a.mark-as-read {
 .btn-primary:not(:disabled):not(.disabled).active:focus,
 #navbar-notification-panel .notification.notification-actions .mark-as-read:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle:focus,
-#navbar-notification-panel .notification.notification-actions
-.show > .dropdown-toggle.mark-as-read:focus {
+#navbar-notification-panel .notification.notification-actions .show > .dropdown-toggle.mark-as-read:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.5);
 }
@@ -3687,8 +3583,7 @@ fieldset:disabled a.mark-as-read {
 .btn-action:not(:disabled):not(.disabled).active,
 #navbar-notification-panel .notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled).active,
 .show > .btn-action.dropdown-toggle,
-#navbar-notification-panel .notification.notification-actions
-.show > .dropdown-toggle.view-all-notifications {
+#navbar-notification-panel .notification.notification-actions .show > .dropdown-toggle.view-all-notifications {
   color: #fff;
   background-color: #f7601d;
   border-color: #f75810;
@@ -3699,8 +3594,7 @@ fieldset:disabled a.mark-as-read {
 .btn-action:not(:disabled):not(.disabled).active:focus,
 #navbar-notification-panel .notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled).active:focus,
 .show > .btn-action.dropdown-toggle:focus,
-#navbar-notification-panel .notification.notification-actions
-.show > .dropdown-toggle.view-all-notifications:focus {
+#navbar-notification-panel .notification.notification-actions .show > .dropdown-toggle.view-all-notifications:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(249, 131, 78, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(249, 131, 78, 0.5);
 }
@@ -4218,7 +4112,7 @@ fieldset:disabled a.mark-as-read {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
-  border-radius: 0.3rem;
+  border-radius: 0.2rem;
 }
 
 .btn-sm,
@@ -4228,7 +4122,7 @@ fieldset:disabled a.mark-as-read {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
-  border-radius: 0.2rem;
+  border-radius: 0.1rem;
 }
 
 .btn-block {
@@ -4319,7 +4213,7 @@ tbody.collapse.show {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .dropup .dropdown-menu {
@@ -4473,10 +4367,8 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group > .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions .btn-group > .mark-as-read,
 .btn-group-vertical > .btn,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .mark-as-read {
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read {
   position: relative;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 auto;
@@ -4487,10 +4379,8 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group > .view-all-notifications:hover,
 #navbar-notification-panel .notification.notification-actions .btn-group > .mark-as-read:hover,
 .btn-group-vertical > .btn:hover,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .view-all-notifications:hover,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .mark-as-read:hover {
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications:hover,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read:hover {
   z-index: 1;
 }
 
@@ -4504,28 +4394,21 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group > .active.view-all-notifications,
 #navbar-notification-panel .notification.notification-actions .btn-group > .active.mark-as-read,
 .btn-group-vertical > .btn:focus,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .view-all-notifications:focus,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .mark-as-read:focus,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications:focus,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read:focus,
 .btn-group-vertical > .btn:active,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .view-all-notifications:active,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .mark-as-read:active,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications:active,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read:active,
 .btn-group-vertical > .btn.active,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .active.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .active.mark-as-read {
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .active.view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .active.mark-as-read {
   z-index: 1;
 }
 
 .btn-group .btn + .btn,
 .btn-group #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn,
 #navbar-notification-panel .notification.notification-actions .btn-group .view-all-notifications + .btn,
-.btn-group
-#navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
+.btn-group #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
 #navbar-notification-panel .notification.notification-actions .btn-group .mark-as-read + .btn,
 .btn-group #navbar-notification-panel .notification.notification-actions .btn + .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions .btn-group .btn + .view-all-notifications,
@@ -4533,8 +4416,7 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group .view-all-notifications + .view-all-notifications,
 .btn-group #navbar-notification-panel .notification.notification-actions .mark-as-read + .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions .btn-group .mark-as-read + .view-all-notifications,
-.btn-group
-#navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
+.btn-group #navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
 #navbar-notification-panel .notification.notification-actions .btn-group .btn + .mark-as-read,
 .btn-group #navbar-notification-panel .notification.notification-actions .view-all-notifications + .mark-as-read,
 #navbar-notification-panel .notification.notification-actions .btn-group .view-all-notifications + .mark-as-read,
@@ -4542,64 +4424,42 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group .mark-as-read + .mark-as-read,
 .btn-group .btn + .btn-group,
 .btn-group #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn-group,
-#navbar-notification-panel .notification.notification-actions
-.btn-group .view-all-notifications + .btn-group,
-.btn-group
-#navbar-notification-panel .notification.notification-actions .mark-as-read + .btn-group,
-#navbar-notification-panel .notification.notification-actions
-.btn-group .mark-as-read + .btn-group,
+#navbar-notification-panel .notification.notification-actions .btn-group .view-all-notifications + .btn-group,
+.btn-group #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn-group,
+#navbar-notification-panel .notification.notification-actions .btn-group .mark-as-read + .btn-group,
 .btn-group .btn-group + .btn,
 .btn-group #navbar-notification-panel .notification.notification-actions .btn-group + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group .btn-group + .view-all-notifications,
-.btn-group
-#navbar-notification-panel .notification.notification-actions .btn-group + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-.btn-group .btn-group + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .btn-group .btn-group + .view-all-notifications,
+.btn-group #navbar-notification-panel .notification.notification-actions .btn-group + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .btn-group .btn-group + .mark-as-read,
 .btn-group .btn-group + .btn-group,
 .btn-group-vertical .btn + .btn,
 .btn-group-vertical #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .view-all-notifications + .btn,
-.btn-group-vertical
-#navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .mark-as-read + .btn,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .view-all-notifications + .btn,
+.btn-group-vertical #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .mark-as-read + .btn,
 .btn-group-vertical #navbar-notification-panel .notification.notification-actions .btn + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .btn + .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .btn + .view-all-notifications,
 .btn-group-vertical #navbar-notification-panel .notification.notification-actions .view-all-notifications + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .view-all-notifications + .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .view-all-notifications + .view-all-notifications,
 .btn-group-vertical #navbar-notification-panel .notification.notification-actions .mark-as-read + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .mark-as-read + .view-all-notifications,
-.btn-group-vertical
-#navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .btn + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .mark-as-read + .view-all-notifications,
+.btn-group-vertical #navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .btn + .mark-as-read,
 .btn-group-vertical #navbar-notification-panel .notification.notification-actions .view-all-notifications + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .view-all-notifications + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .view-all-notifications + .mark-as-read,
 .btn-group-vertical #navbar-notification-panel .notification.notification-actions .mark-as-read + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .mark-as-read + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .mark-as-read + .mark-as-read,
 .btn-group-vertical .btn + .btn-group,
 .btn-group-vertical #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn-group,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .view-all-notifications + .btn-group,
-.btn-group-vertical
-#navbar-notification-panel .notification.notification-actions .mark-as-read + .btn-group,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .mark-as-read + .btn-group,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .view-all-notifications + .btn-group,
+.btn-group-vertical #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn-group,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .mark-as-read + .btn-group,
 .btn-group-vertical .btn-group + .btn,
 .btn-group-vertical #navbar-notification-panel .notification.notification-actions .btn-group + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .btn-group + .view-all-notifications,
-.btn-group-vertical
-#navbar-notification-panel .notification.notification-actions .btn-group + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical .btn-group + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .btn-group + .view-all-notifications,
+.btn-group-vertical #navbar-notification-panel .notification.notification-actions .btn-group + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical .btn-group + .mark-as-read,
 .btn-group-vertical .btn-group + .btn-group {
   margin-left: -1px;
 }
@@ -4629,10 +4489,8 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
 #navbar-notification-panel .notification.notification-actions .btn-group > .mark-as-read:not(:last-child):not(.dropdown-toggle),
 .btn-group > .btn-group:not(:last-child) > .btn,
-#navbar-notification-panel .notification.notification-actions
-.btn-group > .btn-group:not(:last-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group > .btn-group:not(:last-child) > .mark-as-read {
+#navbar-notification-panel .notification.notification-actions .btn-group > .btn-group:not(:last-child) > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .btn-group > .btn-group:not(:last-child) > .mark-as-read {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -4641,10 +4499,8 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group > .view-all-notifications:not(:first-child),
 #navbar-notification-panel .notification.notification-actions .btn-group > .mark-as-read:not(:first-child),
 .btn-group > .btn-group:not(:first-child) > .btn,
-#navbar-notification-panel .notification.notification-actions
-.btn-group > .btn-group:not(:first-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group > .btn-group:not(:first-child) > .mark-as-read {
+#navbar-notification-panel .notification.notification-actions .btn-group > .btn-group:not(:first-child) > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .btn-group > .btn-group:not(:first-child) > .mark-as-read {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -4690,8 +4546,7 @@ tbody.collapse.show {
 .btn-group-vertical .btn,
 .btn-group-vertical #navbar-notification-panel .notification.notification-actions .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions .btn-group-vertical .view-all-notifications,
-.btn-group-vertical
-#navbar-notification-panel .notification.notification-actions .mark-as-read,
+.btn-group-vertical #navbar-notification-panel .notification.notification-actions .mark-as-read,
 #navbar-notification-panel .notification.notification-actions .btn-group-vertical .mark-as-read,
 .btn-group-vertical .btn-group {
   width: 100%;
@@ -4707,15 +4562,11 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications + .mark-as-read,
 #navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read + .mark-as-read,
 .btn-group-vertical > .btn + .btn-group,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .view-all-notifications + .btn-group,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .mark-as-read + .btn-group,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications + .btn-group,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .btn-group + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .btn-group + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group + .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group + .mark-as-read,
 .btn-group-vertical > .btn-group + .btn-group {
   margin-top: -1px;
   margin-left: 0;
@@ -4725,10 +4576,8 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
 #navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read:not(:last-child):not(.dropdown-toggle),
 .btn-group-vertical > .btn-group:not(:last-child) > .btn,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .btn-group:not(:last-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .btn-group:not(:last-child) > .mark-as-read {
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group:not(:last-child) > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group:not(:last-child) > .mark-as-read {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -4737,10 +4586,8 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications:not(:first-child),
 #navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read:not(:first-child),
 .btn-group-vertical > .btn-group:not(:first-child) > .btn,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .btn-group:not(:first-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-vertical > .btn-group:not(:first-child) > .mark-as-read {
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group:not(:first-child) > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group:not(:first-child) > .mark-as-read {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
@@ -4749,10 +4596,8 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group-toggle > .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions .btn-group-toggle > .mark-as-read,
 .btn-group-toggle > .btn-group > .btn,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-toggle > .btn-group > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.btn-group-toggle > .btn-group > .mark-as-read {
+#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .mark-as-read {
   margin-bottom: 0;
 }
 
@@ -4760,20 +4605,14 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .btn-group-toggle > .view-all-notifications input[type="radio"],
 #navbar-notification-panel .notification.notification-actions .btn-group-toggle > .mark-as-read input[type="radio"],
 .btn-group-toggle > .btn input[type="checkbox"],
-#navbar-notification-panel .notification.notification-actions
-.btn-group-toggle > .view-all-notifications input[type="checkbox"],
-#navbar-notification-panel .notification.notification-actions
-.btn-group-toggle > .mark-as-read input[type="checkbox"],
+#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .view-all-notifications input[type="checkbox"],
+#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .mark-as-read input[type="checkbox"],
 .btn-group-toggle > .btn-group > .btn input[type="radio"],
-#navbar-notification-panel .notification.notification-actions
-.btn-group-toggle > .btn-group > .view-all-notifications input[type="radio"],
-#navbar-notification-panel .notification.notification-actions
-.btn-group-toggle > .btn-group > .mark-as-read input[type="radio"],
+#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .view-all-notifications input[type="radio"],
+#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .mark-as-read input[type="radio"],
 .btn-group-toggle > .btn-group > .btn input[type="checkbox"],
-#navbar-notification-panel .notification.notification-actions
-.btn-group-toggle > .btn-group > .view-all-notifications input[type="checkbox"],
-#navbar-notification-panel .notification.notification-actions
-.btn-group-toggle > .btn-group > .mark-as-read input[type="checkbox"] {
+#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .view-all-notifications input[type="checkbox"],
+#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .mark-as-read input[type="checkbox"] {
   position: absolute;
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
@@ -4798,14 +4637,10 @@ tbody.collapse.show {
 #addresses_wrapper .input-group > input,
 #adverts_wrapper .input-group > input,
 .input-group > .custom-select,
-#jobListings_wrapper
-.input-group > select,
-#applications_wrapper
-.input-group > select,
-#addresses_wrapper
-.input-group > select,
-#adverts_wrapper
-.input-group > select,
+#jobListings_wrapper .input-group > select,
+#applications_wrapper .input-group > select,
+#addresses_wrapper .input-group > select,
+#adverts_wrapper .input-group > select,
 .input-group > .custom-file {
   position: relative;
   -webkit-box-flex: 1;
@@ -4821,14 +4656,10 @@ tbody.collapse.show {
 #addresses_wrapper .input-group > input:focus,
 #adverts_wrapper .input-group > input:focus,
 .input-group > .custom-select:focus,
-#jobListings_wrapper
-.input-group > select:focus,
-#applications_wrapper
-.input-group > select:focus,
-#addresses_wrapper
-.input-group > select:focus,
-#adverts_wrapper
-.input-group > select:focus,
+#jobListings_wrapper .input-group > select:focus,
+#applications_wrapper .input-group > select:focus,
+#addresses_wrapper .input-group > select:focus,
+#adverts_wrapper .input-group > select:focus,
 .input-group > .custom-file:focus {
   z-index: 3;
 }
@@ -4847,116 +4678,64 @@ tbody.collapse.show {
 #adverts_wrapper .input-group > .form-control + input,
 #adverts_wrapper .input-group > input + input,
 .input-group > .form-control + .custom-select,
-#jobListings_wrapper
-.input-group > input + .custom-select,
-#applications_wrapper
-.input-group > input + .custom-select,
-#addresses_wrapper
-.input-group > input + .custom-select,
-#adverts_wrapper
-.input-group > input + .custom-select,
-#jobListings_wrapper
-.input-group > .form-control + select,
-#jobListings_wrapper
-.input-group > input + select,
-#applications_wrapper
-.input-group > .form-control + select,
-#applications_wrapper
-.input-group > input + select,
-#addresses_wrapper
-.input-group > .form-control + select,
-#addresses_wrapper
-.input-group > input + select,
-#adverts_wrapper
-.input-group > .form-control + select,
-#adverts_wrapper
-.input-group > input + select,
+#jobListings_wrapper .input-group > input + .custom-select,
+#applications_wrapper .input-group > input + .custom-select,
+#addresses_wrapper .input-group > input + .custom-select,
+#adverts_wrapper .input-group > input + .custom-select,
+#jobListings_wrapper .input-group > .form-control + select,
+#jobListings_wrapper .input-group > input + select,
+#applications_wrapper .input-group > .form-control + select,
+#applications_wrapper .input-group > input + select,
+#addresses_wrapper .input-group > .form-control + select,
+#addresses_wrapper .input-group > input + select,
+#adverts_wrapper .input-group > .form-control + select,
+#adverts_wrapper .input-group > input + select,
 .input-group > .form-control + .custom-file,
-#jobListings_wrapper
-.input-group > input + .custom-file,
-#applications_wrapper
-.input-group > input + .custom-file,
-#addresses_wrapper
-.input-group > input + .custom-file,
-#adverts_wrapper
-.input-group > input + .custom-file,
+#jobListings_wrapper .input-group > input + .custom-file,
+#applications_wrapper .input-group > input + .custom-file,
+#addresses_wrapper .input-group > input + .custom-file,
+#adverts_wrapper .input-group > input + .custom-file,
 .input-group > .custom-select + .form-control,
-#jobListings_wrapper
-.input-group > select + .form-control,
-#applications_wrapper
-.input-group > select + .form-control,
-#addresses_wrapper
-.input-group > select + .form-control,
-#adverts_wrapper
-.input-group > select + .form-control,
-#jobListings_wrapper
-.input-group > .custom-select + input,
-#jobListings_wrapper
-.input-group > select + input,
-#applications_wrapper
-.input-group > .custom-select + input,
-#applications_wrapper
-.input-group > select + input,
-#addresses_wrapper
-.input-group > .custom-select + input,
-#addresses_wrapper
-.input-group > select + input,
-#adverts_wrapper
-.input-group > .custom-select + input,
-#adverts_wrapper
-.input-group > select + input,
+#jobListings_wrapper .input-group > select + .form-control,
+#applications_wrapper .input-group > select + .form-control,
+#addresses_wrapper .input-group > select + .form-control,
+#adverts_wrapper .input-group > select + .form-control,
+#jobListings_wrapper .input-group > .custom-select + input,
+#jobListings_wrapper .input-group > select + input,
+#applications_wrapper .input-group > .custom-select + input,
+#applications_wrapper .input-group > select + input,
+#addresses_wrapper .input-group > .custom-select + input,
+#addresses_wrapper .input-group > select + input,
+#adverts_wrapper .input-group > .custom-select + input,
+#adverts_wrapper .input-group > select + input,
 .input-group > .custom-select + .custom-select,
-#jobListings_wrapper
-.input-group > select + .custom-select,
-#applications_wrapper
-.input-group > select + .custom-select,
-#addresses_wrapper
-.input-group > select + .custom-select,
-#adverts_wrapper
-.input-group > select + .custom-select,
-#jobListings_wrapper
-.input-group > .custom-select + select,
-#jobListings_wrapper
-.input-group > select + select,
-#applications_wrapper
-.input-group > .custom-select + select,
-#applications_wrapper
-.input-group > select + select,
-#addresses_wrapper
-.input-group > .custom-select + select,
-#addresses_wrapper
-.input-group > select + select,
-#adverts_wrapper
-.input-group > .custom-select + select,
-#adverts_wrapper
-.input-group > select + select,
+#jobListings_wrapper .input-group > select + .custom-select,
+#applications_wrapper .input-group > select + .custom-select,
+#addresses_wrapper .input-group > select + .custom-select,
+#adverts_wrapper .input-group > select + .custom-select,
+#jobListings_wrapper .input-group > .custom-select + select,
+#jobListings_wrapper .input-group > select + select,
+#applications_wrapper .input-group > .custom-select + select,
+#applications_wrapper .input-group > select + select,
+#addresses_wrapper .input-group > .custom-select + select,
+#addresses_wrapper .input-group > select + select,
+#adverts_wrapper .input-group > .custom-select + select,
+#adverts_wrapper .input-group > select + select,
 .input-group > .custom-select + .custom-file,
-#jobListings_wrapper
-.input-group > select + .custom-file,
-#applications_wrapper
-.input-group > select + .custom-file,
-#addresses_wrapper
-.input-group > select + .custom-file,
-#adverts_wrapper
-.input-group > select + .custom-file,
+#jobListings_wrapper .input-group > select + .custom-file,
+#applications_wrapper .input-group > select + .custom-file,
+#addresses_wrapper .input-group > select + .custom-file,
+#adverts_wrapper .input-group > select + .custom-file,
 .input-group > .custom-file + .form-control,
-#jobListings_wrapper
-.input-group > .custom-file + input,
-#applications_wrapper
-.input-group > .custom-file + input,
-#addresses_wrapper
-.input-group > .custom-file + input,
-#adverts_wrapper
-.input-group > .custom-file + input,
+#jobListings_wrapper .input-group > .custom-file + input,
+#applications_wrapper .input-group > .custom-file + input,
+#addresses_wrapper .input-group > .custom-file + input,
+#adverts_wrapper .input-group > .custom-file + input,
 .input-group > .custom-file + .custom-select,
-#jobListings_wrapper
-.input-group > .custom-file + select,
-#applications_wrapper
-.input-group > .custom-file + select,
-#addresses_wrapper
-.input-group > .custom-file + select,
-#adverts_wrapper
-.input-group > .custom-file + select,
+#jobListings_wrapper .input-group > .custom-file + select,
+#applications_wrapper .input-group > .custom-file + select,
+#addresses_wrapper .input-group > .custom-file + select,
+#adverts_wrapper .input-group > .custom-file + select,
 .input-group > .custom-file + .custom-file {
   margin-left: -1px;
 }
@@ -4967,14 +4746,10 @@ tbody.collapse.show {
 #addresses_wrapper .input-group > input:not(:last-child),
 #adverts_wrapper .input-group > input:not(:last-child),
 .input-group > .custom-select:not(:last-child),
-#jobListings_wrapper
-.input-group > select:not(:last-child),
-#applications_wrapper
-.input-group > select:not(:last-child),
-#addresses_wrapper
-.input-group > select:not(:last-child),
-#adverts_wrapper
-.input-group > select:not(:last-child) {
+#jobListings_wrapper .input-group > select:not(:last-child),
+#applications_wrapper .input-group > select:not(:last-child),
+#addresses_wrapper .input-group > select:not(:last-child),
+#adverts_wrapper .input-group > select:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -4985,14 +4760,10 @@ tbody.collapse.show {
 #addresses_wrapper .input-group > input:not(:first-child),
 #adverts_wrapper .input-group > input:not(:first-child),
 .input-group > .custom-select:not(:first-child),
-#jobListings_wrapper
-.input-group > select:not(:first-child),
-#applications_wrapper
-.input-group > select:not(:first-child),
-#addresses_wrapper
-.input-group > select:not(:first-child),
-#adverts_wrapper
-.input-group > select:not(:first-child) {
+#jobListings_wrapper .input-group > select:not(:first-child),
+#applications_wrapper .input-group > select:not(:first-child),
+#addresses_wrapper .input-group > select:not(:first-child),
+#adverts_wrapper .input-group > select:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -5028,17 +4799,13 @@ tbody.collapse.show {
 .input-group-prepend .btn,
 .input-group-prepend #navbar-notification-panel .notification.notification-actions .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions .input-group-prepend .view-all-notifications,
-.input-group-prepend
-#navbar-notification-panel .notification.notification-actions .mark-as-read,
+.input-group-prepend #navbar-notification-panel .notification.notification-actions .mark-as-read,
 #navbar-notification-panel .notification.notification-actions .input-group-prepend .mark-as-read,
 .input-group-append .btn,
 .input-group-append #navbar-notification-panel .notification.notification-actions .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .view-all-notifications,
-.input-group-append
-#navbar-notification-panel .notification.notification-actions .mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .mark-as-read {
+#navbar-notification-panel .notification.notification-actions .input-group-append .view-all-notifications,
+.input-group-append #navbar-notification-panel .notification.notification-actions .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-append .mark-as-read {
   position: relative;
   z-index: 2;
 }
@@ -5046,8 +4813,7 @@ tbody.collapse.show {
 .input-group-prepend .btn + .btn,
 .input-group-prepend #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn,
 #navbar-notification-panel .notification.notification-actions .input-group-prepend .view-all-notifications + .btn,
-.input-group-prepend
-#navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
+.input-group-prepend #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
 #navbar-notification-panel .notification.notification-actions .input-group-prepend .mark-as-read + .btn,
 .input-group-prepend #navbar-notification-panel .notification.notification-actions .btn + .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions .input-group-prepend .btn + .view-all-notifications,
@@ -5055,8 +4821,7 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .input-group-prepend .view-all-notifications + .view-all-notifications,
 .input-group-prepend #navbar-notification-panel .notification.notification-actions .mark-as-read + .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions .input-group-prepend .mark-as-read + .view-all-notifications,
-.input-group-prepend
-#navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
+.input-group-prepend #navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
 #navbar-notification-panel .notification.notification-actions .input-group-prepend .btn + .mark-as-read,
 .input-group-prepend #navbar-notification-panel .notification.notification-actions .view-all-notifications + .mark-as-read,
 #navbar-notification-panel .notification.notification-actions .input-group-prepend .view-all-notifications + .mark-as-read,
@@ -5064,65 +4829,43 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .input-group-prepend .mark-as-read + .mark-as-read,
 .input-group-prepend .btn + .input-group-text,
 .input-group-prepend #navbar-notification-panel .notification.notification-actions .view-all-notifications + .input-group-text,
-#navbar-notification-panel .notification.notification-actions
-.input-group-prepend .view-all-notifications + .input-group-text,
-.input-group-prepend
-#navbar-notification-panel .notification.notification-actions .mark-as-read + .input-group-text,
-#navbar-notification-panel .notification.notification-actions
-.input-group-prepend .mark-as-read + .input-group-text,
+#navbar-notification-panel .notification.notification-actions .input-group-prepend .view-all-notifications + .input-group-text,
+.input-group-prepend #navbar-notification-panel .notification.notification-actions .mark-as-read + .input-group-text,
+#navbar-notification-panel .notification.notification-actions .input-group-prepend .mark-as-read + .input-group-text,
 .input-group-prepend .input-group-text + .input-group-text,
 .input-group-prepend .input-group-text + .btn,
 .input-group-prepend #navbar-notification-panel .notification.notification-actions .input-group-text + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-prepend .input-group-text + .view-all-notifications,
-.input-group-prepend
-#navbar-notification-panel .notification.notification-actions .input-group-text + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-.input-group-prepend .input-group-text + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-prepend .input-group-text + .view-all-notifications,
+.input-group-prepend #navbar-notification-panel .notification.notification-actions .input-group-text + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-prepend .input-group-text + .mark-as-read,
 .input-group-append .btn + .btn,
 .input-group-append #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .view-all-notifications + .btn,
-.input-group-append
-#navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .mark-as-read + .btn,
+#navbar-notification-panel .notification.notification-actions .input-group-append .view-all-notifications + .btn,
+.input-group-append #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
+#navbar-notification-panel .notification.notification-actions .input-group-append .mark-as-read + .btn,
 .input-group-append #navbar-notification-panel .notification.notification-actions .btn + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .btn + .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group-append .btn + .view-all-notifications,
 .input-group-append #navbar-notification-panel .notification.notification-actions .view-all-notifications + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .view-all-notifications + .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group-append .view-all-notifications + .view-all-notifications,
 .input-group-append #navbar-notification-panel .notification.notification-actions .mark-as-read + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .mark-as-read + .view-all-notifications,
-.input-group-append
-#navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .btn + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-append .mark-as-read + .view-all-notifications,
+.input-group-append #navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-append .btn + .mark-as-read,
 .input-group-append #navbar-notification-panel .notification.notification-actions .view-all-notifications + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .view-all-notifications + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-append .view-all-notifications + .mark-as-read,
 .input-group-append #navbar-notification-panel .notification.notification-actions .mark-as-read + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .mark-as-read + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-append .mark-as-read + .mark-as-read,
 .input-group-append .btn + .input-group-text,
 .input-group-append #navbar-notification-panel .notification.notification-actions .view-all-notifications + .input-group-text,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .view-all-notifications + .input-group-text,
-.input-group-append
-#navbar-notification-panel .notification.notification-actions .mark-as-read + .input-group-text,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .mark-as-read + .input-group-text,
+#navbar-notification-panel .notification.notification-actions .input-group-append .view-all-notifications + .input-group-text,
+.input-group-append #navbar-notification-panel .notification.notification-actions .mark-as-read + .input-group-text,
+#navbar-notification-panel .notification.notification-actions .input-group-append .mark-as-read + .input-group-text,
 .input-group-append .input-group-text + .input-group-text,
 .input-group-append .input-group-text + .btn,
 .input-group-append #navbar-notification-panel .notification.notification-actions .input-group-text + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .input-group-text + .view-all-notifications,
-.input-group-append
-#navbar-notification-panel .notification.notification-actions .input-group-text + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions
-.input-group-append .input-group-text + .mark-as-read {
+#navbar-notification-panel .notification.notification-actions .input-group-append .input-group-text + .view-all-notifications,
+.input-group-append #navbar-notification-panel .notification.notification-actions .input-group-text + .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group-append .input-group-text + .mark-as-read {
   margin-left: -1px;
 }
 
@@ -5151,7 +4894,7 @@ tbody.collapse.show {
   white-space: nowrap;
   background-color: #e9ecef;
   border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .input-group-text input[type="radio"],
@@ -5164,16 +4907,12 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .input-group > .input-group-prepend > .mark-as-read,
 .input-group > .input-group-prepend > .input-group-text,
 .input-group > .input-group-append:not(:last-child) > .btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group > .input-group-append:not(:last-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group > .input-group-append:not(:last-child) > .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group > .input-group-append:not(:last-child) > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group > .input-group-append:not(:last-child) > .mark-as-read,
 .input-group > .input-group-append:not(:last-child) > .input-group-text,
 .input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
-#navbar-notification-panel .notification.notification-actions
-.input-group > .input-group-append:last-child > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
-#navbar-notification-panel .notification.notification-actions
-.input-group > .input-group-append:last-child > .mark-as-read:not(:last-child):not(.dropdown-toggle),
+#navbar-notification-panel .notification.notification-actions .input-group > .input-group-append:last-child > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
+#navbar-notification-panel .notification.notification-actions .input-group > .input-group-append:last-child > .mark-as-read:not(:last-child):not(.dropdown-toggle),
 .input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -5184,16 +4923,12 @@ tbody.collapse.show {
 #navbar-notification-panel .notification.notification-actions .input-group > .input-group-append > .mark-as-read,
 .input-group > .input-group-append > .input-group-text,
 .input-group > .input-group-prepend:not(:first-child) > .btn,
-#navbar-notification-panel .notification.notification-actions
-.input-group > .input-group-prepend:not(:first-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions
-.input-group > .input-group-prepend:not(:first-child) > .mark-as-read,
+#navbar-notification-panel .notification.notification-actions .input-group > .input-group-prepend:not(:first-child) > .view-all-notifications,
+#navbar-notification-panel .notification.notification-actions .input-group > .input-group-prepend:not(:first-child) > .mark-as-read,
 .input-group > .input-group-prepend:not(:first-child) > .input-group-text,
 .input-group > .input-group-prepend:first-child > .btn:not(:first-child),
-#navbar-notification-panel .notification.notification-actions
-.input-group > .input-group-prepend:first-child > .view-all-notifications:not(:first-child),
-#navbar-notification-panel .notification.notification-actions
-.input-group > .input-group-prepend:first-child > .mark-as-read:not(:first-child),
+#navbar-notification-panel .notification.notification-actions .input-group > .input-group-prepend:first-child > .view-all-notifications:not(:first-child),
+#navbar-notification-panel .notification.notification-actions .input-group > .input-group-prepend:first-child > .mark-as-read:not(:first-child),
 .input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -5276,7 +5011,7 @@ tbody.collapse.show {
 }
 
 .custom-checkbox .custom-control-label::before {
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
@@ -5334,7 +5069,7 @@ tbody.collapse.show {
   background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
   background-size: 8px 10px;
   border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -5449,7 +5184,7 @@ tbody.collapse.show {
   color: #495057;
   background-color: #fff;
   border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .custom-file-label::after {
@@ -5466,7 +5201,7 @@ tbody.collapse.show {
   content: "Browse";
   background-color: #e9ecef;
   border-left: 1px solid #ced4da;
-  border-radius: 0 0.25rem 0.25rem 0;
+  border-radius: 0 0.15rem 0.15rem 0;
 }
 
 .nav {
@@ -5504,8 +5239,8 @@ tbody.collapse.show {
 
 .nav-tabs .nav-link {
   border: 1px solid transparent;
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.15rem;
+  border-top-right-radius: 0.15rem;
 }
 
 .nav-tabs .nav-link:hover,
@@ -5533,7 +5268,7 @@ tbody.collapse.show {
 }
 
 .nav-pills .nav-link {
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .nav-pills .nav-link.active,
@@ -5658,7 +5393,7 @@ tbody.collapse.show {
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .navbar-toggler:hover,
@@ -6112,7 +5847,7 @@ tbody.collapse.show {
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .card > hr {
@@ -6121,13 +5856,13 @@ tbody.collapse.show {
 }
 
 .card > .list-group:first-child .list-group-item:first-child {
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.15rem;
+  border-top-right-radius: 0.15rem;
 }
 
 .card > .list-group:last-child .list-group-item:last-child {
-  border-bottom-right-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.15rem;
+  border-bottom-left-radius: 0.15rem;
 }
 
 .card-body {
@@ -6166,7 +5901,7 @@ tbody.collapse.show {
 }
 
 .card-header:first-child {
-  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+  border-radius: calc(0.15rem - 1px) calc(0.15rem - 1px) 0 0;
 }
 
 .card-header + .list-group .list-group-item:first-child {
@@ -6180,7 +5915,7 @@ tbody.collapse.show {
 }
 
 .card-footer:last-child {
-  border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+  border-radius: 0 0 calc(0.15rem - 1px) calc(0.15rem - 1px);
 }
 
 .card-header-tabs {
@@ -6206,19 +5941,19 @@ tbody.collapse.show {
 
 .card-img {
   width: 100%;
-  border-radius: calc(0.25rem - 1px);
+  border-radius: calc(0.15rem - 1px);
 }
 
 .card-img-top {
   width: 100%;
-  border-top-left-radius: calc(0.25rem - 1px);
-  border-top-right-radius: calc(0.25rem - 1px);
+  border-top-left-radius: calc(0.15rem - 1px);
+  border-top-right-radius: calc(0.15rem - 1px);
 }
 
 .card-img-bottom {
   width: 100%;
-  border-bottom-right-radius: calc(0.25rem - 1px);
-  border-bottom-left-radius: calc(0.25rem - 1px);
+  border-bottom-right-radius: calc(0.15rem - 1px);
+  border-bottom-left-radius: calc(0.15rem - 1px);
 }
 
 .card-deck {
@@ -6327,19 +6062,19 @@ tbody.collapse.show {
   }
 
   .card-group > .card:only-child {
-    border-radius: 0.25rem;
+    border-radius: 0.15rem;
   }
 
   .card-group > .card:only-child .card-img-top,
   .card-group > .card:only-child .card-header {
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
+    border-top-left-radius: 0.15rem;
+    border-top-right-radius: 0.15rem;
   }
 
   .card-group > .card:only-child .card-img-bottom,
   .card-group > .card:only-child .card-footer {
-    border-bottom-right-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.15rem;
+    border-bottom-left-radius: 0.15rem;
   }
 
   .card-group > .card:not(:first-child):not(:last-child):not(:only-child) {
@@ -6382,7 +6117,7 @@ tbody.collapse.show {
   margin-bottom: 1rem;
   list-style: none;
   background-color: #e9ecef;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
@@ -6411,7 +6146,7 @@ tbody.collapse.show {
   display: flex;
   padding-left: 0;
   list-style: none;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .page-link {
@@ -6445,13 +6180,13 @@ tbody.collapse.show {
 
 .page-item:first-child .page-link {
   margin-left: 0;
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
+  border-top-left-radius: 0.15rem;
+  border-bottom-left-radius: 0.15rem;
 }
 
 .page-item:last-child .page-link {
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 0.15rem;
+  border-bottom-right-radius: 0.15rem;
 }
 
 .page-item.active .page-link {
@@ -6476,13 +6211,13 @@ tbody.collapse.show {
 }
 
 .pagination-lg .page-item:first-child .page-link {
-  border-top-left-radius: 0.3rem;
-  border-bottom-left-radius: 0.3rem;
+  border-top-left-radius: 0.2rem;
+  border-bottom-left-radius: 0.2rem;
 }
 
 .pagination-lg .page-item:last-child .page-link {
-  border-top-right-radius: 0.3rem;
-  border-bottom-right-radius: 0.3rem;
+  border-top-right-radius: 0.2rem;
+  border-bottom-right-radius: 0.2rem;
 }
 
 .pagination-sm .page-link {
@@ -6492,13 +6227,13 @@ tbody.collapse.show {
 }
 
 .pagination-sm .page-item:first-child .page-link {
-  border-top-left-radius: 0.2rem;
-  border-bottom-left-radius: 0.2rem;
+  border-top-left-radius: 0.1rem;
+  border-bottom-left-radius: 0.1rem;
 }
 
 .pagination-sm .page-item:last-child .page-link {
-  border-top-right-radius: 0.2rem;
-  border-bottom-right-radius: 0.2rem;
+  border-top-right-radius: 0.1rem;
+  border-bottom-right-radius: 0.1rem;
 }
 
 .badge {
@@ -6510,7 +6245,7 @@ tbody.collapse.show {
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .badge:empty {
@@ -6666,7 +6401,7 @@ tbody.collapse.show {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
   background-color: #e9ecef;
-  border-radius: 0.3rem;
+  border-radius: 0.2rem;
 }
 
 @media (min-width: 576px) {
@@ -6686,7 +6421,7 @@ tbody.collapse.show {
   padding: 0.75rem 1.25rem;
   margin-bottom: 1rem;
   border: 1px solid transparent;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .alert-heading {
@@ -6891,7 +6626,7 @@ tbody.collapse.show {
   overflow: hidden;
   font-size: 0.75rem;
   background-color: #e9ecef;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .progress-bar {
@@ -6977,14 +6712,14 @@ tbody.collapse.show {
 }
 
 .list-group-item:first-child {
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 0.15rem;
+  border-top-right-radius: 0.15rem;
 }
 
 .list-group-item:last-child {
   margin-bottom: 0;
-  border-bottom-right-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.15rem;
+  border-bottom-left-radius: 0.15rem;
 }
 
 .list-group-item:hover,
@@ -7301,7 +7036,7 @@ button.close {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 0.3rem;
+  border-radius: 0.2rem;
   outline: 0;
 }
 
@@ -7335,8 +7070,8 @@ button.close {
           justify-content: space-between;
   padding: 1rem;
   border-bottom: 1px solid #e9ecef;
-  border-top-left-radius: 0.3rem;
-  border-top-right-radius: 0.3rem;
+  border-top-left-radius: 0.2rem;
+  border-top-right-radius: 0.2rem;
 }
 
 .modal-header .close {
@@ -7528,7 +7263,7 @@ button.close {
   color: #fff;
   text-align: center;
   background-color: #000;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
 }
 
 .popover {
@@ -7557,7 +7292,7 @@ button.close {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 0.3rem;
+  border-radius: 0.2rem;
 }
 
 .popover .arrow {
@@ -7565,7 +7300,7 @@ button.close {
   display: block;
   width: 1rem;
   height: 0.5rem;
-  margin: 0 0.3rem;
+  margin: 0 0.2rem;
 }
 
 .popover .arrow::before,
@@ -7616,7 +7351,7 @@ button.close {
   left: calc((0.5rem + 1px) * -1);
   width: 0.5rem;
   height: 1rem;
-  margin: 0.3rem 0;
+  margin: 0.2rem 0;
 }
 
 .bs-popover-right .arrow::before,
@@ -7689,7 +7424,7 @@ button.close {
   right: calc((0.5rem + 1px) * -1);
   width: 0.5rem;
   height: 1rem;
-  margin: 0.3rem 0;
+  margin: 0.2rem 0;
 }
 
 .bs-popover-left .arrow::before,
@@ -7718,8 +7453,8 @@ button.close {
   color: inherit;
   background-color: #f7f7f7;
   border-bottom: 1px solid #ebebeb;
-  border-top-left-radius: calc(0.3rem - 1px);
-  border-top-right-radius: calc(0.3rem - 1px);
+  border-top-left-radius: calc(0.2rem - 1px);
+  border-top-right-radius: calc(0.2rem - 1px);
 }
 
 .popover-header:empty {
@@ -8176,27 +7911,27 @@ button.bg-golden:focus {
 }
 
 .rounded {
-  border-radius: 0.25rem !important;
+  border-radius: 0.15rem !important;
 }
 
 .rounded-top {
-  border-top-left-radius: 0.25rem !important;
-  border-top-right-radius: 0.25rem !important;
+  border-top-left-radius: 0.15rem !important;
+  border-top-right-radius: 0.15rem !important;
 }
 
 .rounded-right {
-  border-top-right-radius: 0.25rem !important;
-  border-bottom-right-radius: 0.25rem !important;
+  border-top-right-radius: 0.15rem !important;
+  border-bottom-right-radius: 0.15rem !important;
 }
 
 .rounded-bottom {
-  border-bottom-right-radius: 0.25rem !important;
-  border-bottom-left-radius: 0.25rem !important;
+  border-bottom-right-radius: 0.15rem !important;
+  border-bottom-left-radius: 0.15rem !important;
 }
 
 .rounded-left {
-  border-top-left-radius: 0.25rem !important;
-  border-bottom-left-radius: 0.25rem !important;
+  border-top-left-radius: 0.15rem !important;
+  border-bottom-left-radius: 0.15rem !important;
 }
 
 .rounded-circle {
@@ -11322,8 +11057,7 @@ a.text-golden:focus {
             box-shadow: none !important;
   }
 
-  a:not(.btn):not(#navbar-notification-panel .notification.notification-actions .view-all-notifications):not(
-  #navbar-notification-panel .notification.notification-actions .mark-as-read) {
+  a:not(.btn) {
     text-decoration: underline;
   }
 
@@ -11407,7 +11141,7 @@ a.text-golden:focus {
 .noUi-target,
 .noUi-target * {
   -webkit-touch-callout: none;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-user-select: none;
   -ms-touch-action: none;
   touch-action: none;
@@ -11753,6 +11487,147 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   right: 120%;
 }
 
+.mdc-elevation--z0 {
+  -webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z1,
+#navbar-notification-panel .notification,
+.card-custom.card-custom-material {
+  -webkit-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z2 {
+  -webkit-box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z3 {
+  -webkit-box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z4,
+.sleek-form {
+  -webkit-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z5 {
+  -webkit-box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z6 {
+  -webkit-box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z7 {
+  -webkit-box-shadow: 0px 4px 5px -2px rgba(0, 0, 0, 0.2), 0px 7px 10px 1px rgba(0, 0, 0, 0.14), 0px 2px 16px 1px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 4px 5px -2px rgba(0, 0, 0, 0.2), 0px 7px 10px 1px rgba(0, 0, 0, 0.14), 0px 2px 16px 1px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z8,
+#navbar-notification-panel .notification:hover,
+.card-custom.card-custom-material:hover {
+  -webkit-box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z9 {
+  -webkit-box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.2), 0px 9px 12px 1px rgba(0, 0, 0, 0.14), 0px 3px 16px 2px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.2), 0px 9px 12px 1px rgba(0, 0, 0, 0.14), 0px 3px 16px 2px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z10 {
+  -webkit-box-shadow: 0px 6px 6px -3px rgba(0, 0, 0, 0.2), 0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 6px 6px -3px rgba(0, 0, 0, 0.2), 0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z11 {
+  -webkit-box-shadow: 0px 6px 7px -4px rgba(0, 0, 0, 0.2), 0px 11px 15px 1px rgba(0, 0, 0, 0.14), 0px 4px 20px 3px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 6px 7px -4px rgba(0, 0, 0, 0.2), 0px 11px 15px 1px rgba(0, 0, 0, 0.14), 0px 4px 20px 3px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z12 {
+  -webkit-box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z13 {
+  -webkit-box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 13px 19px 2px rgba(0, 0, 0, 0.14), 0px 5px 24px 4px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 13px 19px 2px rgba(0, 0, 0, 0.14), 0px 5px 24px 4px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z14 {
+  -webkit-box-shadow: 0px 7px 9px -4px rgba(0, 0, 0, 0.2), 0px 14px 21px 2px rgba(0, 0, 0, 0.14), 0px 5px 26px 4px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 7px 9px -4px rgba(0, 0, 0, 0.2), 0px 14px 21px 2px rgba(0, 0, 0, 0.14), 0px 5px 26px 4px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z15 {
+  -webkit-box-shadow: 0px 8px 9px -5px rgba(0, 0, 0, 0.2), 0px 15px 22px 2px rgba(0, 0, 0, 0.14), 0px 6px 28px 5px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 8px 9px -5px rgba(0, 0, 0, 0.2), 0px 15px 22px 2px rgba(0, 0, 0, 0.14), 0px 6px 28px 5px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z16 {
+  -webkit-box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z17 {
+  -webkit-box-shadow: 0px 8px 11px -5px rgba(0, 0, 0, 0.2), 0px 17px 26px 2px rgba(0, 0, 0, 0.14), 0px 6px 32px 5px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 8px 11px -5px rgba(0, 0, 0, 0.2), 0px 17px 26px 2px rgba(0, 0, 0, 0.14), 0px 6px 32px 5px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z18 {
+  -webkit-box-shadow: 0px 9px 11px -5px rgba(0, 0, 0, 0.2), 0px 18px 28px 2px rgba(0, 0, 0, 0.14), 0px 7px 34px 6px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 9px 11px -5px rgba(0, 0, 0, 0.2), 0px 18px 28px 2px rgba(0, 0, 0, 0.14), 0px 7px 34px 6px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z19 {
+  -webkit-box-shadow: 0px 9px 12px -6px rgba(0, 0, 0, 0.2), 0px 19px 29px 2px rgba(0, 0, 0, 0.14), 0px 7px 36px 6px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 9px 12px -6px rgba(0, 0, 0, 0.2), 0px 19px 29px 2px rgba(0, 0, 0, 0.14), 0px 7px 36px 6px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z20 {
+  -webkit-box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 20px 31px 3px rgba(0, 0, 0, 0.14), 0px 8px 38px 7px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 20px 31px 3px rgba(0, 0, 0, 0.14), 0px 8px 38px 7px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z21 {
+  -webkit-box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 21px 33px 3px rgba(0, 0, 0, 0.14), 0px 8px 40px 7px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 21px 33px 3px rgba(0, 0, 0, 0.14), 0px 8px 40px 7px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z22 {
+  -webkit-box-shadow: 0px 10px 14px -6px rgba(0, 0, 0, 0.2), 0px 22px 35px 3px rgba(0, 0, 0, 0.14), 0px 8px 42px 7px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 10px 14px -6px rgba(0, 0, 0, 0.2), 0px 22px 35px 3px rgba(0, 0, 0, 0.14), 0px 8px 42px 7px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z23 {
+  -webkit-box-shadow: 0px 11px 14px -7px rgba(0, 0, 0, 0.2), 0px 23px 36px 3px rgba(0, 0, 0, 0.14), 0px 9px 44px 8px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 11px 14px -7px rgba(0, 0, 0, 0.2), 0px 23px 36px 3px rgba(0, 0, 0, 0.14), 0px 9px 44px 8px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation--z24,
+.highlight {
+  -webkit-box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+
+.mdc-elevation-transition,
+#navbar-notification-panel .notification,
+.card-custom.card-custom-material {
+  -webkit-transition: -webkit-box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: -webkit-box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: box-shadow;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: #f2f2f2;
@@ -11778,8 +11653,7 @@ body {
 .btn-group-full .btn,
 .btn-group-full #navbar-notification-panel .notification.notification-actions .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions .btn-group-full .view-all-notifications,
-.btn-group-full
-#navbar-notification-panel .notification.notification-actions .mark-as-read,
+.btn-group-full #navbar-notification-panel .notification.notification-actions .mark-as-read,
 #navbar-notification-panel .notification.notification-actions .btn-group-full .mark-as-read {
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -11789,14 +11663,68 @@ body {
 .btn-group-square .btn,
 .btn-group-square #navbar-notification-panel .notification.notification-actions .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions .btn-group-square .view-all-notifications,
-.btn-group-square
-#navbar-notification-panel .notification.notification-actions .mark-as-read,
+.btn-group-square #navbar-notification-panel .notification.notification-actions .mark-as-read,
 #navbar-notification-panel .notification.notification-actions .btn-group-square .mark-as-read {
   border-radius: 0 !important;
 }
 
 .btn-square {
   border-radius: 0 !important;
+}
+
+.table .thead-primary th {
+  background-color: #455782;
+  border-color: #52689b;
+}
+
+.table .thead-secondary th {
+  background-color: #6c757d;
+  border-color: #7f8890;
+}
+
+.table .thead-success th {
+  background-color: #28a745;
+  border-color: #2fc652;
+}
+
+.table .thead-info th {
+  background-color: #17a2b8;
+  border-color: #1bc0da;
+}
+
+.table .thead-warning th {
+  background-color: #ffc107;
+  border-color: #ffcb2d;
+}
+
+.table .thead-danger th {
+  background-color: #dc3545;
+  border-color: #e25663;
+}
+
+.table .thead-light th {
+  background-color: #f8f9fa;
+  border-color: white;
+}
+
+.table .thead-dark th {
+  background-color: #343a40;
+  border-color: #454d55;
+}
+
+.table .thead-dark-primary th {
+  background-color: #354968;
+  border-color: #425b81;
+}
+
+.table .thead-action th {
+  background-color: #f9834e;
+  border-color: #fa9d73;
+}
+
+.table .thead-golden th {
+  background-color: #ffcf40;
+  border-color: #ffd966;
 }
 
 #app {
@@ -15018,17 +14946,6 @@ body {
   margin: 0.8rem 0.8rem 0 0.8rem;
   background-color: #e9ecef;
   border-radius: 4px;
-  -webkit-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
-          box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
-  -webkit-transition: -webkit-box-shadow 0.1s ease-in-out;
-  transition: -webkit-box-shadow 0.1s ease-in-out;
-  transition: box-shadow 0.1s ease-in-out;
-  transition: box-shadow 0.1s ease-in-out, -webkit-box-shadow 0.1s ease-in-out;
-}
-
-#navbar-notification-panel .notification:hover {
-  -webkit-box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
-          box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 #navbar-notification-panel .notification.unread {
@@ -15116,8 +15033,6 @@ body {
 .highlight {
   border: 3px solid #455782 !important;
   outline: 0;
-  -webkit-box-shadow: 0 0 67px -18px rgba(0, 0, 0, 0.47);
-          box-shadow: 0 0 67px -18px rgba(0, 0, 0, 0.47);
 }
 
 #home .banners {
@@ -15175,8 +15090,7 @@ body {
 #home .banners .banner .text .container .buttons .btn,
 #home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications,
-#home .banners .banner .text .container .buttons
-#navbar-notification-panel .notification.notification-actions .mark-as-read,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .mark-as-read,
 #navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .mark-as-read {
   padding: 0px 50px;
   height: 50px;
@@ -15188,8 +15102,7 @@ body {
 #home .banners .banner .text .container .buttons .btn + .btn,
 #home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn,
 #navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications + .btn,
-#home .banners .banner .text .container .buttons
-#navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
 #navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .mark-as-read + .btn,
 #home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .btn + .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .btn + .view-all-notifications,
@@ -15197,8 +15110,7 @@ body {
 #navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications + .view-all-notifications,
 #home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .mark-as-read + .view-all-notifications,
 #navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .mark-as-read + .view-all-notifications,
-#home .banners .banner .text .container .buttons
-#navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
+#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
 #navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .btn + .mark-as-read,
 #home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .view-all-notifications + .mark-as-read,
 #navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications + .mark-as-read,
@@ -15261,6 +15173,20 @@ body {
 
 .card-custom .custom-checkbox .custom-control-label::before {
   border: 1px solid #495057;
+}
+
+.card-custom.card-custom-material {
+  border-radius: 4px;
+}
+
+.card-custom.card-custom-material:before {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.input-material {
+  border-radius: 4px;
+  border: none;
 }
 
 .pagination {
@@ -15401,8 +15327,6 @@ body {
 
 .sleek-form {
   border: 0;
-  -webkit-box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.19);
-  box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.19);
 }
 
 @media (min-width: 992px) {

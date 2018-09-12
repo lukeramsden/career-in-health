@@ -8,14 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 class JobListingApplication extends Model
 {
     static $statuses = [
-        '0' => 'Applied',
-        '1' => 'Shortlisted',
-        '2' => 'Offered',
-        '3' => 'Rejected',
+        0 => 'Applied',
+        1 => 'Shortlisted',
+        2 => 'Offered',
+        3 => 'Rejected',
     ];
 
     protected $fillable = ['custom_cover_letter'];
-    protected $dates = ['created_at', 'updated_at', 'last_edited'];
+    protected $dates    = ['created_at', 'updated_at', 'last_edited'];
+	protected $appends  = ['status_name', 'permalink'];
+
+	public function getStatusNameAttribute()
+	{
+		return static::$statuses[$this->status ?? 0	];
+	}
+
+	public function getPermalinkAttribute()
+	{
+		return '';
+	}
 
     public function employee()
     {
@@ -26,6 +37,11 @@ class JobListingApplication extends Model
     {
         return $this->belongsTo(\App\JobListing::class);
     }
+
+	public function jobListing()
+ {
+     return $this->belongsTo(\App\JobListing::class);
+ }
 
     /**
      * @param \App\Employee|null $employee

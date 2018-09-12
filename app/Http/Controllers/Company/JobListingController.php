@@ -72,7 +72,8 @@ class JobListingController extends Controller
 
 		return view('job-listing.view-applications')
 			->with([
-				'jobListing' => $jobListing,
+				'jobListing'   => $jobListing,
+				'applications' => $jobListing->applications->load('employee', 'job_listing'),
 			]);
 	}
 
