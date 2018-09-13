@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="{{ asset('css/pdf.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/pdf.css') }}" rel="stylesheet">
     <style>
         div {
             page-break-after: avoid;

@@ -1,6 +1,9 @@
 {
+    "/js/small-private-messages-component.js": "/js/small-private-messages-component.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/pdf.css": "/css/pdf.css",
+    "/js/vendor.js": "/js/vendor.js",
+    "/js/manifest.js": "/js/manifest.js",
     "/css/lity.css": "/css/lity.css"
 }

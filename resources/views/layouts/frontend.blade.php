@@ -37,10 +37,10 @@
 
     @yield('content')
 @endsection
-@section('base_stylesheet')
+@section('head')
     @yield('stylesheet')
 @endsection
-@section('base_script')
+@section('body-end')
     @routes
     @yield('script')
 @endsection

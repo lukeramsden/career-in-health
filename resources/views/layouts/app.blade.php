@@ -417,11 +417,11 @@
         @yield('content')
     </div>
 @endsection
-@section('base_stylesheet')
+@section('head')
     <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
     @yield('stylesheet')
 @endsection
-@section('base_script')
+@section('body-end')
     @routes
     @auth
         <script>

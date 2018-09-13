@@ -20,14 +20,20 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
         <link rel="shortcut icon" type="image/png" href="/images/favicon.png"/>
 
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        @yield('base_stylesheet')
+        {{-- Stylesheets --}}
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        @yield('head')
+        
+        {{-- Script Preloads/prefetches --}}
     </head>
     <body class="h-100">
         @yield('base_content')
 
-        <script src="{{ asset('js/app.js') }}"></script>
+        {{-- Scripts --}}
+        <script src="{{ mix('js/manifest.js') }}"></script>
+        <script src="{{ mix('js/vendor.js') }}"></script>
+        <script src="{{ mix('js/app.js') }}"></script>
         @include('toast::messages-jquery')
-        @yield('base_script')
+        @yield('body-end')
     </body>
 </html>
