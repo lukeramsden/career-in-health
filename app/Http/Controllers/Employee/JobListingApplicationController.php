@@ -72,7 +72,8 @@ class JobListingApplicationController extends Controller
 			return redirect(route('register'));
 		}
 
-		if (JobListingApplication::hasApplied(Auth::user()->userable, $jobListing))
+		$employee = Auth::user()->userable;
+		if (JobListingApplication::hasApplied($employee, $jobListing))
 		{
 			toast()->error('You have already applied to this job!');
 			return redirect(route('job-listing.show', [$jobListing]));
@@ -81,7 +82,19 @@ class JobListingApplicationController extends Controller
 		session()->keep('clickThrough');
 
 		return view('employee.job-listing.apply')
-			->with(['jobListing' => $jobListing]);
+			->with([
+				'jobListing'  => $jobListing,
+				'address'     => $jobListing->address,
+				'company'     => $jobListing->company,
+				'employee'    => $employee,
+				'messages'    =>
+					PrivateMessage
+						::whereJobListingId($jobListing->id)
+						->whereEmployeeId($employee->id)
+						->whereCompanyId($jobListing->company->id)
+						->orderBy('created_at', 'desc')
+						->paginate(5),
+			]);
 	}
 
 	public function store(JobListing $jobListing)
