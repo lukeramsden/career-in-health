@@ -7,9 +7,10 @@ window.mime       = require('mime');
 window.filesize   = require('file-size');
 window.changeCase = require('change-case');
 window.fuzzaldrin = require('fuzzaldrin-plus');
-
-window.axios = require('axios');
+window.io         = require('socket.io-client');
+window.axios      = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.moment     = require('moment');
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
 

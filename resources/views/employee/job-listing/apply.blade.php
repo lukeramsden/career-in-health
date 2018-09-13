@@ -68,15 +68,15 @@
                     </div>
                     <div class="col-12 col-lg-4 order-lg-0">
                         <div class="about-company">
-                            <a class="link-unstyled" href="{{ route('company.show', $address->company) }}">
+                            <a class="link-unstyled" href="{{ route('company.show', $company) }}">
                                 <div class="card card-custom scale-on-hover-2">
                                     <div class="card-body">
-                                        <img src="{{ $address->company->picture() ?? '/images/generic.png' }}"
+                                        <img src="{{ $company->picture() ?? '/images/generic.png' }}"
                                              alt="Profile picture" width="200" class="img-thumbnail mx-auto d-block">
                                         <div class="text-center">
                                             <h1
-                                            class="mt-3">{{ $address->company->name }} {!!verified_badge($address->company)!!}</h1>
-                                            <h5><b>{{ $address->company->location->name }}</b></h5>
+                                            class="mt-3">{{ $company->name }} {!!verified_badge($company)!!}</h1>
+                                            <h5><b>{{ $company->location->name }}</b></h5>
                                             <p class="mx-5 text-justify">{!! nl2br(e($company->about)) !!}</p>
                                         </div>
                                     </div>
@@ -122,38 +122,6 @@
                                 <small-private-messages></small-private-messages>
                             </div>
                             
-                            <div class="card card-custom mb-4" id="new-message">
-                                <form
-                                action="{{ route('account.private-message.store') }}#new-message"
-                                method="post">
-                                    <div class="card-body">
-                                        {{ csrf_field() }}
-                                        
-                                        <input type="hidden" name="job_listing_id" value="{{ $jobListing->id }}">
-                                        
-                                        @usertype('employee')
-                                        <input type="hidden" name="to_company_id"
-                                               value="{{ $jobListing->company->id }}">
-                                        @elseusertype('company')
-                                        <input type="hidden" name="to_employee_id" value="{{ $employee->id }}">
-                                        @endusertype
-                                        
-                                        <textarea
-                                        class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}"
-                                        name="body" id="inputBody" rows="3"
-                                        maxlength="1000">{{ old('body') }}</textarea>
-                                        
-                                        @if($errors->has('body'))
-                                            <div class="invalid-feedback">{{ $errors->first('body') }}</div>
-                                        @endif
-                                    
-                                    </div>
-                                    <div class="card-footer p-0">
-                                        <button type="submit" class="btn btn-primary btn-block">Send</button>
-                                    </div>
-                                </form>
-                            </div>
-                            
                             @foreach($messages as $message)
                                 @set('isReceiver', $message->wasSentTo(Auth::user()))
                                 <div
@@ -192,7 +160,19 @@
     <script>
         window.data = {
             smallPrivateMessages: {
-                messages: {!! json_encode($messages->items()) !!}
+                listing_id  : {{ $jobListing->id }},
+                company_id  : {{ $company->id }},
+                employee_id : {{ $employee->id }},
+                messages    : {!! json_encode($messages->items()) !!},
+                usertype    :
+                    @usertype('employee')
+                        'employee'
+                    @elseusertype('company')
+                        'company'
+                    @elseusertype
+                        ''
+                    @endusertype
+                ,
             },
         };
     </script>

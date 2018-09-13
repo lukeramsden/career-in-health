@@ -1,14 +1,18 @@
+let webpack = require('webpack');
 let mix = require('laravel-mix');
 
 mix.webpackConfig({
     resolve: {
         extensions: ['*', '.js', '.jsx', '.vue', '.json'],
     },
+    plugins: [
+        new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+    ],
 });
 
 mix
     .js('resources/assets/js/app.js', 'public/js')
-    .extract(['vue'])
+    .extract(['vue', 'lodash', 'axios', 'moment', 'jquery'])
     .sass('resources/assets/sass/app.scss', 'public/css', {
         includePaths: ['node_modules']
     })
@@ -19,6 +23,9 @@ mix
 if (mix.inProduction()) {
     mix
         .version()
+    ;
+} else {
+    mix
         .sourceMaps()
     ;
 }

@@ -18,15 +18,16 @@
         "file-size": "^1.0.0",
         "fuzzaldrin-plus": "^0.6.0",
         "jquery": "^3.2",
+        "laravel-echo": "^1.4.0",
         "laravel-mix": "^2.1.14",
         "lity": "^2.3.1",
         "lodash": "^4.17.4",
         "mime": "^2.3.1",
+        "moment": "^2.22.2",
         "popper.js": "^1.12",
-        "vue": "^2.5.17"
-    },
-    "dependencies": {
+        "vue": "^2.5.17",
         "@material/elevation": "^0.39.1",
-        "jquery-ui": "^1.12.1"
+        "jquery-ui": "^1.12.1",
+        "socket.io-client": "^2.1.1"
     }
 }
