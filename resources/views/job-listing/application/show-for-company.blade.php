@@ -23,7 +23,8 @@
                             </div>
                             <div>
                                 <p>
-                                    @money($jobListing->min_salary * 100, 'GBP') - @money($jobListing->max_salary * 100, 'GBP')
+                                    @money($jobListing->min_salary * 100, 'GBP') - @money($jobListing->max_salary * 100,
+                                    'GBP')
                                 </p>
                             </div>
                             <div>
@@ -40,20 +41,23 @@
                     <div class="col-12 col-lg-4 order-lg-1">
                         <div class="profile-picture">
                             <img
-                                src="{{ $employee->picture() ?? '/images/generic.png'  }}"
-                                alt="Profile picture">
+                            src="{{ $employee->picture() ?? '/images/generic.png'  }}"
+                            alt="Profile picture">
                         </div>
-                        <h1 class="text-center mt-3"><a href="{{ action('EmployeeController@show', $employee) }}">{{ $employee->full_name  }}</a></h1>
+                        <h1 class="text-center mt-3"><a
+                            href="{{ action('EmployeeController@show', $employee) }}">{{ $employee->full_name  }}</a>
+                        </h1>
                         <div class="mx-4">
                             <hr>
                             <div>
                                 <label for="status">Status</label>
                                 <select
-                                    class="custom-select"
-                                    id="select-status">
+                                class="custom-select"
+                                id="select-status">
                                     <option {{ !isset($application->status) ? 'selected' : '' }} disabled>-</option>
                                     @foreach(App\JobListingApplication::$statuses as $id => $status)
-                                        <option {{ $application->status == $id ? 'selected' : '' }} value="{{ $id }}">{{ $status }}</option>
+                                        <option
+                                        {{ $application->status == $id ? 'selected' : '' }} value="{{ $id }}">{{ $status }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -64,7 +68,7 @@
                                 {!! nl2br(e($application->custom_cover_letter)) !!}
                             @else
                                 <span class="text-muted font-italic">No cover letter</span></p>
-                            @endisset
+                        @endisset
                         </p>
                     </div>
                     <div class="col-12 col-lg-4 order-lg-0">
@@ -78,12 +82,16 @@
                                         
                                         @foreach($cv->education as $education)
                                             <div>
-                                                <p class="my-1"><b>{{ $education->degree }} in {{ $education->field_of_study }}</b></p>
-                                                <p class="my-1">{{ $education->school_name }} - {{ $education->location }}</p>
+                                                <p class="my-1"><b>{{ $education->degree }}
+                                                        in {{ $education->field_of_study }}</b></p>
+                                                <p class="my-1">{{ $education->school_name }}
+                                                    - {{ $education->location }}</p>
                                                 @isset($education->end_date)
-                                                    <p class="my-1">{{ $education->start_date->format('F Y') }} to {{ $education->end_date->format('F Y') }}</p>
+                                                    <p class="my-1">{{ $education->start_date->format('F Y') }}
+                                                        to {{ $education->end_date->format('F Y') }}</p>
                                                 @else
-                                                    <p class="my-1">Started {{ $education->start_date->format('F Y') }}</p>
+                                                    <p class="my-1">
+                                                        Started {{ $education->start_date->format('F Y') }}</p>
                                                 @endisset
                                             </div>
                                             @if(!$loop->last)
@@ -97,15 +105,18 @@
                                 <div class="card card-custom mb-4">
                                     <div class="card-body">
                                         <h4 class="mb-4"><em>Work Experience</em></h4>
-                                
+                                        
                                         @foreach($cv->workExperience as $workExperience)
                                             <div>
-                                                <p class="my-1"><b>{{ $workExperience->job_title }}</b> at <b>{{ $workExperience->company_name }}</b></p>
+                                                <p class="my-1"><b>{{ $workExperience->job_title }}</b> at
+                                                    <b>{{ $workExperience->company_name }}</b></p>
                                                 <p class="my-1">{{ $workExperience->location }}</p>
                                                 @isset($workExperience->end_date)
-                                                    <p class="my-1">{{ $workExperience->start_date->format('F Y') }} to {{ $workExperience->end_date->format('F Y') }}</p>
+                                                    <p class="my-1">{{ $workExperience->start_date->format('F Y') }}
+                                                        to {{ $workExperience->end_date->format('F Y') }}</p>
                                                 @else
-                                                    <p class="my-1">Started {{ $workExperience->start_date->format('F Y') }}</p>
+                                                    <p class="my-1">
+                                                        Started {{ $workExperience->start_date->format('F Y') }}</p>
                                                 @endisset
                                                 @isset($workExperience->description)
                                                     <p class="my-1">{!! nl2br(e($workExperience->description)) !!}</p>
@@ -122,25 +133,30 @@
                                 <div class="card card-custom mb-4">
                                     <div class="card-body">
                                         <h4 class="mb-4"><em>Certifications/Licenses</em></h4>
-                                    
+                                        
                                         @foreach($cv->certifications as $certification)
                                             <div>
                                                 <p class="my-1"><b>{{ $certification->title }}</b></p>
                                                 @isset($certification->end_date)
-                                                    <p class="my-1">Awarded {{ $certification->start_date->format('F Y') }} - Expires {{ $certification->end_date->format('F Y') }}</p>
+                                                    <p class="my-1">
+                                                        Awarded {{ $certification->start_date->format('F Y') }} -
+                                                        Expires {{ $certification->end_date->format('F Y') }}</p>
                                                 @else
-                                                    <p class="my-1">Awarded {{ $certification->start_date->format('F Y') }} (Doesn't Expire)</p>
+                                                    <p class="my-1">
+                                                        Awarded {{ $certification->start_date->format('F Y') }} (Doesn't
+                                                        Expire)</p>
                                                 @endisset
                                                 @isset($certification->description)
                                                     <p class="my-1">{!! nl2br(e($certification->description)) !!}</p>
                                                 @endisset
-                                                <p class="mt-2 mb-1"><a class="btn btn-primary btn-sm btn-block" href="{{ $certification->url }}">View</a></p>
+                                                <p class="mt-2 mb-1"><a class="btn btn-primary btn-sm btn-block"
+                                                                        href="{{ $certification->url }}">View</a></p>
                                             </div>
                                         @endforeach
                                     </div>
                                 </div>
                             @endif
-                            
+                        
                         </div>
                     </div>
                     <div class="col-12 col-lg-4 order-lg-2">
@@ -152,27 +168,29 @@
                                 action="{{ route('account.private-message.store') }}#new-message"
                                 method="post">
                                     <div class="card-body">
-                                            {{ csrf_field() }}
-                            
-                                            <input type="hidden" name="job_listing_id" value="{{ $jobListing->id }}">
-                                            
-                                            @usertype('employee')
-                                                <input type="hidden" name="to_company_id" value="{{ $jobListing->company->id }}">
-                                            @elseusertype('company')
-                                                <input type="hidden" name="to_employee_id" value="{{ $employee->id }}">
-                                            @endusertype
-                                            
-                                            <textarea
-                                            class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}"
-                                            name="body" id="inputBody" rows="3" maxlength="1000">{{ old('body') }}</textarea>
-                                            
-                                            @if($errors->has('body'))
-                                                <div class="invalid-feedback">{{ $errors->first('body') }}</div>
-                                            @endif
-                                            
+                                        {{ csrf_field() }}
+                                        
+                                        <input type="hidden" name="job_listing_id" value="{{ $jobListing->id }}">
+                                        
+                                        @usertype('employee')
+                                        <input type="hidden" name="to_company_id"
+                                               value="{{ $jobListing->company->id }}">
+                                        @elseusertype('company')
+                                        <input type="hidden" name="to_employee_id" value="{{ $employee->id }}">
+                                        @endusertype
+                                        
+                                        <textarea
+                                        class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}"
+                                        name="body" id="inputBody" rows="3"
+                                        maxlength="1000">{{ old('body') }}</textarea>
+                                        
+                                        @if($errors->has('body'))
+                                            <div class="invalid-feedback">{{ $errors->first('body') }}</div>
+                                        @endif
+                                    
                                     </div>
                                     <div class="card-footer p-0">
-                                            <button type="submit" class="btn btn-primary btn-block">Send</button>
+                                        <button type="submit" class="btn btn-primary btn-block">Send</button>
                                     </div>
                                 </form>
                             </div>
@@ -182,14 +200,16 @@
                                 <div
                                 class="card card-custom message-thread-item mb-4 {{$isReceiver?'message-thread-item-sent':'message-thread-item-received'}}"
                                 @if ($loop->last)
-                                    id="message-thread-item-last"
+                                id="message-thread-item-last"
                                 @endif
                                 >
                                     @if($isReceiver)
                                         @usertype('employee')
-                                            <div class="card-header"><b>From:</b> {{ $message->company->name }} {!!verified_badge($message->company)!!}</div>
+                                        <div class="card-header">
+                                            <b>From:</b> {{ $message->company->name }} {!!verified_badge($message->company)!!}
+                                        </div>
                                         @elseusertype('company')
-                                            <div class="card-header"><b>From:</b> {{ $message->employee->full_name }}</div>
+                                        <div class="card-header"><b>From:</b> {{ $message->employee->full_name }}</div>
                                         @endusertype
                                     @else
                                         <div class="card-header"><b>You said...</b></div>
@@ -211,21 +231,23 @@
 
 @section('script')
     <script>
-        $(function() {
-            $('#select-status').on('change', function(e) {
-               axios
-                   .post('{{ route('job-listing.application.update', [$application]) }}', {
-                       // TODO
-                   })
-                   .then(function() {
-                   
-                   })
-                   .catch(function(e) {
-                   
-                   })
-                   .then(function() {
-                   
-                   })
+        $(function () {
+            $('#select-status').on('change', function (e) {
+                $(e.target).prop('disabled', true);
+                axios
+                    .post('{{ route('job-listing.application.update', [$application]) }}', {
+                        status: e.target.value,
+                    })
+                    .then(function (res) {
+                        console.log(res);
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                        toastr.error('Could not update status');
+                    })
+                    .then(function () {
+                        $(e.target).prop('disabled', false);
+                    })
             });
         })
     </script>
