@@ -71,7 +71,7 @@
 @section('script')
     <script>
         function deleteNotif(self) {
-            $self = $(self);
+            var $self = $(self);
             $self.prop('disabled', true);
             var $parent = $self.parents('div.card.card-custom');
             var notifId = $parent.prop('id').split('notification-')[1];

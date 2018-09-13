@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\JobListing;
 use App\JobListingApplication;
+use App\PrivateMessage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,9 +47,20 @@ class JobListingApplicationController extends Controller
 
 	public function show(JobListingApplication $application)
 	{
-		return view('employee.job-listing.view-application')
+		return view('job-listing.application.show-for-employee')
 			->with([
 				'application' => $application,
+				'jobListing'  => $application->job_listing,
+				'address'     => $application->job_listing->address,
+				'company'     => $application->job_listing->company,
+				'employee'    => $application->employee,
+				'messages'    =>
+					PrivateMessage
+						::whereJobListingId($application->job_listing->id)
+						->whereEmployeeId($application->employee->id)
+						->whereCompanyId($application->job_listing->company->id)
+						->orderBy('created_at', 'desc')
+						->paginate(5),
 			]);
 	}
 
@@ -109,7 +121,7 @@ class JobListingApplicationController extends Controller
 		);
 
 		toast()->success('Applied!');
-		return redirect(route('job-listing.show', [$jobListing]));
+		return redirect(route('job-listing.application.show', [$application]));
 	}
 
 	/**

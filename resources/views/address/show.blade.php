@@ -41,9 +41,7 @@
                         <div class="card card-custom mb-4">
                             <div class="card-body">
                                 <h4 class="card-title"><em>About</em></h4>
-                                @isset($address->about)
-                                    <p>{!! nl2br(e($address->about)) !!}</p>
-                                @endisset
+                                <p>{!! nl2br(e($address->about)) !!}</p>
                             </div>
                         </div>
                     @endisset

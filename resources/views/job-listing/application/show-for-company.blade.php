@@ -243,11 +243,11 @@
                     })
                     .catch(function (err) {
                         console.log(err);
-                        toastr.error('Could not update status');
+                        toastr.error('Could not update status.');
                     })
                     .then(function () {
                         $(e.target).prop('disabled', false);
-                    })
+                    });
             });
         })
     </script>
