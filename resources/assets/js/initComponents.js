@@ -1,7 +1,7 @@
 let requiresEcho = false;
 
-if (document.getElementById('vue-small-private-messages')) {
-    import('./initSmallPrivateMessagesComponent' /* webpackChunkName: "js/small-private-messages-component" */)
+if (document.getElementById('vue-private-messages')) {
+    import('./initPrivateMessagesComponent' /* webpackChunkName: "js/private-messages-component" */)
         .then(component => {
             component.default();
         });

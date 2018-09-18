@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="card card-custom mb-4" id="new-message">
+            <div class="card-header">New Message</div>
             <form v-on:submit.prevent="sendMessage">
                 <div class="card-body">
                     <input type="hidden" name="job_listing_id" :value="listing_id">
@@ -42,11 +43,11 @@
     export default {
         data() {
             return {
-                listing_id: data.smallPrivateMessages.listing_id,
-                company_id: data.smallPrivateMessages.company_id,
-                employee_id: data.smallPrivateMessages.employee_id,
-                messages: data.smallPrivateMessages.messages,
-                usertype: data.smallPrivateMessages.usertype,
+                listing_id: data.privateMessages.listing_id,
+                company_id: data.privateMessages.company_id,
+                employee_id: data.privateMessages.employee_id,
+                messages: data.privateMessages.messages,
+                usertype: data.privateMessages.usertype,
             };
         },
         mounted() {
@@ -63,25 +64,29 @@
                             })
                         ;
                     });
+
+                this.sortMessages();
             });
         },
         methods: {
+            sortMessages() {
+                this.messages.sort((a, b) => {
+                    if (moment(a.created_at).isAfter(moment(b.created_at)))
+                        return -1;
+
+                    if (moment(a.created_at).isBefore(moment(b.created_at)))
+                        return 1;
+
+                    return 0;
+                })
+            },
             pushMessage(msg) {
                 // push new message, ensure ID property is unique across the array
                 // and then sort by created_at
                 this.messages =
-                    _.uniqBy(
-                        _.concat(this.messages, msg), 'id')
-                        .sort((a, b) => {
-                            if (moment(a.created_at).isAfter(moment(b.created_at)))
-                                return -1;
+                    _.uniqBy(_.concat(this.messages, msg), 'id');
 
-                            if (moment(a.created_at).isBefore(moment(b.created_at)))
-                                return 1;
-
-                            return 0;
-                        })
-                ;
+                this.sortMessages();
             },
             renderMessage(msg) {
                 return new Promise((resolve, reject) => {

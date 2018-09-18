@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Events\CreatedPrivateMessage;
 use App\JobListing;
 use App\PrivateMessage;
 use Illuminate\Http\Request;
@@ -102,12 +103,13 @@ class PrivateMessageController extends Controller
 	public function showForJobListing(JobListing $jobListing)
 	{
 		$user     = Auth::user();
-		$userable = $user->userable;
+		$employee = $user->userable;
+		$company  = $jobListing->company;
 
 		$messages = PrivateMessage
 			::whereJobListingId($jobListing->id)
-			->whereEmployeeId($userable->id)
-			->whereCompanyId($jobListing->company->id);
+			->whereEmployeeId($employee->id)
+			->whereCompanyId($company->id);
 
 		(clone $messages)
 			->whereDirection('to_employee')
@@ -120,15 +122,18 @@ class PrivateMessageController extends Controller
 			->with([
 				'messages'   => $messages->get(),
 				'jobListing' => $jobListing,
+				'employee'   => $employee,
+				'company'    => $company,
 			]);
 	}
 
 	public function showForJobListingAndEmployee(JobListing $jobListing, Employee $employee)
 	{
+		$company  = $jobListing->company;
 		$messages = PrivateMessage
 			::whereJobListingId($jobListing->id)
 			->whereEmployeeId($employee->id)
-			->whereCompanyId($jobListing->company->id);
+			->whereCompanyId($company->id);
 
 		(clone $messages)
 			->whereDirection('to_company')
@@ -142,6 +147,7 @@ class PrivateMessageController extends Controller
 				'messages'   => $messages->get(),
 				'jobListing' => $jobListing,
 				'employee'   => $employee,
+				'company'    => $company,
 			]);
 	}
 
@@ -191,6 +197,8 @@ class PrivateMessageController extends Controller
 				new \App\Notifications\ReceivedPrivateMessage($message)
 			);
 		}
+
+		broadcast(new CreatedPrivateMessage($message))->toOthers();
 
 		if (ajax())
 			return response()->json(['success' => true, 'model' => $message], 200);

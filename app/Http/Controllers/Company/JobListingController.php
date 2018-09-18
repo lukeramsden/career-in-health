@@ -93,6 +93,8 @@ class JobListingController extends Controller
 				'jobListing'  => $application->job_listing,
 				'employee'    => $application->employee,
 				'cv'          => $application->employee->cv,
+				'address'     => $application->job_listing->address,
+				'company'     => $application->job_listing->company,
 				'messages'    =>
 					PrivateMessage
 						::whereJobListingId($application->job_listing->id)

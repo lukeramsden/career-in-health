@@ -163,64 +163,9 @@
                         <div class="your-correspondence">
                             <h2 class="text-center"><em>Your Correspondence</em></h2>
                             
-                            <div class="card card-custom mb-4" id="new-message">
-                                <form
-                                action="{{ route('account.private-message.store') }}#new-message"
-                                method="post">
-                                    <div class="card-body">
-                                        {{ csrf_field() }}
-                                        
-                                        <input type="hidden" name="job_listing_id" value="{{ $jobListing->id }}">
-                                        
-                                        @usertype('employee')
-                                        <input type="hidden" name="to_company_id"
-                                               value="{{ $jobListing->company->id }}">
-                                        @elseusertype('company')
-                                        <input type="hidden" name="to_employee_id" value="{{ $employee->id }}">
-                                        @endusertype
-                                        
-                                        <textarea
-                                        class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}"
-                                        name="body" id="inputBody" rows="3"
-                                        maxlength="1000">{{ old('body') }}</textarea>
-                                        
-                                        @if($errors->has('body'))
-                                            <div class="invalid-feedback">{{ $errors->first('body') }}</div>
-                                        @endif
-                                    
-                                    </div>
-                                    <div class="card-footer p-0">
-                                        <button type="submit" class="btn btn-primary btn-block">Send</button>
-                                    </div>
-                                </form>
+                            <div id="vue-private-messages">
+                                <private-messages></private-messages>
                             </div>
-                            
-                            @foreach($messages as $message)
-                                @set('isReceiver', $message->wasSentTo(Auth::user()))
-                                <div
-                                class="card card-custom message-thread-item mb-4 {{$isReceiver?'message-thread-item-sent':'message-thread-item-received'}}"
-                                @if ($loop->last)
-                                id="message-thread-item-last"
-                                @endif
-                                >
-                                    @if($isReceiver)
-                                        @usertype('employee')
-                                        <div class="card-header">
-                                            <b>From:</b> {{ $message->company->name }} {!!verified_badge($message->company)!!}
-                                        </div>
-                                        @elseusertype('company')
-                                        <div class="card-header"><b>From:</b> {{ $message->employee->full_name }}</div>
-                                        @endusertype
-                                    @else
-                                        <div class="card-header"><b>You said...</b></div>
-                                    @endif
-                                    <div class="card-body">{{ $message->body }}</div>
-                                    <div class="card-footer">{{ $message->created_at->diffForHumans() }}</div>
-                                </div>
-                                @unset($isReceiver)
-                            @endforeach
-                            
-                            {!! $messages->appends(Request::capture()->except('page'))->render('vendor.pagination') !!}
                         </div>
                     </div>
                 </div>
@@ -228,7 +173,6 @@
         </div>
     </div>
 @endsection
-
 @section('script')
     <script>
         $(function () {
@@ -249,8 +193,32 @@
                         $(e.target).prop('disabled', false);
                     });
             });
-        })
+        });
+
+        window.data = {
+            privateMessages: {
+                listing_id: {{ $jobListing->id }},
+                company_id: {{ $company->id }},
+                employee_id: {{ $employee->id }},
+                messages: {!!
+                    json_encode($messages->map(function($msg)
+                    {
+                        $msg['dom_template'] = $msg->render(); return $msg;
+                    }))
+                    !!},
+                usertype:
+                    @usertype('employee')
+                'employee'
+                    @elseusertype('company')
+                'company'
+                @elseusertype
+                ''
+                @endusertype
+                ,
+            },
+        };
     </script>
+    <script src="{{ mix('js/private-messages-component.js') }}"></script>
 @endsection
 @section('stylesheet')
 @endsection

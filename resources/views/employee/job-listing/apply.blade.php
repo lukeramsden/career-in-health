@@ -118,8 +118,8 @@
                         <div class="your-correspondence">
                             <h2 class="text-center"><em>Your Correspondence</em></h2>
                             
-                            <div id="vue-small-private-messages">
-                                <small-private-messages></small-private-messages>
+                            <div id="vue-private-messages">
+                                <private-messages></private-messages>
                             </div>
                         </div>
                     </div>
@@ -128,11 +128,10 @@
         </div>
     </div>
 @endsection
-
 @section('script')
     <script>
         window.data = {
-            smallPrivateMessages: {
+            privateMessages: {
                 listing_id  : {{ $jobListing->id }},
                 company_id  : {{ $company->id }},
                 employee_id : {{ $employee->id }},
@@ -154,7 +153,7 @@
             },
         };
     </script>
-    <script src="{{ mix('js/small-private-messages-component.js') }}"></script>
+    <script src="{{ mix('js/private-messages-component.js') }}"></script>
 @endsection
 @section('stylesheet')
 @endsection
