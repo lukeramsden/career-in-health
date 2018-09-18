@@ -1,22 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700');
 
-$action:       #f9834e;
-$dark-primary: #354968;
-$primary:      #455782;
-$golden:       #ffcf40;
-
-$theme-colors: (
-  'primary': $primary,
-  'dark-primary': $dark-primary,
-  'action': $action,
-  'golden': $golden,
-);
-
-$border-radius: .15rem;
-$border-radius-lg: .2rem;
-$border-radius-sm: .1rem;
-
-// Bootstrap
+@import 'variables';
+@import 'mixins';
 @import '~bootstrap/scss/bootstrap';
 @import 'nouislider';
 @import '~@material/elevation/mdc-elevation';

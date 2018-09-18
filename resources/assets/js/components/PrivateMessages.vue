@@ -1,41 +1,39 @@
 <template>
-    <div>
-        <div class="card card-custom mb-4" id="new-message">
-            <div class="card-header">New Message</div>
-            <form v-on:submit.prevent="sendMessage">
-                <div class="card-body">
-                    <input type="hidden" name="job_listing_id" :value="listing_id">
-
-                    <input v-if="usertype === 'employee'"
-                           type="hidden" name="to_company_id"
-                           :value="company_id">
-
-                    <input v-else-if="usertype === 'company'"
-                           type="hidden" name="to_employee_id"
-                           :value="employee_id">
-
-                    <textarea
-                        class="form-control"
-                        name="body"
-                        rows="3"
-                        maxlength="1000"
-                        required></textarea>
+    <div class="card card-custom card-custom-material" id="private-message-widget">
+        <div class="card-body" v-chat-scroll="{always: false, smooth: true}">
+            <div v-for="msg in messages" v-bind:key="msg.id" id="private-message-wrapper"
+                 :class="msg.current_user_is_receiver ? 'left' : 'right'">
+                <div id="private-message-inner">
+                    {{ msg.body }}
                 </div>
-                <div class="card-footer p-0">
-                    <button type="submit" class="btn btn-primary btn-block">Send</button>
+            </div>
+        </div>
+        <div class="card-footer p-0">
+            <form v-on:submit.prevent="sendMessage" class="form-inline">
+                <input type="hidden" name="job_listing_id" :value="listing_id">
+
+                <input v-if="usertype === 'employee'"
+                       type="hidden" name="to_company_id"
+                       :value="company_id">
+
+                <input v-else-if="usertype === 'company'"
+                       type="hidden" name="to_employee_id"
+                       :value="employee_id">
+
+                <div class="input-group w-100" id="private-message-input-group">
+                    <input
+                        type="text"
+                        class="form-control input-material"
+                        name="body"
+                        maxlength="1000"
+                        placeholder="Hello!"
+                        required/>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-action px-3">Send</button>
+                    </div>
                 </div>
             </form>
         </div>
-        <transition-group name="list" tag="div">
-            <template v-for="msg in messages">
-                <template v-if="msg.dom_template">
-                    <div v-bind:key="msg.id" v-html="msg.dom_template"></div>
-                </template>
-                <template v-else>
-                    <p v-bind:key="msg.id">Error rendering message. Please refresh the page.</p>
-                </template>
-            </template>
-        </transition-group>
     </div>
 </template>
 
@@ -71,10 +69,10 @@
         methods: {
             sortMessages() {
                 this.messages.sort((a, b) => {
-                    if (moment(a.created_at).isAfter(moment(b.created_at)))
+                    if (moment(a.created_at).isBefore(moment(b.created_at)))
                         return -1;
 
-                    if (moment(a.created_at).isBefore(moment(b.created_at)))
+                    if (moment(a.created_at).isAfter(moment(b.created_at)))
                         return 1;
 
                     return 0;
@@ -107,9 +105,8 @@
             },
             sendMessage(e) {
                 const $form = $(e.target);
-                const $button = $(e.explicitOriginalTarget);
 
-                $button.prop('disabled', true);
+                $form.find(':input').prop('readonly', true);
                 axios
                     .post(route('account.private-message.store'), $form.serialize())
                     .then(res => {
@@ -124,14 +121,14 @@
                                 })
                                 .then(() => {
                                     $form.trigger('reset');
-                                    $button.prop('disabled', false);
+                                    $form.find(':input').prop('readonly', false);
                                 });
                         }
                     })
                     .catch(err => {
                         console.log(err);
                         toastr.error('Could not send message.');
-                        $button.prop('disabled', false);
+                        $form.find(':input').prop('readonly', false);
                     })
                     .then(() => {
 
@@ -141,18 +138,117 @@
         }
     };
 </script>
-<style>
-    .list-enter-active, .list-leave-active {
-        opacity: 1;
-        transform-origin: 0 0;
-        transition: opacity 0.3s ease,
-        transform 0.3s cubic-bezier(.2, .38, .72, 1.3);
+<style scoped lang="scss">
+    @import '~@/_variables.scss';
+    @import '~@/_mixins.scss';
+    /*@import '~bootstrap/scss/variables';*/
+    /*@import '~@material/elevation/mdc-elevation';*/
+
+    @keyframes scaleIn {
+        from {
+            transform: scale(0);
+        }
+        to {
+            transform: scale(1);
+        }
     }
 
-    .list-enter, .list-leave-to {
-        height: 0;
-        transform: scaleY(0);
-        transition: opacity 0.1s ease,
-        transform 0.12s ease-out;
+    #private-message {
+        &-input-group {
+            input, button {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+        }
+
+        &-widget {
+            .card-body {
+                max-height: 600px;
+                overflow-y: scroll;
+            }
+        }
+
+        &-wrapper {
+            animation: scaleIn 0.4s ease-in-out;
+            $pm-margin: 1rem;
+            margin: $pm-margin;
+
+            &.left {
+                margin-left: 0;
+                margin-right: $pm-margin * 3;
+                transform-origin: 0 50% 0;
+            }
+
+            &.right {
+                margin-right: 0;
+                margin-left: $pm-margin * 3;
+                transform-origin: 100% 50% 0;
+            }
+
+            &.right + &.right {
+                margin-top: -$pm-margin + 0.2rem;
+            }
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+
+        &-inner {
+            .left &:before,
+            .right &:before,
+            .left &:after,
+            .right &:after {
+                content: '';
+                position: absolute;
+                border-style: solid;
+                width: 0;
+                display: block;
+                top: 50%;
+                margin-top: -16px;
+            }
+
+            .left & {
+                background-color: #fff;
+
+                &:before {
+                    border-width: 16px 16px 16px 0;
+                    border-color: transparent;
+                    z-index: 0;
+                    left: -16px;
+
+                }
+
+                &:after {
+                    border-width: 16px 16px 16px 0;
+                    border-color: transparent #fff;
+                    z-index: 1;
+                    left: -15px;
+                }
+            }
+
+            .right & {
+                background-color: $action;
+                color: #fff;
+
+                &:before {
+                    border-width: 16px 0 16px 16px;
+                    border-color: transparent;
+                    z-index: 0;
+                    right: -16px;
+                }
+
+                &:after {
+                    border-width: 16px 0 16px 16px;
+                    border-color: transparent $action;
+                    z-index: 1;
+                    right: -16px;
+                }
+            }
+
+            position: relative;
+            padding: 0.75rem 1rem;
+            border-radius: $border-radius;
+        }
     }
 </style>

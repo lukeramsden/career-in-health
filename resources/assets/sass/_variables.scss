@@ -1,0 +1,15 @@
+$action:       #f9834e;
+$dark-primary: #354968;
+$primary:      #455782;
+$golden:       #ffcf40;
+
+$theme-colors: (
+  'primary':      $primary,
+  'dark-primary': $dark-primary,
+  'action':       $action,
+  'golden':       $golden,
+);
+
+$border-radius: .15rem;
+$border-radius-lg: .2rem;
+$border-radius-sm: .1rem;

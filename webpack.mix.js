@@ -4,6 +4,9 @@ let mix = require('laravel-mix');
 mix.webpackConfig({
     resolve: {
         extensions: ['*', '.js', '.jsx', '.vue', '.json'],
+        alias: {
+          '@': path.resolve('resources/assets/sass')
+        }
     },
     plugins: [
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),

@@ -115,12 +115,8 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-4 order-lg-2">
-                        <div class="your-correspondence">
-                            <h2 class="text-center"><em>Your Correspondence</em></h2>
-                            
-                            <div id="vue-private-messages">
-                                <private-messages></private-messages>
-                            </div>
+                        <div id="vue-private-messages">
+                            <private-messages></private-messages>
                         </div>
                     </div>
                 </div>
