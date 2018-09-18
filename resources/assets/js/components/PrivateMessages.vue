@@ -54,6 +54,8 @@
                     .listen('CreatedPrivateMessage', (e) => {
                         this.renderMessage(e.message)
                             .then(msg => {
+                                // TODO: determine sender/receiver status based on direction and not current_user_is_receiver
+                                // current_user_is_receiver is determined on broadcast (aka from senders POV)
                                 this.pushMessage(msg);
                             })
                             .catch(err => {
