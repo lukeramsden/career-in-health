@@ -25,14 +25,16 @@
                 </div>
             </form>
         </div>
-        <template v-for="msg in messages">
-            <template v-if="msg.dom_template">
-                <div v-html="msg.dom_template"></div>
+        <transition-group name="list" tag="div">
+            <template v-for="msg in messages">
+                <template v-if="msg.dom_template">
+                    <div v-bind:key="msg.id" v-html="msg.dom_template"></div>
+                </template>
+                <template v-else>
+                    <p v-bind:key="msg.id">Error rendering message. Please refresh the page.</p>
+                </template>
             </template>
-            <template v-else>
-                <p>Error rendering message. Please refresh the page.</p>
-            </template>
-        </template>
+        </transition-group>
     </div>
 </template>
 
@@ -40,11 +42,11 @@
     export default {
         data() {
             return {
-                listing_id:  data.smallPrivateMessages.listing_id,
-                company_id:  data.smallPrivateMessages.company_id,
+                listing_id: data.smallPrivateMessages.listing_id,
+                company_id: data.smallPrivateMessages.company_id,
                 employee_id: data.smallPrivateMessages.employee_id,
-                messages:    data.smallPrivateMessages.messages,
-                usertype:    data.smallPrivateMessages.usertype,
+                messages: data.smallPrivateMessages.messages,
+                usertype: data.smallPrivateMessages.usertype,
             };
         },
         mounted() {
@@ -59,13 +61,27 @@
                                 console.log(err);
                                 toastr.error('Could not render message.');
                             })
-                            ;
+                        ;
                     });
             });
         },
         methods: {
             pushMessage(msg) {
-                this.messages.unshift(msg);
+                // push new message, ensure ID property is unique across the array
+                // and then sort by created_at
+                this.messages =
+                    _.uniqBy(
+                        _.concat(this.messages, msg), 'id')
+                        .sort((a, b) => {
+                            if (moment(a.created_at).isAfter(moment(b.created_at)))
+                                return -1;
+
+                            if (moment(a.created_at).isBefore(moment(b.created_at)))
+                                return 1;
+
+                            return 0;
+                        })
+                ;
             },
             renderMessage(msg) {
                 return new Promise((resolve, reject) => {
@@ -120,3 +136,18 @@
         }
     };
 </script>
+<style>
+    .list-enter-active, .list-leave-active {
+        opacity: 1;
+        transform-origin: 0 0;
+        transition: opacity 0.3s ease,
+        transform 0.3s cubic-bezier(.2, .38, .72, 1.3);
+    }
+
+    .list-enter, .list-leave-to {
+        height: 0;
+        transform: scaleY(0);
+        transition: opacity 0.1s ease,
+        transform 0.12s ease-out;
+    }
+</style>
