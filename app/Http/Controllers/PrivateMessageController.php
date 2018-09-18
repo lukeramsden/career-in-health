@@ -198,4 +198,17 @@ class PrivateMessageController extends Controller
 		toast()->success('Message sent successfully');
 		return back();
 	}
+
+	/**
+	 * @param PrivateMessage $message
+	 *
+	 * @return string
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 * @throws \Throwable
+	 */
+	public function render(PrivateMessage $message)
+	{
+		$this->authorize('view', $message);
+		return $message->render();
+	}
 }

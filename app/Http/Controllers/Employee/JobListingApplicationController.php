@@ -60,7 +60,7 @@ class JobListingApplicationController extends Controller
 						->whereEmployeeId($application->employee->id)
 						->whereCompanyId($application->job_listing->company->id)
 						->orderBy('created_at', 'desc')
-						->paginate(5),
+						->get(),
 			]);
 	}
 
@@ -93,7 +93,7 @@ class JobListingApplicationController extends Controller
 						->whereEmployeeId($employee->id)
 						->whereCompanyId($jobListing->company->id)
 						->orderBy('created_at', 'desc')
-						->paginate(5),
+						->get(),
 			]);
 	}
 

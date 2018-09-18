@@ -121,33 +121,6 @@
                             <div id="vue-small-private-messages">
                                 <small-private-messages></small-private-messages>
                             </div>
-                            
-                            @foreach($messages as $message)
-                                @set('isReceiver', $message->wasSentTo(Auth::user()))
-                                <div
-                                class="card card-custom message-thread-item mb-4 {{$isReceiver?'message-thread-item-sent':'message-thread-item-received'}}"
-                                @if ($loop->last)
-                                id="message-thread-item-last"
-                                @endif
-                                >
-                                    @if($isReceiver)
-                                        @usertype('employee')
-                                        <div class="card-header">
-                                            <b>From:</b> {{ $message->company->name }} {!!verified_badge($message->company)!!}
-                                        </div>
-                                        @elseusertype('company')
-                                        <div class="card-header"><b>From:</b> {{ $message->employee->full_name }}</div>
-                                        @endusertype
-                                    @else
-                                        <div class="card-header"><b>You said...</b></div>
-                                    @endif
-                                    <div class="card-body">{{ $message->body }}</div>
-                                    <div class="card-footer">{{ $message->created_at->diffForHumans() }}</div>
-                                </div>
-                                @unset($isReceiver)
-                            @endforeach
-                            
-                            {!! $messages->appends(Request::capture()->except('page'))->render('vendor.pagination') !!}
                         </div>
                     </div>
                 </div>
@@ -163,7 +136,12 @@
                 listing_id  : {{ $jobListing->id }},
                 company_id  : {{ $company->id }},
                 employee_id : {{ $employee->id }},
-                messages    : {!! json_encode($messages->items()) !!},
+                messages    : {!!
+                    json_encode($messages->map(function($msg)
+                    {
+                        $msg['dom_template'] = $msg->render(); return $msg;
+                    }))
+                    !!},
                 usertype    :
                     @usertype('employee')
                         'employee'

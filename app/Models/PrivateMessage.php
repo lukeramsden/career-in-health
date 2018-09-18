@@ -7,7 +7,32 @@ use Illuminate\Support\Facades\Auth;
 
 class PrivateMessage extends Model
 {
-	protected $fillable = ['body', 'job_listing_id'];
+	protected $fillable = [
+		'body',
+		'job_listing_id',
+	]
+	;
+	protected $appends  = [
+		'current_user_is_receiver',
+		'created_at_dfh',
+	];
+
+	/**
+	 * @return null|bool
+	 * @throws \Exception
+	 */
+	public function getCurrentUserIsReceiverAttribute()
+	{
+		if (!Auth::check())
+			return null;
+
+		return $this->wasSentTo();
+	}
+
+	public function getCreatedAtDfhAttribute()
+	{
+		return $this->created_at->diffForHumans();
+	}
 
 	public function company()
 	{
@@ -76,5 +101,14 @@ class PrivateMessage extends Model
 		$this->read    = false;
 		$this->read_at = null;
 		$this->save();
+	}
+
+	/**
+	 * @return string
+	 * @throws \Throwable
+	 */
+	public function render()
+	{
+		return view('partials.message-loop-item', ['message' => $this])->render();
 	}
 }

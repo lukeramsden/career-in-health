@@ -82,6 +82,9 @@ Route::prefix('account')
 			  ->name('private-message.show-employee');
 		 Route::get('/private-messages/{jobListing}/{employee}', 'PrivateMessageController@showForJobListingAndEmployee')
 			  ->name('private-message.show-company');
+
+		 Route::any('/private-message/{message}/render', 'PrivateMessageController@render')
+			  ->name('private-message.render');
 	 });
 
 Route::prefix('employee')
