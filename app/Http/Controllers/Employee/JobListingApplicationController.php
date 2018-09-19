@@ -18,7 +18,7 @@ class JobListingApplicationController extends Controller
 		$this->request = $request;
 
 		$this->middleware('auth')->except('create');
-		$this->middleware('user-type:employee')->except('update');
+		$this->middleware('user-type:employee')->except('update', 'permalink');
 		$this->middleware('must-onboard');
 	}
 
@@ -182,7 +182,7 @@ class JobListingApplicationController extends Controller
 		return back();
 	}
 
-	public function showRedirect(JobListingApplication $application)
+	public function permalink(JobListingApplication $application)
 	{
 		return redirect(
 			route(Auth::user()->isEmployee()
