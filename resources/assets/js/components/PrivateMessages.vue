@@ -1,11 +1,12 @@
 <template>
-    <div class="card card-custom card-custom-material" id="private-message-widget">
+    <div class="private-message-widget card card-custom card-custom-material">
         <div class="card-body" v-chat-scroll="{always: false, smooth: true}">
-            <div v-for="msg in messages" v-bind:key="msg.id" id="private-message-wrapper"
-                 :class="msg.current_user_is_receiver ? 'left' : 'right'">
-                <div id="private-message-inner">
+            <div v-for="msg in messages" v-bind:key="msg.id" class="private-message-wrapper"
+                 :class="determineSide(msg)">
+                <div class="private-message-inner">
                     {{ msg.body }}
                 </div>
+                <p class="private-message-timestamp small">{{ formatTimestamp(msg) }}</p>
             </div>
         </div>
         <div class="card-footer p-0">
@@ -54,8 +55,6 @@
                     .listen('CreatedPrivateMessage', (e) => {
                         this.renderMessage(e.message)
                             .then(msg => {
-                                // TODO: determine sender/receiver status based on direction and not current_user_is_receiver
-                                // current_user_is_receiver is determined on broadcast (aka from senders POV)
                                 this.pushMessage(msg);
                             })
                             .catch(err => {
@@ -66,8 +65,13 @@
                     });
 
                 this.sortMessages();
+                $('#private-message-wrapper[data-toggle="tooltip"]').tooltip({
+                    container: 'body',
+                    placement: 'top',
+                })
             });
         },
+        computed: {},
         methods: {
             sortMessages() {
                 this.messages.sort((a, b) => {
@@ -107,7 +111,12 @@
             },
             sendMessage(e) {
                 const $form = $(e.target);
+                const $button = $form.find('button[type="submit"]');
 
+                if ($button.prop('disabled'))
+                    return;
+
+                $button.prop('disabled', true);
                 $form.find(':input').prop('readonly', true);
                 axios
                     .post(route('account.private-message.store'), $form.serialize())
@@ -124,19 +133,34 @@
                                 .then(() => {
                                     $form.trigger('reset');
                                     $form.find(':input').prop('readonly', false);
+                                    $button.prop('disabled', false);
                                 });
                         }
                     })
                     .catch(err => {
                         console.log(err);
                         toastr.error('Could not send message.');
+
+                        // reset code is here instead of in final then because
+                        // we only want it to run if request fails
+                        // if request is a success
                         $form.find(':input').prop('readonly', false);
+                        $button.prop('disabled', false);
                     })
                     .then(() => {
-
                     })
                 ;
-            }
+            },
+            determineSide(msg) {
+                // if direction
+                return msg.direction ===
+                // is opposite of usertype
+                (this.usertype === 'employee' ? 'to_company' : 'to_employee')
+                    ? 'right' : 'left';
+            },
+            formatTimestamp(msg) {
+                return moment.utc(msg.created_at).local().format('lll');
+            },
         }
     };
 </script>
@@ -155,7 +179,9 @@
         }
     }
 
-    #private-message {
+    .private-message {
+        $pm-margin: 1rem;
+
         &-input-group {
             input, button {
                 border-top-left-radius: 0;
@@ -172,7 +198,6 @@
 
         &-wrapper {
             animation: scaleIn 0.4s ease-in-out;
-            $pm-margin: 1rem;
             margin: $pm-margin;
 
             &.left {
@@ -187,7 +212,8 @@
                 transform-origin: 100% 50% 0;
             }
 
-            &.right + &.right {
+            &.right + &.right,
+            &.left + &.left {
                 margin-top: -$pm-margin + 0.2rem;
             }
 
@@ -251,6 +277,20 @@
             position: relative;
             padding: 0.75rem 1rem;
             border-radius: $border-radius;
+        }
+
+        &-timestamp {
+            color: #6c757d;
+            font-style: italic;
+            margin: 5px 0;
+
+            .left & {
+                text-align: left;
+            }
+
+            .right & {
+                text-align: right;
+            }
         }
     }
 </style>

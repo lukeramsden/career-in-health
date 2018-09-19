@@ -13,21 +13,8 @@ class PrivateMessage extends Model
 	]
 	;
 	protected $appends  = [
-		'current_user_is_receiver',
 		'created_at_dfh',
 	];
-
-	/**
-	 * @return null|bool
-	 * @throws \Exception
-	 */
-	public function getCurrentUserIsReceiverAttribute()
-	{
-		if (!Auth::check())
-			return null;
-
-		return $this->wasSentTo();
-	}
 
 	public function getCreatedAtDfhAttribute()
 	{
