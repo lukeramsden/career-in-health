@@ -10,13 +10,17 @@ class PrivateMessage extends Model
 	protected $fillable = [
 		'body',
 		'job_listing_id',
-	]
-	;
-	protected $appends  = [
-		'created_at_dfh',
 	];
 
-	public function getCreatedAtDfhAttribute()
+	protected $appends  = [
+		'created_at_diff',
+	];
+
+	protected $dates = [
+		'read_at'
+	];
+
+	public function getCreatedAtDiffAttribute()
 	{
 		return $this->created_at->diffForHumans();
 	}
@@ -88,14 +92,5 @@ class PrivateMessage extends Model
 		$this->read    = false;
 		$this->read_at = null;
 		$this->save();
-	}
-
-	/**
-	 * @return string
-	 * @throws \Throwable
-	 */
-	public function render()
-	{
-		return view('partials.message-loop-item', ['message' => $this])->render();
 	}
 }

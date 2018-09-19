@@ -413,7 +413,7 @@
         </div>
     </nav>
     {{--main app--}}
-    <div id="app" class="h-100">
+    <div id="app">
         @yield('content')
     </div>
 @endsection

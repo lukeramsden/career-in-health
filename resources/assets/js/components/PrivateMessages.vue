@@ -1,13 +1,18 @@
 <template>
     <div class="private-message-widget card card-custom card-custom-material">
         <div class="card-body" v-chat-scroll="{always: false, smooth: true}">
-            <div v-for="msg in messages" v-bind:key="msg.id" class="private-message-wrapper"
-                 :class="determineSide(msg)">
-                <div class="private-message-inner">
-                    {{ msg.body }}
+            <template v-for="msg in messages">
+                <template v-if="msg.id === earliestUnreadMessage">
+                    <p class="unread-ruler small" v-on:click.stop.prevent="markMessagesAsRead">Unread Messages (click to mark as read)</p>
+                </template>
+                <div v-bind:key="msg.id" class="private-message-wrapper"
+                     :class="determineSide(msg)">
+                    <div class="private-message-inner">
+                        {{ msg.body }}
+                    </div>
+                    <p class="private-message-timestamp small">{{ formatTimestamp(msg) }}</p>
                 </div>
-                <p class="private-message-timestamp small">{{ formatTimestamp(msg) }}</p>
-            </div>
+            </template>
         </div>
         <div class="card-footer p-0">
             <form v-on:submit.prevent="sendMessage" class="form-inline">
@@ -52,17 +57,7 @@
         mounted() {
             this.$nextTick(() => {
                 Echo.private(`App.PrivateMessage.Listing.${this.listing_id}.Employee.${this.employee_id}`)
-                    .listen('CreatedPrivateMessage', (e) => {
-                        this.renderMessage(e.message)
-                            .then(msg => {
-                                this.pushMessage(msg);
-                            })
-                            .catch(err => {
-                                console.log(err);
-                                toastr.error('Could not render message.');
-                            })
-                        ;
-                    });
+                    .listen('CreatedPrivateMessage', e => this.pushMessage(e.message));
 
                 this.sortMessages();
                 $('#private-message-wrapper[data-toggle="tooltip"]').tooltip({
@@ -71,7 +66,22 @@
                 })
             });
         },
-        computed: {},
+        computed: {
+            earliestUnreadMessage() {
+                return _
+                    .chain(this.messages)
+                    .filter({
+                        'read': 0,
+                        'direction': this.usertype === 'employee'
+                            ? 'to_employee'
+                            : 'to_company'
+                    })
+                    .map('id')
+                    .head()
+                    .value()
+                    ;
+            }
+        },
         methods: {
             sortMessages() {
                 this.messages.sort((a, b) => {
@@ -82,32 +92,50 @@
                         return 1;
 
                     return 0;
-                })
+                });
             },
             pushMessage(msg) {
                 // push new message, ensure ID property is unique across the array
                 // and then sort by created_at
                 this.messages =
-                    _.uniqBy(_.concat(this.messages, msg), 'id');
+                    _(this.messages)
+                        .concat(msg)
+                        .uniqBy('id')
+                        .value()
+                ;
 
                 this.sortMessages();
             },
-            renderMessage(msg) {
-                return new Promise((resolve, reject) => {
-                    axios
-                        .get(route('account.private-message.render', {message: msg.id}))
-                        .then(res => {
-                            msg.dom_template = res.data;
-                            resolve(msg);
-                        })
-                        .catch(err => {
-                            reject(err);
-                        })
-                        .then(() => {
-
-                        })
-                    ;
-                });
+            markMessagesAsRead() {
+                $('.unread-ruler').addClass('scaleOut');
+                axios
+                    .post(route('account.private-message.mark-all-as-read', {
+                        jobListing: this.listing_id,
+                        employee: this.employee_id,
+                    }))
+                    .then(res => {
+                        if (res.data.success) {
+                            _
+                                .chain(this.messages)
+                                .filter({
+                                    'read': 0,
+                                    'direction': this.usertype === 'employee'
+                                        ? 'to_employee'
+                                        : 'to_company'
+                                })
+                                .map(el => {
+                                    el.read = 1;
+                                    el.read_at = res.data.read_at;
+                                })
+                                .value()
+                            ;
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        $('.unread-ruler').remove('scaleOut');
+                    })
+                    .then(() => {});
             },
             sendMessage(e) {
                 const $form = $(e.target);
@@ -122,32 +150,18 @@
                     .post(route('account.private-message.store'), $form.serialize())
                     .then(res => {
                         if (res.data.success) {
-                            this.renderMessage(res.data.model)
-                                .then(msg => {
-                                    this.pushMessage(msg);
-                                })
-                                .catch(err => {
-                                    console.log(err);
-                                    toastr.error('Could not render message.');
-                                })
-                                .then(() => {
-                                    $form.trigger('reset');
-                                    $form.find(':input').prop('readonly', false);
-                                    $button.prop('disabled', false);
-                                });
+                            this.pushMessage(res.data.model);
+                            this.markMessagesAsRead();
                         }
                     })
                     .catch(err => {
                         console.log(err);
                         toastr.error('Could not send message.');
-
-                        // reset code is here instead of in final then because
-                        // we only want it to run if request fails
-                        // if request is a success
-                        $form.find(':input').prop('readonly', false);
-                        $button.prop('disabled', false);
                     })
                     .then(() => {
+                        $form.trigger('reset');
+                        $form.find(':input').prop('readonly', false);
+                        $button.prop('disabled', false);
                     })
                 ;
             },
@@ -176,6 +190,102 @@
         }
         to {
             transform: scale(1);
+        }
+    }
+
+    @keyframes scaleOut {
+        from {
+            transform: scale(1);
+        }
+        to {
+            transform: scale(0);
+        }
+    }
+
+    @keyframes scaleXIn {
+        from {
+            transform: scaleX(0);
+        }
+        to {
+            transform: scaleX(1);
+        }
+    }
+
+    @keyframes scaleXOut {
+        from {
+            transform: scaleX(1);
+        }
+        to {
+            transform: scaleX(0);
+        }
+    }
+
+    @keyframes scaleYIn {
+        from {
+            transform: scaleY(0);
+        }
+        to {
+            transform: scaleY(1);
+        }
+    }
+
+    @keyframes scaleYOut {
+        from {
+            transform: scaleY(1);
+        }
+        to {
+            transform: scaleY(0);
+        }
+    }
+
+
+    .unread-ruler {
+        // https://www.colourlovers.com/color/F02311/Sex_on_the_Floor
+        $color: #F02311;
+        text-align: center;
+        border: 0;
+        white-space: nowrap;
+        display: block;
+        overflow: hidden;
+        padding: 0;
+        margin: 0 1rem;
+        color: $color;
+        transition: transform 200ms ease-in-out;
+
+        transform-origin: 0 0 0;
+        animation: scaleXIn 0.4s ease-in-out;
+
+        &.scaleOut {
+            transform-origin: 50% 0 0;
+            animation: scaleOut 0.4s ease-in-out;
+        }
+
+        // Opinionated: add "hand" cursor to non-disabled .btn elements
+        &:not(:disabled):not(.disabled) {
+          cursor: pointer;
+        }
+
+        & > * {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        &:before, &:after {
+            background-color: $color;
+            content: "";
+            height: 1px;
+            width: 50%;
+            margin: 0 5px 0 5px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        &:before {
+            margin-left: -100%;
+        }
+
+        &:after {
+            margin-right: -100%;
         }
     }
 

@@ -48,7 +48,7 @@ class PrivateMessagePolicy
 	}
 
 	/**
-	 * Determine if user can view a given message.
+	 * Determine if user can interact with a given message.
 	 *
 	 * @param User           $user
 	 * @param PrivateMessage $privateMessage
@@ -56,7 +56,7 @@ class PrivateMessagePolicy
 	 * @return bool
 	 * @throws \Exception
 	 */
-	public function view(User $user, PrivateMessage $privateMessage)
+	public function interact(User $user, PrivateMessage $privateMessage)
 	{
 		if($user->isEmployee())
 			return $privateMessage->employee_id === $user->userable_id;

@@ -157,12 +157,7 @@
                 listing_id: {{ $jobListing->id }},
                 company_id: {{ $company->id }},
                 employee_id: {{ $employee->id }},
-                messages: {!!
-                    json_encode($messages->map(function($msg)
-                    {
-                        $msg['dom_template'] = $msg->render(); return $msg;
-                    }))
-                    !!},
+                messages: {!! json_encode($messages) !!},
                 usertype:
                     @usertype('employee')
                 'employee'

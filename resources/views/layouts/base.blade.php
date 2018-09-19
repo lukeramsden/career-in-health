@@ -26,7 +26,7 @@
         
         {{-- Script Preloads/prefetches --}}
     </head>
-    <body class="h-100">
+    <body>
         @yield('base_content')
 
         {{-- Scripts --}}

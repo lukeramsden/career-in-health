@@ -109,18 +109,12 @@ class PrivateMessageController extends Controller
 		$messages = PrivateMessage
 			::whereJobListingId($jobListing->id)
 			->whereEmployeeId($employee->id)
-			->whereCompanyId($company->id);
-
-		(clone $messages)
-			->whereDirection('to_employee')
-			->each(function ($v, $k)
-			{
-				$v->markAsRead();
-			});
+			->whereCompanyId($company->id)
+			->get();
 
 		return view('account.private-message.show')
 			->with([
-				'messages'   => $messages->get(),
+				'messages'   => $messages,
 				'jobListing' => $jobListing,
 				'employee'   => $employee,
 				'company'    => $company,
@@ -133,18 +127,12 @@ class PrivateMessageController extends Controller
 		$messages = PrivateMessage
 			::whereJobListingId($jobListing->id)
 			->whereEmployeeId($employee->id)
-			->whereCompanyId($company->id);
-
-		(clone $messages)
-			->whereDirection('to_company')
-			->each(function ($v, $k)
-			{
-				$v->markAsRead();
-			});
+			->whereCompanyId($company->id)
+			->get();
 
 		return view('account.private-message.show')
 			->with([
-				'messages'   => $messages->get(),
+				'messages'   => $messages,
 				'jobListing' => $jobListing,
 				'employee'   => $employee,
 				'company'    => $company,
@@ -208,15 +196,51 @@ class PrivateMessageController extends Controller
 	}
 
 	/**
-	 * @param PrivateMessage $message
+	 * @param JobListing    $listing
+	 * @param Employee|null $employee
 	 *
-	 * @return string
-	 * @throws \Illuminate\Auth\Access\AuthorizationException
-	 * @throws \Throwable
+	 * @throws \Exception
 	 */
-	public function render(PrivateMessage $message)
+	public function markAllAsRead(JobListing $jobListing, Employee $employee = null)
 	{
-		$this->authorize('view', $message);
-		return $message->render();
+		$user     = Auth::user();
+		$userable = $user->userable;
+
+		$read_at = now();
+		if($user->isEmployee())
+		{
+			PrivateMessage
+				::whereJobListingId($jobListing->id)
+				->whereEmployeeId($userable->id)
+				->whereCompanyId($jobListing->company->id)
+				->whereDirection('to_employee')
+				->update([
+					'read'    => true,
+					'read_at' => $read_at,
+				]);
+
+			if(ajax())
+				return response()->json(['success' => true, 'read_at' => $read_at]);
+
+			return back();
+		} else if ($user->isValidCompany()) {
+			if(is_null($employee))
+				abort(400, 'Employee cannot be null');
+
+			PrivateMessage
+				::whereJobListingId($jobListing->id)
+				->whereEmployeeId($employee->id)
+				->whereCompanyId($userable->company_id)
+				->whereDirection('to_company')
+				->update([
+					'read'    => true,
+					'read_at' => $read_at,
+				]);
+
+			if(ajax())
+				return response()->json(['success' => true, 'read_at' => $read_at]);
+
+			return back();
+		} else return abort(401, 'Invalid user type.');
 	}
 }
