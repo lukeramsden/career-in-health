@@ -11629,6 +11629,494 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   will-change: box-shadow;
 }
 
+.top-0 {
+  top: 0 !important;
+}
+
+.top-1 {
+  top: 0.25rem !important;
+}
+
+.top-2 {
+  top: 0.5rem !important;
+}
+
+.top-3 {
+  top: 1rem !important;
+}
+
+.top-4 {
+  top: 1.5rem !important;
+}
+
+.top-5 {
+  top: 3rem !important;
+}
+
+.right-0 {
+  right: 0 !important;
+}
+
+.right-1 {
+  right: 0.25rem !important;
+}
+
+.right-2 {
+  right: 0.5rem !important;
+}
+
+.right-3 {
+  right: 1rem !important;
+}
+
+.right-4 {
+  right: 1.5rem !important;
+}
+
+.right-5 {
+  right: 3rem !important;
+}
+
+.bottom-0 {
+  bottom: 0 !important;
+}
+
+.bottom-1 {
+  bottom: 0.25rem !important;
+}
+
+.bottom-2 {
+  bottom: 0.5rem !important;
+}
+
+.bottom-3 {
+  bottom: 1rem !important;
+}
+
+.bottom-4 {
+  bottom: 1.5rem !important;
+}
+
+.bottom-5 {
+  bottom: 3rem !important;
+}
+
+.left-0 {
+  left: 0 !important;
+}
+
+.left-1 {
+  left: 0.25rem !important;
+}
+
+.left-2 {
+  left: 0.5rem !important;
+}
+
+.left-3 {
+  left: 1rem !important;
+}
+
+.left-4 {
+  left: 1.5rem !important;
+}
+
+.left-5 {
+  left: 3rem !important;
+}
+
+@media (min-width: 576px) {
+  .top-sm-0 {
+    top: 0 !important;
+  }
+
+  .top-sm-1 {
+    top: 0.25rem !important;
+  }
+
+  .top-sm-2 {
+    top: 0.5rem !important;
+  }
+
+  .top-sm-3 {
+    top: 1rem !important;
+  }
+
+  .top-sm-4 {
+    top: 1.5rem !important;
+  }
+
+  .top-sm-5 {
+    top: 3rem !important;
+  }
+
+  .right-sm-0 {
+    right: 0 !important;
+  }
+
+  .right-sm-1 {
+    right: 0.25rem !important;
+  }
+
+  .right-sm-2 {
+    right: 0.5rem !important;
+  }
+
+  .right-sm-3 {
+    right: 1rem !important;
+  }
+
+  .right-sm-4 {
+    right: 1.5rem !important;
+  }
+
+  .right-sm-5 {
+    right: 3rem !important;
+  }
+
+  .bottom-sm-0 {
+    bottom: 0 !important;
+  }
+
+  .bottom-sm-1 {
+    bottom: 0.25rem !important;
+  }
+
+  .bottom-sm-2 {
+    bottom: 0.5rem !important;
+  }
+
+  .bottom-sm-3 {
+    bottom: 1rem !important;
+  }
+
+  .bottom-sm-4 {
+    bottom: 1.5rem !important;
+  }
+
+  .bottom-sm-5 {
+    bottom: 3rem !important;
+  }
+
+  .left-sm-0 {
+    left: 0 !important;
+  }
+
+  .left-sm-1 {
+    left: 0.25rem !important;
+  }
+
+  .left-sm-2 {
+    left: 0.5rem !important;
+  }
+
+  .left-sm-3 {
+    left: 1rem !important;
+  }
+
+  .left-sm-4 {
+    left: 1.5rem !important;
+  }
+
+  .left-sm-5 {
+    left: 3rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .top-md-0 {
+    top: 0 !important;
+  }
+
+  .top-md-1 {
+    top: 0.25rem !important;
+  }
+
+  .top-md-2 {
+    top: 0.5rem !important;
+  }
+
+  .top-md-3 {
+    top: 1rem !important;
+  }
+
+  .top-md-4 {
+    top: 1.5rem !important;
+  }
+
+  .top-md-5 {
+    top: 3rem !important;
+  }
+
+  .right-md-0 {
+    right: 0 !important;
+  }
+
+  .right-md-1 {
+    right: 0.25rem !important;
+  }
+
+  .right-md-2 {
+    right: 0.5rem !important;
+  }
+
+  .right-md-3 {
+    right: 1rem !important;
+  }
+
+  .right-md-4 {
+    right: 1.5rem !important;
+  }
+
+  .right-md-5 {
+    right: 3rem !important;
+  }
+
+  .bottom-md-0 {
+    bottom: 0 !important;
+  }
+
+  .bottom-md-1 {
+    bottom: 0.25rem !important;
+  }
+
+  .bottom-md-2 {
+    bottom: 0.5rem !important;
+  }
+
+  .bottom-md-3 {
+    bottom: 1rem !important;
+  }
+
+  .bottom-md-4 {
+    bottom: 1.5rem !important;
+  }
+
+  .bottom-md-5 {
+    bottom: 3rem !important;
+  }
+
+  .left-md-0 {
+    left: 0 !important;
+  }
+
+  .left-md-1 {
+    left: 0.25rem !important;
+  }
+
+  .left-md-2 {
+    left: 0.5rem !important;
+  }
+
+  .left-md-3 {
+    left: 1rem !important;
+  }
+
+  .left-md-4 {
+    left: 1.5rem !important;
+  }
+
+  .left-md-5 {
+    left: 3rem !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .top-lg-0 {
+    top: 0 !important;
+  }
+
+  .top-lg-1 {
+    top: 0.25rem !important;
+  }
+
+  .top-lg-2 {
+    top: 0.5rem !important;
+  }
+
+  .top-lg-3 {
+    top: 1rem !important;
+  }
+
+  .top-lg-4 {
+    top: 1.5rem !important;
+  }
+
+  .top-lg-5 {
+    top: 3rem !important;
+  }
+
+  .right-lg-0 {
+    right: 0 !important;
+  }
+
+  .right-lg-1 {
+    right: 0.25rem !important;
+  }
+
+  .right-lg-2 {
+    right: 0.5rem !important;
+  }
+
+  .right-lg-3 {
+    right: 1rem !important;
+  }
+
+  .right-lg-4 {
+    right: 1.5rem !important;
+  }
+
+  .right-lg-5 {
+    right: 3rem !important;
+  }
+
+  .bottom-lg-0 {
+    bottom: 0 !important;
+  }
+
+  .bottom-lg-1 {
+    bottom: 0.25rem !important;
+  }
+
+  .bottom-lg-2 {
+    bottom: 0.5rem !important;
+  }
+
+  .bottom-lg-3 {
+    bottom: 1rem !important;
+  }
+
+  .bottom-lg-4 {
+    bottom: 1.5rem !important;
+  }
+
+  .bottom-lg-5 {
+    bottom: 3rem !important;
+  }
+
+  .left-lg-0 {
+    left: 0 !important;
+  }
+
+  .left-lg-1 {
+    left: 0.25rem !important;
+  }
+
+  .left-lg-2 {
+    left: 0.5rem !important;
+  }
+
+  .left-lg-3 {
+    left: 1rem !important;
+  }
+
+  .left-lg-4 {
+    left: 1.5rem !important;
+  }
+
+  .left-lg-5 {
+    left: 3rem !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .top-xl-0 {
+    top: 0 !important;
+  }
+
+  .top-xl-1 {
+    top: 0.25rem !important;
+  }
+
+  .top-xl-2 {
+    top: 0.5rem !important;
+  }
+
+  .top-xl-3 {
+    top: 1rem !important;
+  }
+
+  .top-xl-4 {
+    top: 1.5rem !important;
+  }
+
+  .top-xl-5 {
+    top: 3rem !important;
+  }
+
+  .right-xl-0 {
+    right: 0 !important;
+  }
+
+  .right-xl-1 {
+    right: 0.25rem !important;
+  }
+
+  .right-xl-2 {
+    right: 0.5rem !important;
+  }
+
+  .right-xl-3 {
+    right: 1rem !important;
+  }
+
+  .right-xl-4 {
+    right: 1.5rem !important;
+  }
+
+  .right-xl-5 {
+    right: 3rem !important;
+  }
+
+  .bottom-xl-0 {
+    bottom: 0 !important;
+  }
+
+  .bottom-xl-1 {
+    bottom: 0.25rem !important;
+  }
+
+  .bottom-xl-2 {
+    bottom: 0.5rem !important;
+  }
+
+  .bottom-xl-3 {
+    bottom: 1rem !important;
+  }
+
+  .bottom-xl-4 {
+    bottom: 1.5rem !important;
+  }
+
+  .bottom-xl-5 {
+    bottom: 3rem !important;
+  }
+
+  .left-xl-0 {
+    left: 0 !important;
+  }
+
+  .left-xl-1 {
+    left: 0.25rem !important;
+  }
+
+  .left-xl-2 {
+    left: 0.5rem !important;
+  }
+
+  .left-xl-3 {
+    left: 1rem !important;
+  }
+
+  .left-xl-4 {
+    left: 1.5rem !important;
+  }
+
+  .left-xl-5 {
+    left: 3rem !important;
+  }
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   background-color: #f2f2f2;

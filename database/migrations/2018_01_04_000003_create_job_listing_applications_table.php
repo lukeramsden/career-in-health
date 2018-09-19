@@ -21,7 +21,6 @@ class CreateJobListingApplicationsTable extends Migration
             $table->foreign('job_listing_id')->references('id')->on('job_listings');
             $table->string('custom_cover_letter', 3000)->nullable();
             $table->integer('status')->nullable();
-            $table->string('notes', 500)->nullable();
             // NOTE: this defaults to the current time in the DATABASE's tz, the app's tz
             $table->timestamp('last_edited')->nullable()->useCurrent();
             $table->timestamps();

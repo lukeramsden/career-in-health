@@ -26,7 +26,6 @@ class JobListingApplicationController extends Controller
 	{
 		return array_merge([
 			'status' => 'nullable|integer',
-			'notes'  => 'nullable|string|max:500',
 		], $custom);
 	}
 
@@ -41,7 +40,7 @@ class JobListingApplicationController extends Controller
 						->applications()
 						->with('employee', 'job_listing', 'job_listing.company', 'job_listing.jobRole')
 						->orderBy('created_at', 'desc')
-						->paginate(15),
+						->get(),
 			]);
 	}
 
@@ -146,16 +145,16 @@ class JobListingApplicationController extends Controller
 	public function update(JobListingApplication $application)
 	{
 		$user = Auth::user();
-		// if editing status or notes
-		if ($this->request->has('status') || $this->request->has('notes'))
+		// if editing status
+		if ($this->request->has('status'))
 		{
-			// dont let non-owners edit status or notes for applications for jobListings they dont own
+			// dont let non-owners edit status for applications for jobListings they dont own
 			if (!$user->isValidCompany() || $application->job_listing->company->id !== $user->userable->company->id)
 			{
 				if (ajax())
-					return response()->json(['success' => false, 'message' => 'You must own the listing to update an application\'s status or notes.'], 401);
+					return response()->json(['success' => false, 'message' => 'You must own the listing to update an application\'s status.'], 401);
 
-				toast()->error('You must own the listing to update an application\'s status or notes.');
+				toast()->error('You must own the listing to update an application\'s status.');
 				return back();
 			}
 			else
@@ -166,9 +165,6 @@ class JobListingApplicationController extends Controller
 
 				if (isset($data['status']))
 					$application->status = $data['status'];
-
-				if (isset($data['notes']))
-					$application->notes = $data['notes'];
 			}
 		}
 		else
