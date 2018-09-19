@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpParamsInspection */
 
 Route::view('/', 'home')->name('home');
 Route::view('/pricing', 'pricing')->name('pricing');
@@ -46,6 +46,7 @@ Route::prefix('job-listing')
 				  Route::get('/{application}/edit', 'JobListingApplicationController@show')->name('show');
 			  });
 
+		 Route::any('/application/{application}/redirect', 'JobListingApplicationController@showRedirect')->name('application.permalink');
 		 Route::get('/application/{application}', 'JobListingController@showApplication')->name('company.application.show');
 	 });
 

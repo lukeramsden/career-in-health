@@ -181,4 +181,13 @@ class JobListingApplicationController extends Controller
 		toast()->success('Updated!');
 		return back();
 	}
+
+	public function showRedirect(JobListingApplication $application)
+	{
+		return redirect(
+			route(Auth::user()->isEmployee()
+				? 'job-listing.application.show'
+				: 'job-listing.company.application.show',
+				[$application]));
+	}
 }
