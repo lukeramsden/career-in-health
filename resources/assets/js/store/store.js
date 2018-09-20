@@ -6,16 +6,21 @@ export default {
         notifications: [],
         privateMessages: [],
         userType: '',
+        isOnboarding: false,
     },
     mutations: {
+        updateUserType:
+            (state, payload) => state.userType = payload,
+        isOnboarding:
+            (state, payload) => state.isOnboarding = true,
+        isNotOnboarding:
+            (state, payload) => state.isOnboarding = false,
         newNotification:
             (state, payload) => state.privateMessages.push(payload),
         newPrivateMessage:
             (state, payload) => state.privateMessages.push(payload),
         updatePrivateMessage:
             (state, payload) => Object.assign(state.privateMessages.find(item => item.id === payload.id), payload),
-        updateUserType:
-            (state, payload) => state.userType = payload,
     },
     getters: {
         earliestUnreadMessage: state => {

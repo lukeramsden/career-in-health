@@ -466,6 +466,12 @@
                     ''
                 @endusertype
             );
+            
+            @onboarding
+                window.store.commit('isOnboarding');
+            @elseonboarding
+                window.store.commit('isNotOnboarding');
+            @endonboarding
         </script>
     @endauth
     @yield('script')
