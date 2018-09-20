@@ -176,7 +176,7 @@
                                href="{{ route('account.private-message.index') }}">
                                 Messages
                                 @if(Auth::user()->unreadMessages() > 0)
-                                    <span class="badge badge-danger p-1">{{ Auth::user()->unreadMessages() }}</span>
+                                    <span class="badge badge-danger p-1 unread-messages-count-badge">{{ Auth::user()->unreadMessages() }}</span>
                                 @endif
                             </a>
                         @endcan
@@ -378,7 +378,9 @@
                                     <a class="nav-link nav-section-title"
                                        href="javascript:">
                                         Messages
-                                        <span class="badge badge-danger p-1">1</span>
+                                        @if(Auth::user()->unreadMessages() > 0)
+                                            <span class="badge badge-danger p-1 unread-messages-count-badge">{{ Auth::user()->unreadMessages() }}</span>
+                                        @endif
                                     </a>
                                     <div class="nav-section-sub">
                                         <a class="nav-link nav-link-sub {{ active_route('account.private-message.index') }}" href="{{ route('account.private-message.index') }}">Inbox</a>
@@ -454,6 +456,16 @@
                        })
                })
             });
+            
+            window.store.commit('updateUserType',
+                @usertype('employee')
+                    'employee'
+                @elseusertype('company')
+                    'company'
+                @elseusertype
+                    ''
+                @endusertype
+            );
         </script>
     @endauth
     @yield('script')

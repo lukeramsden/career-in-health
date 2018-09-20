@@ -1,5 +1,10 @@
+import updateNavBarUnreadMessagesCount from './plugins/updateNavBarUnreadMessagesCount';
+
 export default {
     strict: process.env.NODE_ENV !== 'production',
+    plugins: [
+        updateNavBarUnreadMessagesCount,
+    ],
     modules: {},
     state: {
         notifications: [],
@@ -18,6 +23,12 @@ export default {
     },
     getters: {
         earliestUnreadMessage: state => {
+            if(!state.userType)
+                return 0;
+
+            if(state.privateMessages.length <= 0)
+                return 0;
+
             return _
                 .chain(_.clone(state.privateMessages))
                 .filter({
@@ -32,6 +43,9 @@ export default {
                 ;
         },
         sortedPrivateMessages: state => {
+            if(state.privateMessages.length <= 0)
+                return [];
+
             return _.clone(state.privateMessages).sort((a, b) => {
                 if (moment(a.created_at).isBefore(moment(b.created_at)))
                     return -1;
@@ -41,6 +55,25 @@ export default {
 
                 return 0;
             });
+        },
+        unreadMessageCount: state => {
+            if(!state.userType)
+                return 0;
+
+            if(state.privateMessages.length <= 0)
+                return 0;
+
+            return _
+                .chain(_.clone(state.privateMessages))
+                .filter({
+                    'read': 0,
+                    'direction': state.userType === 'employee'
+                        ? 'to_employee'
+                        : 'to_company'
+                })
+                .value()
+                .length
+                ;
         },
     },
 };
