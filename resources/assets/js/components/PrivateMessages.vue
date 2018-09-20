@@ -3,7 +3,8 @@
         <div class="card-body" v-chat-scroll="{always: false, smooth: true}">
             <template v-for="msg in messages">
                 <template v-if="msg.id === earliestUnreadMessage">
-                    <p class="unread-ruler small" v-on:click.stop.prevent="markMessagesAsRead">Unread Messages (click to mark as read)</p>
+                    <p class="unread-ruler small" v-on:click.stop.prevent="markMessagesAsRead">Unread Messages (click to
+                        mark as read)</p>
                 </template>
                 <div v-bind:key="msg.id" class="private-message-wrapper"
                      :class="determineSide(msg)">
@@ -18,11 +19,11 @@
             <form v-on:submit.prevent="sendMessage" class="form-inline">
                 <input type="hidden" name="job_listing_id" :value="listing_id">
 
-                <input v-if="usertype === 'employee'"
+                <input v-if="userType === 'employee'"
                        type="hidden" name="to_company_id"
                        :value="company_id">
 
-                <input v-else-if="usertype === 'company'"
+                <input v-else-if="userType === 'company'"
                        type="hidden" name="to_employee_id"
                        :value="employee_id">
 
@@ -44,67 +45,40 @@
 </template>
 
 <script>
+    import {mapGetters, mapState} from 'vuex'
+
     export default {
         data() {
             return {
                 listing_id: data.privateMessages.listing_id,
-                company_id: data.privateMessages.company_id,
                 employee_id: data.privateMessages.employee_id,
-                messages: data.privateMessages.messages,
-                usertype: data.privateMessages.usertype,
+                company_id: data.privateMessages.company_id,
             };
+        },
+        computed: {
+            ...mapState({
+                userType: 'userType',
+            }),
+            ...mapGetters({
+                earliestUnreadMessage: 'earliestUnreadMessage',
+                messages: 'sortedPrivateMessages',
+            }),
         },
         mounted() {
             this.$nextTick(() => {
                 Echo.private(`App.PrivateMessage.Listing.${this.listing_id}.Employee.${this.employee_id}`)
                     .listen('CreatedPrivateMessage', e => this.pushMessage(e.message));
 
-                this.sortMessages();
                 $('#private-message-wrapper[data-toggle="tooltip"]').tooltip({
                     container: 'body',
                     placement: 'top',
                 })
             });
         },
-        computed: {
-            earliestUnreadMessage() {
-                return _
-                    .chain(this.messages)
-                    .filter({
-                        'read': 0,
-                        'direction': this.usertype === 'employee'
-                            ? 'to_employee'
-                            : 'to_company'
-                    })
-                    .map('id')
-                    .head()
-                    .value()
-                    ;
-            }
-        },
         methods: {
-            sortMessages() {
-                this.messages.sort((a, b) => {
-                    if (moment(a.created_at).isBefore(moment(b.created_at)))
-                        return -1;
-
-                    if (moment(a.created_at).isAfter(moment(b.created_at)))
-                        return 1;
-
-                    return 0;
-                });
-            },
             pushMessage(msg) {
-                // push new message, ensure ID property is unique across the array
-                // and then sort by created_at
-                this.messages =
-                    _(this.messages)
-                        .concat(msg)
-                        .uniqBy('id')
-                        .value()
-                ;
-
-                this.sortMessages();
+                if(_.findIndex(this.messages, ['id', msg.id]))
+                    this.$store.commit('newPrivateMessage', msg);
             },
             markMessagesAsRead() {
                 $('.unread-ruler').addClass('scaleOut');
@@ -116,16 +90,18 @@
                     .then(res => {
                         if (res.data.success) {
                             _
-                                .chain(this.messages)
+                                .chain(_.clone(this.messages))
                                 .filter({
                                     'read': 0,
-                                    'direction': this.usertype === 'employee'
+                                    'direction': this.userType === 'employee'
                                         ? 'to_employee'
                                         : 'to_company'
                                 })
                                 .map(el => {
-                                    el.read = 1;
-                                    el.read_at = res.data.read_at;
+                                    let updatedMsg = _.clone(el);
+                                    updatedMsg.read = 1;
+                                    updatedMsg.read_at = res.data.read_at;
+                                    this.$store.commit('updatePrivateMessage', updatedMsg);
                                 })
                                 .value()
                             ;
@@ -135,7 +111,8 @@
                         console.log(err);
                         $('.unread-ruler').remove('scaleOut');
                     })
-                    .then(() => {});
+                    .then(() => {
+                    });
             },
             sendMessage(e) {
                 const $form = $(e.target);
@@ -168,8 +145,8 @@
             determineSide(msg) {
                 // if direction
                 return msg.direction ===
-                // is opposite of usertype
-                (this.usertype === 'employee' ? 'to_company' : 'to_employee')
+                // is opposite of userType
+                (this.userType === 'employee' ? 'to_company' : 'to_employee')
                     ? 'right' : 'left';
             },
             formatTimestamp(msg) {
@@ -238,7 +215,6 @@
         }
     }
 
-
     .unread-ruler {
         // https://www.colourlovers.com/color/F02311/Sex_on_the_Floor
         $color: #F02311;
@@ -262,7 +238,7 @@
 
         // Opinionated: add "hand" cursor to non-disabled .btn elements
         &:not(:disabled):not(.disabled) {
-          cursor: pointer;
+            cursor: pointer;
         }
 
         & > * {

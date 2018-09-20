@@ -126,21 +126,23 @@
 @endsection
 @section('script')
     <script>
+        let messages = {!! json_encode($messages) !!};
+        messages.forEach(msg => window.store.commit('newPrivateMessage', msg));
+        window.store.commit('updateUserType',
+            @usertype('employee')
+                'employee'
+            @elseusertype('company')
+                'company'
+            @elseusertype
+                ''
+            @endusertype
+        );
+        
         window.data = {
             privateMessages: {
-                listing_id  : {{ $jobListing->id }},
-                company_id  : {{ $company->id }},
-                employee_id : {{ $employee->id }},
-                messages    : {!! json_encode($messages) !!},
-                usertype    :
-                    @usertype('employee')
-                        'employee'
-                    @elseusertype('company')
-                        'company'
-                    @elseusertype
-                        ''
-                    @endusertype
-                ,
+                listing_id: {{ $jobListing->id }},
+                company_id: {{ $company->id }},
+                employee_id: {{ $employee->id }},
             },
         };
     </script>

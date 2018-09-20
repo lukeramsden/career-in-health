@@ -1,3 +1,11 @@
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+import storeOptions from './store/store';
+
+Vue.use(Vuex);
+window.store = new Vuex.Store(storeOptions);
+
 let requiresEcho = false;
 
 if (document.getElementById('vue-private-messages')) {
