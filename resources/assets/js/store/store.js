@@ -1,10 +1,6 @@
-import updateNavBarUnreadMessagesCount from './plugins/updateNavBarUnreadMessagesCount';
-
 export default {
     strict: process.env.NODE_ENV !== 'production',
-    plugins: [
-        updateNavBarUnreadMessagesCount,
-    ],
+    plugins: [],
     modules: {},
     state: {
         notifications: [],
