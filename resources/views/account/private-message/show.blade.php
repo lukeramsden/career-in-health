@@ -50,12 +50,10 @@
         let messages = {!! json_encode($messages) !!};
         messages.forEach(msg => window.store.commit('newPrivateMessage', msg));
         
-        window.data = {
-            privateMessages: {
-                listing_id: {{ $jobListing->id }},
-                company_id: {{ $company->id }},
-                employee_id: {{ $employee->id }},
-            },
+        window.data.privateMessages = {
+            listing_id: {{ $jobListing->id }},
+            company_id: {{ $company->id }},
+            employee_id: {{ $employee->id }},
         };
     </script>
     <script src="{{ mix('js/private-messages-component.js') }}"></script>

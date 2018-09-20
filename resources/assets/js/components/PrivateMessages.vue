@@ -50,9 +50,9 @@
     export default {
         data() {
             return {
-                listing_id: data.privateMessages.listing_id,
-                employee_id: data.privateMessages.employee_id,
-                company_id: data.privateMessages.company_id,
+                listing_id: window.data.privateMessages.listing_id,
+                employee_id: window.data.privateMessages.employee_id,
+                company_id: window.data.privateMessages.company_id,
             };
         },
         computed: {

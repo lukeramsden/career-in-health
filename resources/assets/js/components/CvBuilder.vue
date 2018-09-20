@@ -22,18 +22,15 @@
 <script>
     import {mapGetters, mapState} from 'vuex'
 
-    import CvSectionMultiple from './CvSectionMultiple';
-    import CvSectionSingle from './CvSectionSingle';
-    import LoadingIcon from './LoadingIcon';
-    import DatePicker from './DatePicker';
-    import Select2 from './Select2';
-    import FileUpload from './FileUpload';
+    import CvSectionMultiple from './CvBuilder/CvSectionMultiple';
+    import CvSectionSingle from './CvBuilder/CvSectionSingle';
 
     export default {
-        components: [
+        props: ['schemas', 'model'],
+        components: {
             CvSectionMultiple,
             CvSectionSingle,
-        ],
+        },
         mounted() {
             this.$nextTick(() => {
             });

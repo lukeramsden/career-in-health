@@ -427,6 +427,8 @@
     @routes
     @auth
         <script>
+            window.data = {};
+            
             function toggleNotificationDrawer()
             {
                 $('#navbar-notification-panel').toggleClass('open');

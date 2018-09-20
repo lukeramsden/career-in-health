@@ -197,7 +197,18 @@
 <script>
     import {mapGetters, mapState} from 'vuex'
 
+    import LoadingIcon from './LoadingIcon';
+    import DatePicker from './DatePicker';
+    import Select2 from './Select2';
+    import FileUpload from './FileUpload';
+
     export default {
+        components: {
+            LoadingIcon,
+            DatePicker,
+            Select2,
+            FileUpload
+        },
         props: ['schema', 'model', 'index', 'multiple'],
         data() {
             return {
@@ -241,7 +252,7 @@
                     });
 
                 const models = fields
-                    // get all "model" fields
+                // get all "model" fields
                     .flatMap('model')
                     // remove empty vals
                     .compact()
@@ -249,7 +260,7 @@
                     .value();
 
                 const inputTypes = fields
-                    // get all "model" fields
+                // get all "model" fields
                     .flatMap('type')
                     // remove empty vals
                     .compact()
