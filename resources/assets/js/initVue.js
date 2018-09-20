@@ -9,13 +9,26 @@ window.store = new Vuex.Store(storeOptions);
 let requiresEcho = false;
 
 if (document.getElementById('vue-private-messages')) {
-    import('./initPrivateMessagesComponent' /* webpackChunkName: "js/private-messages-component" */)
+    import('./componentInitializers/PrivateMessages' /* webpackChunkName: "js/private-messages-component" */)
         .then(component => {
             component.default();
         });
 
     requiresEcho = true;
 }
+
+if (document.getElementById('vue-cv-builder')) {
+    import('./componentInitializers/CvBuilder' /* webpackChunkName: "js/cv-builder" */)
+        .then(component => {
+            component.default();
+        });
+
+    requiresEcho = true;
+}
+
+/**
+ * Initialize Laravel Echo
+ */
 
 import Echo from 'laravel-echo';
 
