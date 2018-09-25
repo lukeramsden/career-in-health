@@ -47,20 +47,9 @@
 @endsection
 
 @section('script')
-    @verbatim
-        <script type="text/x-template" id="template__select2">
-            <select :name="name">
-                <slot></slot>
-            </select>
-        </script>
-    @endverbatim
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.1.0/wNumb.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.0.3/nouislider.min.js"></script>
     
     <script>
         toastr.options = {
@@ -70,42 +59,8 @@
             'progressBar': true,
         };
 
-        Vue.component('select2', {
-            template: '#template__select2',
-            props: ['name', 'options', 'value'],
-            mounted() {
-                const self = this;
-                $(this.$el)
-                    .select2({ // init select2
-                        dropdownAutoWidth: true,
-                        width: 'auto'
-                    })
-                    .val(this.value)
-                    .trigger('change')
-                    // emit event on change.
-                    .on('change', function () {
-                        self.$emit('input', this.value)
-                    })
-            },
-            watch: {
-                value(value) {
-                    // update value
-                    $(this.$el)
-                        .val(value)
-                        .trigger('change')
-                },
-                options(options) {
-                    // update options
-                    $(this.$el).empty().select2({data: options})
-                }
-            },
-            destroyed() {
-                $(this.$el).off().select2('destroy')
-            }
-        });
-
         let data = {
-            applications: {!! json_encode($applications) !!},
+            applications: {!! json_encode($applications->get()) !!},
             query: '',
         };
 
@@ -153,86 +108,10 @@
         });
         
         @foreach ($errors->all() as $error)
-        toastr.error("{{ $error }}");
+            toastr.error("{{ $error }}");
         @endforeach
-    
     </script>
 @endsection
 @section('stylesheet')
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 @endsection
-
-{{--@extends('layouts.app')--}}
-{{--@section('content')--}}
-    {{--<div class="container-fluid">--}}
-        {{--<table class="table table-striped table-hover" id="applications"--}}
-        {{--data-order="[[ 4, &quot;desc&quot; ]]">--}}
-            {{--<thead>--}}
-                {{--<tr>--}}
-                    {{--<th scope="col" data-searchable="false" data-orderable="false" data-visible="false">ID</th>--}}
-                    {{--<th scope="col" data-searchable="true" data-orderable="true">Company</th>--}}
-                    {{--<th scope="col" data-searchable="true" data-orderable="true">Title</th>--}}
-                    {{--<th scope="col" data-searchable="true" data-orderable="true">Position</th>--}}
-                    {{--<th scope="col" data-searchable="true" data-orderable="true">Date Applied</th>--}}
-                    {{--<th scope="col" data-searchable="true" data-orderable="true">Status</th>--}}
-                    {{--<th scope="col" data-searchable="false" data-orderable="false" data-width="100px"></th>--}}
-                {{--</tr>--}}
-            {{--</thead>--}}
-            {{--<tbody>--}}
-                {{--@foreach($applications as $application)--}}
-                    {{--<tr>--}}
-                        {{--<td></td>--}}
-                        {{--<td data-search="{{ $application->job_listing->company->name }}">--}}
-                            {{--<p><a href="{{ route('company.show', [$application->job_listing->company]) }}">{{ $application->job_listing->company->name }}{!!verified_badge($application->job_listing->company)!!}</a></p>--}}
-                        {{--</td>--}}
-                        {{--<td data-search="{{ $application->job_listing->title }}">--}}
-                            {{--<p>{{ str_limit($application->job_listing->title, 80) }}</p>--}}
-                        {{--</td>--}}
-                        {{--<td data-search="{{ $application->job_listing->jobRole->name }}">--}}
-                            {{--<p>{{ $application->job_listing->jobRole->name }}</p>--}}
-                        {{--</td>--}}
-                        {{--<td data-order="{{ $application->created_at->timestamp }}">--}}
-                            {{--<p>{{ $application->created_at->toFormattedDateString() }}</p>--}}
-                        {{--</td>--}}
-                        {{--<td data-search="{{ \App\JobListingApplication::$statuses[$application->status ?? 0] }}">--}}
-                            {{--<p>{{ \App\JobListingApplication::$statuses[$application->status ?? 0] }}</p>--}}
-                        {{--</td>--}}
-                        {{--<td>--}}
-                            {{--<div class="btn-group btn-group-sm" role="group">--}}
-                                {{--<a href="{{ route('job-listing.show', [$application->job_listing]) }}" class="btn btn-link">View Listing</a>--}}
-                                {{--<a href="{{ route('job-listing.application.show', [$application]) }}" class="btn btn-link">Edit</a>--}}
-                            {{--</div>--}}
-                        {{--</td>--}}
-                    {{--</tr>--}}
-                {{--@endforeach--}}
-            {{--</tbody>--}}
-        {{--</table>--}}
-    {{--</div>--}}
-{{--@endsection--}}
-{{--@section('stylesheet')--}}
-    {{--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/r-2.2.1/datatables.min.css"/>--}}
-{{--@endsection--}}
-{{--@section('script')--}}
-    {{--<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/r-2.2.1/datatables.min.js"></script>--}}
-    {{----}}
-    {{--<script>--}}
-        {{--$(function() {--}}
-            {{--$('#applications').DataTable({--}}
-                {{--responsive: true,--}}
-                {{--stateSave: true,--}}
-                {{--pageLength: 15,--}}
-                {{--lengthMenu: [15, 15 * 2, 15 * 3, 15 * 4, 15 * 5],--}}
-                {{--stateDuration: 60 * 5, // 5 minutes--}}
-                {{--language: {--}}
-                    {{--paginate: {--}}
-                        {{--previous: "&lt;",--}}
-                        {{--next: "&gt;",--}}
-                    {{--},--}}
-                {{--},--}}
-            {{--});--}}
-        {{--});--}}
-    {{--</script>--}}
-{{--@endsection--}}

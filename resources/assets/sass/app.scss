@@ -498,6 +498,12 @@ $navbar-width: 240px;
   border: 0;
   background-color: #e6e6e6;
 
+  &.card-custom-no-title-bar {
+    &:before {
+      display: none;
+    }
+  }
+
   .list-group {
     &-item {
       background-color: #e6e6e6;

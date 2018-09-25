@@ -15629,6 +15629,10 @@ body {
   background-color: #455782;
 }
 
+.card-custom.card-custom-no-title-bar:before {
+  display: none;
+}
+
 .card-custom .list-group-item {
   background-color: #e6e6e6;
 }

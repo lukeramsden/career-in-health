@@ -28,8 +28,7 @@ class NotificationController extends Controller
 			->with([
 				'notifications' => Auth::user()
 									   ->notifications()
-									   ->orderByRaw('-read_at ASC')
-									   ->paginate(20),
+									   ->orderByRaw('-read_at ASC'),
 			]);
 	}
 
@@ -81,7 +80,50 @@ class NotificationController extends Controller
 		} catch (\Exception $e)
 		{
 			if (ajax())
-				return response()->json(['success' => false], 200);
+				return response()->json(['success' => false, 'error' => $e->getMessage()], 200);
+
+			toast()->error('Could not delete');
+			return back();
+		}
+
+		if (ajax())
+			return response()->json(['success' => true], 200);
+
+		return back();
+	}
+
+	/**
+	 * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+	 */
+	public function deleteAll()
+	{
+		try
+		{
+			Auth::user()->notifications()->delete();
+		} catch (\Exception $e)
+		{
+			if (ajax())
+				return response()->json(['success' => false, 'error' => $e->getMessage()], 200);
+
+			toast()->error('Could not delete');
+			return back();
+		}
+
+		if (ajax())
+			return response()->json(['success' => true], 200);
+
+		return back();
+	}
+
+	public function deleteAllRead()
+	{
+		try
+		{
+			Auth::user()->readNotifications()->delete();
+		} catch (\Exception $e)
+		{
+			if (ajax())
+				return response()->json(['success' => false, 'error' => $e->getMessage()], 200);
 
 			toast()->error('Could not delete');
 			return back();

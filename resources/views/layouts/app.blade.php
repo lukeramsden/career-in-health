@@ -449,7 +449,7 @@
                        })
                        .catch(function (e) {
                            console.log(e);
-                           toastr.error('Could not mark messages as read');
+                           toastr.error('Could not mark notifications as read');
                        })
                        .then(function () {
                            self.prop('disabled', false);
