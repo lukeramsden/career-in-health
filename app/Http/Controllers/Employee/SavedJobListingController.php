@@ -35,9 +35,10 @@ class SavedJobListingController extends Controller
 		return view('employee.job-listing.view-saved')
 			->with([
 				'jobListings' => SavedJobListing
-					::with('jobListing')
+					::with('jobListing', 'jobListing.address', 'jobListing.company', 'jobListing.jobRole')
 					->whereEmployeeId($employee->id)
-					->paginate(10),
+					->orderBy('created_at', 'desc')
+					->get(),
 			]);
 	}
 

@@ -10,11 +10,11 @@
                         </a>
                         <h4 class="card-title">{{$jobListing->jobRole->name}}</h4>
                         <h5>{{ $jobListing->title }}</h5>
-                        <h6>{{ $jobListing->getSetting() }}</h6>
+                        <h6>{{ $jobListing->setting_name }}</h6>
                         <div id="small-details">
                             <div>
                                 <p><span
-                                    class="badge badge-primary badge-pill p-2 px-3">{{ $jobListing->getType() }}</span>
+                                    class="badge badge-primary badge-pill p-2 px-3">{{ $jobListing->type_name }}</span>
                                 </p>
                             </div>
                             <div>

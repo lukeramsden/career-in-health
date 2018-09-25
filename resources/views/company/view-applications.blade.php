@@ -44,22 +44,8 @@
         </div>
     </div>
 @endsection
-
 @section('script')
-    @verbatim
-        <script type="text/x-template" id="template__select2">
-            <select :name="name">
-                <slot></slot>
-            </select>
-        </script>
-    @endverbatim
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.1.0/wNumb.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.0.3/nouislider.min.js"></script>
     
     <script>
         toastr.options = {
@@ -68,40 +54,6 @@
             'positionClass': 'toast-top-right',
             'progressBar': true,
         };
-
-        Vue.component('select2', {
-            template: '#template__select2',
-            props: ['name', 'options', 'value'],
-            mounted() {
-                const self = this;
-                $(this.$el)
-                    .select2({ // init select2
-                        dropdownAutoWidth: true,
-                        width: 'auto'
-                    })
-                    .val(this.value)
-                    .trigger('change')
-                    // emit event on change.
-                    .on('change', function () {
-                        self.$emit('input', this.value)
-                    })
-            },
-            watch: {
-                value(value) {
-                    // update value
-                    $(this.$el)
-                        .val(value)
-                        .trigger('change')
-                },
-                options(options) {
-                    // update options
-                    $(this.$el).empty().select2({data: options})
-                }
-            },
-            destroyed() {
-                $(this.$el).off().select2('destroy')
-            }
-        });
 
         let data = {
             applications: {!! json_encode($applications) !!},
@@ -156,10 +108,4 @@
         @endforeach
     
     </script>
-@endsection
-@section('stylesheet')
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 @endsection

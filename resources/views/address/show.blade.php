@@ -73,7 +73,7 @@
                                     <div class="job_listing scale-on-hover-2">
                                         <h4>{{$jobListing->jobRole->name}}</h4>
                                         <h5>{{ str_limit($jobListing->title, 50) }}</h5>
-                                        <h6>{{ $jobListing->getSetting() }}</h6>
+                                        <h6>{{ $jobListing->setting_name }}</h6>
                                     </div>
                                 </a>
                                 <hr>

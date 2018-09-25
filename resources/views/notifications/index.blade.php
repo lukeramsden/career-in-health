@@ -19,8 +19,12 @@
                                      id="notification-actions-card">
                                     <div class="card-body p-0">
                                         <div class="btn-group btn-group-full">
-                                            <button class="btn btn-primary" v-on:click.stop.prevent="markAllAsRead">Mark All As Read</button>
-                                            <button class="btn btn-danger" v-on:click.stop.prevent="deleteAllRead">Delete All Read</button>
+                                            <button class="btn btn-primary" v-on:click.stop.prevent="markAllAsRead">Mark
+                                                All As Read
+                                            </button>
+                                            <button class="btn btn-danger" v-on:click.stop.prevent="deleteAllRead">
+                                                Delete All Read
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -47,7 +51,8 @@
                                         </td>
                                         <td>
                                             {{createdAtDiff(result)}}
-                                            <span v-if="result.read_at == null" class="badge badge-info ml-2 p-2">UNREAD</span>
+                                            <span v-if="result.read_at == null"
+                                                  class="badge badge-info ml-2 p-2">UNREAD</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -63,8 +68,6 @@
 
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     
     <script>
         toastr.options = {
@@ -122,8 +125,6 @@
                             if (resp.data.success)
                                 self.notifications =
                                     self.notifications.filter(a => a.read_at == null);
-                            
-                            console.log(JSON.parse(JSON.stringify(self.notifications)));
                         })
                         .catch(function (e) {
                             console.log(e);
@@ -178,10 +179,6 @@
         @endforeach
     </script>
 @endsection
-@section('stylesheet')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-@endsection
-
 {{--@extends('layouts.app')--}}
 {{--@section('content')--}}
 {{--<div class="container-fluid mt-5">--}}
