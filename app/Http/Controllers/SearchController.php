@@ -88,6 +88,7 @@ class SearchController extends Controller
 
 		$results = $results
 			->wherePublished(true)
+			->whereNull('closed_at')
 			->orderBy('max_salary', 'desc')
 			->simplePaginate(10);
 

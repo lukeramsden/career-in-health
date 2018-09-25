@@ -27,11 +27,13 @@ Route::prefix('job-listing')
 		 Route::get('/{jobListing}/edit', 'JobListingController@edit')->name('edit');
 		 Route::post('/{jobListing}/edit', 'JobListingController@update')->name('update');
 		 Route::any('/{jobListing}/delete', 'JobListingController@destroy')->name('destroy');
+		 Route::any('/{jobListing}/open', 'JobListingController@open')->name('open');
+		 Route::any('/{jobListing}/close', 'JobListingController@close')->name('close');
 
 		 Route::get('/{jobListing}', 'JobListingController@show')->name('show');
 
 		 Route::get('/{jobListing}/view/applications', 'JobListingController@showApplications')
-			  ->name('application.index');
+			  ->name('view-applications');
 
 		 Route::prefix('application')
 			  ->name('application.')

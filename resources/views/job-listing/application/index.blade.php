@@ -40,7 +40,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12 col-lg-4 order-lg-last">
-                            <div class="card card-custom card-custom-material" id="application-filter-card">
+                            <div class="card card-custom-material" id="application-filter-card">
                                 <div class="card-body p-0">
                                     <input class="input input-material w-100 p-3" placeholder="Search" id="input-query"
                                            type="text" v-model="query">

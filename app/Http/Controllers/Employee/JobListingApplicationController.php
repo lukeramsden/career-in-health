@@ -63,6 +63,12 @@ class JobListingApplicationController extends Controller
 			]);
 	}
 
+	/**
+	 * @param JobListing $jobListing
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
 	public function create(JobListing $jobListing)
 	{
 		if (Auth::guest())
@@ -77,6 +83,8 @@ class JobListingApplicationController extends Controller
 			toast()->error('You have already applied to this job!');
 			return redirect(route('job-listing.show', [$jobListing]));
 		}
+
+		$this->authorize('applyTo', $jobListing);
 
 		session()->keep('clickThrough');
 

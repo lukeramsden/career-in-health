@@ -11,119 +11,149 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.1.0/wNumb.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.0.3/nouislider.min.js"></script>
-
+    
     @verbatim
         <script type="text/x-template" id="template__job_listing-form">
-            <form @submit="submit" :action="url" method="post" >
+            <form @submit="submit" :action="url" method="post">
                 @endverbatim
-                    {{ csrf_field() }}
+                {{ csrf_field() }}
                 @verbatim
-                
-                <div class="card-columns smaller-card-columns">
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Title (<span class='text-action'>*</span>)</label>
-                                <input type="text" class="form-control" v-model="model.title" name="title" maxlength="120" required>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea v-model="model.description" class="form-control" name="description" rows="25" maxlength="3000" :required="!model.savingForLater"></textarea>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <select2 v-model="model.address_id" name="address_id" :required="!model.savingForLater">
-                                <option :value="null">-</option>
-                                <option v-for="address in addresses" :value="address.id">{{ address.name }}</option>
-                            </select2>
-                            @endverbatim
-                            <p class="text-muted mb-0 mt-2">This will be the address that you want to find staff for. If you haven't created an address yet, <a class="text-action" href='{{ route('address.create') }}'>click here</a> to create one.</p>
-                            @verbatim
-                        </div>
-                    </div>
-    
-                    @endverbatim
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <select2 v-model="model.job_role" name="job_role" :required="!model.savingForLater">
-                                <option :value="null">-</option>
-                                @foreach(\App\JobRole::all() as $job)
-                                    <option value="{{ $job->id }}">{{ $job->name }}</option>
-                                @endforeach
-                            </select2>
-                        </div>
-                    </div>
-    
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            @foreach(\App\JobListing::$settings as $id => $setting)
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" value="{{ $id }}" name="setting" v-model="model.setting" id="setting-{{ $id }}" :required="!model.savingForLater">
-                                    <label class="custom-control-label" for="setting-{{ $id }}">{{ $setting }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-    
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            @foreach(\App\JobListing::$types as $id => $type)
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" value="{{ $id }}" name="type" v-model="model.type" id="type-{{ $id }}" :required="!model.savingForLater">
-                                    <label class="custom-control-label" for="type-{{ $id }}">{{ $type }}</label>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    @verbatim
-        
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <label>Minimum/Maximum Salary</label>
-                            <div id="salary-slider"></div>
-                            <input type="hidden" name="min_salary" id="min-salary-input" v-model="model.min_salary">
-                            <input type="hidden" name="max_salary" id="max-salary-input" v-model="model.max_salary">
-                        </div>
-                    </div>
                     
-                    <div class="card card-custom">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="inputSaveForLater" name="savingForLater" v-model="model.savingForLater">
-                                    <label class="custom-control-label" for="inputSaveForLater">Save For Later?</label>
+                    <div class="card-columns smaller-card-columns">
+                        <div class="card card-custom">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Title (<span class='text-action'>*</span>)</label>
+                                    <input type="text" class="form-control" v-model="model.title" name="title"
+                                           maxlength="120" required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-action btn-block">{{ createNew ? 'Create' : 'Save' }}</button>
-                                
+                        </div>
+                        
+                        <div class="card card-custom">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea v-model="model.description" class="form-control" name="description"
+                                              rows="25" maxlength="3000" :required="!model.savingForLater"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card card-custom">
+                            <div class="card-body">
+                                <select2 v-model="model.address_id" name="address_id" :required="!model.savingForLater">
+                                    <option :value="null">-</option>
+                                    <option v-for="address in addresses" :value="address.id">{{ address.name }}</option>
+                                </select2>
                                 @endverbatim
-                                @if($edit)
-                                    <a href="{{ route('job-listing.destroy', [$jobListing]) }}" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-block">Delete</a>
-                                @endif
+                                <p class="text-muted mb-0 mt-2">This will be the address that you want to find staff
+                                    for. If you haven't created an address yet, <a class="text-action"
+                                                                                   href='{{ route('address.create') }}'>click
+                                        here</a> to create one.</p>
                                 @verbatim
                             </div>
                         </div>
+                        
+                        @endverbatim
+                        <div class="card card-custom">
+                            <div class="card-body">
+                                <select2 v-model="model.job_role" name="job_role" :required="!model.savingForLater">
+                                    <option :value="null">-</option>
+                                    @foreach(\App\JobRole::all() as $job)
+                                        <option value="{{ $job->id }}">{{ $job->name }}</option>
+                                    @endforeach
+                                </select2>
+                            </div>
+                        </div>
+                        
+                        <div class="card card-custom">
+                            <div class="card-body">
+                                @foreach(\App\JobListing::$settings as $id => $setting)
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" value="{{ $id }}"
+                                               name="setting" v-model="model.setting" id="setting-{{ $id }}"
+                                               :required="!model.savingForLater">
+                                        <label class="custom-control-label"
+                                               for="setting-{{ $id }}">{{ $setting }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        
+                        <div class="card card-custom">
+                            <div class="card-body">
+                                @foreach(\App\JobListing::$types as $id => $type)
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" value="{{ $id }}" name="type"
+                                               v-model="model.type" id="type-{{ $id }}"
+                                               :required="!model.savingForLater">
+                                        <label class="custom-control-label" for="type-{{ $id }}">{{ $type }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        @verbatim
+                            
+                            <div class="card card-custom">
+                                <div class="card-body">
+                                    <label>Minimum/Maximum Salary</label>
+                                    <div id="salary-slider"></div>
+                                    <input type="hidden" name="min_salary" id="min-salary-input"
+                                           v-model="model.min_salary">
+                                    <input type="hidden" name="max_salary" id="max-salary-input"
+                                           v-model="model.max_salary">
+                                </div>
+                            </div>
+                            
+                            <div class="card card-custom">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="inputSaveForLater"
+                                                   name="savingForLater" v-model="model.savingForLater">
+                                            <label class="custom-control-label" for="inputSaveForLater">Save For
+                                                Later?</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card card-custom-material card-custom-no-top-bar">
+                                <div class="btn-group btn-group-full btn-group-vertical">
+                                    <button type="submit"
+                                            class="btn btn-action">{{ createNew ? 'Create' : 'Save' }}</button>
+                                    
+                                    @endverbatim
+                                    @if($edit)
+                                        <a href="{{ route('job-listing.show', $jobListing) }}" class="btn btn-primary">Show</a>
+                                        <button v-if="model.closed_at == null"
+                                                v-on:click.stop.prevent="closeListing"
+                                                class="btn btn-warning">Close
+                                        </button>
+                                        <button
+                                        v-else
+                                        v-on:click.stop.prevent="openListing"
+                                        class="btn btn-info">Re-Open
+                                        </button>
+                                        <a href="{{ route('job-listing.destroy', [$jobListing]) }}"
+                                           onclick="return confirm('Are you sure?');"
+                                           class="btn btn-danger">Delete</a>
+                                    @endif
+                                    @verbatim
+                                </div>
+                            </div>
                     </div>
-                </div>
             </form>
         </script>
         
         <script type="text/x-template" id="template__select2">
-          <select :name="name">
-            <slot></slot>
-          </select>
+            <select :name="name">
+                <slot></slot>
+            </select>
         </script>
     @endverbatim
-
+    
     <script>
         toastr.options = {
             "closeButton": true,
@@ -139,7 +169,7 @@
                 const self = this;
                 $(this.$el)
                     .select2({ // init select2
-                        dropdownAutoWidth : true,
+                        dropdownAutoWidth: true,
                         width: 'auto'
                     })
                     .val(this.value)
@@ -158,30 +188,30 @@
                 },
                 options(options) {
                     // update options
-                    $(this.$el).empty().select2({ data: options })
+                    $(this.$el).empty().select2({data: options})
                 }
             },
             destroyed() {
                 $(this.$el).off().select2('destroy')
             }
         });
-        
+
         Vue.component('job_listing-form', {
             template: '#template__job_listing-form',
             props: ['model', 'url', 'method', 'createNew'],
             methods: {
                 submit(event) {
-                    if(this.createNew) {
+                    if (this.createNew) {
                         return true;
                     }
-                    
+
                     axios({
                         url: this.url,
                         method: 'post',
                         data: this.model,
                     })
                         .then((response) => {
-                            if(response.data.success) {
+                            if (response.data.success) {
                                 toastr.success('Updated!')
                                 if (_.get(response, 'data.model.published', false))
                                     toastr.info('This listing has been published successfully.<br><a href="{{ route('job-listing.show', ['jobListing' => $jobListing]) }}" class="btn btn-action btn-sm mt-1">View JobListing</a>');
@@ -196,9 +226,49 @@
                                 (errors, field) => errors.forEach((error) => toastr.error(error, changeCase.titleCase(field)))
                             );
                         });
-                    
+
                     event.preventDefault();
                     return false;
+                },
+                closeListing(e) {
+                    var self = this;
+                    var $self = $(e.target);
+                    $self.prop('disabled', true);
+                    axios
+                        .post('{{ route('job-listing.close', $jobListing) }}')
+                        .then(function (res) {
+                            if (res.data.success)
+                            {
+                                self.model = res.data.model;
+                            }
+                        })
+                        .catch(function (e) {
+                            console.log(e);
+                            toastr.error('Could not close listing.');
+                        })
+                        .then(function () {
+                            $self.prop('disabled', false);
+                        })
+                },
+                openListing(e) {
+                    var self = this;
+                    var $self = $(e.target);
+                    $self.prop('disabled', true);
+                    axios
+                        .post('{{ route('job-listing.open', $jobListing) }}')
+                        .then(function (res) {
+                            if (res.data.success)
+                            {
+                                self.model = res.data.model;
+                            }
+                        })
+                        .catch(function (e) {
+                            console.log(e);
+                            toastr.error('Could not open listing.');
+                        })
+                        .then(function () {
+                            $self.prop('disabled', false);
+                        })
                 },
             },
             computed: {
@@ -223,7 +293,7 @@
                     thousand: ',',
                     prefix: '£'
                 });
-        
+
                 noUiSlider.create(salarySlider, {
                     start: [
                         this.model.min_salary || 0,
@@ -243,25 +313,25 @@
                     }),
                     pips: {
                         mode: 'positions',
-                        values: [0,25,50,75,100],
+                        values: [0, 25, 50, 75, 100],
                         density: 4,
                         format: moneyFormatter
                     }
                 });
-        
+
                 const self = this;
-                
-                salarySlider.noUiSlider.on('change', function(values, handle) {
+
+                salarySlider.noUiSlider.on('change', function (values, handle) {
                     self.$set(self.model, 'min_salary', moneyFormatter.from(values[0]));
                     self.$set(self.model, 'max_salary', moneyFormatter.from(values[1]));
                 });
-        
+
                 $('#salary-slider').find('div.noUi-value:nth-child(30)').html('£150,000+');
             },
         });
 
         let data = {
-            model: {!! $edit?$jobListing??'{}':Session::hasOldInput()?json_encode(Session::getOldInput())??'{}':'{}'!!},
+            model: {!! $edit ? ($jobListing ?? '{}'):(Session::hasOldInput()?(json_encode(Session::getOldInput())??'{}'):('{}'))!!},
             url: '{{ $edit ? route('job-listing.update', ['jobListing' => $jobListing]) : route('job-listing.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
         };
@@ -271,19 +341,19 @@
         @else
             data.model.savingForLater = false;
         @endif
-        
+
         const app = new Vue({
-            el: '#app',
-            data: data,
-        });
+                el: '#app',
+                data: data,
+            });
         
         @foreach ($errors->all() as $error)
-            toastr.error("{{ $error }}");
+        toastr.error("{{ $error }}");
         @endforeach
     </script>
 @endsection
 @section('stylesheet')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     
     <style>
@@ -310,7 +380,7 @@
         
         .noUi-active .noUi-tooltip {
             display: block;
-    
+            
         }
         
         .noUi-handle {

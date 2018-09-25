@@ -28,11 +28,12 @@ body {
 
 $navbar-width: 240px;
 
-.btn-action, .btn-action:hover {
-  color: $white !important;
-}
-
-.btn-outline-action:hover {
+.btn-action,
+.btn-action:hover,
+.btn-outline-action:hover,
+.btn-warning,
+.btn-warning:hover,
+.btn-outline-warning:hover {
   color: $white !important;
 }
 
@@ -498,7 +499,7 @@ $navbar-width: 240px;
   border: 0;
   background-color: #e6e6e6;
 
-  &.card-custom-no-title-bar {
+  &.card-custom-no-top-bar {
     &:before {
       display: none;
     }
@@ -541,21 +542,23 @@ $navbar-width: 240px;
       }
     }
   }
+}
 
-  &.card-custom-material {
-    @extend .mdc-elevation--z1;
-    @extend .mdc-elevation-transition;
+.card-custom-material {
+  @extend .card-custom;
 
-    &:hover {
-      @extend .mdc-elevation--z8;
-    }
+  @extend .mdc-elevation--z1;
+  @extend .mdc-elevation-transition;
 
-    border-radius: 4px;
+  &:hover {
+    @extend .mdc-elevation--z8;
+  }
 
-    &:before {
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-    }
+  border-radius: 4px;
+
+  &:before {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
   }
 }
 

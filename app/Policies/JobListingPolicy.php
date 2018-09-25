@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\JobListing;
+use App\JobListingApplication;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -91,5 +92,19 @@ class JobListingPolicy
 	{
 		return $user->isValidCompany() &&
 			$jobListing->company_id === $user->userable->company_id;
+	}
+
+	/**
+	 * @param            $user
+	 * @param JobListing $jobListing
+	 *
+	 * @return bool|null
+	 * @throws \Exception
+	 */
+	public function applyTo($user, JobListing $jobListing)
+	{
+		return $user->isEmployee()
+			&& !JobListingApplication::hasApplied($user->userable, $jobListing)
+			&& is_null($jobListing->closed_at);
 	}
 }

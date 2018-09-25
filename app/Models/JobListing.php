@@ -116,4 +116,23 @@ class JobListing extends Model
     {
         return $this->hasMany(PrivateMessage::class, 'job_listing_id');
     }
+
+    public function isOpen()
+	{
+		return is_null($this->closed_at);
+	}
+
+    public function reopen()
+	{
+		$this->closed_at = null;
+		$this->close_reason = null;
+		$this->save();
+	}
+
+	public function close($reason = null)
+	{
+		$this->closed_at = now();
+		$this->close_reason = $reason;
+		$this->save();
+	}
 }

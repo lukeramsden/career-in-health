@@ -275,4 +275,44 @@ class JobListingController extends Controller
 		toast()->success('Deleted');
 		return redirect(route('job-listing.index'));
 	}
+
+	/**
+	 * @param JobListing $jobListing
+	 *
+	 * @throws AuthorizationException
+	 */
+	public function open(JobListing $jobListing)
+	{
+		$this->authorize('update', $jobListing);
+
+		$jobListing->reopen();
+
+		if (ajax())
+			return response()->json(['success' => true, 'model' => $jobListing], 200);
+
+		toast()->success('Opened.');
+		return redirect(action('JobListingController@edit', $jobListing));
+	}
+
+	/**
+	 * @param JobListing $jobListing
+	 *
+	 * @throws AuthorizationException
+	 */
+	public function close(JobListing $jobListing)
+	{
+		$this->authorize('update', $jobListing);
+
+		$data = $this->request->validate([
+			'close_reason' => 'nullable|string',
+		]);
+
+		$jobListing->close(optional($data)->close_reason);
+
+		if (ajax())
+			return response()->json(['success' => true, 'model' => $jobListing], 200);
+
+		toast()->success('Closed.');
+		return redirect(action('JobListingController@edit', $jobListing));
+	}
 }

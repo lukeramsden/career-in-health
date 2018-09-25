@@ -1,5 +1,5 @@
 <template>
-    <div class="private-message-widget card card-custom card-custom-material">
+    <div class="private-message-widget card card-custom-material">
         <div class="card-body" v-chat-scroll="{always: false, smooth: true}">
             <template v-for="msg in messages">
                 <template v-if="msg.id === earliestUnreadMessage">

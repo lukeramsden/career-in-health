@@ -58,16 +58,25 @@
                             
                             <hr class="w-25">
                             
-                            <div class="card card-custom">
-                                <div class="card-header">Status</div>
-                                <div class="card-body">
-                                    <select
-                                    class="custom-select"
-                                    disabled>
-                                        <option>{{ $application->status_name }}</option>
-                                    </select>
+                            @if($application->jobListing->isOpen())
+                                <div class="card card-custom">
+                                    <div class="card-header">Status</div>
+                                    <div class="card-body">
+                                        <select
+                                        class="custom-select"
+                                        disabled>
+                                            <option>{{ $application->status_name }}</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="card card-custom">
+                                    <div class="card-body">
+                                        <p class="mb-0"><b>This listing has been closed.</b></p>
+                                        <p class="mb-1 font-italic">{{ $application->jobListing->close_reason ?? 'No reason was provided.' }}</p>
+                                    </div>
+                                </div>
+                            @endif
                             
                             <hr class="w-25">
                         </div>
