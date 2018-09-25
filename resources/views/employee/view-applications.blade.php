@@ -60,7 +60,7 @@
         };
 
         let data = {
-            applications: {!! json_encode($applications->get()) !!},
+            applications: {!! json_encode($applications) !!},
             query: '',
         };
 
