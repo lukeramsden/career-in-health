@@ -307,7 +307,7 @@ class JobListingController extends Controller
 			'close_reason' => 'nullable|string',
 		]);
 
-		$jobListing->close(optional($data)->close_reason);
+		$jobListing->close(optional($data)['close_reason']);
 
 		if (ajax())
 			return response()->json(['success' => true, 'model' => $jobListing], 200);

@@ -118,6 +118,37 @@
                                     </div>
                                 </div>
                             </div>
+                        
+                        @endverbatim
+                        @if($edit)
+                            <div class="card card-custom-material">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>Reason</label>
+                                        <input type="text" class="form-control" v-model="model.close_reason">
+                                    </div>
+                                </div>
+                                <div class="card-footer p-0">
+                                    <button v-if="model.closed_at == null"
+                                            v-on:click.stop.prevent="closeListing"
+                                            class="btn btn-danger btn-block">
+                                        <span class="oi oi-ban"></span>
+                                        Close
+                                    </button>
+                                    <template v-else>
+                                        <button v-on:click.stop.prevent="closeListing"
+                                                class="btn btn-primary btn-block">
+                                            Save Reason
+                                        </button>
+                                        <button v-on:click.stop.prevent="openListing"
+                                                class="btn btn-info btn-block mt-0">
+                                            Re-Open
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        @endif
+                        @verbatim
                             
                             <div class="card card-custom-material card-custom-no-top-bar">
                                 <div class="btn-group btn-group-full btn-group-vertical">
@@ -127,15 +158,6 @@
                                     @endverbatim
                                     @if($edit)
                                         <a href="{{ route('job-listing.show', $jobListing) }}" class="btn btn-primary">Show</a>
-                                        <button v-if="model.closed_at == null"
-                                                v-on:click.stop.prevent="closeListing"
-                                                class="btn btn-warning">Close
-                                        </button>
-                                        <button
-                                        v-else
-                                        v-on:click.stop.prevent="openListing"
-                                        class="btn btn-info">Re-Open
-                                        </button>
                                         <a href="{{ route('job-listing.destroy', [$jobListing]) }}"
                                            onclick="return confirm('Are you sure?');"
                                            class="btn btn-danger">Delete</a>
@@ -235,10 +257,11 @@
                     var $self = $(e.target);
                     $self.prop('disabled', true);
                     axios
-                        .post('{{ route('job-listing.close', $jobListing) }}')
+                        .post('{{ route('job-listing.close', $jobListing) }}', {
+                            close_reason: self.model.close_reason,
+                        })
                         .then(function (res) {
-                            if (res.data.success)
-                            {
+                            if (res.data.success) {
                                 self.model = res.data.model;
                             }
                         })
@@ -257,8 +280,7 @@
                     axios
                         .post('{{ route('job-listing.open', $jobListing) }}')
                         .then(function (res) {
-                            if (res.data.success)
-                            {
+                            if (res.data.success) {
                                 self.model = res.data.model;
                             }
                         })
@@ -283,7 +305,8 @@
             },
             data() {
                 return {
-                    addresses: {!! Auth::user()->userable->company->addresses->toJson() !!}
+                    addresses: {!! Auth::user()->userable->company->addresses->toJson() !!},
+                    close_reason: '',
                 };
             },
             mounted() {
