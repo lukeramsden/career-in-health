@@ -236,7 +236,7 @@
                             if (response.data.success) {
                                 toastr.success('Updated!')
                                 if (_.get(response, 'data.model.published', false))
-                                    toastr.info('This listing has been published successfully.<br><a href="{{ route('job-listing.show', ['jobListing' => $jobListing]) }}" class="btn btn-action btn-sm mt-1">View JobListing</a>');
+                                    toastr.info('This listing has been published successfully.<br><a href="{{ route('job-listing.show', ['jobListing' => $jobListing]) }}" class="btn btn-action btn-sm mt-1">View Listing</a>');
                                 else
                                     toastr.info('This listing is not public.')
                             }
