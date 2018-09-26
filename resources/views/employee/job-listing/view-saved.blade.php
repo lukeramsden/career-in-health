@@ -36,22 +36,32 @@
                                                 {{ listing.min_salary_formatted }} - {{ listing.max_salary_formatted }}
                                             </p>
                                         </div>
-                                        <div class="btn-group btn-group-full">
-                                            <a
-                                            :href="permalink(listing)"
-                                            class="btn btn-primary">View</a>
-                                            <button
-                                            class="btn btn-golden"
-                                            v-on:click.stop.prevent="remove(listing.id, $event)"><span
-                                                class="oi oi-star"></span> Remove
-                                            </button>
+                                        <div v-if="listing.closed_at != null">
+                                            <p>
+                                                <span class="badge badge-danger p-2 px-3">
+                                                    <span class="oi oi-ban"></span>
+                                                    Closed
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p>
+                                                <a
+                                                :href="permalink(listing)"
+                                                class="btn btn-primary btn-sm">View</a>
+                                                <button
+                                                class="btn btn-golden btn-sm"
+                                                v-on:click.stop.prevent="remove(listing.id, $event)"><span
+                                                    class="oi oi-star"></span> Remove
+                                                </button>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                            </div>
             @endverbatim
         </div>
     </div>
