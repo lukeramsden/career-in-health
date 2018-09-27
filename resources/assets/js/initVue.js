@@ -9,7 +9,7 @@ window.store = new Vuex.Store(storeOptions);
 let requiresEcho = false;
 
 if (document.getElementById('vue-private-messages')) {
-    import('./initPrivateMessagesComponent' /* webpackChunkName: "js/private-messages-component" */)
+    import('./componentInitializers/PrivateMessages' /* webpackChunkName: "js/private-messages-component" */)
         .then(component => {
             component.default();
         });

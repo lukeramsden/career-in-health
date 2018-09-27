@@ -60,8 +60,8 @@
                 userType: 'userType',
             }),
             ...mapGetters({
-                earliestUnreadMessage: 'earliestUnreadMessage',
-                messages: 'sortedPrivateMessages',
+                earliestUnreadMessage: 'privateMessages/earliestUnread',
+                messages: 'privateMessages/sorted',
             }),
         },
         mounted() {
@@ -78,7 +78,7 @@
         methods: {
             pushMessage(msg) {
                 if(_.findIndex(this.messages, ['id', msg.id]))
-                    this.$store.commit('newPrivateMessage', msg);
+                    this.$store.commit('privateMessages/create', msg);
             },
             markMessagesAsRead() {
                 $('.unread-ruler').addClass('scaleOut');
@@ -101,7 +101,7 @@
                                     let updatedMsg = _.clone(el);
                                     updatedMsg.read = 1;
                                     updatedMsg.read_at = res.data.read_at;
-                                    this.$store.commit('updatePrivateMessage', updatedMsg);
+                                    this.$store.commit('privateMessages/update', updatedMsg);
                                 })
                                 .value()
                             ;
