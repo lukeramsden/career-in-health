@@ -59,6 +59,7 @@ class ReceivedPrivateMessage extends Notification
 			'sender_name' => self::getSenderName(),
 			'body'        => $this->privateMessage->body,
 			'action'      => self::getAction($this->privateMessage),
+			'message_id'  => $this->privateMessage->id,
 		];
 	}
 

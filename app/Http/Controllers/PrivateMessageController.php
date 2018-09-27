@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Employee;
 use App\Events\CreatedPrivateMessage;
 use App\JobListing;
+use App\Notifications\ReceivedPrivateMessage;
 use App\PrivateMessage;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -205,42 +207,77 @@ class PrivateMessageController extends Controller
 	{
 		$user     = Auth::user();
 		$userable = $user->userable;
+		$read_at  = now();
 
-		$read_at = now();
-		if($user->isEmployee())
+		$lambdaMarkNotificationsAsRead = function ($ids) use ($user)
 		{
-			PrivateMessage
+			$notification_ids = collect([]);
+
+			$save = function() use($notification_ids) {
+				DatabaseNotification
+					::whereIn('id', $notification_ids->toArray())
+					->update(['read_at' => now()]);
+			};
+
+			foreach(DatabaseNotification
+				::where('type', ReceivedPrivateMessage::class)
+				->where('notifiable_id', $user->id)
+				->whereNull('read_at')
+				->cursor() as $notification) {
+				if ($notification->data &&
+					$ids->contains(optional($notification->data)['message_id']))
+					$notification_ids->push($notification->id);
+
+				if($notification_ids->count() > 50)
+					$save();
+			}
+
+			$save();
+		};
+
+		if ($user->isEmployee())
+		{
+			$q = PrivateMessage
 				::whereJobListingId($jobListing->id)
 				->whereEmployeeId($userable->id)
 				->whereCompanyId($jobListing->company->id)
-				->whereDirection('to_employee')
-				->update([
-					'read'    => true,
-					'read_at' => $read_at,
-				]);
+				->whereDirection('to_employee');
 
-			if(ajax())
+			(clone $q)->update([
+				'read'    => true,
+				'read_at' => $read_at,
+			]);
+
+			$lambdaMarkNotificationsAsRead($q->pluck('id'));
+
+			if (ajax())
 				return response()->json(['success' => true, 'read_at' => $read_at]);
 
 			return back();
-		} else if ($user->isValidCompany()) {
-			if(is_null($employee))
+		}
+		elseif ($user->isValidCompany())
+		{
+			if (is_null($employee))
 				abort(400, 'Employee cannot be null');
 
-			PrivateMessage
+			$q = PrivateMessage
 				::whereJobListingId($jobListing->id)
 				->whereEmployeeId($employee->id)
 				->whereCompanyId($userable->company_id)
-				->whereDirection('to_company')
-				->update([
-					'read'    => true,
-					'read_at' => $read_at,
-				]);
+				->whereDirection('to_company');
 
-			if(ajax())
+			(clone $q)->update([
+				'read'    => true,
+				'read_at' => $read_at,
+			]);
+
+			$lambdaMarkNotificationsAsRead($q->pluck('id'));
+
+			if (ajax())
 				return response()->json(['success' => true, 'read_at' => $read_at]);
 
 			return back();
-		} else return abort(401, 'Invalid user type.');
+		}
+		else return abort(401, 'Invalid user type.');
 	}
 }

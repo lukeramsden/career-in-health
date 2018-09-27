@@ -23,9 +23,9 @@
         "rukhsar/laravel-active-route": "^1.4",
         "spatie/laravel-medialibrary": "^6.0.0",
         "tightenco/ziggy": "~0.6.2",
+        "tom-lingham/searchy": "2.*",
         "watson/rememberable": "^2.0",
-        "webpatser/laravel-uuid": "^3.0",
-        "tom-lingham/searchy" : "2.*"
+        "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",

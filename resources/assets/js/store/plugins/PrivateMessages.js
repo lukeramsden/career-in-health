@@ -11,8 +11,8 @@ export default {
     },
     actions: {},
     getters: {
-        earliestUnread: state => {
-            if (!state.userType)
+        earliestUnread: (state, getters, rootState) => {
+            if (!rootState.userType)
                 return 0;
 
             if (state.messages.length <= 0)
@@ -31,7 +31,7 @@ export default {
                 .value()
                 ;
         },
-        sorted: state => {
+        sorted: (state, getters, rootState) => {
             if (state.messages.length <= 0)
                 return [];
 
