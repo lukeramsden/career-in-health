@@ -3,7 +3,8 @@
 Route::view('/', 'home')->name('home');
 Route::view('/pricing', 'pricing')->name('pricing');
 
-Route::get('/search', 'SearchController@search')->name('search');
+Route::get('/search', 'SearchController@show')->name('search');
+Route::post('/search', 'SearchController@get')->name('search.get');
 
 Auth::routes();
 Route::get('/logout', 'Auth\LoginController@logout')->name('logout.get');
@@ -19,7 +20,7 @@ Route::prefix('job-listing')
 	 ->group(function ()
 	 {
 		 Route::get('/index', 'JobListingController@index')->name('index');
-		 Route::any('/index/get', 'JobListingController@indexGet')->name('index.get');
+		 Route::post('/index', 'JobListingController@indexGet')->name('index.get');
 		 Route::get('/new', 'JobListingController@create')->name('create');
 		 Route::post('/new', 'JobListingController@store')->name('store');
 
@@ -120,9 +121,9 @@ Route::prefix('company')
 		 Route::get('/edit', 'CompanyController@edit')->name('edit');
 		 Route::post('/edit', 'CompanyController@update')->name('update');
 		 Route::get('/view/{company}', 'CompanyController@show')->name('show');
-		 Route::get('/view/', 'CompanyController@showMe')->name('show.me');
-		 Route::get('/applications/', 'CompanyController@showApplications')->name('application.index');
-		 Route::any('/applications/get', 'CompanyController@getApplications')->name('application.index.get');
+		 Route::get('/view', 'CompanyController@showMe')->name('show.me');
+		 Route::get('/applications', 'CompanyController@showApplications')->name('application.index');
+		 Route::post('/applications', 'CompanyController@getApplications')->name('application.index.get');
 
 		 Route::prefix('manage-users')
 			  ->name('manage-users.')
