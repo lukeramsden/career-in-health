@@ -1,9 +1,9 @@
 {
+    "/js/search-component.js": "/js/search-component.js",
     "/js/job-listings-table-component.js": "/js/job-listings-table-component.js",
     "/js/company-view-applications-table-component.js": "/js/company-view-applications-table-component.js",
     "/js/select2-component.js": "/js/select2-component.js",
     "/js/private-messages-component.js": "/js/private-messages-component.js",
-    "/js/search-component.js": "/js/search-component.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/pdf.css": "/css/pdf.css",
