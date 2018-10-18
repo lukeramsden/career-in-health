@@ -15,7 +15,7 @@
                                     autocomplete="false"
                                     v-model="query.what">
                                 <datalist id="what-list">
-                                    <option v-for="role in jobRoles" >{{role.name}}</option>
+                                    <option v-for="role in jobRoles">{{role.name}}</option>
                                 </datalist>
                             </div>
 
@@ -117,23 +117,23 @@
                 perPage: 10,
                 loaded: true,
                 jobRoles: [{id: 1, name: 'nurse'}],
+                whatDropdown: null,
             };
         },
         mounted() {
             const vm = this;
             let $what = $('#what-input');
-            const whatDropdown = new Awesomplete('#what-input');
+            this.whatDropdown = new Awesomplete('#what-input');
 
             $what.on('awesomplete-selectcomplete', function (event) {
-                // $what[0].dispatchEvent(new Event('input', {'bubbles': true}));
-                console.log(event);
-                vm.query.what = event.target.value;
+                $what[0].dispatchEvent(new Event('input', {'bubbles': true}));
                 whatDropdown.close();
             });
-
         },
         destroyed() {
-            $('#what-input').off().destroy();
+            $('#what-input').off();
+            this.whatDropdown.destroy();
+            this.whatDropdown = null;
         },
     }
 </script>
