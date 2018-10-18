@@ -29,7 +29,7 @@
                             </div>
                             <div>
                                 <p><span class="oi oi-calendar"></span> <span
-                                    class="text-muted">Last Updated</span> {{ $jobListing->updated_at->diffForHumans() }}
+                                    class="text-muted">Last Updated</span> {{ $jobListing->last_edited->diffForHumans() }}
                                 </p>
                             </div>
                         </div>
