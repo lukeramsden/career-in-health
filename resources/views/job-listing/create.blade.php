@@ -121,7 +121,7 @@
                         
                         @endverbatim
                         @if($edit)
-                            <div class="card card-custom-material">
+                            <div class="card card-custom-material card-custom-material-hover">
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Reason</label>
@@ -150,7 +150,7 @@
                         @endif
                         @verbatim
                             
-                            <div class="card card-custom-material card-custom-no-top-bar">
+                            <div class="card card-custom-material card-custom-material-hover card-custom-no-top-bar">
                                 <div class="btn-group btn-group-full btn-group-vertical">
                                     <button type="submit"
                                             class="btn btn-action">{{ createNew ? 'Create' : 'Save' }}</button>

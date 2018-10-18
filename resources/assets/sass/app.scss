@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,700');
-
 @import 'variables';
 @import 'mixins';
 @import '~bootstrap/scss/bootstrap';
@@ -15,7 +14,9 @@
     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
     @each $prop in (top, right, bottom, left) {
       @each $size, $length in $spacers {
-        .#{$prop}#{$infix}-#{$size} { #{$prop}: $length !important; }
+        .#{$prop}#{$infix}-#{$size} {
+          #{$prop}: $length !important;
+        }
       }
     }
   }
@@ -550,15 +551,17 @@ $navbar-width: 240px;
   @extend .mdc-elevation--z1;
   @extend .mdc-elevation-transition;
 
-  &:hover {
-    @extend .mdc-elevation--z8;
-  }
-
   border-radius: 4px;
 
   &:before {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+  }
+}
+
+.card-custom-material-hover {
+  &:hover {
+    @extend .mdc-elevation--z8;
   }
 }
 
@@ -602,6 +605,24 @@ $navbar-width: 240px;
 
       .page-link {
         color: $gray-600;
+      }
+    }
+
+    &-input {
+      width: auto;
+
+      .page-input {
+        @extend .page-link;
+        border: 1px solid #6c757d;
+        background: transparent;
+
+        &:hover {
+          border-color: #6c757d;
+        }
+
+        &.disabled, &:disabled {
+          border-color: #adb5bd;
+        }
       }
     }
 

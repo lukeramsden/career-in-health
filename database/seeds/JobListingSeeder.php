@@ -9,18 +9,20 @@ class JobListingSeeder extends Seeder
 	 * Run the database seeds.
 	 *
 	 * @return void
+	 * @throws Throwable
 	 */
 	public function run()
 	{
-		$jobListings = factory(JobListing::class, 750)->create([
-			'company_id'         => 1,
-			'created_by_user_id' => 3,
-			'published'          => true,
-		]);
+		DB::transaction(function() {
+			factory(JobListing::class, 500)->create([
+				'company_id'         => 1,
+				'created_by_user_id' => 3,
+			]);
 
-		$company = \App\Company::find(1);
+			$company = \App\Company::find(1);
 
-		$company->has_created_first_job_listing = true;
-		$company->save();
+			$company->has_created_first_job_listing = true;
+			$company->save();
+		});
 	}
 }

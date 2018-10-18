@@ -171,7 +171,26 @@ class CompanyController extends Controller
 
 		return view('company.view-applications')
 			->with([
-				'applications' => $company->applications->load('employee', 'job_listing'),
+				'applications' => $company
+					->applications
+					->load('employee', 'job_listing'),
 			]);
+	}
+
+	/**
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 * @throws \Illuminate\Auth\Access\AuthorizationException
+	 */
+	public function getApplications()
+	{
+		$company = Auth::user()->userable->company;
+		$this->authorize('update', $company);
+
+		return response()->json([
+			'success' => true,
+			'models'  => $company
+				->applications
+				->load('employee', 'job_listing'),
+		], 200);
 	}
 }

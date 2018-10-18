@@ -39,6 +39,7 @@ class JobListing extends Model
 		'setting_name',
 		'min_salary_formatted',
 		'max_salary_formatted',
+		'status_name',
 	];
 
 	public function getSettingNameAttribute()
@@ -59,6 +60,15 @@ class JobListing extends Model
 	public function getMaxSalaryFormattedAttribute()
 	{
 		return Money::GBP($this->max_salary * 100)->format();
+	}
+
+	public function getStatusNameAttribute()
+	{
+		return $this->isOpen()
+			? $this->isPublished()
+				? 'Published'
+				: 'Draft'
+			: 'Closed';
 	}
 
 	protected static function boot()

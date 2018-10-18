@@ -29,14 +29,26 @@ class JobListingController extends Controller
 	{
 		return view('job-listing.index')
 			->with([
-				'jobListings' =>
-					Auth::user()
-						->userable
-						->company
-						->jobListings()
-						->with('applications')
-						->get(),
+				'jobListings' => Auth::user()
+					->userable
+					->company
+					->jobListings()
+					->with('applications')
+					->get(),
 			]);
+	}
+
+	public function indexGet()
+	{
+		return response()->json([
+			'success' => true,
+			'models'  => Auth::user()
+				->userable
+				->company
+				->jobListings()
+				->with('applications')
+				->get(),
+		], 200);
 	}
 
 	/**

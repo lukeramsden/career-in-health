@@ -161,8 +161,6 @@
                 });
         }
 
-        let messages = {!! json_encode($messages) !!};
-        messages.forEach(msg => window.store.commit('privateMessages/create', msg));
         
         window.data = {
             privateMessages: {

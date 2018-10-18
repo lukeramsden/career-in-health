@@ -18,7 +18,8 @@ Route::prefix('job-listing')
 	 ->name('job-listing.')
 	 ->group(function ()
 	 {
-		 Route::get('/', 'JobListingController@index')->name('index');
+		 Route::get('/index', 'JobListingController@index')->name('index');
+		 Route::any('/index/get', 'JobListingController@indexGet')->name('index.get');
 		 Route::get('/new', 'JobListingController@create')->name('create');
 		 Route::post('/new', 'JobListingController@store')->name('store');
 
@@ -121,6 +122,7 @@ Route::prefix('company')
 		 Route::get('/view/{company}', 'CompanyController@show')->name('show');
 		 Route::get('/view/', 'CompanyController@showMe')->name('show.me');
 		 Route::get('/applications/', 'CompanyController@showApplications')->name('application.index');
+		 Route::any('/applications/get', 'CompanyController@getApplications')->name('application.index.get');
 
 		 Route::prefix('manage-users')
 			  ->name('manage-users.')

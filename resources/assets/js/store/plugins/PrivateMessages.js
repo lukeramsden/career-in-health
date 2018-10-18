@@ -5,7 +5,12 @@ export default {
     },
     mutations: {
         create:
-            (state, payload) => state.messages.push(payload),
+            (state, payload) => {
+                if (_.isArray(payload))
+                    state.messages.push(...payload);
+                else
+                    state.messages.push(payload);
+            },
         update:
             (state, payload) => Object.assign(state.messages.find(item => item.id === payload.id), payload),
     },

@@ -1,19 +1,27 @@
 <template>
-    <div class="private-message-widget card card-custom-material">
+    <div class="private-message-widget card card-custom-material card-custom-material-hover">
         <div class="card-body" v-chat-scroll="{always: false, smooth: true}">
-            <template v-for="msg in messages">
-                <template v-if="msg.id === earliestUnreadMessage">
-                    <p class="unread-ruler small" v-on:click.stop.prevent="markMessagesAsRead">Unread Messages (click to
-                        mark as read)</p>
+            <template v-if="loaded">
+                <template v-if="messages.length > 0">
+                    <template v-for="msg in messages">
+                        <template v-if="msg.id === earliestUnreadMessage">
+                            <p class="unread-ruler small"
+                               v-on:click.stop.prevent="markMessagesAsRead">
+                                Unread Messages (click to mark as read)
+                            </p>
+                        </template>
+                        <div v-bind:key="msg.id" class="private-message-wrapper"
+                             :class="determineSide(msg)">
+                            <div class="private-message-inner">
+                                {{ msg.body }}
+                            </div>
+                            <p class="private-message-timestamp small">{{ formatTimestamp(msg) }}</p>
+                        </div>
+                    </template>
                 </template>
-                <div v-bind:key="msg.id" class="private-message-wrapper"
-                     :class="determineSide(msg)">
-                    <div class="private-message-inner">
-                        {{ msg.body }}
-                    </div>
-                    <p class="private-message-timestamp small">{{ formatTimestamp(msg) }}</p>
-                </div>
+                <p v-else class="text-muted font-italic text-center my-0">No messages</p>
             </template>
+            <loading-icon v-else></loading-icon>
         </div>
         <div class="card-footer p-0">
             <form v-on:submit.prevent="sendMessage" class="form-inline">
@@ -53,32 +61,47 @@
                 listing_id: data.privateMessages.listing_id,
                 employee_id: data.privateMessages.employee_id,
                 company_id: data.privateMessages.company_id,
+                loaded: false,
             };
         },
         computed: {
             ...mapState({
                 userType: 'userType',
             }),
-            ...mapGetters({
-                earliestUnreadMessage: 'privateMessages/earliestUnread',
-                messages: 'privateMessages/sorted',
+            ...mapGetters('PrivateMessagesModule', {
+                earliestUnreadMessage: 'earliestUnread',
+                messages: 'sorted',
             }),
         },
         mounted() {
+            axios
+                .get(route('account.private-message.show-' + this.userType, {
+                    jobListing: this.listing_id,
+                    employee: this.employee_id,
+                }))
+                .then(res => {
+                    if (res.data.success)
+                        this.$store.commit('PrivateMessagesModule/create', res.data.models);
+                    else
+                        throw new Error('Could not load messages.');
+                })
+                .catch(e => {
+                    console.error(e);
+                    toastr.error('Could not load messages.');
+                })
+                .then(() => {
+                    this.loaded = true;
+                });
+
             this.$nextTick(() => {
                 Echo.private(`App.PrivateMessage.Listing.${this.listing_id}.Employee.${this.employee_id}`)
                     .listen('CreatedPrivateMessage', e => this.pushMessage(e.message));
-
-                $('#private-message-wrapper[data-toggle="tooltip"]').tooltip({
-                    container: 'body',
-                    placement: 'top',
-                })
             });
         },
         methods: {
             pushMessage(msg) {
-                if(_.findIndex(this.messages, ['id', msg.id]))
-                    this.$store.commit('privateMessages/create', msg);
+                if (_.findIndex(this.messages, ['id', msg.id]))
+                    this.$store.commit('PrivateMessagesModule/create', msg);
             },
             markMessagesAsRead() {
                 $('.unread-ruler').addClass('scaleOut');
@@ -101,7 +124,7 @@
                                     let updatedMsg = _.clone(el);
                                     updatedMsg.read = 1;
                                     updatedMsg.read_at = res.data.read_at;
-                                    this.$store.commit('privateMessages/update', updatedMsg);
+                                    this.$store.commit('PrivateMessagesModule/update', updatedMsg);
                                 })
                                 .value()
                             ;

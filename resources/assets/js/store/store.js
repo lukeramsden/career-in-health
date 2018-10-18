@@ -1,10 +1,14 @@
 import PrivateMessagesModule from './plugins/PrivateMessages';
+import JobListingsTableModule from './plugins/JobListingsTable';
+import CompanyViewApplicationsTableModule from './plugins/CompanyViewApplicationsTable';
 
 export default {
     strict: process.env.NODE_ENV !== 'production',
     plugins: [],
     modules: {
-        privateMessages: PrivateMessagesModule,
+        PrivateMessagesModule,
+        JobListingsTableModule,
+        CompanyViewApplicationsTableModule,
     },
     state: {
         userType: '',

@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-12 col-lg-4 order-lg-last">
                             <div class="position-sticky top-4">
-                                <div class="card card-custom-material"
+                                <div class="card card-custom-material card-custom-material-hover"
                                      id="notification-filter-card">
                                     <div class="card-body p-0">
                                         <input class="input input-material w-100 p-3" placeholder="Search"
@@ -15,7 +15,7 @@
                                                type="text" v-model="query">
                                     </div>
                                 </div>
-                                <div class="card card-custom-material card-custom-no-top-bar mt-4"
+                                <div class="card card-custom-material card-custom-material-hover card-custom-no-top-bar mt-4"
                                      id="notification-actions-card">
                                     <div class="card-body p-0">
                                         <div class="btn-group btn-group-full">

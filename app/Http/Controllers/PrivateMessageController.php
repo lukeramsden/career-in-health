@@ -114,6 +114,12 @@ class PrivateMessageController extends Controller
 			->whereCompanyId($company->id)
 			->get();
 
+		if(ajax())
+			return response()->json([
+				'success' => true,
+				'models' => $messages,
+			], 200);
+
 		return view('account.private-message.show')
 			->with([
 				'messages'   => $messages,
@@ -131,6 +137,12 @@ class PrivateMessageController extends Controller
 			->whereEmployeeId($employee->id)
 			->whereCompanyId($company->id)
 			->get();
+
+		if(ajax())
+			return response()->json([
+				'success' => true,
+				'models' => $messages,
+			], 200);
 
 		return view('account.private-message.show')
 			->with([

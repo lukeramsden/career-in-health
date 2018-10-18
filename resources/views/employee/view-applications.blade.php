@@ -7,7 +7,7 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12 col-lg-4 order-lg-last">
-                            <div class="card card-custom-material position-sticky top-4" id="application-filter-card">
+                            <div class="card card-custom-material card-custom-material-hover position-sticky top-4" id="application-filter-card">
                                 <div class="card-body p-0">
                                     <input class="input input-material w-100 p-3" placeholder="Search" id="input-query"
                                            type="text" v-model="query">
@@ -78,27 +78,19 @@
                     const scores = {};
 
                     return this.applications
-                    // Score each option & create a new array out of them.
+                        // Score each option & create a new array out of them.
                         .map((application, index) => {
                             // See how well each field compares to the query.
                             const fieldScores = [
                                 application.job_listing.company.name,
                                 application.job_listing.title,
                                 application.custom_cover_letter,
-                                // Creating an array of fields and mapping is easier than writing
-                                // fz.score(...) six times. Same idea.
-                                // Scores are a non-normalized number
-                                // representing how similar the query is to the field.
                             ].map(field => fuzzaldrin.score(field, this.query, {preparedQuery}));
 
-                            // Store the highest score for this option
-                            // so we can compare it to other options.
                             scores[application.id] = Math.max(...fieldScores);
-
                             return application;
                         })
                         // Remove anything with a really low score.
-                        // You might want to play around with this.
                         .filter(application => scores[application.id] > 1)
                         // Finally, sort by the highest score.
                         .sort((a, b) => scores[b.id] - scores[a.id])
