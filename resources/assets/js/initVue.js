@@ -45,6 +45,13 @@ if (document.getElementById('vue-select2')) {
         });
 }
 
+if (document.getElementById('vue-search')) {
+    import('./componentInitializers/Search' /* webpackChunkName: "js/search-component" */)
+        .then(component => {
+            component.default();
+        });
+}
+
 if (requiresEcho) {
     window.Echo = new Echo({
         broadcaster: 'socket.io',
