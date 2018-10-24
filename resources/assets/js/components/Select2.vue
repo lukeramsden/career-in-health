@@ -11,7 +11,7 @@
     export default {
         props: {
             'name': null,
-            'data': null,
+            'data': Array,
             'value': null,
             'placeholder': String,
             'disabled': Boolean,
@@ -25,6 +25,7 @@
                     width: 'auto',
                     placeholder: self.placeholder,
                     allowClear: self.allowClear || false,
+                    data: this.data || [],
                 })
                 .val(this.value)
                 .trigger('change')
@@ -34,15 +35,15 @@
                 });
         },
         watch: {
-            value(value) {
+            value(newVal, oldVal) {
                 // update value
                 $(this.$el)
-                    .val(value)
+                    .val(newVal)
                     .trigger('change');
             },
-            data(data) {
+            data(newVal, oldVal) {
                 // update data
-                $(this.$el).empty().select2({data});
+                $(this.$el).empty().select2({data: newVal});
             },
         },
         destroyed() {

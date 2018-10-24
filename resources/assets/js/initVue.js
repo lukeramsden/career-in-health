@@ -13,6 +13,9 @@ window.store = new Vuex.Store(storeOptions);
 import LoadingIcon from './components/LoadingIcon';
 Vue.component('loading-icon', LoadingIcon);
 
+import AsyncComputed from 'vue-async-computed'
+Vue.use(AsyncComputed)
+
 let requiresEcho = false;
 
 if (document.getElementById('vue-private-messages')) {

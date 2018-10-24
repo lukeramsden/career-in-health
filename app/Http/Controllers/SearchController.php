@@ -89,7 +89,7 @@ class SearchController extends Controller
 			->wherePublished(true)
 			->whereNull('closed_at')
 			->orderBy('max_salary', 'desc')
-			->simplePaginate(10);
+			->paginate(10);
 
 		$jobListingIds = map_to($results->items(), 'id');
 

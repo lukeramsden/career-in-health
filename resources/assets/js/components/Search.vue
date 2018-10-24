@@ -21,17 +21,22 @@
 
                             <div class="form-group">
                                 <label for="where-input">Where</label>
-                                <select
-                                    id="where-input"
-                                    name="where"
-                                    class="custom-select">
-                                    <!--<option-->
-                                    <!--{{ old('where', Request::get('where')) != null ? '' : 'selected' }} disabled></option>-->
-                                    <!--@foreach (\App\Location::getAllLocations() as $loc)-->
-                                    <!--<option-->
-                                    <!--{{ $loc->id == old('where', Request::get('where')) ? 'selected' : '' }} value='{{ $loc->id }}'>{{ $loc->name }}</option>-->
-                                    <!--@endforeach-->
-                                </select>
+                                <select2 name="where"
+                                         id="where-input"
+                                         v-model="query.where"
+                                         :data="locations">
+                                </select2>
+                                <!--<select-->
+                                <!--id="where-input"-->
+                                <!--name="where"-->
+                                <!--class="custom-select">-->
+                                <!--<option-->
+                                <!--{{ old('where', Request::get('where')) != null ? '' : 'selected' }} disabled></option>-->
+                                <!--@foreach (\App\Location::getAllLocations() as $loc)-->
+                                <!--<option-->
+                                <!--{{ $loc->id == old('where', Request::get('where')) ? 'selected' : '' }} value='{{ $loc->id }}'>{{ $loc->name }}</option>-->
+                                <!--@endforeach-->
+                                <!--</select>-->
                             </div>
 
                             <!--<div class="form-group form-group-dropdown">-->
@@ -83,8 +88,14 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-7 col-lg-8" id="search-results-parent">
-                    <div id="search-results">
+                    <div id="search-results" v-if="resultsLoaded">
+                        <pagination v-model="page"
+                                    :lastPage="lastPage"></pagination>
+                        <template v-for="result in results">
+                            <p>{{result.title}}</p>
+                        </template>
                     </div>
+                    <loading-icon v-else></loading-icon>
                 </div>
             </div>
         </template>
@@ -92,7 +103,9 @@
     </div>
 </template>
 
+<!--suppress BadExpressionStatementJS -->
 <script>
+    import {mapGetters, mapState} from 'vuex';
     import Awesomplete from 'awesomplete';
     import WNumb from 'wnumb';
     import NoUiSlider from 'nouislider';
@@ -100,10 +113,14 @@
     import 'nouislider/distribute/nouislider.css';
 
     import vSelect from 'vue-select';
+    import Select2 from './Select2';
+    import Pagination from './Pagination';
 
     export default {
         components: {
             vSelect,
+            Select2,
+            Pagination,
         },
         data() {
             return {
@@ -115,25 +132,117 @@
                 page: 0,
                 lastPage: 0,
                 perPage: 10,
-                loaded: true,
-                jobRoles: [{id: 1, name: 'nurse'}],
+                pagesLoaded: [],
+                loaded: false,
+                resultsLoaded: true,
                 whatDropdown: null,
+                jobRoles: [],
+                locations: [],
             };
         },
         mounted() {
-            const vm = this;
-            let $what = $('#what-input');
-            this.whatDropdown = new Awesomplete('#what-input');
+            this.load()
+                .then(() => {
+                    this.loaded = true;
 
-            $what.on('awesomplete-selectcomplete', function (event) {
-                $what[0].dispatchEvent(new Event('input', {'bubbles': true}));
-                whatDropdown.close();
-            });
+                    this.$nextTick(() => {
+                        let $what = $('#what-input');
+                        this.whatDropdown = new Awesomplete('#what-input');
+
+                        let self = this;
+                        $what.on('awesomplete-selectcomplete', function (event) {
+                            $what[0].dispatchEvent(new Event('input', {'bubbles': true}));
+                            self.whatDropdown.close();
+                        });
+                    });
+                })
+                .catch(e => console.error(e));
         },
         destroyed() {
             $('#what-input').off();
             this.whatDropdown.destroy();
             this.whatDropdown = null;
+        },
+        methods: {
+            async load() {
+                this.jobRoles
+                    = (await axios.get(route('get-all-job-roles')))['data']
+                    .map(o => ({id: o.id, name: o.name}));
+
+                this.locations
+                    = (await axios.get(route('get-all-locations')))['data']
+                    .map(o => ({id: o.id, text: o.name}));
+            },
+            getSearchData() {
+                return {
+                    ...this.query,
+                    page: this.page + 1,
+                };
+            },
+        },
+        computed: {
+            ...mapState('SearchModule', {
+                items: 'items',
+            }),
+            ...mapGetters({}),
+        },
+        watch: {
+            query: {
+                handler(newVal, oldVal) {
+                    this.page = 0;
+                    this.pagesLoaded = [];
+                    this.$store.commit('SearchModule/clear');
+                },
+                deep: true,
+            },
+        },
+        asyncComputed: {
+            results: {
+                get: _.debounce(async function () {
+                    if (!this.query.what || !this.query.where)
+                        return [];
+
+                    console.log('search');
+
+                    if (this.pagesLoaded.includes(this.page)) {
+                        return this.items.slice(this.perPage * this.page, this.perPage * (this.page + 1));
+                    }
+
+                    try {
+                        this.resultsLoaded = false;
+
+                        let res = await axios.post(route('search.get'), this.getSearchData());
+
+                        if (res.data.success) {
+                            console.log(res);
+
+                            this.$store.commit('SearchModule/create', res.data.models.results.data);
+
+                            this.$nextTick(() => this.resultsLoaded = true);
+
+                            this.pagesLoaded.push(this.page);
+                            this.pagesLoaded.sort();
+
+                            this.lastPage = res.data.models.results.last_page - 1;
+                            this.perPage = res.data.models.results.per_page;
+
+                            return res.data.models.results.data;
+                        }
+
+                        throw new Error('Could not load listings.');
+                    } catch (e) {
+                        console.error(e);
+                    }
+
+                    return [];
+                }, 800),
+                watch() {
+                    // establish dependencies so that results are recalculated on changes
+                    this.query.what;
+                    this.query.where;
+                    this.page;
+                }
+            },
         },
     }
 </script>

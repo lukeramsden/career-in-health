@@ -294,3 +294,11 @@ Route::prefix('notifications')
 		 Route::any('/{notification}/mark-as-unread', 'NotificationController@markAsUnread')->name('mark-as-unread');
 		 Route::any('/{notification}/delete', 'NotificationController@delete')->name('delete');
 	 });
+
+Route::any('/get-all-job-roles', function() {
+	return response()->json(\App\JobRole::all(), 200);
+})->name('get-all-job-roles');
+
+Route::any('/get-all-locations', function() {
+	return response()->json(array_values(\App\Location::getAllLocations()), 200);
+})->name('get-all-locations');
