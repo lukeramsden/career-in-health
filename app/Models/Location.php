@@ -8,6 +8,16 @@ class Location extends Model
 {
 	use \Watson\Rememberable\Rememberable;
 
+	protected $appends = ['lat_lng'];
+
+	public function getLatLngAttribute()
+	{
+		return [
+			'lat' => $this->latitude,
+			'lng' => $this->longitude,
+		];
+	}
+
 	/**
 	 * Returns all locations that match type 'City' or 'Town'
 	 *
