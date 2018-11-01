@@ -70,7 +70,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-12 col-md-7 col-lg-8" id="search-results-parent">
+                <div class="col-12 col-md-7 col-lg-8" id="search-results-parent" style="background-color: #e6e6e6;">
                     <div class="card card-custom card-custom-no-top-bar" v-if="!resultsLoaded || totalResults > 0">
                         <div class="card-header" v-if="lastPage > 0">
                             <pagination class="float-right"
@@ -80,7 +80,7 @@
                         </div>
                         <div class="card-body p-0">
                             <div id="search-results" v-if="resultsLoaded">
-                                <template v-for="result in results">
+                                <template v-for="(result, index) in results">
                                     <div class="card card-custom card-custom-no-top-bar card-job_listing">
                                         <div class="card-body">
                                             <a :href="route('company.show', {company: result.company.id})"
@@ -129,7 +129,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <hr>
+                                    <hr v-if="index !== results.length - 1">
                                 </template>
                             </div>
                             <loading-icon v-else></loading-icon>
@@ -155,6 +155,7 @@
     import Awesomplete from 'awesomplete';
     import WNumb from 'wnumb';
     import NoUiSlider from 'nouislider';
+
     import 'awesomplete/awesomplete.css';
     import 'nouislider/distribute/nouislider.css';
 
@@ -175,9 +176,9 @@
                 query: {
                     what: '',
                     where: null,
-                    radius: null,
-                    min_salary: null,
-                    max_salary: null,
+                    radius: 50,
+                    min_salary: 0,
+                    max_salary: 150000,
                 },
                 page: 0,
                 lastPage: 0,
@@ -196,12 +197,22 @@
                 whatDropdown: null,
                 radiusSlider: null,
                 salarySlider: null,
+
+                /**
+                 * This is used to track whether the last update to the query
+                 * object was by onpopstate or not
+                 */
+                statePopped: false,
             };
         },
         mounted() {
+            console.debug('mounted pre-load');
+
             this.load()
                 .then(() => {
                     this.loaded = true;
+
+                    console.debug('mounted post-load');
 
                     this.$nextTick(() => {
                         let $what = $('#what-input');
@@ -217,7 +228,7 @@
                         this.radiusSlider = document.getElementById('radius-slider');
 
                         NoUiSlider.create(this.radiusSlider, {
-                            start: [50],
+                            start: [this.query.radius],
                             step: 5,
                             tooltips: true,
                             range: {
@@ -247,7 +258,7 @@
                         });
 
                         NoUiSlider.create(this.salarySlider, {
-                            start: [0, 150000],
+                            start: [this.query.min_salary, this.query.max_salary],
                             step: 500,
                             tooltips: true,
                             margin: 2000,
@@ -272,6 +283,40 @@
                             self.query.min_salary = salaryFormatter.from(values[0]);
                             self.query.max_salary = salaryFormatter.from(values[1]);
                         });
+
+                        /**
+                         * We add the watchers here to stop them being called when we parse the query string
+                         */
+                        this.$watch('query', function(nval, oval) {
+                            console.debug(`watch | query | handler | newVal: ${JSON.stringify(nval)} | oldVal: ${JSON.stringify(oval)}`);
+
+                            this.page = 0;
+                            this.pagesLoaded = [];
+                            this.totalResults = 0;
+                            this.$store.commit('SearchModule/clear');
+                            this.search();
+
+                            if (this.radiusSlider)
+                                this.radiusSlider.noUiSlider.set([nval.radius]);
+
+                            if (this.salarySlider)
+                                this.salarySlider.noUiSlider.set([nval.min_salary, nval.max_salary]);
+
+                        }, { deep: true });
+
+                        this.$watch('page', function(nval, oval) {
+                            console.debug(`watch | page | handler | newVal: ${JSON.stringify(nval)} | oldVal: ${JSON.stringify(oval)}`);
+
+                            if (!this.pagesLoaded.includes(nval)) {
+                                this.resultsLoaded = false;
+                                this.search();
+                            }
+
+                            this.updateQueryString();
+                        });
+
+                        this.resultsLoaded = false;
+                        this.search();
                     });
                 })
                 .catch(e => console.error(e));
@@ -301,20 +346,67 @@
                 this.locations
                     = (await axios.get(route('get-all-locations')))['data']
                     .map(o => ({id: o.id, text: o.name}));
+
+                this.parseQueryString();
+            },
+            updateQueryString() {
+                console.debug('updateQueryString');
+
+                const urlParams = new URLSearchParams(location.search);
+
+                for (const x in this.query) {
+                    if (x || x === 0) {
+                        if (_.isArray(x)) {
+                            for (y of x)
+                                urlParams.append(x, y);
+                        }
+                        else urlParams.set(x, this.query[x]);
+                    }
+                }
+
+                if (this.page >= 0)
+                    urlParams.set('page', this.page + 1);
+
+                if(!this.statePopped) {
+                    console.debug('pushState');
+                    window.history.pushState({}, "", decodeURIComponent(`${location.pathname}?${urlParams}`));
+                } else this.statePopped = false;
+
+                window.onpopstate = (ev) => {
+                    console.debug('onpopstate');
+                    console.debug(ev);
+                    this.statePopped = true;
+                    this.parseQueryString();
+                }
+            },
+            parseQueryString() {
+                console.debug('parseQueryString');
+
+                const urlParams = new URLSearchParams(location.search);
+
+                for (const x in this.query)
+                    this.$set(this.query, x,
+                        (_.isArray(this.query[x])
+                            ? urlParams.getAll(x)
+                            : urlParams.get(x)) || this.query[x]);
+
+                this.page = (_.toSafeInteger(urlParams.get('page')) || 1) - 1;
             },
             search: _.debounce(function () {
                 if (!this.query.what || !this.query.where)
                     return;
 
-                console.log('search');
+                console.debug('search');
 
                 this.resultsLoaded = false;
+
+                this.updateQueryString();
 
                 axios
                     .post(route('search.get'), this.searchData)
                     .then(res => {
                         if (res.data.success) {
-                            console.log(res);
+                            console.debug(res);
 
                             this.$store.commit('SearchModule/create', res.data.models.results.data);
 
@@ -388,29 +480,21 @@
                 };
             },
             results() {
+                /**
+                 * This doesn't account for pages before the current loaded page not actually having been requested
+                 *
+                 * We need to store the results based on page number, instead of just in a basic array
+                 *
+                 * Scenario: User goes to page, query string specifies page 2
+                 *
+                 * Current store: [page2-result1, page2-result2, etc...]
+                 *
+                 * Possible replacement: { 2: [result1, result2, etc...] }
+                 */
                 return this.items.slice(this.perPage * this.page, this.perPage * (this.page + 1));
             },
         },
-        watch: {
-            query: {
-                handler(newVal, oldVal) {
-                    this.page = 0;
-                    this.pagesLoaded = [];
-                    this.totalResults = 0;
-                    this.$store.commit('SearchModule/clear');
-                    this.search();
-                },
-                deep: true,
-            },
-            page: {
-                handler(newVal, oldVal) {
-                    if (!this.pagesLoaded.includes(newVal)) {
-                        this.resultsLoaded = false;
-                        this.search();
-                    }
-                },
-            },
-        },
+        watch: {},
     }
 </script>
 
