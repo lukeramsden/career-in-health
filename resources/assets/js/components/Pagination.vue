@@ -5,7 +5,8 @@
             <a class="page-link" tabindex="-1" href="javascript:">&lt;</a>
         </li>
         <li v-else
-            class="page-item page-item-previous">
+            class="page-item page-item-previous"
+            v-bind:class="{disabled}">
             <a class="page-link" rel="prev" v-on:click.prevent="prevPage()">&lt;</a>
         </li>
 
@@ -22,14 +23,16 @@
                     <a class="page-link" href="javascript:">{{ el + 1 }}</a>
                 </li>
                 <li v-else
-                    class="page-item">
+                    class="page-item"
+                    v-bind:class="{disabled}">
                     <a class="page-link" href="javascript:" v-on:click.prevent="input(el)">{{ el + 1 }}</a>
                 </li>
             </template>
         </template>
 
         <li v-if="hasMorePages"
-            class="page-item page-item-next">
+            class="page-item page-item-next"
+            v-bind:class="{disabled}">
             <a class="page-link" rel="next" v-on:click.prevent="nextPage()">&gt;</a>
         </li>
         <li v-else
@@ -38,7 +41,8 @@
         </li>
 
         <li v-if="this.customInput"
-            class="page-item page-item-input">
+            class="page-item page-item-input"
+            v-bind:class="{disabled}">
             <input class="form-control page-input" type="text" title="Page"
                    v-bind:value="value+1" v-on:input="input($event.target.value-1)">
         </li>
@@ -119,7 +123,10 @@
             },
             customInput: {
                 type: Boolean,
-            }
+            },
+            disabled: {
+                type: Boolean,
+            },
         },
         computed: {
             show() {
@@ -147,13 +154,16 @@
         },
         methods: {
             input(i) {
-                return this.$emit('input', _.clamp(i, this.firstPage, this.lastPage));
+                if(this.disabled)
+                    return;
+
+                this.$emit('input', _.clamp(i, this.firstPage, this.lastPage));
             },
             prevPage() {
-                return this.input(this.value - 1);
+                this.input(this.value - 1);
             },
             nextPage() {
-                return this.input(this.value + 1);
+                this.input(this.value + 1);
             },
         },
     }

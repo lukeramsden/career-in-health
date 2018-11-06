@@ -654,14 +654,15 @@ $navbar-width: 240px;
   }
 
   &-results {
-    padding: 0 30px;
+    padding: 30px;
 
     .card {
-      margin-bottom: $spacer * 1.5;
+      //margin-bottom: $spacer * 1.5;
     }
 
     &-parent {
-      margin-top: $spacer;
+      margin: 0;
+      padding: 0;
     }
 
     .pagination {
@@ -671,7 +672,7 @@ $navbar-width: 240px;
 
   &-form {
     &-parent {
-      padding: 0 35px;
+      padding: 0 20px;
       margin: 0;
 
       @include media-breakpoint-up(md) {
@@ -686,7 +687,7 @@ $navbar-width: 240px;
     }
 
     form {
-      padding: $spacer * 3 $spacer;
+      padding: $spacer;
 
       .form-group {
         &-dropdown {

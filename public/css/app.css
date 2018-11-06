@@ -15809,19 +15809,16 @@ body {
 }
 
 #search-results {
-  padding: 0 30px;
-}
-
-#search-results .card {
-  margin-bottom: 1.5rem;
+  padding: 30px;
 }
 
 #search-results-parent {
-  margin-top: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 #search-form-parent {
-  padding: 0 35px;
+  padding: 0 20px;
   margin: 0;
 }
 
@@ -15840,7 +15837,7 @@ body {
 }
 
 #search-form form {
-  padding: 3rem 1rem;
+  padding: 1rem;
 }
 
 #search-form form .form-group-dropdown {

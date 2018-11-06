@@ -20,14 +20,14 @@ export default {
             if (!rootState.userType)
                 return 0;
 
-            if (state.messages.length <= 0)
+            if (getters.sorted.length <= 0)
                 return 0;
 
             return _
-                .chain(_.clone(state.messages))
+                .chain(_.clone(getters.sorted))
                 .filter({
                     'read': 0,
-                    'direction': state.userType === 'employee'
+                    'direction': rootState.userType === 'employee'
                         ? 'to_employee'
                         : 'to_company'
                 })

@@ -37,25 +37,25 @@ class SearchController extends Controller
 		return array_merge($rules, $custom);
 	}
 
+	public function show()
+	{
+		return view('search');
+	}
+
 	/**
 	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
 	 * @throws \Exception
 	 */
-	public function search()
+	public function get()
 	{
-		if (!$this->request->has('what') && !$this->request->has('where'))
-			return view('search');
-
 		$data    = $this->request->validate(self::rules());
 		$town    = Location::remember(1440)->find($data['where']);
 		$results = JobListing::with('address', 'address.location', 'jobRole', 'company');
 
 		if (isset($data['radius']) && $data['radius'] < 50)
 		{
-			$results = $results->whereHas('address', function ($q) use ($town, $data)
-			{
-				$q->whereHas('location', function ($q) use ($town, $data)
-				{
+			$results = $results->whereHas('address', function ($q) use ($town, $data) {
+				$q->whereHas('location', function ($q) use ($town, $data) {
 					$q->whereRaw('(3959 * acos(cos(radians(?)) * cos(radians( latitude )) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) < ?', [
 						$town->latitude,
 						$town->longitude,
@@ -68,8 +68,7 @@ class SearchController extends Controller
 
 		if (isset($data['what']))
 		{
-			$results->whereHas('jobRole', function ($q) use ($data)
-			{
+			$results->whereHas('jobRole', function ($q) use ($data) {
 				$q->where('name', 'LIKE', "%{$data['what']}%");
 			});
 		}
@@ -80,17 +79,17 @@ class SearchController extends Controller
 		if (isset($data['max_salary']) && $data['max_salary'] < 150000)
 			$results->where('min_salary', '<', $data['max_salary']);
 
-		if (isset($data['setting_filter']))
-			$results->whereIn('setting', $data['setting_filter']);
+		if (isset($data['setting_filter']) && count($data['setting_filter']) > 0)
+			$results->whereIn('setting', array_values($data['setting_filter']));
 
-		if (isset($data['type_filter']))
-			$results->whereIn('type', $data['type_filter']);
+		if (isset($data['type_filter']) && count($data['type_filter']) > 0)
+			$results->whereIn('type', array_values($data['type_filter']));
 
 		$results = $results
 			->wherePublished(true)
 			->whereNull('closed_at')
 			->orderBy('max_salary', 'desc')
-			->simplePaginate(10);
+			->paginate(10);
 
 		$jobListingIds = map_to($results->items(), 'id');
 
@@ -100,16 +99,20 @@ class SearchController extends Controller
 		if (Auth::check() && Auth::user()->isEmployee())
 			Auth::user()->userable()->increment('times_searched');
 
-		DB::table('search_history')
-		  ->insert([
-			  'searcher' => SearchHistoryRepository::getUuid(),
-			  'data'     => json_encode($data),
-		  ]);
+		$historyEntry = [
+			'searcher' => SearchHistoryRepository::getUuid(),
+			'data'     => json_encode($data),
+		];
 
-		return view('search')
-			->with([
-				'results' => $results,
-				'town'    => $town,
-			]);
+		DB::table('search_history')->insert($historyEntry);
+
+		return response()->json([
+			'success' => true,
+			'models'  => [
+				'results'       => $results,
+				'town'          => $town,
+				'history_entry' => $historyEntry,
+			],
+		], 200);
 	}
 }

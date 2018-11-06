@@ -2,15 +2,29 @@ import Vue from 'vue';
 import Echo from 'laravel-echo';
 
 import Vuex from 'vuex';
-import storeOptions from './store/store';
+import AsyncComputed from 'vue-async-computed'
+import VueCurrencyFilter from 'vue-currency-filter';
 
 // fixes errors with using lodash in Vue SFCs
 Vue.prototype._ = _;
 
 Vue.use(Vuex);
+Vue.use(AsyncComputed);
+Vue.use(VueCurrencyFilter, {
+    symbol: '£',
+    thousandsSeparator: ',',
+    fractionCount: 2,
+    fractionSeparator: '.',
+    symbolPosition: 'front',
+    symbolSpacing: false
+});
+
+import storeOptions from './store/store';
+
 window.store = new Vuex.Store(storeOptions);
 
 import LoadingIcon from './components/LoadingIcon';
+
 Vue.component('loading-icon', LoadingIcon);
 
 let requiresEcho = false;
@@ -40,6 +54,13 @@ if (document.getElementById('vue-company-view-applications-table')) {
 
 if (document.getElementById('vue-select2')) {
     import('./componentInitializers/Select2' /* webpackChunkName: "js/select2-component" */)
+        .then(component => {
+            component.default();
+        });
+}
+
+if (document.getElementById('vue-search')) {
+    import('./componentInitializers/Search' /* webpackChunkName: "js/search-component" */)
         .then(component => {
             component.default();
         });

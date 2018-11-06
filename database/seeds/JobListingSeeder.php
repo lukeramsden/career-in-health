@@ -14,7 +14,7 @@ class JobListingSeeder extends Seeder
 	public function run()
 	{
 		DB::transaction(function() {
-			factory(JobListing::class, 500)->create([
+			factory(JobListing::class, 10000)->create([
 				'company_id'         => 1,
 				'created_by_user_id' => 3,
 			]);
