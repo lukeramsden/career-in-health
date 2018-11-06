@@ -10,7 +10,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     
     @verbatim
@@ -370,10 +369,13 @@
             watch: {},
             data() {
                 return {
-                    {{--locations: {!! \App\Location::all()->toJson() !!}--}}
+                    {{--locations: {!! \App\Location::all()->toJson(), !!}--}}
                 };
             },
-            mounted() {},
+            mounted() {
+            },
+            destroyed() {
+            },
         });
 
         let data = {
@@ -394,21 +396,12 @@
             @foreach ($errors->all() as $error)
                 toastr.error("{{ $error }}");
             @endforeach
-            
-            let $county = $('#county-dropdown');
-            const countyDropdown = new Awesomplete('#county-dropdown');
-            
-            $county.on('awesomplete-selectcomplete', function(event) {
-                $county[0].dispatchEvent(new Event('input', { 'bubbles': true }));
-                countyDropdown.close();
-            });
         });
     </script>
 @endsection
 @section('stylesheet')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" />
     
     <style>
@@ -447,9 +440,6 @@
             color: #999;
             line-height: 1.8;
         }
-        
-        .awesomplete {
-            display: block;
-        }
+
     </style>
 @endsection
