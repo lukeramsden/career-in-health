@@ -295,10 +295,24 @@ Route::prefix('notifications')
 		 Route::any('/{notification}/delete', 'NotificationController@delete')->name('delete');
 	 });
 
-Route::any('/get-all-job-roles', function() {
-	return response()->json(\App\JobRole::all(), 200);
-})->name('get-all-job-roles');
+Route::prefix('get-all')
+	->name('get-all-')
+	->group(function ()
+	{
+		Route::any('job-roles', function() {
+			return response()->json(\App\JobRole::all(), 200);
+		})->name('job-roles');
 
-Route::any('/get-all-locations', function() {
-	return response()->json(array_values(\App\Location::getAllLocations()), 200);
-})->name('get-all-locations');
+		Route::any('locations', function() {
+			return response()->json(array_values(\App\Location::getAllLocations()), 200);
+		})->name('locations');
+
+		Route::any('listing-settings', function() {
+			return response()->json(\App\JobListing::$settings, 200);
+		})->name('listing-settings');
+
+		Route::any('listing-types', function() {
+			return response()->json(\App\JobListing::$types, 200);
+		})->name('listing-types');
+	});
+

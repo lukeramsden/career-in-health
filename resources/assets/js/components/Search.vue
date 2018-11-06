@@ -38,20 +38,33 @@
                                 <div id="salary-slider"></div>
                             </div>
 
-                            <!--<div class="form-group">-->
-                            <!--<label>Settings</label>-->
+                            <div class="form-group">
+                                <label>Settings</label>
 
-                            <!--@foreach(\App\JobListing::$settings as $id => $setting)-->
-                            <!--<div class="custom-control custom-checkbox">-->
-                            <!--<input type="checkbox" class="custom-control-input"-->
-                            <!--{{ collect(old('setting_filter', Request::get('setting_filter')))->contains($id) ? 'checked':'' }} name="setting_filter[]"-->
-                            <!--value="{{ $id }}" id="setting-check{{ $id }}">-->
-                            <!--<label class="custom-control-label"-->
-                            <!--for="setting-check{{ $id }}">{{ $setting }}</label>-->
-                            <!--</div>-->
-                            <!--@endforeach-->
+                                <div v-for="(setting, idx) in settings"
+                                     class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input"
+                                           v-model="query.setting_filter"
+                                           :value="setting.id" :id="'setting-check-' + setting.id"
+                                           :title="setting.name">
+                                    <label class="custom-control-label"
+                                           :for="'setting-check-' + setting.id">{{ setting.name }}</label>
+                                </div>
+                            </div>
 
-                            <!--</div>-->
+                            <div class="form-group">
+                                <label>Types</label>
+
+                                <div v-for="(type, idx) in types"
+                                     class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input"
+                                           v-model="query.type_filter"
+                                           :value="type.id" :id="'type-check-' + type.id"
+                                           :title="type.name">
+                                    <label class="custom-control-label"
+                                           :for="'type-check-' + type.id">{{ type.name }}</label>
+                                </div>
+                            </div>
 
                             <!--<div class="form-group">-->
                             <!--<label>Types</label>-->
@@ -179,6 +192,8 @@
                     radius: 50,
                     min_salary: 0,
                     max_salary: 150000,
+                    setting_filter: [],
+                    type_filter: [],
                 },
                 page: 0,
                 lastPage: 0,
@@ -193,6 +208,8 @@
 
                 jobRoles: [],
                 locations: [],
+                settings: [],
+                type: [],
 
                 whatDropdown: null,
                 radiusSlider: null,
@@ -287,7 +304,7 @@
                         /**
                          * We add the watchers here to stop them being called when we parse the query string
                          */
-                        this.$watch('query', function(nval, oval) {
+                        this.$watch('query', function (nval, oval) {
                             console.debug(`watch | query | handler | newVal: ${JSON.stringify(nval)} | oldVal: ${JSON.stringify(oval)}`);
 
                             this.page = 0;
@@ -302,13 +319,12 @@
                             if (this.salarySlider)
                                 this.salarySlider.noUiSlider.set([nval.min_salary, nval.max_salary]);
 
-                        }, { deep: true });
+                        }, {deep: true});
 
-                        this.$watch('page', function(nval, oval) {
+                        this.$watch('page', function (nval, oval) {
                             console.debug(`watch | page | handler | newVal: ${JSON.stringify(nval)} | oldVal: ${JSON.stringify(oval)}`);
 
                             if (!this.pagesLoaded.includes(nval)) {
-                                this.resultsLoaded = false;
                                 this.search();
                             }
 
@@ -338,13 +354,17 @@
                 return route(...arguments);
             },
             async load() {
-                this.jobRoles
-                    = (await axios.get(route('get-all-job-roles')))['data']
-                    .map(o => ({id: o.id, name: o.name}));
+                const [jobRoles, locations, settings, types] = await Promise.all([
+                    axios.get(route('get-all-job-roles')),
+                    axios.get(route('get-all-locations')),
+                    axios.get(route('get-all-listing-settings')),
+                    axios.get(route('get-all-listing-types')),
+                ]);
 
-                this.locations
-                    = (await axios.get(route('get-all-locations')))['data']
-                    .map(o => ({id: o.id, text: o.name}));
+                this.jobRoles = _.map(jobRoles['data'], v => ({id: v.id, name: v.name}));
+                this.locations = _.map(locations['data'], v => ({id: v.id, text: v.name}));
+                this.settings = _.map(settings['data'], (name, id) => ({id, name}));
+                this.types = _.map(types['data'], (name, id) => ({id, name}));
 
                 {
                     let before = _.cloneDeep(this.query);
@@ -359,19 +379,23 @@
                 const urlParams = new URLSearchParams(location.search);
 
                 for (const x in this.query) {
+                    let val = this.query[x];
                     if (x || x === 0) {
-                        if (_.isArray(x)) {
-                            for (y of x)
-                                urlParams.append(x, y);
+                        if (_.isArray(val)) {
+                            console.log('array ', val.length, val);
+                            if (val.length > 0)
+                                for (const y of val)
+                                    urlParams.append(x, y);
+                            else urlParams.delete(x);
                         }
-                        else urlParams.set(x, this.query[x]);
+                        else urlParams.set(x, val);
                     }
                 }
 
                 if (this.page >= 0)
                     urlParams.set('page', this.page + 1);
 
-                if(!this.statePopped) {
+                if (!this.statePopped) {
                     console.debug('pushState');
                     window.history.pushState({}, "", decodeURIComponent(`${location.pathname}?${urlParams}`));
                 } else this.statePopped = false;
@@ -415,7 +439,6 @@
                             this.$store.commit('SearchModule/create', res.data.models.results.data);
 
                             this.pagesLoaded.push(this.page);
-                            this.pagesLoaded.sort();
 
                             this.lastPage = res.data.models.results.last_page - 1;
                             this.perPage = res.data.models.results.per_page;
@@ -495,7 +518,13 @@
                  *
                  * Possible replacement: { 2: [result1, result2, etc...] }
                  */
-                return this.items.slice(this.perPage * this.page, this.perPage * (this.page + 1));
+
+                let loadedIndex = this.pagesLoaded.indexOf(this.page);
+
+                if (loadedIndex === -1)
+                    return [];
+
+                return this.items.slice(this.perPage * loadedIndex, this.perPage * (loadedIndex + 1));
             },
         },
         watch: {},
