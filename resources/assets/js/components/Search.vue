@@ -315,7 +315,6 @@
                             this.updateQueryString();
                         });
 
-                        this.resultsLoaded = false;
                         this.search();
                     });
                 })
@@ -347,7 +346,12 @@
                     = (await axios.get(route('get-all-locations')))['data']
                     .map(o => ({id: o.id, text: o.name}));
 
-                this.parseQueryString();
+                {
+                    let before = _.cloneDeep(this.query);
+                    this.parseQueryString();
+                    let after = _.cloneDeep(this.query);
+                    this.resultsLoaded = _.isEqual(before, after);
+                }
             },
             updateQueryString() {
                 console.debug('updateQueryString');
