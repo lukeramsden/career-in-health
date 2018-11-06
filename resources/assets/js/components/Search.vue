@@ -307,6 +307,7 @@
                         this.$watch('query', function (nval, oval) {
                             console.debug(`watch | query | handler | newVal: ${JSON.stringify(nval)} | oldVal: ${JSON.stringify(oval)}`);
 
+                            this.resultsLoaded = false;
                             this.page = 0;
                             this.pagesLoaded = [];
                             this.totalResults = 0;
@@ -325,6 +326,7 @@
                             console.debug(`watch | page | handler | newVal: ${JSON.stringify(nval)} | oldVal: ${JSON.stringify(oval)}`);
 
                             if (!this.pagesLoaded.includes(nval)) {
+                                this.resultsLoaded = false;
                                 this.search();
                             }
 
@@ -382,11 +384,10 @@
                     let val = this.query[x];
                     if (x || x === 0) {
                         if (_.isArray(val)) {
-                            console.log('array ', val.length, val);
+                            urlParams.delete(x);
                             if (val.length > 0)
                                 for (const y of val)
                                     urlParams.append(x, y);
-                            else urlParams.delete(x);
                         }
                         else urlParams.set(x, val);
                     }
