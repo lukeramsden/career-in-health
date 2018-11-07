@@ -307,7 +307,9 @@
                         this.$watch('query', function (nval, oval) {
                             console.debug(`watch | query | handler | newVal: ${JSON.stringify(nval)} | oldVal: ${JSON.stringify(oval)}`);
 
-                            this.resultsLoaded = false;
+                            if (nval.what && nval.where)
+                                this.resultsLoaded = false;
+
                             this.page = 0;
                             this.pagesLoaded = [];
                             this.totalResults = 0;
