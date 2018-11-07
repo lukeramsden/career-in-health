@@ -83,7 +83,7 @@
                             </div>
                         </li>
                         
-                        <li class="nav-item dropright {{ active_route(['address.create', 'address.index']) }}">
+                        <li class="nav-item dropright {{ active_route(['address.create', 'address.index', 'address.edit']) }}">
                             <a class="nav-link dropdown-toggle"
                                href="javascript:"
                                id="navdropdown-Addresses"
@@ -94,7 +94,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navdropdown-Addresses">
                                 <a class="dropdown-item dropdown-item-action {{ active_route('address.create') }}" href="{{ route('address.create') }}">Create New Address</a>
-                                <a class="dropdown-item {{ active_route(['address.index', 'address.edit', 'address.show.*']) }}" href="{{ route('address.index') }}">My Addresses</a>
+                                <a class="dropdown-item {{ active_route(['address.index', 'address.edit']) }}" href="{{ route('address.index') }}">My Addresses</a>
                             </div>
                         </li>
                         
