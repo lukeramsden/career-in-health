@@ -68,20 +68,22 @@ $navbar-width: 240px;
 }
 
 #app {
-  @include media-breakpoint-up(lg) {
-    margin-left: $navbar-width;
-  }
+  &.side-navbar {
+    @include media-breakpoint-up(lg) {
+      margin-left: $navbar-width;
+    }
 
-  z-index: 1;
+    z-index: 1;
 
-  @include media-breakpoint-down(md) {
-    margin-top: 106px;
-  }
+    @include media-breakpoint-down(md) {
+      margin-top: 106px;
+    }
 
-  .container-fluid {
-    padding-left: 30px;
-    padding-right: 30px;
-    height: 100%;
+    .container-fluid {
+      padding-left: 30px;
+      padding-right: 30px;
+      height: 100%;
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends('layouts.app')
 @section('content')
     <div class="container-fluid sleek-form-parent mt-2 mt-lg-5">
         <div class="card sleek-form mx-auto">
