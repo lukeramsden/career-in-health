@@ -379,7 +379,7 @@
         });
 
         let data = {
-            model: {!! $edit?$address??'{}':Session::hasOldInput()?json_encode(Session::getOldInput())??'{}':'{}'!!},
+            model: {!! $edit?($address??'{}'):(Session::hasOldInput()?json_encode(Session::getOldInput()):'{}')!!},
             url: '{{ $edit ? route('address.update', ['address' => $address]) : route('address.store') }}',
             createNew: {{ $edit ? 'false' : 'true' }},
         };
