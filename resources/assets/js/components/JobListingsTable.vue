@@ -157,7 +157,7 @@
         },
         mounted() {
             axios
-                .get(route('job-listing.index.get'))
+                .post(route('job-listing.index.get'))
                 .then(res => {
                     if (res.data.success)
                         this.$store.commit('JobListingsTableModule/create', res.data.models);

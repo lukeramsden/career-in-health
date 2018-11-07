@@ -101,7 +101,7 @@
         },
         mounted() {
             axios
-                .get(route('company.application.index.get'))
+                .post(route('company.application.index.get'))
                 .then(res => {
                     if (res.data.success)
                         this.$store.commit('CompanyViewApplicationsTableModule/create', res.data.models);
