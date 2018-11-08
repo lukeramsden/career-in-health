@@ -21,7 +21,7 @@
         <link rel="shortcut icon" type="image/png" href="/images/favicon.png"/>
 
         {{-- Stylesheets --}}
-        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        @mix('css/app.css')
         @yield('head')
         
         {{-- Script Preloads/prefetches --}}
@@ -30,9 +30,9 @@
         @yield('base_content')
 
         {{-- Scripts --}}
-        <script src="{{ mix('js/manifest.js') }}"></script>
-        <script src="{{ mix('js/vendor.js') }}"></script>
-        <script src="{{ mix('js/app.js') }}"></script>
+        @mix('js/manifest.js')
+        @mix('js/vendor.js')
+        @mix('js/app.js')
         @include('toast::messages-jquery')
         @yield('body-end')
     </body>

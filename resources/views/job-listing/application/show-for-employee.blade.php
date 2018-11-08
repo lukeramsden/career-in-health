@@ -130,9 +130,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-4 order-lg-2">
-                        <div id="vue-private-messages">
-                            <private-messages></private-messages>
-                        </div>
+                        @vue('private-messages')
                     </div>
                 </div>
             </div>
@@ -170,7 +168,7 @@
             },
         };
     </script>
-    <script src="{{ mix('js/private-messages-component.js') }}"></script>
+    @mix('js/private-messages-component.js')
 @endsection
 @section('stylesheet')
 @endsection

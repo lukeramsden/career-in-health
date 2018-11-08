@@ -4,6 +4,7 @@
     "/js/company-view-applications-table-component.js": "/js/company-view-applications-table-component.js",
     "/js/select2-component.js": "/js/select2-component.js",
     "/js/private-messages-component.js": "/js/private-messages-component.js",
+    "/js/employee-dashboard-component.js": "/js/employee-dashboard-component.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/pdf.css": "/css/pdf.css",

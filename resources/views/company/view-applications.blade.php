@@ -1,9 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <div id="vue-company-view-applications-table">
-        <company-view-applications-table></company-view-applications-table>
-    </div>
+    @vue('company-view-applications-table')
 @endsection
 @section('script')
-    <script src="{{ mix('js/company-view-applications-table-component.js') }}"></script>
+    @mix('js/company-view-applications-table-component.js')
 @endsection

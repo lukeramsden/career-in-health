@@ -3,6 +3,8 @@ import JobListingsTableModule from './plugins/JobListingsTable';
 import CompanyViewApplicationsTableModule from './plugins/CompanyViewApplicationsTable';
 import SearchModule from './plugins/Search';
 
+import EmployeeDashboardModule from './plugins/EmployeeDashboard';
+
 export default {
     strict: process.env.NODE_ENV !== 'production',
     plugins: [],
@@ -11,6 +13,8 @@ export default {
         JobListingsTableModule,
         CompanyViewApplicationsTableModule,
         SearchModule,
+
+        EmployeeDashboardModule,
     },
     state: {
         userType: '',

@@ -103,6 +103,11 @@ class AppServiceProvider extends ServiceProvider
 
 			return false;
 		});
+
+		Blade::directive('vue', function ($expression) {
+			$name = str_replace("'", '', $expression);
+      		return "<?php echo \"<div id=\\\"vue-{$name}\\\"><{$name}></{$name}></div>\"; ?>";
+  		});
 	}
 
 	/**

@@ -40,8 +40,8 @@
                 @endusertype
             </div>
         </div>
-        <div id="vue-private-messages" class="mx-lg-5">
-            <private-messages></private-messages>
+        <div class="mx-lg-5">
+            @vue('private-messages')
         </div>
     </div>
 @endsection
@@ -56,7 +56,7 @@
             },
         };
     </script>
-    <script src="{{ mix('js/private-messages-component.js') }}"></script>
+    @mix('js/private-messages-component.js')
 @endsection
 @section('stylesheet')
 @endsection

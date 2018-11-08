@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="{{ mix('css/pdf.css') }}" rel="stylesheet">
+    @mix('css/pdf.css')
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;

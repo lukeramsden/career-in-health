@@ -1,1 +1,0 @@
-@each('company._dash-item', $items, 'item')

@@ -66,6 +66,15 @@ if (document.getElementById('vue-search')) {
         });
 }
 
+if (document.getElementById('vue-employee-dashboard')) {
+    import('./componentInitializers/EmployeeDashboard' /* webpackChunkName: "js/employee-dashboard-component" */)
+        .then(component => {
+            component.default();
+        });
+
+    requiresEcho = true;
+}
+
 if (requiresEcho) {
     window.Echo = new Echo({
         broadcaster: 'socket.io',
