@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 $factory->define(JobListing::class, function (Faker $faker)
 {
 	$min_salary = $faker->numberBetween(5000, 100000);
-	$max_salary = $faker->numberBetween($min_salary, 25000);
+	$max_salary = $faker->numberBetween($min_salary, 250000);
 	$datetime   = $faker->dateTimeBetween($startDate = '-5 years', $endDate = 'now');
 	$is_closed  = $faker->boolean(20);
 	$closed_at  = $faker->dateTimeBetween($datetime, $endDate = 'now');
