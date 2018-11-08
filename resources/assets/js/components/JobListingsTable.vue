@@ -27,7 +27,7 @@
                 <div class="col-12 col-lg-8">
                     <div class="card card-custom-material" id="job-listings-table-results">
                         <div class="card-header text-muted">
-                            <p class="float-left">Viewing {{pageItemsCount}} results</p>
+                            <p class="float-left mb-0 mt-2">Viewing {{pageItemsCount}} results</p>
                             <pagination v-model="page" :last-page="lastPage" custom-input
                                         class="float-right"></pagination>
                         </div>

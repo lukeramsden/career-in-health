@@ -86,6 +86,7 @@
                 <div class="col-12 col-md-7 col-lg-8" id="search-results-parent" style="background-color: #e6e6e6;">
                     <div class="card card-custom card-custom-no-top-bar" v-if="!resultsLoaded || totalResults > 0">
                         <div class="card-header" v-if="lastPage > 0">
+                            <p class="float-left mb-0 mt-2">Viewing {{pageItemsCount}} results</p>
                             <pagination class="float-right"
                                         v-model="page"
                                         :disabled="!resultsLoaded"
@@ -129,8 +130,8 @@
                                                 </div>
                                                 <div>
                                                     <p>
-                                                        {{(result.min_salary * 100) | currency}} -
-                                                        {{(result.max_salary * 100) | currency}}
+                                                        {{result.min_salary | currency}} -
+                                                        {{result.max_salary | currency}}
                                                     </p>
                                                 </div>
                                                 <div>
@@ -528,6 +529,11 @@
                     return [];
 
                 return this.items.slice(this.perPage * loadedIndex, this.perPage * (loadedIndex + 1));
+            },
+            pageItemsCount() {
+                const first = this.page * this.perPage + 1;
+                const last = Math.min((this.page * this.perPage) + this.perPage, this.totalResults);
+                return `${first}-${last} of ${this.totalResults}`;
             },
         },
         watch: {},

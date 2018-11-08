@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-12 col-lg-8">
                     <div class="mb-4">
-                        <p class="float-left">Viewing {{pageItemsCount}} results</p>
+                        <p class="float-left mb-0 mt-2">Viewing {{pageItemsCount}} results</p>
                         <pagination v-model="page" :last-page="lastPage" custom-input
                                     class="float-right"></pagination>
                     </div>
