@@ -1,188 +1,208 @@
 <template>
-    <div class="private-message-widget card card-custom-material card-custom-material-hover">
-        <div class="card-body" v-chat-scroll="{always: false, smooth: true}">
-            <template v-if="loaded">
-                <template v-if="messages.length > 0">
-                    <template v-for="msg in messages">
-                        <template v-if="msg.id === earliestUnreadMessage">
-                            <p class="unread-ruler small"
-                               v-on:click.stop.prevent="markMessagesAsRead">
-                                Unread Messages (click to mark as read)
-                            </p>
-                        </template>
-                        <div v-bind:key="msg.id" class="private-message-wrapper"
-                             :class="determineSide(msg)">
-                            <div class="private-message-inner">
-                                {{ msg.body }}
-                            </div>
-                            <p class="private-message-timestamp small">{{ formatTimestamp(msg) }}</p>
-                        </div>
-                    </template>
-                </template>
-                <p v-else class="text-muted font-italic text-center my-0">No messages</p>
+  <div class="private-message-widget card card-custom-material card-custom-material-hover">
+    <div v-chat-scroll="{always: false, smooth: true}" class="card-body">
+      <template v-if="loaded">
+        <template v-if="messages.length > 0">
+          <template v-for="msg in messages">
+            <template v-if="msg.id === earliestUnreadMessage">
+              <p class="unread-ruler small"
+                 @click.stop.prevent="markMessagesAsRead">
+                Unread Messages (click to mark as read)
+              </p>
             </template>
-            <loading-icon v-else></loading-icon>
-        </div>
-        <div class="card-footer p-0">
-            <form v-on:submit.prevent="sendMessage" class="form-inline">
-                <input type="hidden" name="job_listing_id" :value="listing_id">
-
-                <input v-if="userType === 'employee'"
-                       type="hidden" name="to_company_id"
-                       :value="company_id">
-
-                <input v-else-if="userType === 'company'"
-                       type="hidden" name="to_employee_id"
-                       :value="employee_id">
-
-                <div class="input-group w-100" id="private-message-input-group">
-                    <input
-                        type="text"
-                        class="form-control input-material"
-                        name="body"
-                        maxlength="1000"
-                        placeholder="Hello!"
-                        required/>
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-action px-3">Send</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+            <div :key="msg.id" :class="determineSide(msg)"
+                 class="private-message-wrapper">
+              <div class="private-message-inner">
+                {{ msg.body }}
+              </div>
+              <p class="private-message-timestamp small">{{ formatTimestamp(msg) }}</p>
+            </div>
+          </template>
+        </template>
+        <p v-else class="text-muted font-italic text-center my-0">No messages</p>
+      </template>
+      <loading-icon v-else/>
     </div>
+    <div class="card-footer p-0">
+      <form class="form-inline" @submit.prevent="sendMessage">
+        <input :value="listing_id" type="hidden" name="job_listing_id">
+
+        <input v-if="userType === 'employee'"
+               :value="company_id" type="hidden"
+               name="to_company_id">
+
+        <input v-else-if="userType === 'company'"
+               :value="employee_id" type="hidden"
+               name="to_employee_id">
+
+        <div id="private-message-input-group" class="input-group w-100">
+          <input
+            type="text"
+            class="form-control input-material"
+            name="body"
+            maxlength="1000"
+            placeholder="Hello!"
+            required >
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-action px-3">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>
 
 <script>
-    import {mapGetters, mapState} from 'vuex'
+/* global data */
+import { mapGetters, mapState } from 'vuex';
 
-    export default {
-        data() {
-            return {
-                listing_id: data.privateMessages.listing_id,
-                employee_id: data.privateMessages.employee_id,
-                company_id: data.privateMessages.company_id,
-                loaded: false,
-            };
-        },
-        computed: {
-            ...mapState({
-                userType: 'userType',
-            }),
-            ...mapGetters('PrivateMessagesModule', {
-                earliestUnreadMessage: 'earliestUnread',
-                messages: 'sorted',
-            }),
-        },
-        mounted() {
-            axios
-                .get(route('account.private-message.show-' + this.userType, {
-                    jobListing: this.listing_id,
-                    employee: this.employee_id,
-                }))
-                .then(res => {
-                    if (res.data.success)
-                        this.$store.commit('PrivateMessagesModule/create', res.data.models);
-                    else
-                        throw new Error('Could not load messages.');
-                })
-                .catch(e => {
-                    console.error(e);
-                    toastr.error('Could not load messages.');
-                })
-                .then(() => {
-                    this.loaded = true;
-                });
-
-            this.$nextTick(() => {
-                Echo.private(`App.PrivateMessage.Listing.${this.listing_id}.Employee.${this.employee_id}`)
-                    .listen('CreatedPrivateMessage', e => this.pushMessage(e.message));
-            });
-        },
-        methods: {
-            pushMessage(msg) {
-                if (_.findIndex(this.messages, ['id', msg.id]))
-                    this.$store.commit('PrivateMessagesModule/create', msg);
-            },
-            markMessagesAsRead() {
-                $('.unread-ruler').addClass('scaleOut');
-                axios
-                    .post(route('account.private-message.mark-all-as-read', {
-                        jobListing: this.listing_id,
-                        employee: this.employee_id,
-                    }))
-                    .then(res => {
-                        if (res.data.success) {
-                            _
-                                .chain(_.clone(this.messages))
-                                .filter({
-                                    'read': 0,
-                                    'direction': this.userType === 'employee'
-                                        ? 'to_employee'
-                                        : 'to_company'
-                                })
-                                .map(el => {
-                                    let updatedMsg = _.clone(el);
-                                    updatedMsg.read = 1;
-                                    updatedMsg.read_at = res.data.read_at;
-                                    this.$store.commit('PrivateMessagesModule/update', updatedMsg);
-                                })
-                                .value()
-                            ;
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        $('.unread-ruler').remove('scaleOut');
-                    })
-                    .then(() => {
-                    });
-            },
-            sendMessage(e) {
-                const $form = $(e.target);
-                const $button = $form.find('button[type="submit"]');
-
-                if ($button.prop('disabled'))
-                    return;
-
-                $button.prop('disabled', true);
-                $form.find(':input').prop('readonly', true);
-                axios
-                    .post(route('account.private-message.store'), $form.serialize())
-                    .then(res => {
-                        if (res.data.success) {
-                            this.pushMessage(res.data.model);
-                            this.markMessagesAsRead();
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        toastr.error('Could not send message.');
-                    })
-                    .then(() => {
-                        $form.trigger('reset');
-                        $form.find(':input').prop('readonly', false);
-                        $button.prop('disabled', false);
-                    })
-                ;
-            },
-            determineSide(msg) {
-                // if direction
-                return msg.direction ===
-                // is opposite of userType
-                (this.userType === 'employee' ? 'to_company' : 'to_employee')
-                    ? 'right' : 'left';
-            },
-            formatTimestamp(msg) {
-                return moment.utc(msg.created_at).local().format('lll');
-            },
-        }
+export default {
+  data()
+  {
+    return {
+      listing_id: data.privateMessages.listing_id,
+      employee_id: data.privateMessages.employee_id,
+      company_id: data.privateMessages.company_id,
+      loaded: false,
     };
+  },
+  computed: {
+    ...mapState( {
+      userType: 'userType',
+    } ),
+    ...mapGetters( 'PrivateMessagesModule', {
+      earliestUnreadMessage: 'earliestUnread',
+      messages: 'sorted',
+    } ),
+  },
+  mounted()
+  {
+    axios
+      .get( route( `account.private-message.show-${this.userType}`, {
+        jobListing: this.listing_id,
+        employee: this.employee_id,
+      } ) )
+      .then( res =>
+      {
+        if ( res.data.success )
+          this.$store.commit( 'PrivateMessagesModule/create', res.data.models );
+        else throw new Error( 'Could not load messages.' );
+      } )
+      .catch( e =>
+      {
+        console.error( e );
+        toastr.error( 'Could not load messages.' );
+      } )
+      .then( () =>
+      {
+        this.loaded = true;
+      } );
+
+    this.$nextTick( () =>
+    {
+      Echo
+        .private( `App.PrivateMessage.Listing.${this.listing_id}.Employee.${this.employee_id}` )
+        .listen( 'CreatedPrivateMessage', e => this.pushMessage( e.message ) );
+    } );
+  },
+  methods: {
+    pushMessage( msg )
+    {
+      if ( _.findIndex( this.messages, [ 'id', msg.id ] ) )
+        this.$store.commit( 'PrivateMessagesModule/create', msg );
+    },
+    markMessagesAsRead()
+    {
+      $( '.unread-ruler' ).addClass( 'scaleOut' );
+      axios
+        .post( route( 'account.private-message.mark-all-as-read', {
+          jobListing: this.listing_id,
+          employee: this.employee_id,
+        } ) )
+        .then( res =>
+        {
+          if ( res.data.success )
+          {
+            _
+              .chain( _.clone( this.messages ) )
+              .filter( {
+                read: 0,
+                direction: this.userType === 'employee'
+                  ? 'to_employee'
+                  : 'to_company',
+              } )
+              .forEach( ( el ) =>
+              {
+                const updatedMsg     = _.clone( el );
+                updatedMsg.read    = 1;
+                updatedMsg.read_at = res.data.read_at;
+                this.$store.commit( 'PrivateMessagesModule/update', updatedMsg );
+              } )
+              .value()
+            ;
+          }
+        } )
+        .catch( err =>
+        {
+          console.log( err );
+          $( '.unread-ruler' ).remove( 'scaleOut' );
+        } )
+        .then( () =>
+        {
+        } );
+    },
+    sendMessage( e )
+    {
+      const $form   = $( e.target );
+      const $button = $form.find( 'button[type="submit"]' );
+
+      if ( $button.prop( 'disabled' ) ) return;
+
+      $button.prop( 'disabled', true );
+      $form.find( ':input' ).prop( 'readonly', true );
+      axios
+        .post( route( 'account.private-message.store' ), $form.serialize() )
+        .then( res =>
+        {
+          if ( res.data.success )
+          {
+            this.pushMessage( res.data.model );
+            this.markMessagesAsRead();
+          }
+        } )
+        .catch( err =>
+        {
+          console.log( err );
+          toastr.error( 'Could not send message.' );
+        } )
+        .then( () =>
+        {
+          $form.trigger( 'reset' );
+          $form.find( ':input' ).prop( 'readonly', false );
+          $button.prop( 'disabled', false );
+        } )
+      ;
+    },
+    determineSide( msg )
+    {
+      // if direction
+      return msg.direction
+                // is opposite of userType
+                === ( this.userType === 'employee' ? 'to_company' : 'to_employee' )
+        ? 'right' : 'left';
+    },
+    formatTimestamp( msg )
+    {
+      return moment.utc( msg.created_at ).local().format( 'lll' );
+    },
+  },
+};
 </script>
+
+<!--suppress CssUnknownTarget -->
 <style scoped lang="scss">
     @import '~@/_variables.scss';
     @import '~@/_mixins.scss';
-    /*@import '~bootstrap/scss/variables';*/
-    /*@import '~@material/elevation/mdc-elevation';*/
 
     @keyframes scaleIn {
         from {
