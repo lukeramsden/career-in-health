@@ -175,15 +175,11 @@
 
     import vSelect from 'vue-select';
     import Select2 from './Select2';
-    import Pagination from './Pagination';
-    import VerifiedBadge from './VerifiedBadge';
 
     export default {
         components: {
             vSelect,
             Select2,
-            Pagination,
-            VerifiedBadge,
         },
         data() {
             return {

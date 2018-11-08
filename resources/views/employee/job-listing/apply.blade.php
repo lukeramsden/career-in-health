@@ -133,7 +133,7 @@
             },
         };
     </script>
-    @mix('js/private-messages-component.js')
+    @mix('js/components/private-messages.js')
 @endsection
 @section('stylesheet')
 @endsection

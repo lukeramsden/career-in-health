@@ -3,5 +3,5 @@
     @vue('job-listings-table')
 @endsection
 @section('script')
-    @mix('js/job-listings-table-component.js')
+    @mix('js/components/job-listings-table.js')
 @endsection

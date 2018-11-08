@@ -3,5 +3,5 @@
     @vue('company-view-applications-table')
 @endsection
 @section('script')
-    @mix('js/company-view-applications-table-component.js')
+    @mix('js/components/company-view-applications-table.js')
 @endsection

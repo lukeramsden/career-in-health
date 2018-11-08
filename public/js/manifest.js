@@ -91,7 +91,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + ({"0":"js/search-component","1":"js/job-listings-table-component","2":"js/company-view-applications-table-component","3":"js/select2-component","4":"js/private-messages-component","5":"js/employee-dashboard-component"}[chunkId]||chunkId) + ".js";
+/******/ 		script.src = __webpack_require__.p + "" + ({"0":"js/components/search","1":"js/components/select2","2":"js/components/private-messages","3":"js/components/job-listings-table","4":"js/components/company-view-applications-table","5":"js/components/employee-dashboard"}[chunkId]||chunkId) + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {

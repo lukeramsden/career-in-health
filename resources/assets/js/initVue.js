@@ -4,6 +4,10 @@ import Echo from 'laravel-echo';
 import Vuex from 'vuex';
 import AsyncComputed from 'vue-async-computed'
 import VueCurrencyFilter from 'vue-currency-filter';
+import storeOptions from './store/store';
+import LoadingIcon from './components/LoadingIcon';
+import Pagination from './components/Pagination';
+import VerifiedBadge from './components/VerifiedBadge';
 
 // fixes errors with using lodash in Vue SFCs
 Vue.prototype._ = _;
@@ -19,18 +23,16 @@ Vue.use(VueCurrencyFilter, {
     symbolSpacing: false
 });
 
-import storeOptions from './store/store';
-
 window.store = new Vuex.Store(storeOptions);
 
-import LoadingIcon from './components/LoadingIcon';
-
 Vue.component('loading-icon', LoadingIcon);
+Vue.component('pagination', Pagination);
+Vue.component('verified-badge', VerifiedBadge);
 
 let requiresEcho = false;
 
 if (document.getElementById('vue-private-messages')) {
-    import('./componentInitializers/PrivateMessages' /* webpackChunkName: "js/private-messages-component" */)
+    import('./componentInitializers/PrivateMessages' /* webpackChunkName: "js/components/private-messages" */)
         .then(component => {
             component.default();
         });
@@ -39,35 +41,35 @@ if (document.getElementById('vue-private-messages')) {
 }
 
 if (document.getElementById('vue-job-listings-table')) {
-    import('./componentInitializers/JobListingsTable' /* webpackChunkName: "js/job-listings-table-component" */)
+    import('./componentInitializers/JobListingsTable' /* webpackChunkName: "js/components/job-listings-table" */)
         .then(component => {
             component.default();
         });
 }
 
 if (document.getElementById('vue-company-view-applications-table')) {
-    import('./componentInitializers/CompanyViewApplicationsTable' /* webpackChunkName: "js/company-view-applications-table-component" */)
+    import('./componentInitializers/CompanyViewApplicationsTable' /* webpackChunkName: "js/components/company-view-applications-table" */)
         .then(component => {
             component.default();
         });
 }
 
 if (document.getElementById('vue-select2')) {
-    import('./componentInitializers/Select2' /* webpackChunkName: "js/select2-component" */)
+    import('./componentInitializers/Select2' /* webpackChunkName: "js/components/select2" */)
         .then(component => {
             component.default();
         });
 }
 
 if (document.getElementById('vue-search')) {
-    import('./componentInitializers/Search' /* webpackChunkName: "js/search-component" */)
+    import('./componentInitializers/Search' /* webpackChunkName: "js/components/search" */)
         .then(component => {
             component.default();
         });
 }
 
 if (document.getElementById('vue-employee-dashboard')) {
-    import('./componentInitializers/EmployeeDashboard' /* webpackChunkName: "js/employee-dashboard-component" */)
+    import('./componentInitializers/EmployeeDashboard' /* webpackChunkName: "js/components/employee-dashboard" */)
         .then(component => {
             component.default();
         });

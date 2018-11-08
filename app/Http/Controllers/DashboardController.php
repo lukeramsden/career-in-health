@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
-class DashController extends Controller
+class DashboardController extends Controller
 {
     protected $request;
     protected static $perPage = 8;
@@ -188,14 +188,7 @@ class DashController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
-
-        if($user->isCompany())
-            return view('company.dashboard', ['items' => self::dashCompany()]);
-		elseif($user->isEmployee())
-            return view('employee.dashboard', ['items' => self::dashEmployee()]);
-		else
-			return view('layouts.app');
+        return view('dashboard');
     }
 
     /**

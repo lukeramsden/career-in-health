@@ -3,5 +3,5 @@
     @vue('search')
 @endsection
 @section('script')
-    @mix('js/search-component.js')
+    @mix('js/components/search.js')
 @endsection
