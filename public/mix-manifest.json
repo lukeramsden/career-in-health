@@ -1,8 +1,14 @@
 {
-    "/js/vendor.js": "/js/vendor.js",
+    "/js/components/search.js": "/js/components/search.js",
+    "/js/components/select2.js": "/js/components/select2.js",
+    "/js/components/job-listings-table.js": "/js/components/job-listings-table.js",
+    "/js/components/company-view-applications-table.js": "/js/components/company-view-applications-table.js",
+    "/js/components/private-messages.js": "/js/components/private-messages.js",
+    "/js/components/employee-dashboard.js": "/js/components/employee-dashboard.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/pdf.css": "/css/pdf.css",
+    "/js/vendor.js": "/js/vendor.js",
     "/js/manifest.js": "/js/manifest.js",
     "/css/lity.css": "/css/lity.css"
 }

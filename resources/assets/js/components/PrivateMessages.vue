@@ -4,18 +4,19 @@
       <template v-if="loaded">
         <template v-if="messages.length > 0">
           <template v-for="msg in messages">
-            <template v-if="msg.id === earliestUnreadMessage">
-              <p class="unread-ruler small"
+            <div :key="msg.id">
+              <p v-if="msg.id === earliestUnreadMessage"
+                 class="unread-ruler small"
                  @click.stop.prevent="markMessagesAsRead">
                 Unread Messages (click to mark as read)
               </p>
-            </template>
-            <div :key="msg.id" :class="determineSide(msg)"
-                 class="private-message-wrapper">
-              <div class="private-message-inner">
-                {{ msg.body }}
+              <div :class="determineSide(msg)"
+                   class="private-message-wrapper">
+                <div class="private-message-inner">
+                  {{ msg.body }}
+                </div>
+                <p class="private-message-timestamp small">{{ formatTimestamp(msg) }}</p>
               </div>
-              <p class="private-message-timestamp small">{{ formatTimestamp(msg) }}</p>
             </div>
           </template>
         </template>

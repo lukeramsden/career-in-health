@@ -1,5 +1,5 @@
 import Vue               from 'vue';
-import EmployeeDashboard from '../components/EmployeeDashboard';
+import EmployeeDashboard from '../components/EmployeeDashboard.vue';
 
 export default function ()
 {

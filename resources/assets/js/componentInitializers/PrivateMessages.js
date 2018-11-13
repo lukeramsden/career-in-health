@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import PrivateMessages from '../components/PrivateMessages';
+import Vue             from 'vue';
+import PrivateMessages from '../components/PrivateMessages.vue';
 
 export default function ()
 {

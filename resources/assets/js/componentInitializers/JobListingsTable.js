@@ -1,5 +1,5 @@
 import Vue              from 'vue';
-import JobListingsTable from '../components/JobListingsTable';
+import JobListingsTable from '../components/JobListingsTable.vue';
 
 export default function ()
 {

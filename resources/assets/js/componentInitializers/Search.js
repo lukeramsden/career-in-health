@@ -1,5 +1,5 @@
 import Vue    from 'vue';
-import Search from '../components/Search';
+import Search from '../components/Search.vue';
 
 export default function ()
 {

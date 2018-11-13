@@ -1,5 +1,5 @@
 import Vue     from 'vue';
-import Select2 from '../components/Select2';
+import Select2 from '../components/Select2.vue';
 
 export default function ()
 {
