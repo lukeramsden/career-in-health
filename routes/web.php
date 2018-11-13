@@ -83,9 +83,10 @@ Route::prefix('account')
 
 		 Route::get('/private-messages', 'PrivateMessageController@index')->name('private-message.index');
 		 Route::post('/private-messages/send', 'PrivateMessageController@store')->name('private-message.store');
-		 Route::get('/private-messages/{jobListing}', 'PrivateMessageController@showForJobListing')
+
+		 Route::any('/private-messages/{jobListing}', 'PrivateMessageController@showForJobListing')
 			  ->name('private-message.show-employee');
-		 Route::get('/private-messages/{jobListing}/{employee}', 'PrivateMessageController@showForJobListingAndEmployee')
+		 Route::any('/private-messages/{jobListing}/{employee}', 'PrivateMessageController@showForJobListingAndEmployee')
 			  ->name('private-message.show-company');
 
 		 Route::any('/private-messages/mark-all-as-read/{jobListing}/{employee?}', 'PrivateMessageController@markAllAsRead')

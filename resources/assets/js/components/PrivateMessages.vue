@@ -20,9 +20,21 @@
             </div>
           </template>
         </template>
-        <p v-else class="text-muted font-italic text-center my-0">No messages</p>
+        <p v-else class="text-muted font-italic text-center my-0">
+          <template v-if="disableSend">
+            <template v-if="userType === 'employee' && !hasReceivedMessage">
+              Only the company can initiate a conversation
+            </template>
+            <template v-else>
+              Can't send a message right now
+            </template>
+          </template>
+          <template v-else>
+            No messages
+          </template>
+        </p>
       </template>
-      <loading-icon v-else/>
+      <loading-icon v-else />
     </div>
     <div class="card-footer p-0">
       <form class="form-inline" @submit.prevent="sendMessage">
@@ -38,14 +50,15 @@
 
         <div id="private-message-input-group" class="input-group w-100">
           <input
+            :readonly="disableSend"
             type="text"
             class="form-control input-material"
             name="body"
             maxlength="1000"
             placeholder="Hello!"
-            required >
+            required>
           <div class="input-group-append">
-            <button type="submit" class="btn btn-action px-3">Send</button>
+            <button :disabled="disableSend" type="submit" class="btn btn-action px-3">Send</button>
           </div>
         </div>
       </form>
@@ -65,6 +78,7 @@ export default {
       employee_id: data.privateMessages.employee_id,
       company_id: data.privateMessages.company_id,
       loaded: false,
+      disableSend_: false,
     };
   },
   computed: {
@@ -75,11 +89,30 @@ export default {
       earliestUnreadMessage: 'earliestUnread',
       messages: 'sorted',
     } ),
+    disableSend: {
+      set( newVal )
+      {
+        this.disableSend_ = newVal;
+      },
+      get()
+      {
+        return this.disableSend_
+          || ( this.userType === 'employee' ? !this.hasReceivedMessage : false );
+      },
+    },
+    hasReceivedMessage()
+    {
+      return !!_.find( this.messages,
+        ( o ) => o.direction === (
+          this.userType === 'employee'
+            ? 'to_employee'
+            : 'to_company' ) );
+    },
   },
   mounted()
   {
     axios
-      .get( route( `account.private-message.show-${this.userType}`, {
+      .post( route( `account.private-message.show-${this.userType}`, {
         jobListing: this.listing_id,
         employee: this.employee_id,
       } ) )
@@ -125,7 +158,7 @@ export default {
           if ( res.data.success )
           {
             _
-              .chain( _.clone( this.messages ) )
+              .chain( _.cloneDeep( this.messages ) )
               .filter( {
                 read: 0,
                 direction: this.userType === 'employee'
@@ -134,7 +167,7 @@ export default {
               } )
               .forEach( ( el ) =>
               {
-                const updatedMsg     = _.clone( el );
+                const updatedMsg   = _.clone( el );
                 updatedMsg.read    = 1;
                 updatedMsg.read_at = res.data.read_at;
                 this.$store.commit( 'PrivateMessagesModule/update', updatedMsg );
@@ -154,13 +187,11 @@ export default {
     },
     sendMessage( e )
     {
-      const $form   = $( e.target );
-      const $button = $form.find( 'button[type="submit"]' );
+      const $form = $( e.target );
 
-      if ( $button.prop( 'disabled' ) ) return;
+      if ( this.disableSend ) return;
+      this.disableSend = true;
 
-      $button.prop( 'disabled', true );
-      $form.find( ':input' ).prop( 'readonly', true );
       axios
         .post( route( 'account.private-message.store' ), $form.serialize() )
         .then( res =>
@@ -173,14 +204,14 @@ export default {
         } )
         .catch( err =>
         {
-          console.log( err );
-          toastr.error( 'Could not send message.' );
+          console.error( err );
+          console.error( err.response );
+          toastr.error( err.response.data.message || 'Could not send message.' );
         } )
         .then( () =>
         {
           $form.trigger( 'reset' );
-          $form.find( ':input' ).prop( 'readonly', false );
-          $button.prop( 'disabled', false );
+          this.disableSend = false;
         } )
       ;
     },
@@ -188,8 +219,8 @@ export default {
     {
       // if direction
       return msg.direction
-                // is opposite of userType
-                === ( this.userType === 'employee' ? 'to_company' : 'to_employee' )
+      // is opposite of userType
+      === ( this.userType === 'employee' ? 'to_company' : 'to_employee' )
         ? 'right' : 'left';
     },
     formatTimestamp( msg )
@@ -202,225 +233,223 @@ export default {
 
 <!--suppress CssUnknownTarget -->
 <style scoped lang="scss">
-    @import '~@/_variables.scss';
-    @import '~@/_mixins.scss';
+  @import '~@/_variables.scss';
+  @import '~@/_mixins.scss';
 
-    @keyframes scaleIn {
-        from {
-            transform: scale(0);
-        }
-        to {
-            transform: scale(1);
-        }
+  @keyframes scaleIn {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes scaleOut {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(0);
+    }
+  }
+
+  @keyframes scaleXIn {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes scaleXOut {
+    from {
+      transform: scaleX(1);
+    }
+    to {
+      transform: scaleX(0);
+    }
+  }
+
+  @keyframes scaleYIn {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+
+  @keyframes scaleYOut {
+    from {
+      transform: scaleY(1);
+    }
+    to {
+      transform: scaleY(0);
+    }
+  }
+
+  .unread-ruler {
+    // https://www.colourlovers.com/color/F02311/Sex_on_the_Floor
+    $color: #F02311;
+    text-align: center;
+    border: 0;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+    padding: 0;
+    margin: 0 1rem;
+    color: $color;
+    transition: transform 200ms ease-in-out;
+    transform-origin: 0 0 0;
+    animation: scaleXIn 0.4s ease-in-out;
+
+    &.scaleOut {
+      transform-origin: 50% 0 0;
+      animation: scaleOut 0.4s ease-in-out;
     }
 
-    @keyframes scaleOut {
-        from {
-            transform: scale(1);
-        }
-        to {
-            transform: scale(0);
-        }
+    // Opinionated: add "hand" cursor to non-disabled .btn elements
+    &:not(:disabled):not(.disabled) {
+      cursor: pointer;
     }
 
-    @keyframes scaleXIn {
-        from {
-            transform: scaleX(0);
-        }
-        to {
-            transform: scaleX(1);
-        }
+    & > * {
+      display: inline-block;
+      vertical-align: middle;
     }
 
-    @keyframes scaleXOut {
-        from {
-            transform: scaleX(1);
-        }
-        to {
-            transform: scaleX(0);
-        }
+    &:before, &:after {
+      background-color: $color;
+      content: "";
+      height: 1px;
+      width: 50%;
+      margin: 0 5px 0 5px;
+      display: inline-block;
+      vertical-align: middle;
     }
 
-    @keyframes scaleYIn {
-        from {
-            transform: scaleY(0);
-        }
-        to {
-            transform: scaleY(1);
-        }
+    &:before {
+      margin-left: -100%;
     }
 
-    @keyframes scaleYOut {
-        from {
-            transform: scaleY(1);
-        }
-        to {
-            transform: scaleY(0);
-        }
+    &:after {
+      margin-right: -100%;
+    }
+  }
+
+  .private-message {
+    $pm-margin: 1rem;
+
+    &-input-group {
+      input, button {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
     }
 
-    .unread-ruler {
-        // https://www.colourlovers.com/color/F02311/Sex_on_the_Floor
-        $color: #F02311;
-        text-align: center;
-        border: 0;
-        white-space: nowrap;
+    &-widget {
+      .card-body {
+        max-height: 600px;
+        overflow-y: scroll;
+      }
+    }
+
+    &-wrapper {
+      animation: scaleIn 0.4s ease-in-out;
+      margin: $pm-margin;
+
+      &.left {
+        margin-left: 0;
+        margin-right: $pm-margin * 3;
+        transform-origin: 0 50% 0;
+      }
+
+      &.right {
+        margin-right: 0;
+        margin-left: $pm-margin * 3;
+        transform-origin: 100% 50% 0;
+      }
+
+      &.right + &.right,
+      &.left + &.left {
+        margin-top: -$pm-margin + 0.2rem;
+      }
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    &-inner {
+      .left &:before,
+      .right &:before,
+      .left &:after,
+      .right &:after {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        width: 0;
         display: block;
-        overflow: hidden;
-        padding: 0;
-        margin: 0 1rem;
-        color: $color;
-        transition: transform 200ms ease-in-out;
+        top: 50%;
+        margin-top: -16px;
+      }
 
-        transform-origin: 0 0 0;
-        animation: scaleXIn 0.4s ease-in-out;
-
-        &.scaleOut {
-            transform-origin: 50% 0 0;
-            animation: scaleOut 0.4s ease-in-out;
-        }
-
-        // Opinionated: add "hand" cursor to non-disabled .btn elements
-        &:not(:disabled):not(.disabled) {
-            cursor: pointer;
-        }
-
-        & > * {
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        &:before, &:after {
-            background-color: $color;
-            content: "";
-            height: 1px;
-            width: 50%;
-            margin: 0 5px 0 5px;
-            display: inline-block;
-            vertical-align: middle;
-        }
+      .left & {
+        background-color: #FFFFFF;
 
         &:before {
-            margin-left: -100%;
+          border-width: 16px 16px 16px 0;
+          border-color: transparent;
+          z-index: 0;
+          left: -16px;
         }
 
         &:after {
-            margin-right: -100%;
+          border-width: 16px 16px 16px 0;
+          border-color: transparent #FFFFFF;
+          z-index: 1;
+          left: -15px;
         }
+      }
+
+      .right & {
+        background-color: $action;
+        color: #FFFFFF;
+
+        &:before {
+          border-width: 16px 0 16px 16px;
+          border-color: transparent;
+          z-index: 0;
+          right: -16px;
+        }
+
+        &:after {
+          border-width: 16px 0 16px 16px;
+          border-color: transparent $action;
+          z-index: 1;
+          right: -16px;
+        }
+      }
+
+      position: relative;
+      padding: 0.75rem 1rem;
+      border-radius: $border-radius;
     }
 
-    .private-message {
-        $pm-margin: 1rem;
+    &-timestamp {
+      color: #6C757D;
+      font-style: italic;
+      margin: 5px 0;
 
-        &-input-group {
-            input, button {
-                border-top-left-radius: 0;
-                border-top-right-radius: 0;
-            }
-        }
+      .left & {
+        text-align: left;
+      }
 
-        &-widget {
-            .card-body {
-                max-height: 600px;
-                overflow-y: scroll;
-            }
-        }
-
-        &-wrapper {
-            animation: scaleIn 0.4s ease-in-out;
-            margin: $pm-margin;
-
-            &.left {
-                margin-left: 0;
-                margin-right: $pm-margin * 3;
-                transform-origin: 0 50% 0;
-            }
-
-            &.right {
-                margin-right: 0;
-                margin-left: $pm-margin * 3;
-                transform-origin: 100% 50% 0;
-            }
-
-            &.right + &.right,
-            &.left + &.left {
-                margin-top: -$pm-margin + 0.2rem;
-            }
-
-            &:first-child {
-                margin-top: 0;
-            }
-        }
-
-        &-inner {
-            .left &:before,
-            .right &:before,
-            .left &:after,
-            .right &:after {
-                content: '';
-                position: absolute;
-                border-style: solid;
-                width: 0;
-                display: block;
-                top: 50%;
-                margin-top: -16px;
-            }
-
-            .left & {
-                background-color: #fff;
-
-                &:before {
-                    border-width: 16px 16px 16px 0;
-                    border-color: transparent;
-                    z-index: 0;
-                    left: -16px;
-
-                }
-
-                &:after {
-                    border-width: 16px 16px 16px 0;
-                    border-color: transparent #fff;
-                    z-index: 1;
-                    left: -15px;
-                }
-            }
-
-            .right & {
-                background-color: $action;
-                color: #fff;
-
-                &:before {
-                    border-width: 16px 0 16px 16px;
-                    border-color: transparent;
-                    z-index: 0;
-                    right: -16px;
-                }
-
-                &:after {
-                    border-width: 16px 0 16px 16px;
-                    border-color: transparent $action;
-                    z-index: 1;
-                    right: -16px;
-                }
-            }
-
-            position: relative;
-            padding: 0.75rem 1rem;
-            border-radius: $border-radius;
-        }
-
-        &-timestamp {
-            color: #6c757d;
-            font-style: italic;
-            margin: 5px 0;
-
-            .left & {
-                text-align: left;
-            }
-
-            .right & {
-                text-align: right;
-            }
-        }
+      .right & {
+        text-align: right;
+      }
     }
+  }
 </style>
