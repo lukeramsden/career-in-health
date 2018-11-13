@@ -83,57 +83,57 @@
             <div class="card-body p-0">
               <div v-if="resultsLoaded" id="search-results">
                 <template v-for="(result, index) in results">
-                  <div :key="result.id"
-                       class="card card-custom card-custom-no-top-bar card-listing">
-                    <div class="card-body">
-                      <a :href="route('company.show', {company: result.company.id})"
-                         class="card-subtitle">
-                        {{result.company.name}}
-                        <verified-badge :company="result.company" />
-                      </a>
-                      <h4 class="card-title">
-                        {{result.job_role.name}}
-                      </h4>
-                      <h5>
-                        <a :href="route('job-listing.show', {jobListing: result.id})">
-                          {{ result.title }}
+                  <div :key="result.id">
+                    <div class="card card-custom card-custom-no-top-bar card-listing">
+                      <div class="card-body">
+                        <a :href="route('company.show', {company: result.company.id})"
+                           class="card-subtitle">
+                          {{result.company.name}}
+                          <verified-badge :company="result.company" />
                         </a>
-                      </h5>
-                      <h6>{{ result.setting_name }}</h6>
-                      <div id="small-details">
-                        <div>
-                          <p>
-                            <span class="badge badge-secondary badge-pill p-2 px-3">
-                              {{ result.type_name }}
-                            </span>
-                          </p>
-                        </div>
-                        <div>
-                          <p>
-                            <span class="oi oi-map-marker mr-3"></span>
-                            {{result.address.location.name}}
-                            (<b>
-                              {{getDistanceBetween(result.address.location.lat_lng, town.lat_lng)}}
-                            </b> miles away)
-                          </p>
-                        </div>
-                        <div>
-                          <p>
-                            {{result.min_salary | currency}} -
-                            {{result.max_salary | currency}}
-                          </p>
-                        </div>
-                        <div>
-                          <a :href="route('tracking.job-listing.search.click',
-                                          {jobListing: result.id})"
-                             class="btn btn-outline-primary">
-                            View
+                        <h4 class="card-title">
+                          {{result.job_role.name}}
+                        </h4>
+                        <h5>
+                          <a :href="route('job-listing.show', {jobListing: result.id})">
+                            {{ result.title }}
                           </a>
+                        </h5>
+                        <h6>{{ result.setting_name }}</h6>
+                        <div id="small-details">
+                          <div>
+                            <p>
+                              <span class="badge badge-secondary badge-pill p-2 px-3">
+                                {{ result.type_name }}
+                              </span>
+                            </p>
+                          </div>
+                          <div>
+                            <p>
+                              <span class="oi oi-map-marker mr-3"></span>
+                              {{result.address.location.name}}
+                              (<b>{{getDistanceBetween(
+                              result.address.location.lat_lng, town.lat_lng)}}</b> miles away)
+                            </p>
+                          </div>
+                          <div>
+                            <p>
+                              {{result.min_salary | currency}} -
+                              {{result.max_salary | currency}}
+                            </p>
+                          </div>
+                          <div>
+                            <a :href="route(
+                               'tracking.job-listing.search.click', {jobListing: result.id})"
+                               class="btn btn-outline-primary">
+                              View
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    <hr v-if="index !== results.length - 1">
                   </div>
-                  <hr v-if="index !== results.length - 1" :key="result.id">
                 </template>
               </div>
               <loading-icon v-else />
@@ -424,7 +424,7 @@ export default {
     {
       const urlParams = new URLSearchParams( location.search );
 
-      Object.keys( this.query ).foreach( ( x ) =>
+      Object.keys( this.query ).forEach( ( x ) =>
       {
         const val = this.query[ x ];
         if ( x || x === 0 )

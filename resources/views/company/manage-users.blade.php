@@ -15,7 +15,7 @@
                             <a href="{{ route('company-user.show', $user) }}">
                                 {{ $user->full_name }}
                             </a>
-                            @if(Auth::user()->userable_id == $user->id)
+                            @if($currentUser->userable_id == $user->id)
                                 <small class="text-muted">You</small>
                             @endif
                         </h4>
@@ -41,7 +41,7 @@
                                     <a href="{{ route('company-user.show', $user) }}">
                                         {{ $user->full_name }}
                                     </a>
-                                    @if(Auth::user()->userable_id == $user->id)
+                                    @if($currentUser->userable_id == $user->id)
                                         <small class="text-muted">You</small>
                                     @endif
                                 </h4>
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="card-footer p-0">
-                        @if(Auth::user()->userable_id != $user->id)
+                        @if($currentUser->userable_id != $user->id)
                             <div class="btn-group btn-group-sm btn-group-full" role="group">
                                 @can('changePermissionLevel', $user)
                                     <a href="{{
@@ -94,7 +94,7 @@
                                     <a href="{{ route('company-user.show', $user) }}">
                                         {{ $user->full_name }}
                                     </a>
-                                    @if(Auth::user()->userable_id == $user->id)
+                                    @if($currentUser->userable_id == $user->id)
                                         <small class="text-muted">You</small>
                                     @endif
                                 </h4>
@@ -104,7 +104,7 @@
                         </div>
                     </div>
                     <div class="card-footer p-0">
-                        @if(Auth::user()->userable_id != $user->id)
+                        @if($currentUser->userable_id != $user->id)
                             <div class="btn-group btn-group-sm btn-group-full" role="group">
                                 @can('changePermissionLevel', $user)
                                     <a href="{{

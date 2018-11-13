@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @php($isOwner = optional(Auth::user())->isValidCompany() && Auth::user()->userable->company->id === $jobListing->company_id)
+    @php($isOwner = optional($currentUser)->isValidCompany() && $currentUser->userable->company->id === $jobListing->company_id)
     <div class="container-fluid p-0 m-0">
         <div class="row m-0 p-4" id="job_listing-show-row">
             <div class="col-12">
@@ -71,7 +71,7 @@
                                     @if($isOwner)
                                         <a href="{{ route('job-listing.view-applications', $jobListing) }}"
                                            class="btn btn-block btn-link">View Applications</a>
-                                    @elseif(Auth::user()->isValidCompany())
+                                    @elseif($currentUser->isValidCompany())
                                         <button type="button"
                                                 disabled
                                                 class="btn btn-block btn-secondary">You can't
@@ -79,7 +79,7 @@
                                         </button>
                                     @else
                                         @usertype('employee')
-                                        @if(!\App\JobListingApplication::hasApplied(Auth::user()->userable, $jobListing))
+                                        @if(!\App\JobListingApplication::hasApplied($currentUser->userable, $jobListing))
                                             <a href="{{ route('job-listing.application.create', [$jobListing]) }}"
                                                class="btn btn-block btn-action">Apply</a>
                                         @else
@@ -90,7 +90,7 @@
                                             </button>
                                         @endif
                                         
-                                        @if(Auth::user()->userable->isJobListingSaved($jobListing))
+                                        @if($currentUser->userable->isJobListingSaved($jobListing))
                                             <a href="{{ route('employee.unsave-job-listing', $jobListing) }}"
                                                class="btn btn-block btn-primary">Remove
                                                 From Saved Listings</a>

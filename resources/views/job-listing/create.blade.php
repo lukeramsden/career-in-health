@@ -305,7 +305,7 @@
             },
             data() {
                 return {
-                    addresses: {!! Auth::user()->userable->company->addresses->toJson() !!},
+                    addresses: {!! $currentUser->userable->company->addresses->toJson() !!},
                     close_reason: '',
                 };
             },

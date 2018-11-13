@@ -24,10 +24,11 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #f2f2f2;
+  background-color: #F2F2F2;
 }
 
 $navbar-width: 240px;
+$navbar-opener-width: $navbar-width / 10;
 
 .btn-action,
 .btn-action:hover,
@@ -73,10 +74,38 @@ $navbar-width: 240px;
       margin-left: $navbar-width;
     }
 
+    & + #navbar ~ #navbar-opener {
+      display: none;
+    }
+
+    &.navbar-collapsed {
+      & + #navbar {
+        display: none !important;
+
+        & ~ #navbar-opener {
+          cursor: pointer;
+          height: 100%;
+          display: flex !important;
+          align-items: center;
+          border-right: $gray-500 solid 1px;
+          background-color: #F2F2F2;
+
+          div {
+            text-align: center;
+            width: $navbar-opener-width;
+          }
+        }
+      }
+
+      @include media-breakpoint-up(lg) {
+        margin-left: $navbar-opener-width !important;
+      }
+    }
+
     z-index: 1;
 
     @include media-breakpoint-down(md) {
-      margin-top: 106px;
+      margin-top: 60px;
     }
 
     .container-fluid {
@@ -140,14 +169,12 @@ $navbar-width: 240px;
 #navbar {
   @extend .d-none;
   @extend .d-lg-block;
-
   z-index: 200;
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: $navbar-width;
-
   padding: 0;
 
   &-inner {
@@ -165,12 +192,9 @@ $navbar-width: 240px;
 
     a {
       width: 100%;
-
       position: relative;
-
       background-color: transparent;
       color: $primary;
-
       height: 40px;
 
       &.nav-link-onboarding {
@@ -229,13 +253,10 @@ $navbar-width: 240px;
           position: absolute;
           z-index: 100;
           margin: auto;
-
           height: 40px;
-
           right: -20px;
           top: 0;
           bottom: 0;
-
           border-top: 20px solid transparent;
           border-bottom: 20px solid transparent;
           border-left: 20px solid $primary;
@@ -314,7 +335,6 @@ $navbar-width: 240px;
       max-width: 100%;
       max-height: $navbar-width;
       margin: 0.8rem 0.8rem 0 0.8rem;
-
       background-color: $gray-200;
       border-radius: 4px;
       @extend .mdc-elevation--z1;
@@ -333,7 +353,6 @@ $navbar-width: 240px;
         flex-direction: row;
         align-items: stretch;
         padding: 0;
-
         height: $navbar-width * 0.2;
 
         .btn {
@@ -408,6 +427,27 @@ $navbar-width: 240px;
       margin-left: $navbar-width;
     }
   }
+
+  #navbar-closer {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: $gray-400 solid 1px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+  }
+}
+
+#navbar-opener {
+  z-index: 200;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: $navbar-opener-width;
+  padding: 0;
 }
 
 .highlight {
@@ -453,7 +493,7 @@ $navbar-width: 240px;
           h2 {
             font-size: 32px;
             font-weight: 300;
-            color: #cccccc;
+            color: #CCCCCC;
           }
 
           .buttons {
@@ -500,7 +540,7 @@ $navbar-width: 240px;
   // card styling
   border-radius: 0;
   border: 0;
-  background-color: #e6e6e6;
+  background-color: #E6E6E6;
 
   &.card-custom-no-top-bar {
     &:before {
@@ -510,7 +550,7 @@ $navbar-width: 240px;
 
   .list-group {
     &-item {
-      background-color: #e6e6e6;
+      background-color: #E6E6E6;
     }
   }
 
@@ -549,10 +589,8 @@ $navbar-width: 240px;
 
 .card-custom-material {
   @extend .card-custom;
-
   @extend .mdc-elevation--z1;
   @extend .mdc-elevation-transition;
-
   border-radius: 4px;
 
   &:before {
@@ -615,15 +653,15 @@ $navbar-width: 240px;
 
       .page-input {
         @extend .page-link;
-        border: 1px solid #6c757d;
+        border: 1px solid #6C757D;
         background: transparent;
 
         &:hover {
-          border-color: #6c757d;
+          border-color: #6C757D;
         }
 
         &.disabled, &:disabled {
-          border-color: #adb5bd;
+          border-color: #ADB5BD;
         }
       }
     }
@@ -680,7 +718,7 @@ $navbar-width: 240px;
       @include media-breakpoint-up(md) {
         min-height: 100vh;
         border-left: 1px solid $gray-400;
-        background-color: #eeeeee;
+        background-color: #EEEEEE;
       }
 
       @include media-breakpoint-down(sm) {
@@ -771,9 +809,9 @@ $navbar-width: 240px;
     // style text
     &:nth-child(2) {
       background-image: linear-gradient(
-                      to right bottom,
-                      $primary,
-                      $dark-primary
+          to right bottom,
+          $primary,
+          $dark-primary
       );
       color: $white;
 
@@ -812,13 +850,13 @@ $navbar-width: 240px;
     }
 
     &.is-invalid {
-      border-bottom-color: #dc3545;
+      border-bottom-color: #DC3545;
     }
 
     &:-moz-submit-invalid, &:-moz-ui-invalid {
       box-shadow: none;
       border: none;
-      border-bottom: 2px solid #dc3545;
+      border-bottom: 2px solid #DC3545;
       border-radius: 0;
     }
   }
@@ -923,11 +961,9 @@ $navbar-width: 240px;
   }
 
   &_length {
-
   }
 
   &_filter {
-
   }
 
   & ~ &_paginate {
@@ -987,7 +1023,6 @@ $navbar-width: 240px;
   background-color: $white;
   padding: 1rem;
   margin: 1rem;
-
   -webkit-box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.13);
   -moz-box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.13);
   box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.13);
@@ -1084,7 +1119,6 @@ $slick-button-offset: 10px;
 .dropzone .dz-preview {
   .dz-image {
     @extend .img-thumbnail;
-
     border-radius: 0 !important;
     margin-bottom: 5px !important;
     img {
@@ -1135,7 +1169,7 @@ $slick-button-offset: 10px;
 }
 
 .verified-badge {
-  color: #1db8b8;
+  color: #1DB8B8;
   font-size: 60%;
 }
 

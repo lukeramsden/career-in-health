@@ -34,7 +34,7 @@
                         <div class="card-body">
                             <h6>Latest:</h6>
                             <p class="mb-0">
-                                <b>{{ $message->wasSentTo(Auth::user()) ? 'They' : 'You' }} Said:</b>
+                                <b>{{ $message->wasSentTo($currentUser) ? 'They' : 'You' }} Said:</b>
                                 {{ str_limit($message->body) }}
                             </p>
                         </div>

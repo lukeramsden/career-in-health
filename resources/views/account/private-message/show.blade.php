@@ -12,14 +12,14 @@
                 <b>Listing:</b> <a href="{{ route('job-listing.show', [$jobListing]) }}">{{ $jobListing->title }}</a>
                 
                 @usertype('employee')
-                    @if(\App\JobListingApplication::hasApplied(Auth::user()->userable, $jobListing))
+                    @if(\App\JobListingApplication::hasApplied($currentUser->userable, $jobListing))
                         <hr>
                         <b>You have applied to this job!</b>
                         <br>
                         <small class="text-muted">
                             {{ str_limit(
                                 \App\JobListingApplication::getApplication(
-                                    Auth::user()->userable,
+                                    $currentUser->userable,
                                     $jobListing
                                 )->custom_cover_letter ?? 'No cover letter', 100) }}
                         </small>

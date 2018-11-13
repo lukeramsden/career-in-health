@@ -17,10 +17,10 @@
                     @auth
                         <div class="card-footer">
                             @usertype('company')
-                            You are signed in as {{Auth::user()->userable->full_name}}, <a href="{{route('logout.get') }}">click here to log out.</a>
+                            You are signed in as {{$currentUser->userable->full_name}}, <a href="{{route('logout.get') }}">click here to log out.</a>
                             @endusertype
                             @usertype('advertiser')
-                            You are signed in as {{Auth::user()->userable->name}}, <a href="{{route('logout.get') }}">click here to log out.</a>
+                            You are signed in as {{$currentUser->userable->name}}, <a href="{{route('logout.get') }}">click here to log out.</a>
                             @endusertype
                         </div>
                     @endif

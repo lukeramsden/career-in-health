@@ -883,7 +883,7 @@
         
         let data = {
             model: {
-                @php($cv = Auth::user()->userable->cv)
+                @php($cv = $currentUser->userable->cv)
                 preferences: {!! optional($cv->preferences)->toJson() ?? '{}'!!},
                 education: {!! optional($cv->education)->toJson() ?? '[]'!!},
                 work_experience: {!! optional($cv->workExperience)->toJson() ?? '[]'!!},

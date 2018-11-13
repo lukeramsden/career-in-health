@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    @vueWhen(Auth::user()->isEmployee(), 'employee-dashboard')
-    @vueWhen(Auth::user()->isValidCompany(), 'company-dashboard')
+    @vueWhen($currentUser->isEmployee(), 'employee-dashboard')
+    @vueWhen($currentUser->isValidCompany(), 'company-dashboard')
 @endsection
 @section('script')
     @usertype('employee')

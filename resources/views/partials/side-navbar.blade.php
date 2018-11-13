@@ -29,7 +29,7 @@
             
             @auth
                 @onboarding
-                    @foreach (Auth::user()->onboarding()->steps as $step)
+                    @foreach ($currentUser->onboarding()->steps as $step)
                         <a
                         class="nav-link nav-link-onboarding {{ $step->linkClass ?: '' }} {{ Request::fullUrlIs($step->link) ? 'active' : ''  }}"
                         href="{{ $step->link }}"
@@ -61,7 +61,7 @@
                             <div class="dropdown-menu" aria-labelledby="navdropdown-Company">
                                 <a class="dropdown-item {{active_route('company.show.me')}}" href="{{route('company.show.me')}}">View Your Company</a>
                                 <a class="dropdown-item {{active_route('company.edit')}}" href="{{route('company.edit')}}">Edit Your Company</a>
-                                @if(Auth::user()->userable->hasUserManagePerms())
+                                @if($currentUser->userable->hasUserManagePerms())
                                     <a class="dropdown-item {{active_route('company.manage-users.show')}}" href="{{route('company.manage-users.show')}}">Manage Users</a>
                                 @endif
                             </div>
@@ -175,8 +175,8 @@
                         <a class="nav-link {{ active_route('account.private-message.*') }}"
                            href="{{ route('account.private-message.index') }}">
                             Messages
-                            @if(Auth::user()->unreadMessages() > 0)
-                                <span class="badge badge-danger p-1 unread-messages-count-badge">{{ Auth::user()->unreadMessages() }}</span>
+                            @if($currentUser->unreadMessages() > 0)
+                                <span class="badge badge-danger p-1 unread-messages-count-badge">{{ $currentUser->unreadMessages() }}</span>
                             @endif
                         </a>
                     @endcan
@@ -184,7 +184,7 @@
                     <a href="javascript:toggleNotificationDrawer()"
                        class="nav-link"
                        id="navbar-notification-toggle">Notifications
-                        @if(($unread_notif_count = Auth::user()->unreadNotifications()->count()) > 0)
+                        @if(($unread_notif_count = $currentUser->unreadNotifications()->count()) > 0)
                             <span class="badge badge-danger" id="navbar-notification-unread-badge">{{ $unread_notif_count }}</span>
                         @endif
                     </a>
@@ -216,7 +216,7 @@
                 <a class="view-all-notifications" href="{{ route('notifications.index') }}">View All</a>
                 <button class="mark-as-read">Mark All As Read</button>
             </div>
-            @foreach(Auth::user()->notifications()->orderByRaw('-read_at ASC')->take(10)->get() as $notif)
+            @foreach($currentUser->notifications()->orderByRaw('-read_at ASC')->take(10)->get() as $notif)
                 @switch($notif->type)
                     @case(\App\Notifications\ReceivedPrivateMessage::class)
                         <a href="{{ action('NotificationController@clickThrough', ['notification' => $notif]) }}" class="link-unstyled">
@@ -250,6 +250,12 @@
             @endforeach
         </div>
     @endauth
+    <div id="navbar-closer">
+        <div>&lt;</div>
+    </div>
+</div>
+<div id="navbar-opener">
+    <div>&gt;</div>
 </div>
 {{-- mobile nav --}}
 <nav class="navbar navbar-dark bg-primary d-block d-lg-none fixed-top">
@@ -282,7 +288,7 @@
             
             @auth
                 @onboarding
-                    @foreach (Auth::user()->onboarding()->steps as $step)
+                    @foreach ($currentUser->onboarding()->steps as $step)
                         <a
                         class="nav-link nav-link-onboarding {{ $step->linkClass ?: '' }} {{ Request::fullUrlIs($step->link) ? 'active' : ''  }}"
                         href="{{ $step->link }}"
@@ -300,7 +306,7 @@
                         <a class="nav-link {{ active_route('dashboard') }}" href="{{ route('dashboard') }}">Dashboard</a>
                     </li>
                 
-                    @if(Auth::user()->isValidCompany())
+                    @if($currentUser->isValidCompany())
                     
                         {{----}}
                     
@@ -338,7 +344,7 @@
                     
                         {{----}}
                 
-                    @elseif(Auth::user()->isEmployee())
+                    @elseif($currentUser->isEmployee())
                     
                         {{----}}
                     
@@ -378,8 +384,8 @@
                                 <a class="nav-link nav-section-title"
                                    href="javascript:">
                                     Messages
-                                    @if(Auth::user()->unreadMessages() > 0)
-                                        <span class="badge badge-danger p-1 unread-messages-count-badge">{{ Auth::user()->unreadMessages() }}</span>
+                                    @if($currentUser->unreadMessages() > 0)
+                                        <span class="badge badge-danger p-1 unread-messages-count-badge">{{ $currentUser->unreadMessages() }}</span>
                                     @endif
                                 </a>
                                 <div class="nav-section-sub">
