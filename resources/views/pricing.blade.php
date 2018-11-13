@@ -15,7 +15,7 @@
                         <div class="card-body"></div>
                         @guest
                             <div class="card-footer p-0">
-                                <div class="btn-group btn-group-vertical btn-group-full btn-group-square"
+                                <div class="btn-group-vertical btn-group-full btn-group-square"
                                      role="group">
                                     <a href="{{ route('register') }}"
                                        class="btn btn-primary">Sign Up</a>
@@ -35,7 +35,7 @@
                         <div class="card-body"></div>
                         @guest
                             <div class="card-footer p-0">
-                                <div class="btn-group btn-group-vertical btn-group-full btn-group-square"
+                                <div class="btn-group-vertical btn-group-full btn-group-square"
                                      role="group">
                                     <a href="{{ route('register') }}"
                                        class="btn btn-action">Sign Up</a>
@@ -55,7 +55,7 @@
                         <div class="card-body"></div>
                         @guest
                             <div class="card-footer p-0">
-                                <div class="btn-group btn-group-vertical btn-group-full btn-group-square"
+                                <div class="btn-group-vertical btn-group-full btn-group-square"
                                      role="group">
                                     <a href="{{ route('register') }}"
                                        class="btn btn-primary">Sign Up</a>

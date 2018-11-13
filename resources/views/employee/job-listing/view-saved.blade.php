@@ -14,7 +14,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-8">
-                            <div class="card card-custom card-job_listing mb-4" v-for="listing in queryResults">
+                            <div class="card card-custom card-listing mb-4" v-for="listing in queryResults">
                                 <div class="card-body">
                                     <a :href="route('company.show', {company: listing.company.id})"
                                        class="card-subtitle">

@@ -84,7 +84,7 @@
               <div v-if="resultsLoaded" id="search-results">
                 <template v-for="(result, index) in results">
                   <div :key="result.id"
-                       class="card card-custom card-custom-no-top-bar card-job_listing">
+                       class="card card-custom card-custom-no-top-bar card-listing">
                     <div class="card-body">
                       <a :href="route('company.show', {company: result.company.id})"
                          class="card-subtitle">

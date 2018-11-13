@@ -38,7 +38,7 @@
                     <p class="mb-1">{{result.title}}</p>
                   </div>
                   <div class="col-12 col-lg-3">
-                    <div class="btn-group btn-group-vertical btn-group-full">
+                    <div class="btn-group-vertical btn-group-full">
                       <a :href="viewListing(result)" class="btn btn-primary">View</a>
                       <a :href="editListing(result)" class="btn btn-action">Edit</a>
                     </div>

@@ -3,7 +3,7 @@
     <div class="container-fluid p-0 m-0">
         <div class="row m-0 p-4" id="job_listing-show-row">
             <div class="col-12">
-                <div class="card card-custom card-job_listing">
+                <div class="card card-custom card-listing">
                     <div class="card-body">
                         <a href="{{ route('company.show', [$jobListing->company]) }}" class="card-subtitle">
                             {{$jobListing->company->name}} {!!verified_badge($jobListing->company)!!}
