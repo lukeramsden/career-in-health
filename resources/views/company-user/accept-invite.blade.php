@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Join '.$invite->company->name])
 @section('base_content')
     <div id="app mx-0">
         <div class="container-fluid my-5">

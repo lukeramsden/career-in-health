@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Notification Preferences'])
 @section('content')
     <div class="container mt-lg-5">
         <div class="card card-custom w-lg-50 mx-auto">

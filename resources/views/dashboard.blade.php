@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Dashboard'])
 @section('content')
     @vueWhen($currentUser->isEmployee(), 'employee-dashboard')
     @vueWhen($currentUser->isValidCompany(), 'company-dashboard')

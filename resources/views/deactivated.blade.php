@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Your Account Is Deactivated'])
 @section('base_content')
     <div class="container h-100">
         <div class="row h-100 justify-content-center align-items-center">

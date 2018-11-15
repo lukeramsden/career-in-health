@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Manage Users'])
 @section('content')
     <div class="container my-5">
         <h2 class="mb-3"><em>Owner</em></h2>

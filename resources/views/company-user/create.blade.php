@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Create Your Profile'])
 @section('content')
     <div class="container my-lg-5">
         <form

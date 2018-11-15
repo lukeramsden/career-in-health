@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => $self?'Your Profile':'Profile of ' . $employee->fullName()])
 @section('content')
     <div class="container mb-5">
         <div class="card card-custom mt-5 mx-auto">

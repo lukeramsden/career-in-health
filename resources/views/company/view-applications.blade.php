@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'View Applications'])
 @section('content')
     @vue('company-view-applications-table')
 @endsection

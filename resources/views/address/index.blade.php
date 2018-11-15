@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Your Addresses'])
 @section('content')
     <div class="container-fluid">
         <table class="table table-striped table-hover" id="addresses"

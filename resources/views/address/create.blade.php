@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Create An Address'])
 @section('content')
     <div class="container mt-lg-5" style="min-height: 70vh;">
         <div class="card-columns smaller-card-columns">

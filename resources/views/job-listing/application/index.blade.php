@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'View Applications'])
 @section('content')
     <div class="container-fluid p-0 m-0">
         <div class="row m-0 p-4" id="job_listing-show-row">

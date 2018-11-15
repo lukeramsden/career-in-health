@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Please Confirm Your Email'])
 @section('content')
     <div class="container mt-5">
         <div class="card card-custom w-lg-50 mx-auto">

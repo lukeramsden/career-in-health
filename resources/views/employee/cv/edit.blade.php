@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Create Your CV'])
 @section('content')
     <div class="container">
         <cv-builder class="mt-5" :schemas="schemas" :model="model"></cv-builder>

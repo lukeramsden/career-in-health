@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => str_limit($jobListing->title, 40)])
 @section('content')
     @php($isOwner = optional($currentUser)->isValidCompany() && $currentUser->userable->company->id === $jobListing->company_id)
     <div class="container-fluid p-0 m-0">
@@ -104,8 +104,10 @@
                                 @endauth
                             </div>
                         @else
-                            <p class="mb-0"><b>This listing has been closed.</b></p>
-                            <p class="mb-1 font-italic">{{ $jobListing->close_reason ?? 'No reason was provided.' }}</p>
+                            <div class="p-3">
+                                <p class="mb-0"><b>This listing has been closed.</b></p>
+                                <p class="mb-1 font-italic">{{ $jobListing->close_reason ?? 'No reason was provided.' }}</p>
+                            </div>
                         @endif
                     </div>
                 </div>

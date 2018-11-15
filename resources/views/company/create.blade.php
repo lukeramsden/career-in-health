@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Create a Company'])
 @section('content')
     <div class="container my-lg-5">
         <form

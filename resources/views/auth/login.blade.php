@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Log In'])
 @section('content')
     <div class="container mt-5">
         <div class="row">

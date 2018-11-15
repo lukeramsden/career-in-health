@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Edit Profile'])
 @section('content')
     <div class="container my-lg-5">
         <form action="{{ route('employee.update') }}" method="post" enctype="multipart/form-data">

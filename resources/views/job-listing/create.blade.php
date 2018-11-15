@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => ($edit?'Edit':'Create').' a Listing'])
 @section('content')
     <div class="container mt-lg-5">
         <job_listing-form :model="model" :url="url" :create-new="createNew"></job_listing-form>

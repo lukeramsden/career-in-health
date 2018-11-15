@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Conversation with '
+.($currentUser->isEmployee()?$jobListing->company->name:$employee->name)])
 @section('content')
     <div class="container mt-lg-5 pb-5">
         <div class="card card-custom mx-lg-5 mb-4">

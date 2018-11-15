@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => $address->name])
 @section('content')
     <div class="container-fluid my-2">
         <div class="row">

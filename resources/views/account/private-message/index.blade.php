@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['title' => 'Your Messages'])
 @section('content')
     <div class="container mt-lg-5">
         @isset($messages)
