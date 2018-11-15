@@ -12,70 +12,69 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-	protected $request;
+  protected $request;
 
-	/**
-	 * RegisterController constructor.
-	 */
-	public function __construct(Request $request)
-	{
-		$this->request = $request;
+  /**
+   * RegisterController constructor.
+   */
+  public function __construct(Request $request)
+  {
+	$this->request = $request;
+	$this->middleware('guest');
+  }
 
-		$this->middleware('guest');
-	}
+  /**
+   * @param AdvertiserInvite $advertiserInvite
+   */
+  public function show(AdvertiserInvite $advertiserInvite)
+  {
+	return view('advertising.register')
+	  ->with([
+		'invite' => $advertiserInvite,
+	  ]);
+  }
 
-	/**
-	 * @param array $custom
-	 *
-	 * @return array
-	 */
-	protected function rules($custom = [])
-	{
-		return array_merge([
-			'name'     => 'required|string',
-			'password' => 'required|string|min:6|confirmed',
-			'terms'    => 'required',
-		], $custom);
-	}
+  /**
+   * @param AdvertiserInvite $advertiserInvite
+   *
+   * @throws \Exception
+   */
+  public function store(AdvertiserInvite $advertiserInvite)
+  {
+	$data = $this->request->validate(self::rules());
 
-	/**
-	 * @param AdvertiserInvite $advertiserInvite
-	 */
-	public function show(AdvertiserInvite $advertiserInvite)
-	{
-		return view('advertising.register')
-			->with([
-				'invite' => $advertiserInvite,
-			]);
-	}
+	$userable = new Advertiser([
+	  'name' => $data['name'],
+	]);
+	$userable->save();
 
-	/**
-	 * @param AdvertiserInvite $advertiserInvite
-	 *
-	 * @throws \Exception
-	 */
-	public function store(AdvertiserInvite $advertiserInvite)
-	{
-		$data = $this->request->validate(self::rules());
+	$user                    = new User();
+	$user->email             = $advertiserInvite->email;
+	$user->confirmed         = true;
+	$user->confirmation_code = null;
+	$user->password          = Hash::make($data['password']);
 
-		$userable = new Advertiser([
-			'name' => $data['name'],
-		]);
-		$userable->save();
+	$user->userable()->associate($userable);
+	$user->save();
 
-		$user                    = new User();
-		$user->email             = $advertiserInvite->email;
-		$user->confirmed         = true;
-		$user->confirmation_code = null;
-		$user->password          = Hash::make($data['password']);
+	Auth::guard()->login($user);
 
-		$user->userable()->associate($userable);
-		$user->save();
+	$advertiserInvite->delete();
 
-		Auth::guard()->login($user);
+	return back();
+  }
 
-		$advertiserInvite->delete();
-
-		return back();
-	}
+  /**
+   * @param array $custom
+   *
+   * @return array
+   */
+  protected function rules($custom = [])
+  {
+	return array_merge([
+	  'name'     => 'required|string',
+	  'password' => 'required|string|min:6|confirmed',
+	  'terms'    => 'required',
+	], $custom);
+  }
 }

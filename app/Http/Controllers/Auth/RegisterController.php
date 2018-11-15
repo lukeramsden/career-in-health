@@ -2,188 +2,201 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Company;
 use App\CompanyUser;
 use App\Employee;
 use App\Enum\UserType;
-use App\User;
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Validation\Rule;
 use Webpatser\Uuid\Uuid;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
+  /*
+  |--------------------------------------------------------------------------
+  | Register Controller
+  |--------------------------------------------------------------------------
+  |
+  | This controller handles the registration of new users as well as their
+  | validation and creation. By default this controller uses a trait to
+  | provide this functionality without requiring any additional code.
+  |
+  */
 
-    use RegistersUsers;
+  use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/dashboard';
+  /**
+   * Where to redirect users after registration.
+   *
+   * @var string
+   */
+  protected $redirectTo = '/dashboard';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('confirm', 'prompt', 'resend');
-    }
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+	$this->middleware('guest')->except('confirm', 'prompt', 'resend');
+  }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        $rules = [
-            'i_am'       => [ 'required', 'string', Rule::in(array_values(UserType::all())) ],
-            'first_name' => 'required|string|max:255',
-            'last_name'  => 'nullable|string|max:255',
-            'email'      => 'required|string|email|max:255|unique:users',
-            'password'   => 'required|string|min:6|confirmed',
-            'terms'      => 'required'
-        ];
+  /**
+   * @param $confirmation_code
+   */
+  public function confirm($confirmation_code)
+  {
+	if (!$confirmation_code)
+	  abort(400); // bad request
 
-        return Validator::make($data, $rules);
-    }
+	$user = User::whereConfirmationCode($confirmation_code)->first();
 
-	/**
-	 * Create a new user instance after a valid registration.
-	 *
-	 * @param  array $data
-	 *
-	 * @return \App\User
-	 * @throws \Exception
-	 */
-    protected function create(array $data)
-    {
-        switch($data['i_am'])
-        {
-            case UserType::EMPLOYEE:
-                {
-                    $userable = new Employee();
-                    break;
-                }
-            case UserType::COMPANY_USER:
-                {
-                    $userable = new CompanyUser();
-                    break;
-                }
-            default:
-                abort(400);
-                return null;
-        }
+	if (!$user)
+	  abort(404); // not found
 
-        $userable->first_name = $data['first_name'];
-        if(isset($data['last_name']))
-            $userable->last_name = $data['last_name'];
+	$user->confirmed         = 1;
+	$user->confirmation_code = null;
+	$user->save();
 
-        $userable->save();
+	$this->guard()->login($user);
+	toast()
+	  ->success('You have successfully confirmed your email!')
+	  ->info('You are now logged in.');
 
-        $user = new User();
-        $user->email = $data['email'];
-        $user->confirmation_code = (string) Uuid::generate(4);
-        $user->password = Hash::make($data['password']);
-        $user->userable()->associate($userable);
-        $user->save();
+	if ($user->isCompany())
+	  return redirect(route('company-user.edit'));
 
-        return $user;
-    }
+	if ($user->isEmployee())
+	  return redirect(route('employee.edit'));
 
-    /**
-     * The user has been registered.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return mixed
-     */
-    protected function registered(Request $request, $user)
-    {
-        if($user->confirmed)
-            return null;
+	return redirect(route('dashboard'));
+  }
 
-        $this->guard()->logout();
-        $user->sendEmailConfirmationNotification();
-        toast()->success('Your account has been created! You need confirm your email to log in.');
-        session()->flash('user_id', $user->id);
-        return redirect(route('prompt-confirm-email'));
-    }
+  public function prompt()
+  {
+	if (Auth::check() && Auth::user()->confirmed)
+	{
+	  toast()->info('You have already confirmed your email');
+	  return redirect(route('dashboard'));
+	}
 
-    /**
-     * @param $confirmation_code
-     */
-    public function confirm($confirmation_code)
-    {
-        if(!$confirmation_code)
-            abort(400); // bad request
+	session()->reflash();
+	return view('auth.confirm-email');
+  }
 
-        $user = User::whereConfirmationCode($confirmation_code)->first();
+  /**
+   * @param Request $request
+   * @param User    $user
+   *
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function resend(Request $request, User $user)
+  {
+	$user->sendEmailConfirmationNotification();
 
-        if (!$user)
-            abort(404); // not found
+	toast()->success('Sent!');
+	session()->reflash();
+	return back();
+  }
 
-        $user->confirmed = 1;
-        $user->confirmation_code = null;
-        $user->save();
+  /**
+   * Get a validator for an incoming registration request.
+   *
+   * @param  array $data
+   *
+   * @return \Illuminate\Contracts\Validation\Validator
+   */
+  protected function validator(array $data)
+  {
+	$rules = [
+	  'i_am'       => ['required', 'string', Rule::in(array_values(UserType::all()))],
+	  'first_name' => 'required|string|max:255',
+	  'last_name'  => 'nullable|string|max:255',
+	  'email'      => 'required|string|email|max:255|unique:users',
+	  'password'   => 'required|string|min:6|confirmed',
+	  'terms'      => 'required',
+	];
 
-        $this->guard()->login($user);
-        toast()
-            ->success('You have successfully confirmed your email!')
-            ->info('You are now logged in.');
+	return Validator::make($data, $rules);
+  }
 
-        if($user->isCompany())
-            return redirect(route('company-user.edit'));
+  /**
+   * Create a new user instance after a valid registration.
+   *
+   * @param  array $data
+   *
+   * @return \App\User
+   * @throws \Exception
+   */
+  protected function create(array $data)
+  {
+	switch ($data['i_am'])
+	{
+	  case UserType::EMPLOYEE:
+		{
+		  $userable = new Employee();
+		  break;
+		}
+	  case UserType::COMPANY_USER:
+		{
+		  $userable = new CompanyUser();
+		  break;
+		}
+	  default:
+		abort(400);
+		return null;
+	}
 
-        if($user->isEmployee())
-            return redirect(route('employee.edit'));
+	$userable->first_name = $data['first_name'];
+	if (isset($data['last_name']))
+	  $userable->last_name = $data['last_name'];
 
-        return redirect(route('dashboard'));
-    }
+	$userable->save();
 
-    public function prompt()
-    {
-        if(Auth::check() && Auth::user()->confirmed)
-        {
-            toast()->info('You have already confirmed your email');
-            return redirect(route('dashboard'));
-        }
+	$user                    = new User();
+	$user->email             = $data['email'];
+	$user->confirmation_code = (string)Uuid::generate(4);
+	$user->password          = Hash::make($data['password']);
+	$user->userable()->associate($userable);
+	$user->save();
 
-        session()->reflash();
-        return view('auth.confirm-email');
-    }
+	return $user;
+  }
 
-    /**
-     * @param Request $request
-     * @param User $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function resend(Request $request, User $user)
-    {
-        $user->sendEmailConfirmationNotification();
+  /**
+   * The user has been registered.
+   *
+   * @param  \Illuminate\Http\Request $request
+   * @param  mixed                    $user
+   *
+   * @return mixed
+   */
+  protected function registered(Request $request, $user)
+  {
+	if ($user->confirmed)
+	  return null;
 
-        toast()->success('Sent!');
-        session()->reflash();
-        return back();
-    }
+	if (App::environment('local'))
+	{
+	  $user->confirmed         = true;
+	  $user->confirmation_code = null;
+	  $user->save();
+	  session()->flash('user_id', $user->id);
+	  toast()->success('Registered!');
+	  return redirect(route('dashboard'));
+	}
+
+	$this->guard()->logout();
+	$user->sendEmailConfirmationNotification();
+	toast()->success('Your account has been created! You need confirm your email to log in.');
+	session()->flash('user_id', $user->id);
+	return redirect(route('prompt-confirm-email'));
+  }
 }
