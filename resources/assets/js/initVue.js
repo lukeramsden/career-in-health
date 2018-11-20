@@ -38,34 +38,61 @@ const afterImport = c => c.default();
 
 if ( document.getElementById( 'vue-private-messages' ) )
 {
-    import('./componentInitializers/PrivateMessages' /* webpackChunkName: "js/components/private-messages" */).then( afterImport );
-    requiresEcho = true;
+  import(
+    './componentInitializers/PrivateMessages'
+    /* webpackChunkName: "js/components/private-messages" */
+  ).then( afterImport );
+  requiresEcho = true;
 }
 
 if ( document.getElementById( 'vue-job-listings-table' ) )
 {
-    import('./componentInitializers/JobListingsTable' /* webpackChunkName: "js/components/job-listings-table" */).then( afterImport );
+  import(
+    './componentInitializers/JobListingsTable'
+    /* webpackChunkName: "js/components/job-listings-table" */
+  ).then( afterImport );
 }
 
 if ( document.getElementById( 'vue-company-view-applications-table' ) )
 {
-    import('./componentInitializers/CompanyViewApplicationsTable' /* webpackChunkName: "js/components/company-view-applications-table" */).then( afterImport );
+  import(
+    './componentInitializers/CompanyViewApplicationsTable'
+    /* webpackChunkName: "js/components/company-view-applications-table" */
+  ).then( afterImport );
 }
 
 if ( document.getElementById( 'vue-select2' ) )
 {
-    import('./componentInitializers/Select2' /* webpackChunkName: "js/components/select2" */).then( afterImport );
+  import(
+    './componentInitializers/Select2'
+    /* webpackChunkName: "js/components/select2" */
+  ).then( afterImport );
 }
 
 if ( document.getElementById( 'vue-search' ) )
 {
-    import('./componentInitializers/Search' /* webpackChunkName: "js/components/search" */).then( afterImport );
+  import(
+    './componentInitializers/Search'
+    /* webpackChunkName: "js/components/search" */
+  ).then( afterImport );
 }
 
 if ( document.getElementById( 'vue-employee-dashboard' ) )
 {
-    import('./componentInitializers/EmployeeDashboard' /* webpackChunkName: "js/components/employee-dashboard" */).then( afterImport );
-    requiresEcho = true;
+  import(
+    './componentInitializers/EmployeeDashboard'
+    /* webpackChunkName: "js/components/employee-dashboard" */
+  ).then( afterImport );
+  requiresEcho = true;
+}
+
+if ( document.getElementById( 'vue-company-dashboard' ) )
+{
+  import(
+    './componentInitializers/CompanyDashboard'
+    /* webpackChunkName: "js/components/company-dashboard" */
+  ).then( afterImport );
+  requiresEcho = true;
 }
 
 if ( requiresEcho )

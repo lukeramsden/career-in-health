@@ -61,6 +61,15 @@
     ],
     "nonblock-statement-body-position": "off",
     "no-restricted-globals": "off",
+    "comma-dangle": [
+      "error",
+      {
+        "objects": "always",
+        "arrays": "ignore",
+        "imports": "ignore",
+        "functions": "ignore"
+      }
+    ],
     "vue/max-attributes-per-line": [
       "warning",
       3

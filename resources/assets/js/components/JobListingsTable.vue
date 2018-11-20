@@ -145,14 +145,14 @@ export default {
       lastPage: 0,
       perPage: 10,
       statusDropdown: [
-        { label: 'Draft', value: 0 },
-        { label: 'Published', value: 1 },
-        { label: 'Closed', value: 2 },
+        { label: 'Draft', value: 0, },
+        { label: 'Published', value: 1, },
+        { label: 'Closed', value: 2, },
       ],
       sortingDropdown: [
-        { label: 'Default', value: 0 },
-        { label: 'Oldest First', value: 1 },
-        { label: 'Newest First', value: 2 },
+        { label: 'Default', value: 0, },
+        { label: 'Oldest First', value: 1, },
+        { label: 'Newest First', value: 2, },
       ],
     };
   },
@@ -166,7 +166,7 @@ export default {
       return _
         .chain( this.listings || [] )
         .map( o =>
-          ( { label: o.address.name, value: o.address.id } ) )
+          ( { label: o.address.name, value: o.address.id, } ) )
         .uniqBy( 'value' )
         .value()
       ;
@@ -199,7 +199,7 @@ export default {
           const fieldScores = [
             o.title,
             // o.description,
-          ].map( field => fuzzaldrin.score( field, this.query.text, { preparedQuery } ) );
+          ].map( field => fuzzaldrin.score( field, this.query.text, { preparedQuery, } ) );
 
           scores[ o.id ] = Math.max( ...fieldScores );
           return o;
@@ -264,11 +264,11 @@ export default {
   methods: {
     viewListing( listing )
     {
-      return route( 'job-listing.show', { jobListing: listing.id } );
+      return route( 'job-listing.show', { jobListing: listing.id, } );
     },
     editListing( listing )
     {
-      return route( 'job-listing.edit', { jobListing: listing.id } );
+      return route( 'job-listing.edit', { jobListing: listing.id, } );
     },
   },
 };

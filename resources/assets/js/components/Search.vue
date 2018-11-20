@@ -272,7 +272,7 @@ export default {
 
           $what.on( 'awesomplete-selectcomplete', () =>
           {
-            $what[ 0 ].dispatchEvent( new Event( 'input', { bubbles: true } ) );
+            $what[ 0 ].dispatchEvent( new Event( 'input', { bubbles: true, } ) );
             self.whatDropdown.close();
           } );
 
@@ -362,7 +362,7 @@ export default {
               this
                 .salarySlider.noUiSlider
                 .set( [ nval.min_salary, nval.max_salary ] );
-          }, { deep: true } );
+          }, { deep: true, } );
 
           this.$watch( 'page', function ( nval )
           {
@@ -408,10 +408,10 @@ export default {
         axios.get( route( 'get-all-listing-types' ) ),
       ] );
 
-      this.jobRoles  = _.map( jobRoles.data, v => ( { id: v.id, name: v.name } ) );
-      this.locations = _.map( locations.data, v => ( { id: v.id, text: v.name } ) );
-      this.settings  = _.map( settings.data, ( name, id ) => ( { id, name } ) );
-      this.types     = _.map( types.data, ( name, id ) => ( { id, name } ) );
+      this.jobRoles  = _.map( jobRoles.data, v => ( { id: v.id, name: v.name, } ) );
+      this.locations = _.map( locations.data, v => ( { id: v.id, text: v.name, } ) );
+      this.settings  = _.map( settings.data, ( name, id ) => ( { id, name, } ) );
+      this.types     = _.map( types.data, ( name, id ) => ( { id, name, } ) );
 
       {
         const before = _.cloneDeep( this.query );
@@ -502,7 +502,7 @@ export default {
         {
           this.$nextTick( () => this.resultsLoaded = true );
         } );
-    }, 800, { leading: true, tailing: true } ),
+    }, 800, { leading: true, tailing: true, } ),
     /**
      * Get distance between 2 lat/lng points in miles
      * Either takes 2 objects of type LatLng, or 4 arguments of type number

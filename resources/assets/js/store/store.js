@@ -4,6 +4,7 @@ import CompanyViewApplicationsTableModule from './plugins/CompanyViewApplication
 import SearchModule                       from './plugins/Search';
 
 import EmployeeDashboardModule from './plugins/EmployeeDashboard';
+import CompanyDashboardModule  from './plugins/CompanyDashboard';
 
 export default {
   strict: process.env.NODE_ENV !== 'production',
@@ -15,6 +16,7 @@ export default {
     SearchModule,
 
     EmployeeDashboardModule,
+    CompanyDashboardModule,
   },
   state: {
     userType: '',

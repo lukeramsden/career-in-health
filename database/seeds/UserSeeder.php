@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -18,6 +19,7 @@ class UserSeeder extends Seeder
 
   private function createEmployeeUser()
   {
+	/** @var \App\User $user */
 	$user = factory(\App\User::class)
 	  ->create([
 		'email' => 'employee@karma.com',
@@ -56,10 +58,15 @@ class UserSeeder extends Seeder
 	  'start_date'   => '2018-02-01',
 	  'location'     => 'Blackpool',
 	]));
+
+	$user->notificationPreferences()->update([
+	  'updated_at' => Carbon::now()->addSecond(),
+	]);
   }
 
   private function createCompanyUser()
   {
+	/** @var \App\User $user */
 	$user = factory(\App\User::class)
 	  ->create([
 		'email' => 'company@karma.com',
@@ -69,6 +76,7 @@ class UserSeeder extends Seeder
 	  'first_name'      => 'James',
 	  'last_name'       => 'Waring',
 	  'has_been_filled' => true,
+	  'job_title'       => 'Manager',
 	]);
 
 	$userable->save();
@@ -77,10 +85,13 @@ class UserSeeder extends Seeder
 
 	$company = factory(\App\Company::class)
 	  ->create([
-		'name'        => 'Karma AS',
+		'name'        => 'Karma Carehomes',
 		'owner_id'    => $userable->id,
 		'location_id' => 4018,
 		'verified'    => true,
+		'about'       => 'Blah blah blah buzzwords buzzwords',
+		'phone'       => '01253-100100',
+		'email'       => 'contact@karma.com',
 	  ]);
 
 	$company->users()->save($userable);
@@ -95,6 +106,10 @@ class UserSeeder extends Seeder
 		'company_user_id'  => $userable->id,
 		'permission_level' => 'owner',
 	  ]);
+	
+	$user->notificationPreferences()->update([
+	  'updated_at' => Carbon::now()->addSecond(),
+	]);
   }
 
   private function createAdvertiserUser()

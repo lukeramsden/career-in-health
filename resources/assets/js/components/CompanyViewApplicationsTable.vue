@@ -101,9 +101,9 @@ export default {
       lastPage: 0,
       perPage: 10,
       sortingDropdown: [
-        { label: 'Default', value: 0 },
-        { label: 'Oldest First', value: 1 },
-        { label: 'Newest First', value: 2 },
+        { label: 'Default', value: 0, },
+        { label: 'Oldest First', value: 1, },
+        { label: 'Newest First', value: 2, },
       ],
     };
   },
@@ -136,7 +136,7 @@ export default {
             o.employee.full_name,
             o.custom_cover_letter,
             o.status_name,
-          ].map( field => fuzzaldrin.score( field, this.query.text, { preparedQuery } ) );
+          ].map( field => fuzzaldrin.score( field, this.query.text, { preparedQuery, } ) );
 
           scores[ o.id ] = Math.max( ...fieldScores );
           return o;
