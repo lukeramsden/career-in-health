@@ -65,6 +65,8 @@
                 </div>
             @endif
             
+            <addresses-mini></addresses-mini>
+            
             @if($addresses->total() > 0)
                 <div class="col-12 col-md-6">
                     <div class="card card-custom mb-4">

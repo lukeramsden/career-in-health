@@ -2,6 +2,7 @@ import PrivateMessagesModule              from './plugins/PrivateMessages';
 import JobListingsTableModule             from './plugins/JobListingsTable';
 import CompanyViewApplicationsTableModule from './plugins/CompanyViewApplicationsTable';
 import SearchModule                       from './plugins/Search';
+import AddressesMiniModule                from './plugins/AddressesMini';
 
 import EmployeeDashboardModule from './plugins/EmployeeDashboard';
 import CompanyDashboardModule  from './plugins/CompanyDashboard';
@@ -14,6 +15,7 @@ export default {
     JobListingsTableModule,
     CompanyViewApplicationsTableModule,
     SearchModule,
+    AddressesMiniModule,
 
     EmployeeDashboardModule,
     CompanyDashboardModule,

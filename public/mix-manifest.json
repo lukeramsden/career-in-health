@@ -6,6 +6,7 @@
     "/js/components/private-messages.js": "/js/components/private-messages.js",
     "/js/components/employee-dashboard.js": "/js/components/employee-dashboard.js",
     "/js/components/company-dashboard.js": "/js/components/company-dashboard.js",
+    "/js/components/addresses-mini.js": "/js/components/addresses-mini.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/pdf.css": "/css/pdf.css",

@@ -42,13 +42,12 @@
             </div>
         </div>
         <div class="mx-lg-5">
-            @vue('private-messages')
+            <private-messages />
         </div>
     </div>
 @endsection
 @section('script')
     <script>
-        
         window.data = {
             privateMessages: {
                 listing_id: {{ $jobListing->id }},
@@ -57,7 +56,4 @@
             },
         };
     </script>
-    @mix('js/components/private-messages.js')
-@endsection
-@section('stylesheet')
 @endsection

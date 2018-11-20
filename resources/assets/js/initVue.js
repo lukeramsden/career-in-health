@@ -30,75 +30,24 @@ Vue.component( 'loading-icon', LoadingIcon );
 Vue.component( 'pagination', Pagination );
 Vue.component( 'verified-badge', VerifiedBadge );
 
+// lazy load components
+Vue.component( 'addresses-mini', () => import( /* webpackChunkName: "js/components/addresses-mini" */ './components/AddressesMini' ) );
+Vue.component( 'company-dashboard', () => import( /* webpackChunkName: "js/components/company-dashboard" */ './components/CompanyDashboard' ) );
+Vue.component( 'company-view-applications-table', () => import( /* webpackChunkName: "js/components/company-view-applications-table" */ './components/CompanyViewApplicationsTable' ) );
+Vue.component( 'employee-dashboard', () => import( /* webpackChunkName: "js/components/employee-dashboard" */ './components/EmployeeDashboard' ) );
+Vue.component( 'job-listings-table', () => import( /* webpackChunkName: "js/components/job-listings-table" */ './components/JobListingsTable' ) );
+Vue.component( 'private-messages', () => import( /* webpackChunkName: "js/components/private-messages" */ './components/PrivateMessages' ) );
+Vue.component( 'search', () => import( /* webpackChunkName: "js/components/search" */ './components/Search' ) );
+Vue.component( 'select2', () => import( /* webpackChunkName: "js/components/select2" */ './components/Select2' ) );
+
 window.store = new Vuex.Store( storeOptions );
 
-let requiresEcho = false;
+window.Echo = new Echo( {
+  broadcaster: 'socket.io',
+  host: `${window.location.hostname}:6001`,
+} );
 
-const afterImport = c => c.default();
-
-if ( document.getElementById( 'vue-private-messages' ) )
-{
-  import(
-    './componentInitializers/PrivateMessages'
-    /* webpackChunkName: "js/components/private-messages" */
-  ).then( afterImport );
-  requiresEcho = true;
-}
-
-if ( document.getElementById( 'vue-job-listings-table' ) )
-{
-  import(
-    './componentInitializers/JobListingsTable'
-    /* webpackChunkName: "js/components/job-listings-table" */
-  ).then( afterImport );
-}
-
-if ( document.getElementById( 'vue-company-view-applications-table' ) )
-{
-  import(
-    './componentInitializers/CompanyViewApplicationsTable'
-    /* webpackChunkName: "js/components/company-view-applications-table" */
-  ).then( afterImport );
-}
-
-if ( document.getElementById( 'vue-select2' ) )
-{
-  import(
-    './componentInitializers/Select2'
-    /* webpackChunkName: "js/components/select2" */
-  ).then( afterImport );
-}
-
-if ( document.getElementById( 'vue-search' ) )
-{
-  import(
-    './componentInitializers/Search'
-    /* webpackChunkName: "js/components/search" */
-  ).then( afterImport );
-}
-
-if ( document.getElementById( 'vue-employee-dashboard' ) )
-{
-  import(
-    './componentInitializers/EmployeeDashboard'
-    /* webpackChunkName: "js/components/employee-dashboard" */
-  ).then( afterImport );
-  requiresEcho = true;
-}
-
-if ( document.getElementById( 'vue-company-dashboard' ) )
-{
-  import(
-    './componentInitializers/CompanyDashboard'
-    /* webpackChunkName: "js/components/company-dashboard" */
-  ).then( afterImport );
-  requiresEcho = true;
-}
-
-if ( requiresEcho )
-{
-  window.Echo = new Echo( {
-    broadcaster: 'socket.io',
-    host: `${window.location.hostname}:6001`,
-  } );
-}
+window.VApp = new Vue( {
+  el: '#app',
+  store,
+} );

@@ -34,7 +34,7 @@
 /******/
 /******/ 	// objects to store loaded and loading chunks
 /******/ 	var installedChunks = {
-/******/ 		9: 0
+/******/ 		10: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -91,7 +91,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + ({"0":"js/components/search","1":"js/components/select2","2":"js/components/job-listings-table","3":"js/components/company-view-applications-table","4":"js/components/private-messages","5":"js/components/employee-dashboard","6":"js/components/company-dashboard"}[chunkId]||chunkId) + ".js";
+/******/ 		script.src = __webpack_require__.p + "" + ({"0":"js/components/search","1":"js/components/select2","2":"js/components/job-listings-table","3":"js/components/company-view-applications-table","4":"js/components/private-messages","5":"js/components/employee-dashboard","6":"js/components/company-dashboard","7":"js/components/addresses-mini"}[chunkId]||chunkId) + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {

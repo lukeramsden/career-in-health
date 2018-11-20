@@ -27,19 +27,6 @@ class BladeServiceProvider extends ServiceProvider
 
 	  return false;
 	});
-
-	Blade::directive('vue', function ($expression) {
-	  $name = str_replace("'", '', $expression);
-	  return "<?php echo \"<div id=\\\"vue-$name\\\"><$name></$name></div>\"; ?>";
-	});
-
-	Blade::directive('vueWhen', function ($expression) {
-	  $args = explode(',', $expression);
-	  $when = trim($args[0]);
-	  $name = trim(str_replace("'", '', $args[1]));
-
-	  return "<?php if($when) echo \"<div id=\\\"vue-$name\\\"><$name></$name></div>\"; ?>";
-	});
   }
 
   /**

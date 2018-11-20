@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-4 order-lg-2">
-                        @vue('private-messages')
+                        <private-messages />
                     </div>
                 </div>
             </div>
@@ -124,7 +124,6 @@
 @endsection
 @section('script')
     <script>
-        
         window.data = {
             privateMessages: {
                 listing_id: {{ $jobListing->id }},
@@ -133,7 +132,4 @@
             },
         };
     </script>
-    @mix('js/components/private-messages.js')
-@endsection
-@section('stylesheet')
 @endsection
