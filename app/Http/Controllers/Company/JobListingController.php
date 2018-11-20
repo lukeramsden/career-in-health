@@ -128,8 +128,8 @@ class JobListingController extends Controller
 
 	return view('job-listing.create')
 	  ->with([
-		'jobListing' => new JobListing(),
-		'edit'       => false,
+		'listing' => new JobListing(),
+		'edit'    => false,
 	  ]);
   }
 
@@ -145,8 +145,8 @@ class JobListingController extends Controller
 
 	return view('job-listing.create')
 	  ->with([
-		'jobListing' => $jobListing,
-		'edit'       => true,
+		'listing' => $jobListing,
+		'edit'    => true,
 	  ]);
   }
 
@@ -200,6 +200,36 @@ class JobListingController extends Controller
 	  ->success('Created!')
 	  ->info('This listing has been published.');
 	return redirect(route('job-listing.show', ['jobListing' => $jobListing]));
+  }
+
+  /**
+   * @return array
+   */
+  protected function rules()
+  {
+	if ($this->request->has('savingForLater')
+	  && $this->request->savingForLater == true)
+	  return [
+		'title'       => 'required|max:120',
+		'address_id'  => 'nullable|integer|exists:addresses,id',
+		'description' => 'nullable|max:3000',
+		'job_role'    => 'nullable|integer|exists:job_roles,id',
+		'setting'     => ['nullable', Rule::in(array_keys(JobListing::$settings))],
+		'type'        => ['nullable', Rule::in(array_keys(JobListing::$types))],
+		'min_salary'  => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
+		'max_salary'  => 'nullable|integer|min:1|max:1000000|greater_than_field:min_salary',
+	  ];
+
+	return [
+	  'title'       => 'required|max:120',
+	  'address_id'  => 'required|integer|exists:addresses,id',
+	  'description' => 'required|max:3000',
+	  'job_role'    => 'required|integer|exists:job_roles,id',
+	  'setting'     => ['required', Rule::in(array_keys(JobListing::$settings))],
+	  'type'        => ['required', Rule::in(array_keys(JobListing::$types))],
+	  'min_salary'  => 'required|integer|min:0|max:1000000|less_than_field:max_salary',
+	  'max_salary'  => 'required|integer|min:1|max:1000000|greater_than_field:min_salary',
+	];
   }
 
   /**
@@ -296,35 +326,5 @@ class JobListingController extends Controller
 
 	toast()->success('Closed.');
 	return redirect(action('JobListingController@edit', $jobListing));
-  }
-
-  /**
-   * @return array
-   */
-  protected function rules()
-  {
-	if ($this->request->has('savingForLater')
-	  && $this->request->savingForLater == true)
-	  return [
-		'title'       => 'required|max:120',
-		'address_id'  => 'nullable|integer|exists:addresses,id',
-		'description' => 'nullable|max:3000',
-		'job_role'    => 'nullable|integer|exists:job_roles,id',
-		'setting'     => ['nullable', Rule::in(array_keys(JobListing::$settings))],
-		'type'        => ['nullable', Rule::in(array_keys(JobListing::$types))],
-		'min_salary'  => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
-		'max_salary'  => 'nullable|integer|min:1|max:1000000|greater_than_field:min_salary',
-	  ];
-
-	return [
-	  'title'       => 'required|max:120',
-	  'address_id'  => 'required|integer|exists:addresses,id',
-	  'description' => 'required|max:3000',
-	  'job_role'    => 'required|integer|exists:job_roles,id',
-	  'setting'     => ['required', Rule::in(array_keys(JobListing::$settings))],
-	  'type'        => ['required', Rule::in(array_keys(JobListing::$types))],
-	  'min_salary'  => 'required|integer|min:0|max:1000000|less_than_field:max_salary',
-	  'max_salary'  => 'required|integer|min:1|max:1000000|greater_than_field:min_salary',
-	];
   }
 }
