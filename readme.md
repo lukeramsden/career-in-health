@@ -3,7 +3,7 @@
 
 ### Installation
 #### Dependencies
-- PHP 7.0
+- PHP 7.1.3+
 - Node 8+ (and npm)
 - MariaDB
 - Redis 3

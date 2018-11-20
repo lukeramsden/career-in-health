@@ -121,7 +121,10 @@ class CompanyController extends Controller
 			]);
 	}
 
-	public function store()
+  /**
+   * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+   */
+  public function store()
 	{
 		$data = $this->request->validate(self::rules());
 
@@ -177,11 +180,11 @@ class CompanyController extends Controller
 			]);
 	}
 
-	/**
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-	 * @throws \Illuminate\Auth\Access\AuthorizationException
-	 */
-	public function getApplications()
+  /**
+   * @return \Illuminate\Http\JsonResponse
+   * @throws \Illuminate\Auth\Access\AuthorizationException
+   */
+  public function getApplications()
 	{
 		$company = Auth::user()->userable->company;
 		$this->authorize('update', $company);

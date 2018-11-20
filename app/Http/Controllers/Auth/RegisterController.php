@@ -49,7 +49,8 @@ class RegisterController extends Controller
   }
 
   /**
-   * @param $confirmation_code
+   * @param string $confirmation_code
+   * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
    */
   public function confirm($confirmation_code)
   {
@@ -132,7 +133,7 @@ class RegisterController extends Controller
    *
    * @param  array $data
    *
-   * @return \App\User
+   * @return \App\User|null
    * @throws \Exception
    */
   protected function create(array $data)

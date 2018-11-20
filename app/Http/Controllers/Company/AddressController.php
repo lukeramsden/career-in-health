@@ -151,7 +151,7 @@ class AddressController extends Controller
 		$redirectTo = route('address.edit', ['address' => $address]);
 
 		if (Auth::user()->onboarding()->inProgress())
-			$redirectTo = Auth::user()->onboarding()->nextUnfinishedStep()->link;
+		  $redirectTo = Auth::user()->onboarding()->nextUnfinishedStep()->link;
 
 		if (ajax())
 			return response()->json([
