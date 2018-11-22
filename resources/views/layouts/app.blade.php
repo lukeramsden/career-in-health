@@ -59,5 +59,6 @@
         window.store.commit( 'updateUserType', '{{ $userType }}' );
         </script>
     @endauth
+    @yield('pre-script')
     @yield('script')
 @endsection

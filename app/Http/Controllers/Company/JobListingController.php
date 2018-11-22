@@ -75,6 +75,35 @@ class JobListingController extends Controller
   /**
    * @param JobListing $jobListing
    *
+   * @return \Illuminate\Http\JsonResponse
+   * @throws AuthorizationException
+   */
+  public function get(JobListing $jobListing)
+  {
+	try
+	{
+	  if (Auth::check())
+		$this->authorize('view', $jobListing);
+	  elseif (!$jobListing->isPublished())
+		throw new AuthorizationException('This listing has not been published yet.');
+	} catch (AuthorizationException $exception)
+	{
+	  return response()->json([
+		'success' => false,
+		'error'   => $exception,
+		'message' => $exception->getMessage(),
+	  ], 401);
+	}
+
+	return response()->json([
+	  'success' => true,
+	  'listing' => $jobListing,
+	], 200);
+  }
+
+  /**
+   * @param JobListing $jobListing
+   *
    * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
    * @throws \Illuminate\Auth\Access\AuthorizationException
    */
@@ -227,8 +256,8 @@ class JobListingController extends Controller
 	  'job_role'    => 'required|integer|exists:job_roles,id',
 	  'setting'     => ['required', Rule::in(array_keys(JobListing::$settings))],
 	  'type'        => ['required', Rule::in(array_keys(JobListing::$types))],
-	  'min_salary'  => 'required|integer|min:0|max:1000000|less_than_field:max_salary',
-	  'max_salary'  => 'required|integer|min:1|max:1000000|greater_than_field:min_salary',
+	  'min_salary'  => 'nullable|integer|min:0|max:1000000|less_than_field:max_salary',
+	  'max_salary'  => 'nullable|integer|min:1|max:1000000|greater_than_field:min_salary',
 	];
   }
 

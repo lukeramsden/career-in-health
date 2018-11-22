@@ -18,22 +18,18 @@ window.axios.defaults.headers.common[ 'X-Requested-With' ] = 'XMLHttpRequest';
 const token = document.head.querySelector( 'meta[name="csrf-token"]' );
 
 if ( token )
-{
   window.axios.defaults.headers.common[ 'X-CSRF-TOKEN' ] = token.content;
-}
 else
-{
-  console.error( 'CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token' );
-}
+  console.error( 'CSRF token not found in header.' );
 
 require( './initVue' );
 
 /*
  * Replace all SVG images with inline SVG
  */
-jQuery( 'img.svg-inline' ).each( function ()
+$( 'img.svg-inline' ).each( function ()
 {
-  const $img     = jQuery( this );
+  const $img     = $( this );
   const imgID    = $img.attr( 'id' );
   const imgClass = $img.attr( 'class' );
   const imgURL   = $img.attr( 'src' );

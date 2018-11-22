@@ -64,7 +64,7 @@
     "comma-dangle": [
       "error",
       {
-        "objects": "always",
+        "objects": "always-multiline",
         "arrays": "ignore",
         "imports": "ignore",
         "functions": "ignore"

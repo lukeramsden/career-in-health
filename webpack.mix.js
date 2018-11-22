@@ -17,7 +17,26 @@ mix.webpackConfig( {
 
 mix
   .js( 'resources/assets/js/app.js', 'public/js' )
-  .extract( [ 'vue', 'lodash', 'axios', 'moment', 'jquery' ] )
+  .extract( [
+    'vue',
+    'vuex',
+    'vue-async-computed',
+    'vue-currency-filter',
+    'vue-chat-scroll',
+    'laravel-echo',
+    'lodash',
+    'axios',
+    'moment',
+    'jquery',
+    'popper.js',
+    'bootstrap',
+    'nodent-runtime',
+    'lity',
+    'file-size',
+    'change-case',
+    'fuzzaldrin-plus',
+    'socket.io-client',
+  ] )
   .sass( 'resources/assets/sass/app.scss', 'public/css', {
     includePaths: [ 'node_modules' ],
   } )

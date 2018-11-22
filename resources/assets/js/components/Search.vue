@@ -226,20 +226,6 @@ export default {
     },
     results()
     {
-      /**
-       * This doesn't account for pages before the current loaded page not
-       * actually having been requested
-       *
-       * We need to store the results based on page number, instead of just
-       * in a basic array
-       *
-       * Scenario: User goes to page, query string specifies page 2
-       *
-       * Current store: [page2-result1, page2-result2, etc...]
-       *
-       * Possible replacement: { 2: [result1, result2, etc...] }
-       */
-
       const loadedIndex = this.pagesLoaded.indexOf( this.page );
 
       if ( loadedIndex === -1 ) return [];
