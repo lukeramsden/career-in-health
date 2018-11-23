@@ -16,11 +16,14 @@ class RegisterController extends Controller
 
   /**
    * RegisterController constructor.
+   *
+   * @throws \Exception
    */
   public function __construct(Request $request)
   {
 	$this->request = $request;
 	$this->middleware('guest');
+	$this->middleware('advertising-enabled');
   }
 
   /**

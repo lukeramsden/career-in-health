@@ -168,7 +168,9 @@
                     @usertype('admin')
                         {{----}}
                         
-                        <a class="nav-link {{ active_route('admin.manage-advertisers.*') }}" href="{{ route('admin.manage-advertisers.show') }}">Manage Advertisers</a>
+                        @advertising
+                            <a class="nav-link {{ active_route('admin.manage-advertisers.*') }}" href="{{ route('admin.manage-advertisers.show') }}">Manage Advertisers</a>
+                        @endadvertising
                     @endusertype
                     
                     @can('sendMessages', App\PrivateMessage::class)

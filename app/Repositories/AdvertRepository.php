@@ -19,12 +19,16 @@ class AdvertRepository
    */
   public static function homepage()
   {
+	if ((bool)config('app.advertising') !== true)
+	  return null;
+
 	$advert = HomePageAdvert::whereHas('advert', function ($q) {
 	  $q->whereActive(true);
 	})->inRandomOrder()->first();
 
 	if ($advert !== null)
 	  $advert->increment('stat_views');
+
 	return $advert;
   }
 

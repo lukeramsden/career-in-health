@@ -2,7 +2,8 @@
 @section('content')
     <div class="container mt-4">
         <div class="row">
-            @if(null !== ($advert = App\Repositories\AdvertRepository::homepage()))
+            @advertising
+            @if(($advert = App\Repositories\AdvertRepository::homepage()) !== null)
                 <div class="col-12">
                     <a class="advert" href="{{ route('tracking.advert.homepage.click', [$advert]) }}" target="_blank">
                         <div class="advert-homepage">
@@ -11,6 +12,7 @@
                     </a>
                 </div>
             @endif
+            @endadvertising
             <div class="col-12">
                 <form action="{{ route('search') }}">
                     <div class="form-row">

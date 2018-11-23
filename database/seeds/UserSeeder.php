@@ -32,6 +32,9 @@ class UserSeeder extends Seeder
 	  'about'       => '15 year old software engineer from Blackpool. Future leader of the galaxy.',
 	]);
 
+	$userable->has_been_filled = true;
+	$userable->times_searched = 1;
+
 	$userable->save();
 	$user->userable()->associate($userable);
 	$user->save();
@@ -58,6 +61,10 @@ class UserSeeder extends Seeder
 	  'start_date'   => '2018-02-01',
 	  'location'     => 'Blackpool',
 	]));
+
+	$user->update([
+	  'updated_at' => Carbon::now()->addSecond(),
+	]);
 
 	$user->notificationPreferences()->update([
 	  'updated_at' => Carbon::now()->addSecond(),

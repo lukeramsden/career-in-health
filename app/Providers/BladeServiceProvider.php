@@ -19,6 +19,10 @@ class BladeServiceProvider extends ServiceProvider
 	  return Auth::check() && Auth::user()->onboarding()->inProgress();
 	});
 
+	Blade::if('advertising', function () {
+	  return (bool)config('app.advertising');
+	});
+
 	Blade::if('usertype', function ($types = '') {
 	  if (Auth::check())
 		foreach (explode(',', $types) as $type)
