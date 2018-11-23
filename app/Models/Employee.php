@@ -7,99 +7,99 @@ use Illuminate\Support\Facades\Storage;
 
 class Employee extends Model
 {
-    protected $appends = ['is_edited', 'full_name'];
+  protected $appends = ['is_edited', 'full_name'];
+  protected $fillable = [
+	'first_name', 'last_name', 'about', 'location_id',
+  ];
 
-    public function getIsEditedAttribute()
-    {
-         return $this->created_at != $this->updated_at;
-    }
+  protected static function boot()
+  {
+	parent::boot();
 
-    public function getFullNameAttribute()
-    {
-        return $this->fullName();
-    }
+	static::created(function (Employee $employee) {
+	  $cv = new Cv\Cv();
+	  $employee->cv()->save($cv);
+	  $employee->save();
+	});
 
-    protected $fillable = [
-        'first_name', 'last_name', 'about', 'location_id'
-    ];
+	static::deleting(function (Employee $employee) {
+	  $employee->cv()->delete();
+	});
+  }
 
-    protected static function boot() {
-        parent::boot();
+  public function cv()
+  {
+	return $this->hasOne(Cv\Cv::class);
+  }
 
-        static::created(function(Employee $employee) {
-            $cv = new Cv\Cv();
-            $employee->cv()->save($cv);
-            $employee->save();
-        });
+  public function getIsEditedAttribute()
+  {
+	return $this->created_at != $this->updated_at;
+  }
 
-        static::deleting(function(Employee $employee) {
-            $employee->cv()->delete();
-        });
-    }
+  public function getFullNameAttribute()
+  {
+	return $this->fullName();
+  }
 
-    public function user()
-    {
-        return $this->morphOne(User::class, 'userable');
-    }
+  public function fullName()
+  {
+	return trim("{$this->first_name} {$this->last_name}");
+  }
 
-    public function cv()
-    {
-        return $this->hasOne(Cv\Cv::class);
-    }
+  public function user()
+  {
+	return $this->morphOne(User::class, 'userable');
+  }
 
-    public function applications()
-    {
-        return $this->hasMany(JobListingApplication::class);
-    }
+  public function applications()
+  {
+	return $this->hasMany(JobListingApplication::class);
+  }
 
-    public function location()
-    {
-        return $this->hasOne(Location::class, 'id', 'location_id');
-    }
+  public function location()
+  {
+	return $this->hasOne(Location::class, 'id', 'location_id');
+  }
 
-    public function fullName()
-    {
-        return trim("{$this->first_name} {$this->last_name}");
-    }
+  public function picture()
+  {
+	return $this->avatar ? Storage::url($this->avatar) : null;
+  }
 
-    public function picture()
-    {
-        return $this->avatar ? Storage::url($this->avatar) : null;
-    }
-
-	public function saveJobListing(JobListing $jobListing)
+  public function saveJobListing(JobListing $jobListing)
+  {
+	if (SavedJobListing::where([
+		'employee_id'    => $this->id,
+		'job_listing_id' => $jobListing->id,
+	  ])->count() == 0)
 	{
-		if (SavedJobListing::where([
-				'employee_id'    => $this->id,
-				'job_listing_id' => $jobListing->id,
-			])->count() == 0)
-		{
 
-			$savedJobListing                 = new SavedJobListing();
-			$savedJobListing->employee_id    = $this->id;
-			$savedJobListing->job_listing_id = $jobListing->id;
-			$savedJobListing->save();
-		}
+	  $savedJobListing                 = new SavedJobListing();
+	  $savedJobListing->employee_id    = $this->id;
+	  $savedJobListing->job_listing_id = $jobListing->id;
+	  $savedJobListing->save();
 	}
+  }
 
-	public function unsaveJobListing(JobListing $jobListing)
+  public function unsaveJobListing(JobListing $jobListing)
+  {
+	try
 	{
-		try
-		{
-			SavedJobListing::where([
-				'employee_id'    => $this->id,
-				'job_listing_id' => $jobListing->id,
-			])->delete();
-		} catch (\Exception $e)
-		{
-		}
-	}
-
-	public function isJobListingSaved(JobListing $jobListing)
+	  SavedJobListing::where([
+		'employee_id'    => $this->id,
+		'job_listing_id' => $jobListing->id,
+	  ])->delete();
+	} catch (\Exception $e)
 	{
-		return SavedJobListing::where([
-				'employee_id'    => $this->id,
-				'job_listing_id' => $jobListing->id,
-			])->count() > 0;
 	}
+  }
+
+  public function isJobListingSaved(JobListing $jobListing)
+  {
+	return SavedJobListing::where([
+		'employee_id'    => $this->id,
+		'job_listing_id' => $jobListing->id,
+	  ])->count() > 0;
+  }
 }

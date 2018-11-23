@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
 	]);
 
 	$userable->has_been_filled = true;
-	$userable->times_searched = 1;
+	$userable->times_searched  = 1;
 
 	$userable->save();
 	$user->userable()->associate($userable);
@@ -113,7 +113,7 @@ class UserSeeder extends Seeder
 		'company_user_id'  => $userable->id,
 		'permission_level' => 'owner',
 	  ]);
-	
+
 	$user->notificationPreferences()->update([
 	  'updated_at' => Carbon::now()->addSecond(),
 	]);
