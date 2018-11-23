@@ -46,6 +46,7 @@
     "no-console": "off",
     "no-multi-assign": "off",
     "implicit-arrow-linebreak": "off",
+    "no-extra-boolean-cast": "off",
     "no-underscore-dangle": [
       "error",
       {

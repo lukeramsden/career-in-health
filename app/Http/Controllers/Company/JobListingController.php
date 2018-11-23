@@ -215,7 +215,11 @@ class JobListingController extends Controller
 	}
 
 	if (ajax())
-	  return response()->json(['success' => true, 'model' => $jobListing], 200);
+	  return response()->json([
+		'success'    => true,
+		'model'      => $jobListing,
+		'redirectTo' => route('job-listing.edit', $jobListing),
+	  ], 200);
 
 	if ($savingForLater)
 	{

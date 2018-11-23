@@ -12,7 +12,7 @@
                        class="form-control"
                        name="title"
                        maxlength="120"
-                       required>
+                       required title="Title">
               </div>
             </div>
           </div>
@@ -22,11 +22,11 @@
               <div class="form-group">
                 <label>Description</label>
                 <textarea v-model="listing.description"
-                          :required="!listing.savingForLater"
+                          :required="!savingForLater"
                           class="form-control"
                           name="description"
                           rows="25"
-                          maxlength="3000"></textarea>
+                          maxlength="3000" title="Description"></textarea>
               </div>
             </div>
           </div>
@@ -34,7 +34,7 @@
           <div class="card card-custom">
             <div class="card-body">
               <select2 v-model="addressId"
-                       :required="!listing.savingForLater"
+                       :required="!savingForLater"
                        name="address_id">
                 <option :value="null">-</option>
                 <option v-for="address in addresses"
@@ -53,7 +53,7 @@
           <div class="card card-custom">
             <div class="card-body">
               <select2 v-model="listing.job_role"
-                       :required="!listing.savingForLater"
+                       :required="!savingForLater"
                        name="job_role">
                 <option :value="null">-</option>
                 <option v-for="role in jobRoles"
@@ -73,10 +73,10 @@
                 <input :value="setting.id"
                        v-model="listing.setting"
                        :id="'setting-check-' + setting.id"
-                       :required="!listing.savingForLater"
+                       :required="!savingForLater"
                        type="radio"
                        class="custom-control-input"
-                       name="setting">
+                       name="setting" title="Setting">
                 <label :for="'setting-check-' + setting.id"
                        class="custom-control-label">{{ setting.name }}</label>
               </div>
@@ -91,10 +91,10 @@
                 <input :value="type.id"
                        v-model="listing.type"
                        :id="'type-check-' + type.id"
-                       :required="!listing.savingForLater"
+                       :required="!savingForLater"
                        type="radio"
                        class="custom-control-input"
-                       name="type">
+                       name="type" title="Type">
                 <label :for="'type-check-' + type.id"
                        class="custom-control-label">{{ type.name }}</label>
               </div>
@@ -117,7 +117,7 @@
               <div class="form-group">
                 <div class="custom-control custom-checkbox">
                   <input id="inputSaveForLater"
-                         v-model="listing.savingForLater"
+                         v-model="savingForLater"
                          type="checkbox"
                          class="custom-control-input"
                          name="savingForLater">
@@ -134,7 +134,7 @@
                 <label>Reason</label>
                 <input v-model="listing.close_reason"
                        type="text"
-                       class="form-control">
+                       class="form-control" title="Close Reason">
               </div>
             </div>
             <div class="card-footer p-0">
@@ -219,6 +219,16 @@ export default {
               ( address ) => address.id === parseInt( nval, 10 ) ) );
         },
       },
+    savingForLater: {
+      get()
+      {
+        return !!!( this.listing || {} ).published;
+      },
+      set( nval )
+      {
+        this.listing.published = !!!nval;
+      },
+    },
     editing()
     {
       return this.listingId !== null;
@@ -322,11 +332,15 @@ export default {
       axios
         .post( this.editing
           ? route( 'job-listing.update', { jobListing: this.listingId } )
-          : route( 'job-listing.create' ), this.listing )
+          : route( 'job-listing.create' ),
+          { ...this.listing, savingForLater: this.savingForLater } )
         .then( ( response ) =>
         {
           if ( response.data.success )
           {
+            if ( response.data.redirectTo )
+              window.location.href = response.data.redirectTo;
+
             toastr.success( 'Updated!' );
             if ( _.get( response, 'data.model.published', false ) )
               toastr.info( 'This listing has been published successfully.' );
