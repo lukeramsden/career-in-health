@@ -39,21 +39,21 @@
                 </div>
             </div>
             <div class="col-12 col-md-4 order-md-last">
-                <div class="card card-custom card-custom-material card-custom-no-top-bar
-                card-listing"
+                <div class="card card-custom card-listing"
                      id="card-listing-contact-details">
                     <div class="card-body p-0">
                         @isset($jobListing->company->phone)
-                            <div class="mb-4 p-3">
+                            <div class="p-3">
                                 <h5 class="align-middle">
                                     <span class="oi oi-phone text-muted"></span>
                                     <span class="text-muted">Phone:</span>
-                                    <span>{{ $jobListing->company->phone }}</span></h5>
+                                    <span>{{ $jobListing->company->phone }}</span>
+                                </h5>
                             </div>
                         @endisset
                         
                         @isset($jobListing->company->contact_email)
-                            <div class="mb-4 p-3">
+                            <div class="p-3">
                                 <h5 class="align-middle">
                                     <span class="oi oi-envelope-closed text-muted"></span> <span
                                         class="text-muted">Email:</span>
@@ -65,38 +65,38 @@
                             <div class="btn-group-vertical btn-group-full">
                                 @guest
                                     <a href="{{ route('register') }}"
-                                       class="btn btn-block btn-action">Sign Up To Apply</a>
+                                       class="btn p-3 btn-block btn-action">Sign Up To Apply</a>
                                 @endguest
                                 @auth
                                     @if($isOwner)
                                         <a href="{{ route('job-listing.view-applications', $jobListing) }}"
-                                           class="btn btn-block btn-link">View Applications</a>
+                                           class="btn p-3 btn-block btn-link">View Applications</a>
                                     @elseif($currentUser->isValidCompany())
                                         <button type="button"
                                                 disabled
-                                                class="btn btn-block btn-secondary">You can't
+                                                class="btn p-3 btn-block btn-secondary">You can't
                                             apply
                                         </button>
                                     @else
                                         @usertype('employee')
                                         @if(!\App\JobListingApplication::hasApplied($currentUser->userable, $jobListing))
                                             <a href="{{ route('job-listing.application.create', [$jobListing]) }}"
-                                               class="btn btn-block btn-action">Apply</a>
+                                               class="btn p-3 btn-block btn-action">Apply</a>
                                         @else
                                             <button type="button"
                                                     disabled
-                                                    class="btn btn-block btn-secondary">Already
+                                                    class="btn p-3 btn-block btn-secondary">Already
                                                 Applied!
                                             </button>
                                         @endif
                                         
                                         @if($currentUser->userable->isJobListingSaved($jobListing))
                                             <a href="{{ route('employee.unsave-job-listing', $jobListing) }}"
-                                               class="btn btn-block btn-primary">Remove
+                                               class="btn p-3 btn-block btn-primary">Remove
                                                 From Saved Listings</a>
                                         @else
                                             <a href="{{ route('employee.save-job-listing', $jobListing) }}"
-                                               class="btn btn-block btn-primary">Save Job
+                                               class="btn p-3 btn-block btn-primary">Save Job
                                                 Listing</a>
                                         @endif
                                         @endusertype
