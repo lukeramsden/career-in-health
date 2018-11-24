@@ -19,6 +19,7 @@
         "bootstrap": "^4.0.0",
         "change-case": "^3.0.2",
         "cross-env": "^5.1",
+        "dropzone": "^5.5.1",
         "fast-async": "^6.3.8",
         "file-size": "^1.0.0",
         "fuzzaldrin-plus": "^0.6.0",

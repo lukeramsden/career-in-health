@@ -43,12 +43,14 @@ Vue.component( 'verified-badge', VerifiedBadge );
 Vue.component( 'addresses-mini', () => import( /* webpackChunkName: "js/components/addresses-mini" */ './components/AddressesMini' ) );
 Vue.component( 'company-dashboard', () => import( /* webpackChunkName: "js/components/company-dashboard" */ './components/CompanyDashboard' ) );
 Vue.component( 'company-view-applications-table', () => import( /* webpackChunkName: "js/components/company-view-applications-table" */ './components/CompanyViewApplicationsTable' ) );
+Vue.component( 'create-address', () => import( /* webpackChunkName: "js/components/create-address" */ './components/CreateAddress' ) );
 Vue.component( 'create-job-listing', () => import( /* webpackChunkName: "js/components/create-job-listing" */ './components/CreateJobListing' ) );
 Vue.component( 'employee-dashboard', () => import( /* webpackChunkName: "js/components/employee-dashboard" */ './components/EmployeeDashboard' ) );
 Vue.component( 'job-listings-table', () => import( /* webpackChunkName: "js/components/job-listings-table" */ './components/JobListingsTable' ) );
 Vue.component( 'private-messages', () => import( /* webpackChunkName: "js/components/private-messages" */ './components/PrivateMessages' ) );
 Vue.component( 'search', () => import( /* webpackChunkName: "js/components/search" */ './components/Search' ) );
 Vue.component( 'select2', () => import( /* webpackChunkName: "js/components/select2" */ './components/Select2' ) );
+Vue.component( 'file-upload', () => import( /* webpackChunkName: "js/components/file-upload" */ './components/FileUpload' ) );
 
 window.store = new Vuex.Store( storeOptions );
 
