@@ -2,9 +2,10 @@
   <div class="container-fluid my-4">
     <template v-if="loaded">
       <div class="row">
-        <div class="col-12 col-lg-4 order-lg-last">
+        <div class="col-12 col-lg-4 order-lg-last mb-4 mb-lg-0">
           <div id="job-listings-table-filter-card"
-               class="card card-custom-material card-custom-material-hover position-sticky top-4">
+               class="card card-custom-material card-custom-material-hover
+                position-sticky top-4 mb-3">
             <div class="card-body">
               <input id="input-query" v-model="query.text" class="form-control input-material"
                      placeholder="Search" type="text">
@@ -12,17 +13,16 @@
                         v-model="sortBy"
                         :options="sortingDropdown"
                         placeholder="Sort By" />
+
             </div>
           </div>
+          <pagination v-model="page" :last-page="lastPage"
+                      class=""
+                      custom-input />
+          <p class="text-center">Viewing {{ pageItemsCount }} results</p>
         </div>
         <div class="col-12 col-lg-8">
-          <div class="mb-4">
-            <p class="float-left mb-0 mt-2">Viewing {{ pageItemsCount }} results</p>
-            <pagination v-model="page" :last-page="lastPage"
-                        class="float-right"
-                        custom-input />
-          </div>
-          <div class="table-responsive mt-4">
+          <div class="table-responsive">
             <table class="table w-100">
               <thead class="thead-primary text-light">
                 <tr>
@@ -55,7 +55,7 @@
         </div>
       </div>
     </template>
-    <loading-icon v-else/>
+    <loading-icon v-else />
   </div>
 </template>
 
@@ -101,9 +101,9 @@ export default {
       lastPage: 0,
       perPage: 10,
       sortingDropdown: [
-        { label: 'Default', value: 0, },
-        { label: 'Oldest First', value: 1, },
-        { label: 'Newest First', value: 2, },
+        { label: 'Default', value: 0 },
+        { label: 'Oldest First', value: 1 },
+        { label: 'Newest First', value: 2 },
       ],
     };
   },
@@ -127,7 +127,7 @@ export default {
           // if (this.query.status)
           //     if (o.status_name !== this.query.status.label)
           //         return false;
-          true)
+          true )
         // Score each option & create a new array out of them.
         .map( ( o ) =>
         {
@@ -136,13 +136,13 @@ export default {
             o.employee.full_name,
             o.custom_cover_letter,
             o.status_name,
-          ].map( field => fuzzaldrin.score( field, this.query.text, { preparedQuery, } ) );
+          ].map( field => fuzzaldrin.score( field, this.query.text, { preparedQuery } ) );
 
           scores[ o.id ] = Math.max( ...fieldScores );
           return o;
         } )
         // Remove anything with a really low score.
-        .filter( o => (this.query.text ? scores[ o.id ] > 1 : true) )
+        .filter( o => ( this.query.text ? scores[ o.id ] > 1 : true ) )
         .value()
         // Finally, sort by the highest score.
         .sort( ( a, b ) => scores[ b.id ] - scores[ a.id ] )
@@ -153,7 +153,7 @@ export default {
       return _
         .chain( this.matchingResults )
         .thru( arr =>
-          (this.sortBy ? arr.slice().sort( getSortFunction( this.sortBy.value ) ) : arr) )
+          ( this.sortBy ? arr.slice().sort( getSortFunction( this.sortBy.value ) ) : arr ) )
         .chunk( this.perPage )
         .nth( this.page )
         .value();
