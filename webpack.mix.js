@@ -23,6 +23,7 @@ mix
     'vue-async-computed',
     'vue-currency-filter',
     'vue-chat-scroll',
+    'vue-sweetalert2',
     'laravel-echo',
     'lodash',
     'axios',

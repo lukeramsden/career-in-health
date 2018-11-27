@@ -97,7 +97,7 @@ class JobListingController extends Controller
 
 	return response()->json([
 	  'success' => true,
-	  'listing' => $jobListing,
+	  'model'   => $jobListing,
 	], 200);
   }
 

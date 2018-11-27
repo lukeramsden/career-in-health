@@ -62,6 +62,9 @@ Route::prefix('address')
 		 Route::get('/new', 'AddressController@create')->name('create');
 		 Route::post('/new', 'AddressController@store')->name('store');
 
+	   Route::any('/{address}/get', 'AddressController@get')->name('get');
+
+
 		 Route::get('/{address}/edit', 'AddressController@edit')->name('edit');
 		 Route::post('/{address}/edit', 'AddressController@update')->name('update');
 		 Route::any('/{address}/delete', 'AddressController@destroy')->name('destroy');
@@ -298,6 +301,10 @@ Route::prefix('notifications')
 		 Route::any('/{notification}/delete', 'NotificationController@delete')->name('delete');
 	 });
 
+/*
+ * Used for loading data in to Vue components
+ * Maybe there's a compile time or cached way to do this? No idea
+ */
 Route::prefix('get-all')
 	->name('get-all-')
 	->group(function ()

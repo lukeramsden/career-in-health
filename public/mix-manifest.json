@@ -1,10 +1,9 @@
 {
     "/js/components/search.js": "/js/components/search.js",
-    "/js/components/create-job-listing.js": "/js/components/create-job-listing.js",
     "/js/components/create-address.js": "/js/components/create-address.js",
+    "/js/components/create-job-listing.js": "/js/components/create-job-listing.js",
     "/js/components/select2.js": "/js/components/select2.js",
     "/js/components/job-listings-table.js": "/js/components/job-listings-table.js",
-    "/js/components/file-upload.js": "/js/components/file-upload.js",
     "/js/components/company-view-applications-table.js": "/js/components/company-view-applications-table.js",
     "/js/components/private-messages.js": "/js/components/private-messages.js",
     "/js/components/employee-dashboard.js": "/js/components/employee-dashboard.js",

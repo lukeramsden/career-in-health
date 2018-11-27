@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use Auth;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\Exceptions\FileCannotBeAdded;
 use Webpatser\Uuid\Uuid;
@@ -87,6 +88,33 @@ class AddressController extends Controller
 		'address' => $address,
 		'edit'    => true,
 	  ]);
+  }
+
+  /**
+   * @param Address $address
+   *
+   * @return \Illuminate\Http\JsonResponse
+   * @throws AuthorizationException
+   */
+  public function get(Address $address)
+  {
+//	try
+//	{
+//	  if (Auth::check())
+//		$this->authorize('view', $address);
+//	} catch (AuthorizationException $exception)
+//	{
+//	  return response()->json([
+//		'success' => false,
+//		'error'   => $exception,
+//		'message' => $exception->getMessage(),
+//	  ], 401);
+//	}
+
+	return response()->json([
+	  'success' => true,
+	  'model'   => $address,
+	], 200);
   }
 
   /**
@@ -196,9 +224,12 @@ class AddressController extends Controller
 	if ($address->jobListings()->count() > 0)
 	{
 	  if (ajax())
-		return response()->json(['success' => false], 409);
+		return response()->json([
+		  'success' => false,
+		  'message' => 'There are still listings for this address, please remove them first.',
+		], 409);
 
-	  toast()->error('There are still jobListings for this address, please remove them first.');
+	  toast()->error('There are still listings for this address, please remove them first.');
 	  return back();
 	}
 

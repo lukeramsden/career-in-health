@@ -39,7 +39,8 @@
     "no-multi-spaces": "off",
     "brace-style": [
       "warn",
-      "allman"
+      "allman",
+      { "allowSingleLine": true }
     ],
     "no-param-reassign": "off",
     "no-return-assign": "off",

@@ -6,6 +6,8 @@ import Vuex              from 'vuex';
 import AsyncComputed     from 'vue-async-computed';
 import VueCurrencyFilter from 'vue-currency-filter';
 import VueChatScroll     from 'vue-chat-scroll';
+import VueSweetAlert     from 'vue-sweetalert2';
+
 import storeOptions      from './store/store';
 import LoadingIcon       from './components/LoadingIcon.vue';
 import Pagination        from './components/Pagination.vue';
@@ -34,6 +36,7 @@ Vue.use( VueCurrencyFilter, {
   symbolPosition: 'front',
   symbolSpacing: false,
 } );
+Vue.use(VueSweetAlert);
 
 Vue.component( 'loading-icon', LoadingIcon );
 Vue.component( 'pagination', Pagination );
@@ -50,7 +53,6 @@ Vue.component( 'job-listings-table', () => import( /* webpackChunkName: "js/comp
 Vue.component( 'private-messages', () => import( /* webpackChunkName: "js/components/private-messages" */ './components/PrivateMessages' ) );
 Vue.component( 'search', () => import( /* webpackChunkName: "js/components/search" */ './components/Search' ) );
 Vue.component( 'select2', () => import( /* webpackChunkName: "js/components/select2" */ './components/Select2' ) );
-Vue.component( 'file-upload', () => import( /* webpackChunkName: "js/components/file-upload" */ './components/FileUpload' ) );
 
 window.store = new Vuex.Store( storeOptions );
 

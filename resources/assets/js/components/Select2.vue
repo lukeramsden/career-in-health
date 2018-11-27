@@ -28,7 +28,7 @@ export default {
     data( oval )
     {
       // update data
-      $( this.$el ).empty().select2( { data: oval, } );
+      $( this.$el ).empty().select2( { data: oval } );
     },
   },
   mounted()

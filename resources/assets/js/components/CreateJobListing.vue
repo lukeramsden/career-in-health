@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-lg-5">
+  <div class="container-fluid mt-lg-3">
     <template v-if="loaded">
       <form @submit.stop.prevent="">
         <div class="card-columns smaller-card-columns">
@@ -322,7 +322,7 @@ export default {
       if ( listing )
       {
         if ( listing.data.success )
-          this.listing = listing.data.listing;
+          this.listing = listing.data.model;
         else throw new Error();
       }
     },
@@ -333,7 +333,7 @@ export default {
         .post( this.editing
           ? route( 'job-listing.update', { jobListing: this.listingId } )
           : route( 'job-listing.create' ),
-          { ...this.listing, savingForLater: this.savingForLater } )
+        { ...this.listing, savingForLater: this.savingForLater } )
         .then( ( response ) =>
         {
           if ( response.data.success )
@@ -341,7 +341,7 @@ export default {
             if ( response.data.redirectTo )
               window.location.href = response.data.redirectTo;
 
-            toastr.success( 'Updated!' );
+            toastr.success( this.editing ? 'Updated!' : 'Created' );
             if ( _.get( response, 'data.model.published', false ) )
               toastr.info( 'This listing has been published successfully.' );
             else
