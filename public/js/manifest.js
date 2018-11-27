@@ -91,7 +91,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + ({"0":"js/components/search","1":"js/components/create-job-listing","2":"js/components/select2","3":"js/components/job-listings-table","4":"js/components/company-view-applications-table","5":"js/components/private-messages","6":"js/components/file-upload","7":"js/components/employee-dashboard","8":"js/components/company-dashboard","9":"js/components/addresses-mini","10":"js/components/create-address"}[chunkId]||chunkId) + ".js";
+/******/ 		script.src = __webpack_require__.p + "" + ({"0":"js/components/search","1":"js/components/create-job-listing","2":"js/components/create-address","3":"js/components/select2","4":"js/components/job-listings-table","5":"js/components/file-upload","6":"js/components/company-view-applications-table","7":"js/components/private-messages","8":"js/components/employee-dashboard","9":"js/components/company-dashboard","10":"js/components/addresses-mini"}[chunkId]||chunkId) + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
