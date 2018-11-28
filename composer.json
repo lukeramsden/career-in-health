@@ -21,7 +21,7 @@
         "predis/predis": "^1.1",
         "radic/blade-extensions": "^7.0",
         "rukhsar/laravel-active-route": "^1.4",
-        "spatie/laravel-medialibrary": "^6.0.0",
+        "spatie/laravel-medialibrary": "^7.3.0",
         "tightenco/ziggy": "~0.6.2",
         "tom-lingham/searchy": "2.*",
         "watson/rememberable": "^2.0",

@@ -95,7 +95,12 @@
           <div class="card card-custom">
             <div class="card-body">
               <label>Image Gallery</label>
-              <dropzone id="dropzone" ref="file-dz" :options="dzOpts" />
+              <dropzone id="dropzone"
+                        ref="fileUploader"
+                        :options="dzOpts"
+                        @vdropzone-mounted="dzmounted"
+                        @vdropzone-file-added="dzfileAdded"
+                        @vdropzone-removed-file="dzremoved" />
             </div>
           </div>
 
@@ -126,115 +131,6 @@
 import Dropzone from 'vue2-dropzone';
 import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 
-//   if ( vm.options.destroyMediaOnRemove ) {
-//   // remove file on server
-//     axios
-//       .post( route( 'media.destroy', { media: file.id } ) )
-//       .then( ( response ) => { } )
-//       .catch( ( error ) =>
-//       {
-//         console.log( error );
-//         _.forIn(
-//           error.response.data.errors,
-//           ( errors,
-//             field ) => errors.forEach( ( error )
-// => toastr.error( error, changeCase.titleCase( field ) ) ),
-//         );
-//       } );
-// }
-
-// if ( vm.options.uploadTo )
-// {
-//   if ( !file.id )
-//   {
-//     const formData = new FormData();
-//     formData.append( 'image', file );
-//     self.emit( 'sending', file, undefined, formData );
-//
-//     axios.post( vm.uploadTo,
-//       formData, {
-//         // config
-//         onUploadProgress: progressEvent =>
-//         {
-//           const percentCompleted = Math.floor(
-//             ( progressEvent.loaded * 100 ) / progressEvent.total
-//           );
-//           self.emit( 'uploadprogress', file, percentCompleted, progressEvent.loaded );
-//           console.log( `progress: ${file.name} is ${percentCompleted}%`
-//             + `(${progressEvent.loaded}/${progressEvent.total}) complete` );
-//         },
-//       } )
-//       .then( ( response ) =>
-//       {
-//         file.id = _.get( response, 'data.model.id' );
-//         self.emit( 'success', file, response );
-//         self.emit( 'complete', file );
-//       } )
-//       .catch( ( error ) =>
-//       {
-//         console.log( error );
-//         self.emit( 'error', file, 'Error' );
-//         _.forIn(
-//           error.response.data.errors,
-//           ( errors, field ) => errors.forEach(
-//             ( e ) => toastr.error( e, changeCase.titleCase( field ) )
-//           ),
-//         );
-//       } );
-//   }
-// }
-// else
-// {
-
-// @if
-//   ( $edit );
-//   let files = [
-//     @foreach( $address->getMedia( 'images' ) as $image )
-//     {
-//       id: {{ $image
-// ->
-//   id;
-// }
-// },
-//   name: '{{ $image->name }}',
-//     size;
-// :
-//   {{ $image->size; }}
-// ,
-//   dataURL: '{{ $image->getFullUrl() }}',
-// },
-// @endforeach
-// ]
-//   ;
-
-// recursive IIFE used to ensure that files are added one-by-one
-// ( function procFile()
-// {
-//   if ( files.length < 1 )
-//     return;
-//
-//   let file = files.shift();
-//
-//   vm.dropzone.files.push( file );
-//
-//   // Call the default addedfile event handler
-//   vm.dropzone.emit( 'addedfile', file );
-//
-//   vm.dropzone.createThumbnailFromUrl( file,
-//     vm.dropzone.options.thumbnailWidth, vm.dropzone.options.thumbnailHeight,
-//     vm.dropzone.options.thumbnailMethod, true, function ( thumbnail )
-//     {
-//       vm.dropzone.emit( 'thumbnail', file, thumbnail );
-//       // Make sure that there is no progress bar, etc...
-//       vm.dropzone.emit( 'complete', file );
-//
-//       vm.dropzone.options.maxFiles -= 1;
-//       procFile( vm );
-//     } );
-// } )();
-// @endif
-// }
-
 export default {
   components: {
     Dropzone,
@@ -252,12 +148,13 @@ export default {
         url: '/',
         autoProcessQueue: false,
         uploadMultiple: true,
-        parallelUploads: 20,
+        parallelUploads: 4,
         maxFiles: 20,
         maxFilesize: 10,
         acceptedFiles: 'image/png,image/jpeg',
         autoQueue: false,
-        addRemoveLinks: false,
+        addRemoveLinks: true,
+        paramName: 'images',
       },
 
       locations: [],
@@ -312,13 +209,28 @@ export default {
     submit( /* event */ )
     {
       console.log( 'submit' );
-      // TODO: submit files
-      // TODO: file manager while editing
+
+      if ( !this.editing )
+        this.$set(
+          this.address,
+          'images',
+          this.$refs.fileUploader.dropzone.getAcceptedFiles(),
+        );
+
+      const formData = new FormData();
+      Object.keys( this.address ).forEach( ( key, idx, arr ) =>
+      {
+        const val = arr[ key ];
+        if ( _.isArray( val ) )
+          Object.keys( val ).map( ( i ) => formData.append( `${key}[]`, val[ i ] ) );
+        else
+          formData.append( key, val || '' );
+      } );
+
       axios
         .post( this.editing
           ? route( 'address.update', { address: this.addressId } )
-          : route( 'address.create' ),
-        { ...this.address } )
+          : route( 'address.create' ), formData )
         .then( ( response ) =>
         {
           if ( response.data.success )
@@ -329,22 +241,23 @@ export default {
               return;
             }
 
-            this.$swal( {
-              title: 'Created!',
-              text: 'Your address has been added.',
-              type: 'success',
-              showCancelButton: true,
-              cancelButtonColor: '#6c757d',
-              cancelButtonText: 'Edit This Address',
-              confirmButtonColor: '#17a2b8',
-              confirmButtonText: 'Create Another Address',
-            } )
+            this
+              .$swal( {
+                title: 'Created!',
+                text: 'Your address has been added.',
+                type: 'success',
+                showCancelButton: true,
+                cancelButtonColor: '#6c757d',
+                cancelButtonText: 'Edit This Address',
+                confirmButtonColor: '#17a2b8',
+                confirmButtonText: 'Create Another Address',
+              } )
               .then( ( result ) =>
               {
                 if ( result.value )
                 {
                   this.address = {};
-                  this.$refs[ 'file-dz' ].removeAllFiles( true );
+                  this.$refs.fileUploader.removeAllFiles( true );
                 }
                 else if ( result.dismiss === this.$swal.DismissReason.cancel )
                   window.location.href = route(
@@ -363,56 +276,129 @@ export default {
           );
         } );
     },
-  },
-  destroy()
-  {
-    this.$swal( {
-      title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    } ).then( ( result ) =>
+    destroy()
     {
-      if ( result.value )
+      this.$swal( {
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      } ).then( ( result ) =>
       {
+        if ( result.value )
+        {
+          axios
+            .post( route( 'address.destroy', { address: this.addressId } ) )
+            .then( ( response ) =>
+            {
+              if ( response.data.success )
+              {
+                this.$swal(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success',
+                );
+              }
+            } )
+            .catch( ( error ) =>
+            {
+              console.log( error );
+
+              if ( error.response.status === 409 )
+              {
+                this.$swal(
+                  'Error',
+                  error.response.data.message,
+                  'error',
+                );
+                return;
+              }
+
+              this.$swal(
+                'Error',
+                'Unknown error, check console for more details.',
+                'error',
+              );
+            } );
+        }
+      } );
+    },
+    dzmounted()
+    {
+      ( this.address.images || [] ).map(
+        ( val ) => this.$refs.fileUploader.manuallyAddFile( val, val.url ),
+      );
+    },
+    dzfileAdded( file )
+    {
+      if ( !this.editing ) return;
+
+      const vm = this;
+      const dz = vm.$refs.fileUploader.dropzone;
+
+      const formData = new FormData();
+      formData.append( 'image', file );
+
+      if ( !file.id )
+      {
+        dz.emit( 'sending', file, undefined, formData );
         axios
-          .post( route( 'address.destroy', { address: this.addressId } ) )
+          .post( route( 'address.image.store', { address: vm.addressId } ),
+            formData, {
+              // config
+              onUploadProgress: progressEvent =>
+              {
+                const percentCompleted = Math.floor(
+                  ( progressEvent.loaded * 100 ) / progressEvent.total,
+                );
+                dz.emit( 'uploadprogress', file, percentCompleted, progressEvent.loaded );
+                console.log( `progress: ${file.name} is ${percentCompleted}%`
+                  + `(${progressEvent.loaded}/${progressEvent.total}) complete` );
+              },
+            } )
           .then( ( response ) =>
           {
-            if ( response.data.success )
-            {
-              this.$swal(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success',
-              );
-            }
+            console.log();
+            file.id = _.get( response, 'data.model.id' );
+            dz.emit( 'success', file, response );
+            dz.emit( 'complete', file );
           } )
           .catch( ( error ) =>
           {
             console.log( error );
-
-            if ( error.response.status === 409 )
-            {
-              this.$swal(
-                'Error',
-                error.response.data.message,
-                'error',
-              );
-              return;
-            }
-
-            this.$swal(
-              'Error',
-              'Unknown error, check console for more details.',
-              'error',
+            dz.emit( 'error', file, 'Error' );
+            _.forIn(
+              error.response.data.errors,
+              ( errors, field ) => errors.forEach(
+                ( e ) => toastr.error( e, changeCase.titleCase( field ) ),
+              ),
             );
           } );
       }
-    } );
+    },
+    dzremoved( file )
+    {
+      console.log( file );
+      if ( file.id )
+      // remove file on server
+        axios
+          .post( route( 'media.destroy', { media: file.id } ) )
+          .then( ( response ) => { } )
+          .catch( ( error ) =>
+          {
+            console.log( error );
+            _.forIn(
+              error.response.data.errors,
+              ( errors,
+                field ) => errors.forEach(
+                ( e ) => toastr.error( e, changeCase.titleCase( field ) ),
+              ),
+            );
+          } );
+    },
   },
 };
 
@@ -425,5 +411,9 @@ export default {
 
   .select2-container--default .select2-selection--single {
     border-color: #CED4DA;
+  }
+
+  .vue-dropzone .dz-preview .dz-remove {
+    width: 85%;
   }
 </style>

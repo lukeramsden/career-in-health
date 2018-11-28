@@ -22,6 +22,7 @@ class CreateMediaTable extends Migration
             $table->unsignedInteger('size');
             $table->longText('manipulations');
             $table->longText('custom_properties');
+            $table->longText('responsive_images');
             $table->unsignedInteger('order_column')->nullable();
             $table->nullableTimestamps();
         });

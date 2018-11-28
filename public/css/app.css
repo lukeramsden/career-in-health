@@ -12153,7 +12153,9 @@ body {
 .btn-outline-action:hover,
 .btn-warning,
 .btn-warning:hover,
-.btn-outline-warning:hover {
+.btn-outline-warning:hover,
+.btn-danger,
+.btn-outline-danger:hover {
   color: #fff !important;
 }
 

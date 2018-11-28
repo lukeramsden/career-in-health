@@ -111,6 +111,11 @@ class AddressController extends Controller
 //	  ], 401);
 //	}
 
+	$address->images = collect([]);
+	$address->getMedia('images')->map(function ($image) use ($address) {
+	  $address->images->push(array_merge($image->toArray(), ['url' => $image->getFullUrl()]));
+	});
+
 	return response()->json([
 	  'success' => true,
 	  'model'   => $address,
