@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import Vue  from 'vue';
 import Echo from 'laravel-echo';
 
@@ -42,6 +41,7 @@ Vue.component( 'loading-icon', LoadingIcon );
 Vue.component( 'pagination', Pagination );
 Vue.component( 'verified-badge', VerifiedBadge );
 
+/* eslint-disable max-len */
 // lazy load components
 Vue.component( 'addresses-mini', () => import( /* webpackChunkName: "js/components/addresses-mini" */ './components/AddressesMini' ) );
 Vue.component( 'company-dashboard', () => import( /* webpackChunkName: "js/components/company-dashboard" */ './components/CompanyDashboard' ) );
@@ -51,8 +51,10 @@ Vue.component( 'create-job-listing', () => import( /* webpackChunkName: "js/comp
 Vue.component( 'employee-dashboard', () => import( /* webpackChunkName: "js/components/employee-dashboard" */ './components/EmployeeDashboard' ) );
 Vue.component( 'job-listings-table', () => import( /* webpackChunkName: "js/components/job-listings-table" */ './components/JobListingsTable' ) );
 Vue.component( 'private-messages', () => import( /* webpackChunkName: "js/components/private-messages" */ './components/PrivateMessages' ) );
+Vue.component( 'saved-job-listings-table', () => import( /* webpackChunkName: "js/components/saved-job-listings-table" */ './components/SavedJobListingsTable' ) );
 Vue.component( 'search', () => import( /* webpackChunkName: "js/components/search" */ './components/Search' ) );
 Vue.component( 'select2', () => import( /* webpackChunkName: "js/components/select2" */ './components/Select2' ) );
+/* eslint-enable max-len */
 
 window.store = new Vuex.Store( storeOptions );
 

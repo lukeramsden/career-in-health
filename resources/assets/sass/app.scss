@@ -756,7 +756,7 @@ $navbar-opener-width: $navbar-width / 10;
   }
 }
 
-#job_listing-show-row {
+#listing-show-row {
   & .col-12 {
     @include media-breakpoint-up(md) {
       &:nth-child(1) {

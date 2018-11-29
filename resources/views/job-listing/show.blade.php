@@ -2,7 +2,7 @@
 @section('content')
     @php($isOwner = optional($currentUser)->isValidCompany() && $currentUser->userable->company->id === $jobListing->company_id)
     <div class="container-fluid p-0 m-0">
-        <div class="row m-0 p-4" id="job_listing-show-row">
+        <div class="row m-0 p-4" id="listing-show-row">
             <div class="col-12">
                 <div class="card card-custom card-listing">
                     <div class="card-body">

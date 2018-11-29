@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container-fluid p-0 m-0">
-        <div class="row m-0 p-4" id="job_listing-show-row">
+        <div class="row m-0 p-4" id="listing-show-row">
             @verbatim
                 <div class="col-12">
                     <div class="row">
