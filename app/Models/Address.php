@@ -12,6 +12,7 @@ class Address extends Model implements HasMedia
 
     protected $fillable = [
     	'name',
+	  	'about',
 		'address_line_1',
 		'address_line_2',
 		'address_line_3',

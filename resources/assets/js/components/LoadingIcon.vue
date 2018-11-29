@@ -21,7 +21,7 @@ export default {};
 
 <style scoped lang="scss">
     .sk-circle {
-        margin: 100px auto;
+        margin: 0 auto;
         width: 40px;
         height: 40px;
         position: relative;

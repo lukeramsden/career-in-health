@@ -109,7 +109,10 @@
               <button type="submit"
                       class="btn btn-action"
                       @click="submit">
-                {{ editing ? 'Save' : 'Create' }}
+                <loading-icon v-if="saving" />
+                <template v-else>
+                  {{ editing ? 'Save' : 'Create' }}
+                </template>
               </button>
 
               <template v-if="editing">
@@ -161,6 +164,7 @@ export default {
       address: {},
 
       loaded: false,
+      saving: false,
     };
   },
   computed: {
@@ -208,7 +212,11 @@ export default {
     },
     submit( /* event */ )
     {
+      if ( this.saving ) return;
+
       console.log( 'submit' );
+
+      this.saving = true;
 
       if ( !this.editing )
         this.$set(
@@ -218,9 +226,9 @@ export default {
         );
 
       const formData = new FormData();
-      Object.keys( this.address ).forEach( ( key, idx, arr ) =>
+      Object.keys( this.address ).forEach( ( key ) =>
       {
-        const val = arr[ key ];
+        const val = this.address[ key ];
         if ( _.isArray( val ) )
           Object.keys( val ).map( ( i ) => formData.append( `${key}[]`, val[ i ] ) );
         else
@@ -274,7 +282,8 @@ export default {
             ( errors, field ) => errors
               .forEach( ( e ) => toastr.error( e, changeCase.titleCase( field ) ) ),
           );
-        } );
+        } )
+        .then( () => this.saving = false );
     },
     destroy()
     {
@@ -300,12 +309,16 @@ export default {
                   'Deleted!',
                   'Your file has been deleted.',
                   'success',
-                );
+                ).then( ( result2 ) =>
+                {
+                  if ( result2.value )
+                    window.location.href = route( 'address.index' );
+                } );
               }
             } )
             .catch( ( error ) =>
             {
-              console.log( error );
+              console.error( error );
 
               if ( error.response.status === 409 )
               {
@@ -329,7 +342,14 @@ export default {
     dzmounted()
     {
       ( this.address.images || [] ).map(
-        ( val ) => this.$refs.fileUploader.manuallyAddFile( val, val.url ),
+        ( val ) => this.$refs.fileUploader.manuallyAddFile(
+          {
+            id: val.id,
+            name: val.name,
+            size: val.size,
+            type: val.mime_type,
+          }, val.url,
+        ),
       );
     },
     dzfileAdded( file )
@@ -386,7 +406,7 @@ export default {
       // remove file on server
         axios
           .post( route( 'media.destroy', { media: file.id } ) )
-          .then( ( response ) => { } )
+          .then( () => { } )
           .catch( ( error ) =>
           {
             console.log( error );
@@ -413,7 +433,7 @@ export default {
     border-color: #CED4DA;
   }
 
-  .vue-dropzone .dz-preview .dz-remove {
-    width: 85%;
-  }
+  /*.vue-dropzone .dz-preview .dz-remove {*/
+  /*width: 85%;*/
+  /*}*/
 </style>
