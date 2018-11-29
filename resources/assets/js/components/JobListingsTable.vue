@@ -227,8 +227,9 @@ export default {
     },
     pageItemsCount()
     {
-      const first = this.page * this.perPage + 1;
-      const last  = Math.min( ( this.page * this.perPage ) + this.perPage, this.resultsCount );
+      const first = Math.max( 0, this.page * this.perPage + 1 );
+      const last  = Math.max( 0,
+        Math.min( ( this.page * this.perPage ) + this.perPage, this.resultsCount ) );
       return `${first}-${last} of ${this.resultsCount}`;
     },
   },

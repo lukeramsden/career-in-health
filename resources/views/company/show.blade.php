@@ -78,7 +78,7 @@
                                         <h4>{{$address->name}}</h4>
                                         <p>
                                             <span class="oi oi-map-marker mr-3"></span>{{ $address->location->name }}
-                                            <span class="oi oi-briefcase mx-3"></span>{{ $address->jobListings()->count() }} {{ str_plural('job listing', $address->jobListings()->count()) }}
+                                            <span class="oi oi-briefcase mx-3"></span>{{ $address->jobListings()->count() }} {{ str_plural('listing', $address->jobListings()->count()) }}
                                         </p>
                                     </div>
                                 </a>
