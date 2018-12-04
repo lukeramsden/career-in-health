@@ -67,12 +67,16 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex';
+
 export default {
   data()
   {
     return {
+      ...mapState({
+        notifications: 'notifications',
+      }),
       query: '',
-      notifications: [],
 
       loaded: false,
     };
@@ -116,25 +120,7 @@ export default {
         .sort( ( a, b ) => scores[ b.id ] - scores[ a.id ] );
     },
   },
-  mounted()
-  {
-    this.load().then( () =>
-    {
-      this.loaded = true;
-
-      this.$nextTick( () =>
-      {
-
-      } );
-    } );
-  },
   methods: {
-    async load()
-    {
-      const notifications = await axios.post( route( 'notifications.index' ) );
-
-      this.notifications = notifications.data.models;
-    },
     dataKeys( n )
     {
       return _
@@ -142,10 +128,6 @@ export default {
         .omit( [ 'action' ] )
         .thru( v => Object.keys( v ) )
         .value();
-    },
-    createdAtDiff( a )
-    {
-      return moment.utc( a.created_at ).local().fromNow();
     },
     titleCase( t )
     {

@@ -22,10 +22,17 @@ export default {
   },
   state: {
     userType: '',
+    notifications: [],
   },
   mutations: {
     updateUserType:
       ( state, payload ) => state.userType = payload,
+    replaceNotifications:
+      ( state, payload ) => state.notifications = payload,
+    pushNotification:
+      ( state, payload ) => state.notifications = _.isArray( payload )
+        ? [ ...state.notifications, ...payload ]
+        : [ ...state.notifications, payload ],
   },
   getters: {},
 };

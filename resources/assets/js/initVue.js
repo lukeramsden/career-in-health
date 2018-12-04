@@ -75,4 +75,24 @@ window.Echo = new Echo( {
 window.VApp = new Vue( {
   el: '#app',
   store,
+  mounted()
+  {
+    this.load().then( () =>
+    {
+      if ( window.isAuthenticated )
+      {
+        Echo
+          .private( `App.User.${currentUser.id}` )
+          .notification( ( n ) => this.store.commit( 'pushNotification', n ) );
+      }
+    } );
+  },
+  methods: {
+    async load()
+    {
+      if ( window.isAuthenticated )
+        this.store.commit( 'replaceNotifications',
+          ( await axios.post( route( 'notifications.index' ) ) ).data.models );
+    },
+  },
 } );
