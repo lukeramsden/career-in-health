@@ -97,7 +97,7 @@ class JobListingController extends Controller
 
 	return response()->json([
 	  'success' => true,
-	  'model'   => $jobListing,
+	  'model'   => $jobListing->load('jobRole'),
 	], 200);
   }
 
@@ -113,9 +113,23 @@ class JobListingController extends Controller
 
 	return view('job-listing.application.index')
 	  ->with([
-		'jobListing'   => $jobListing,
-		'applications' => $jobListing->applications->load('employee', 'job_listing'),
+		'listing'   => $jobListing,
 	  ]);
+  }
+
+  /**
+   * @param JobListing $jobListing
+   *
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+   * @throws \Illuminate\Auth\Access\AuthorizationException
+   */
+  public function getApplications(JobListing $jobListing) {
+	$this->authorize('update', $jobListing);
+
+    return response()->json([
+      'success' => true,
+	  'models' => $jobListing->applications->load('employee', 'job_listing'),
+	], 200);
   }
 
   /**

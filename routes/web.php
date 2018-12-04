@@ -32,10 +32,13 @@ Route::prefix('job-listing')
 		 Route::any('/{jobListing}/open', 'JobListingController@open')->name('open');
 		 Route::any('/{jobListing}/close', 'JobListingController@close')->name('close');
 
-		 Route::get('/{jobListing}', 'JobListingController@show')->name('show');
 
-		 Route::get('/{jobListing}/view/applications', 'JobListingController@showApplications')
+		 Route::get('/{jobListing}/applications', 'JobListingController@showApplications')
 			  ->name('view-applications');
+
+		 Route::any('/{jobListing}/applications/get', 'JobListingController@getApplications')
+			  ->name('view-applications.get');
+
 
 		 Route::prefix('application')
 			  ->name('application.')
@@ -52,6 +55,8 @@ Route::prefix('job-listing')
 
 		 Route::any('/application/{application}/redirect', 'JobListingApplicationController@permalink')->name('application.permalink');
 		 Route::get('/application/{application}', 'JobListingController@showApplication')->name('company.application.show');
+
+		 Route::get('/{jobListing}', 'JobListingController@show')->name('show');
 	 });
 
 Route::prefix('address')
@@ -125,7 +130,7 @@ Route::prefix('company')
 		 Route::post('/new', 'CompanyController@store')->name('store');
 		 Route::get('/edit', 'CompanyController@edit')->name('edit');
 		 Route::post('/edit', 'CompanyController@update')->name('update');
-		 Route::get('/view/{company}', 'CompanyController@show')->name('show');
+		 Route::any('/view/{company}', 'CompanyController@show')->name('show');
 		 Route::get('/view', 'CompanyController@showMe')->name('show.me');
 		 Route::get('/applications', 'CompanyController@showApplications')->name('application.index');
 		 Route::post('/applications', 'CompanyController@getApplications')->name('application.index.get');

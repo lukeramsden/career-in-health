@@ -24,6 +24,12 @@ class CompanyController extends Controller
 
   public function show(Company $company)
   {
+	if (ajax())
+	  return response()->json([
+		'success' => true,
+		'model'   => $company,
+
+	  ], 200);
 	return view('company.show')
 	  ->with([
 		'company'   => $company,

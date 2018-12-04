@@ -55,6 +55,7 @@ Vue.component( 'private-messages', () => import( /* webpackChunkName: "js/compon
 Vue.component( 'saved-job-listings-table', () => import( /* webpackChunkName: "js/components/saved-job-listings-table" */ './components/SavedJobListingsTable' ) );
 Vue.component( 'search', () => import( /* webpackChunkName: "js/components/search" */ './components/Search' ) );
 Vue.component( 'select2', () => import( /* webpackChunkName: "js/components/select2" */ './components/Select2' ) );
+Vue.component( 'show-applications-for-job-listing', () => import( /* webpackChunkName: "js/components/show-applications-for-job-listing" */ './components/ShowApplicationsForJobListing' ) );
 /* eslint-enable max-len */
 
 window.store = new Vuex.Store( storeOptions );

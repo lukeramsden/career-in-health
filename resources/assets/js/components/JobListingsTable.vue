@@ -77,15 +77,13 @@
                       <div>
                         <p>
                           <span class="oi oi-calendar"></span>
-                          <span class="text-muted">Last Updated</span> {{ result.last_edited |
-                          dateDiff }}
+                          <span class="text-muted">Last Updated</span> {{ result.last_edited | dateDiff }}
                         </p>
                       </div>
                       <div>
                         <p>
                           <span class="oi oi-calendar"></span>
-                          <span class="text-muted">Created</span> {{ result.created_at |
-                          dateDiff }}
+                          <span class="text-muted">Created</span> {{ result.created_at | dateDiff }}
                         </p>
                       </div>
                     </div>
