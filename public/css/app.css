@@ -468,10 +468,10 @@ hr {
 
 small,
 .small,
-#navbar-notification-panel .notification.notification-private-message p:nth-child(2),
-#navbar-notification-panel .notification.notification-application p:nth-child(2),
-#navbar-notification-panel .notification.notification-private-message p:nth-child(4),
-#navbar-notification-panel .notification.notification-application p:nth-child(4) {
+.notification.notification-private-message p:nth-child(2),
+.notification.notification-application p:nth-child(2),
+.notification.notification-private-message p:nth-child(4),
+.notification.notification-application p:nth-child(4) {
   font-size: 80%;
   font-weight: 400;
 }
@@ -2422,11 +2422,11 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .input-group-prepend > .form-control-plaintext.input-group-text,
 .input-group-sm > .input-group-append > .form-control-plaintext.input-group-text,
 .input-group-sm > .input-group-prepend > .form-control-plaintext.btn,
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > .form-control-plaintext.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > .form-control-plaintext.mark-as-read,
+.notification.notification-actions .input-group-sm > .input-group-prepend > .form-control-plaintext.view-all-notifications,
+.notification.notification-actions .input-group-sm > .input-group-prepend > .form-control-plaintext.mark-as-read,
 .input-group-sm > .input-group-append > .form-control-plaintext.btn,
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > .form-control-plaintext.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > .form-control-plaintext.mark-as-read,
+.notification.notification-actions .input-group-sm > .input-group-append > .form-control-plaintext.view-all-notifications,
+.notification.notification-actions .input-group-sm > .input-group-append > .form-control-plaintext.mark-as-read,
 .form-control-plaintext.form-control-lg,
 .input-group-lg > .form-control-plaintext.form-control,
 #jobListings_wrapper .input-group-lg > input.form-control-plaintext,
@@ -2436,11 +2436,11 @@ select.form-control:focus::-ms-value {
 .input-group-lg > .input-group-prepend > .form-control-plaintext.input-group-text,
 .input-group-lg > .input-group-append > .form-control-plaintext.input-group-text,
 .input-group-lg > .input-group-prepend > .form-control-plaintext.btn,
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > .form-control-plaintext.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > .form-control-plaintext.mark-as-read,
+.notification.notification-actions .input-group-lg > .input-group-prepend > .form-control-plaintext.view-all-notifications,
+.notification.notification-actions .input-group-lg > .input-group-prepend > .form-control-plaintext.mark-as-read,
 .input-group-lg > .input-group-append > .form-control-plaintext.btn,
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > .form-control-plaintext.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > .form-control-plaintext.mark-as-read {
+.notification.notification-actions .input-group-lg > .input-group-append > .form-control-plaintext.view-all-notifications,
+.notification.notification-actions .input-group-lg > .input-group-append > .form-control-plaintext.mark-as-read {
   padding-right: 0;
   padding-left: 0;
 }
@@ -2454,11 +2454,11 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .input-group-prepend > .input-group-text,
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > .mark-as-read,
+.notification.notification-actions .input-group-sm > .input-group-prepend > .view-all-notifications,
+.notification.notification-actions .input-group-sm > .input-group-prepend > .mark-as-read,
 .input-group-sm > .input-group-append > .btn,
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > .mark-as-read {
+.notification.notification-actions .input-group-sm > .input-group-append > .view-all-notifications,
+.notification.notification-actions .input-group-sm > .input-group-append > .mark-as-read {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -2470,11 +2470,11 @@ select.form-control-sm:not([size]):not([multiple]),
 .input-group-sm > .input-group-prepend > select.input-group-text:not([size]):not([multiple]),
 .input-group-sm > .input-group-append > select.input-group-text:not([size]):not([multiple]),
 .input-group-sm > .input-group-prepend > select.btn:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > select.view-all-notifications:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-prepend > select.mark-as-read:not([size]):not([multiple]),
+.notification.notification-actions .input-group-sm > .input-group-prepend > select.view-all-notifications:not([size]):not([multiple]),
+.notification.notification-actions .input-group-sm > .input-group-prepend > select.mark-as-read:not([size]):not([multiple]),
 .input-group-sm > .input-group-append > select.btn:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > select.view-all-notifications:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions .input-group-sm > .input-group-append > select.mark-as-read:not([size]):not([multiple]) {
+.notification.notification-actions .input-group-sm > .input-group-append > select.view-all-notifications:not([size]):not([multiple]),
+.notification.notification-actions .input-group-sm > .input-group-append > select.mark-as-read:not([size]):not([multiple]) {
   height: calc(1.8125rem + 2px);
 }
 
@@ -2487,11 +2487,11 @@ select.form-control-sm:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > .input-group-text,
 .input-group-lg > .input-group-append > .input-group-text,
 .input-group-lg > .input-group-prepend > .btn,
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > .mark-as-read,
+.notification.notification-actions .input-group-lg > .input-group-prepend > .view-all-notifications,
+.notification.notification-actions .input-group-lg > .input-group-prepend > .mark-as-read,
 .input-group-lg > .input-group-append > .btn,
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > .mark-as-read {
+.notification.notification-actions .input-group-lg > .input-group-append > .view-all-notifications,
+.notification.notification-actions .input-group-lg > .input-group-append > .mark-as-read {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
@@ -2503,11 +2503,11 @@ select.form-control-lg:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > select.input-group-text:not([size]):not([multiple]),
 .input-group-lg > .input-group-append > select.input-group-text:not([size]):not([multiple]),
 .input-group-lg > .input-group-prepend > select.btn:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > select.view-all-notifications:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-prepend > select.mark-as-read:not([size]):not([multiple]),
+.notification.notification-actions .input-group-lg > .input-group-prepend > select.view-all-notifications:not([size]):not([multiple]),
+.notification.notification-actions .input-group-lg > .input-group-prepend > select.mark-as-read:not([size]):not([multiple]),
 .input-group-lg > .input-group-append > select.btn:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > select.view-all-notifications:not([size]):not([multiple]),
-#navbar-notification-panel .notification.notification-actions .input-group-lg > .input-group-append > select.mark-as-read:not([size]):not([multiple]) {
+.notification.notification-actions .input-group-lg > .input-group-append > select.view-all-notifications:not([size]):not([multiple]),
+.notification.notification-actions .input-group-lg > .input-group-append > select.mark-as-read:not([size]):not([multiple]) {
   height: calc(2.875rem + 2px);
 }
 
@@ -3098,8 +3098,8 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 .btn,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .mark-as-read {
+.notification.notification-actions .view-all-notifications,
+.notification.notification-actions .mark-as-read {
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -3121,108 +3121,108 @@ select.form-control-lg:not([size]):not([multiple]),
 }
 
 .btn:hover,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:hover,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:hover,
+.notification.notification-actions .view-all-notifications:hover,
+.notification.notification-actions .mark-as-read:hover,
 .btn:focus,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:focus,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:focus {
+.notification.notification-actions .view-all-notifications:focus,
+.notification.notification-actions .mark-as-read:focus {
   text-decoration: none;
 }
 
 .btn:focus,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:focus,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:focus,
+.notification.notification-actions .view-all-notifications:focus,
+.notification.notification-actions .mark-as-read:focus,
 .btn.focus,
-#navbar-notification-panel .notification.notification-actions .focus.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .focus.mark-as-read {
+.notification.notification-actions .focus.view-all-notifications,
+.notification.notification-actions .focus.mark-as-read {
   outline: 0;
   -webkit-box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.25);
           box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.25);
 }
 
 .btn.disabled,
-#navbar-notification-panel .notification.notification-actions .disabled.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .disabled.mark-as-read,
+.notification.notification-actions .disabled.view-all-notifications,
+.notification.notification-actions .disabled.mark-as-read,
 .btn:disabled,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:disabled,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:disabled {
+.notification.notification-actions .view-all-notifications:disabled,
+.notification.notification-actions .mark-as-read:disabled {
   opacity: 0.65;
 }
 
 .btn:not(:disabled):not(.disabled),
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled),
-#navbar-notification-panel .notification.notification-actions .mark-as-read:not(:disabled):not(.disabled) {
+.notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled),
+.notification.notification-actions .mark-as-read:not(:disabled):not(.disabled) {
   cursor: pointer;
 }
 
 .btn:not(:disabled):not(.disabled):active,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled):active,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:not(:disabled):not(.disabled):active,
+.notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled):active,
+.notification.notification-actions .mark-as-read:not(:disabled):not(.disabled):active,
 .btn:not(:disabled):not(.disabled).active,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled).active,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:not(:disabled):not(.disabled).active {
+.notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled).active,
+.notification.notification-actions .mark-as-read:not(:disabled):not(.disabled).active {
   background-image: none;
 }
 
 a.btn.disabled,
-#navbar-notification-panel .notification.notification-actions a.disabled.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions a.disabled.mark-as-read,
+.notification.notification-actions a.disabled.view-all-notifications,
+.notification.notification-actions a.disabled.mark-as-read,
 fieldset:disabled a.btn,
-fieldset:disabled #navbar-notification-panel .notification.notification-actions a.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions fieldset:disabled a.view-all-notifications,
-fieldset:disabled #navbar-notification-panel .notification.notification-actions a.mark-as-read,
-#navbar-notification-panel .notification.notification-actions fieldset:disabled a.mark-as-read {
+fieldset:disabled .notification.notification-actions a.view-all-notifications,
+.notification.notification-actions fieldset:disabled a.view-all-notifications,
+fieldset:disabled .notification.notification-actions a.mark-as-read,
+.notification.notification-actions fieldset:disabled a.mark-as-read {
   pointer-events: none;
 }
 
 .btn-primary,
-#navbar-notification-panel .notification.notification-actions .mark-as-read {
+.notification.notification-actions .mark-as-read {
   color: #fff;
   background-color: #455782;
   border-color: #455782;
 }
 
 .btn-primary:hover,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:hover {
+.notification.notification-actions .mark-as-read:hover {
   color: #fff;
   background-color: #384669;
   border-color: #334161;
 }
 
 .btn-primary:focus,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:focus,
+.notification.notification-actions .mark-as-read:focus,
 .btn-primary.focus,
-#navbar-notification-panel .notification.notification-actions .focus.mark-as-read {
+.notification.notification-actions .focus.mark-as-read {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.5);
 }
 
 .btn-primary.disabled,
-#navbar-notification-panel .notification.notification-actions .disabled.mark-as-read,
+.notification.notification-actions .disabled.mark-as-read,
 .btn-primary:disabled,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:disabled {
+.notification.notification-actions .mark-as-read:disabled {
   color: #fff;
   background-color: #455782;
   border-color: #455782;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:not(:disabled):not(.disabled):active,
+.notification.notification-actions .mark-as-read:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:not(:disabled):not(.disabled).active,
+.notification.notification-actions .mark-as-read:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle,
-#navbar-notification-panel .notification.notification-actions .show > .dropdown-toggle.mark-as-read {
+.notification.notification-actions .show > .dropdown-toggle.mark-as-read {
   color: #fff;
   background-color: #334161;
   border-color: #2f3b58;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:not(:disabled):not(.disabled):active:focus,
+.notification.notification-actions .mark-as-read:not(:disabled):not(.disabled):active:focus,
 .btn-primary:not(:disabled):not(.disabled).active:focus,
-#navbar-notification-panel .notification.notification-actions .mark-as-read:not(:disabled):not(.disabled).active:focus,
+.notification.notification-actions .mark-as-read:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle:focus,
-#navbar-notification-panel .notification.notification-actions .show > .dropdown-toggle.mark-as-read:focus {
+.notification.notification-actions .show > .dropdown-toggle.mark-as-read:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(69, 87, 130, 0.5);
 }
@@ -3548,53 +3548,53 @@ fieldset:disabled #navbar-notification-panel .notification.notification-actions 
 }
 
 .btn-action,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications {
+.notification.notification-actions .view-all-notifications {
   color: #212529;
   background-color: #f9834e;
   border-color: #f9834e;
 }
 
 .btn-action:hover,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:hover {
+.notification.notification-actions .view-all-notifications:hover {
   color: #fff;
   background-color: #f86929;
   border-color: #f7601d;
 }
 
 .btn-action:focus,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:focus,
+.notification.notification-actions .view-all-notifications:focus,
 .btn-action.focus,
-#navbar-notification-panel .notification.notification-actions .focus.view-all-notifications {
+.notification.notification-actions .focus.view-all-notifications {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(249, 131, 78, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(249, 131, 78, 0.5);
 }
 
 .btn-action.disabled,
-#navbar-notification-panel .notification.notification-actions .disabled.view-all-notifications,
+.notification.notification-actions .disabled.view-all-notifications,
 .btn-action:disabled,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:disabled {
+.notification.notification-actions .view-all-notifications:disabled {
   color: #212529;
   background-color: #f9834e;
   border-color: #f9834e;
 }
 
 .btn-action:not(:disabled):not(.disabled):active,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled):active,
+.notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled):active,
 .btn-action:not(:disabled):not(.disabled).active,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled).active,
+.notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled).active,
 .show > .btn-action.dropdown-toggle,
-#navbar-notification-panel .notification.notification-actions .show > .dropdown-toggle.view-all-notifications {
+.notification.notification-actions .show > .dropdown-toggle.view-all-notifications {
   color: #fff;
   background-color: #f7601d;
   border-color: #f75810;
 }
 
 .btn-action:not(:disabled):not(.disabled):active:focus,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled):active:focus,
+.notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled):active:focus,
 .btn-action:not(:disabled):not(.disabled).active:focus,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled).active:focus,
+.notification.notification-actions .view-all-notifications:not(:disabled):not(.disabled).active:focus,
 .show > .btn-action.dropdown-toggle:focus,
-#navbar-notification-panel .notification.notification-actions .show > .dropdown-toggle.view-all-notifications:focus {
+.notification.notification-actions .show > .dropdown-toggle.view-all-notifications:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(249, 131, 78, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(249, 131, 78, 0.5);
 }
@@ -4107,8 +4107,8 @@ fieldset:disabled #navbar-notification-panel .notification.notification-actions 
 
 .btn-lg,
 .btn-group-lg > .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-lg > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-lg > .mark-as-read {
+.notification.notification-actions .btn-group-lg > .view-all-notifications,
+.notification.notification-actions .btn-group-lg > .mark-as-read {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
@@ -4117,8 +4117,8 @@ fieldset:disabled #navbar-notification-panel .notification.notification-actions 
 
 .btn-sm,
 .btn-group-sm > .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-sm > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-sm > .mark-as-read {
+.notification.notification-actions .btn-group-sm > .view-all-notifications,
+.notification.notification-actions .btn-group-sm > .mark-as-read {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -4364,11 +4364,11 @@ tbody.collapse.show {
 }
 
 .btn-group > .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group > .mark-as-read,
+.notification.notification-actions .btn-group > .view-all-notifications,
+.notification.notification-actions .btn-group > .mark-as-read,
 .btn-group-vertical > .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read {
+.notification.notification-actions .btn-group-vertical > .view-all-notifications,
+.notification.notification-actions .btn-group-vertical > .mark-as-read {
   position: relative;
   -webkit-box-flex: 0;
       -ms-flex: 0 1 auto;
@@ -4376,90 +4376,90 @@ tbody.collapse.show {
 }
 
 .btn-group > .btn:hover,
-#navbar-notification-panel .notification.notification-actions .btn-group > .view-all-notifications:hover,
-#navbar-notification-panel .notification.notification-actions .btn-group > .mark-as-read:hover,
+.notification.notification-actions .btn-group > .view-all-notifications:hover,
+.notification.notification-actions .btn-group > .mark-as-read:hover,
 .btn-group-vertical > .btn:hover,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications:hover,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read:hover {
+.notification.notification-actions .btn-group-vertical > .view-all-notifications:hover,
+.notification.notification-actions .btn-group-vertical > .mark-as-read:hover {
   z-index: 1;
 }
 
 .btn-group > .btn:focus,
-#navbar-notification-panel .notification.notification-actions .btn-group > .view-all-notifications:focus,
-#navbar-notification-panel .notification.notification-actions .btn-group > .mark-as-read:focus,
+.notification.notification-actions .btn-group > .view-all-notifications:focus,
+.notification.notification-actions .btn-group > .mark-as-read:focus,
 .btn-group > .btn:active,
-#navbar-notification-panel .notification.notification-actions .btn-group > .view-all-notifications:active,
-#navbar-notification-panel .notification.notification-actions .btn-group > .mark-as-read:active,
+.notification.notification-actions .btn-group > .view-all-notifications:active,
+.notification.notification-actions .btn-group > .mark-as-read:active,
 .btn-group > .btn.active,
-#navbar-notification-panel .notification.notification-actions .btn-group > .active.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group > .active.mark-as-read,
+.notification.notification-actions .btn-group > .active.view-all-notifications,
+.notification.notification-actions .btn-group > .active.mark-as-read,
 .btn-group-vertical > .btn:focus,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications:focus,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read:focus,
+.notification.notification-actions .btn-group-vertical > .view-all-notifications:focus,
+.notification.notification-actions .btn-group-vertical > .mark-as-read:focus,
 .btn-group-vertical > .btn:active,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications:active,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read:active,
+.notification.notification-actions .btn-group-vertical > .view-all-notifications:active,
+.notification.notification-actions .btn-group-vertical > .mark-as-read:active,
 .btn-group-vertical > .btn.active,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .active.view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .active.mark-as-read {
+.notification.notification-actions .btn-group-vertical > .active.view-all-notifications,
+.notification.notification-actions .btn-group-vertical > .active.mark-as-read {
   z-index: 1;
 }
 
 .btn-group .btn + .btn,
-.btn-group #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group .view-all-notifications + .btn,
-.btn-group #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group .mark-as-read + .btn,
-.btn-group #navbar-notification-panel .notification.notification-actions .btn + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group .btn + .view-all-notifications,
-.btn-group #navbar-notification-panel .notification.notification-actions .view-all-notifications + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group .view-all-notifications + .view-all-notifications,
-.btn-group #navbar-notification-panel .notification.notification-actions .mark-as-read + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group .mark-as-read + .view-all-notifications,
-.btn-group #navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group .btn + .mark-as-read,
-.btn-group #navbar-notification-panel .notification.notification-actions .view-all-notifications + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group .view-all-notifications + .mark-as-read,
-.btn-group #navbar-notification-panel .notification.notification-actions .mark-as-read + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group .mark-as-read + .mark-as-read,
+.btn-group .notification.notification-actions .view-all-notifications + .btn,
+.notification.notification-actions .btn-group .view-all-notifications + .btn,
+.btn-group .notification.notification-actions .mark-as-read + .btn,
+.notification.notification-actions .btn-group .mark-as-read + .btn,
+.btn-group .notification.notification-actions .btn + .view-all-notifications,
+.notification.notification-actions .btn-group .btn + .view-all-notifications,
+.btn-group .notification.notification-actions .view-all-notifications + .view-all-notifications,
+.notification.notification-actions .btn-group .view-all-notifications + .view-all-notifications,
+.btn-group .notification.notification-actions .mark-as-read + .view-all-notifications,
+.notification.notification-actions .btn-group .mark-as-read + .view-all-notifications,
+.btn-group .notification.notification-actions .btn + .mark-as-read,
+.notification.notification-actions .btn-group .btn + .mark-as-read,
+.btn-group .notification.notification-actions .view-all-notifications + .mark-as-read,
+.notification.notification-actions .btn-group .view-all-notifications + .mark-as-read,
+.btn-group .notification.notification-actions .mark-as-read + .mark-as-read,
+.notification.notification-actions .btn-group .mark-as-read + .mark-as-read,
 .btn-group .btn + .btn-group,
-.btn-group #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn-group,
-#navbar-notification-panel .notification.notification-actions .btn-group .view-all-notifications + .btn-group,
-.btn-group #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn-group,
-#navbar-notification-panel .notification.notification-actions .btn-group .mark-as-read + .btn-group,
+.btn-group .notification.notification-actions .view-all-notifications + .btn-group,
+.notification.notification-actions .btn-group .view-all-notifications + .btn-group,
+.btn-group .notification.notification-actions .mark-as-read + .btn-group,
+.notification.notification-actions .btn-group .mark-as-read + .btn-group,
 .btn-group .btn-group + .btn,
-.btn-group #navbar-notification-panel .notification.notification-actions .btn-group + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group .btn-group + .view-all-notifications,
-.btn-group #navbar-notification-panel .notification.notification-actions .btn-group + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group .btn-group + .mark-as-read,
+.btn-group .notification.notification-actions .btn-group + .view-all-notifications,
+.notification.notification-actions .btn-group .btn-group + .view-all-notifications,
+.btn-group .notification.notification-actions .btn-group + .mark-as-read,
+.notification.notification-actions .btn-group .btn-group + .mark-as-read,
 .btn-group .btn-group + .btn-group,
 .btn-group-vertical .btn + .btn,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .view-all-notifications + .btn,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .mark-as-read + .btn,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .btn + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .btn + .view-all-notifications,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .view-all-notifications + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .view-all-notifications + .view-all-notifications,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .mark-as-read + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .mark-as-read + .view-all-notifications,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .btn + .mark-as-read,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .view-all-notifications + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .view-all-notifications + .mark-as-read,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .mark-as-read + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .mark-as-read + .mark-as-read,
+.btn-group-vertical .notification.notification-actions .view-all-notifications + .btn,
+.notification.notification-actions .btn-group-vertical .view-all-notifications + .btn,
+.btn-group-vertical .notification.notification-actions .mark-as-read + .btn,
+.notification.notification-actions .btn-group-vertical .mark-as-read + .btn,
+.btn-group-vertical .notification.notification-actions .btn + .view-all-notifications,
+.notification.notification-actions .btn-group-vertical .btn + .view-all-notifications,
+.btn-group-vertical .notification.notification-actions .view-all-notifications + .view-all-notifications,
+.notification.notification-actions .btn-group-vertical .view-all-notifications + .view-all-notifications,
+.btn-group-vertical .notification.notification-actions .mark-as-read + .view-all-notifications,
+.notification.notification-actions .btn-group-vertical .mark-as-read + .view-all-notifications,
+.btn-group-vertical .notification.notification-actions .btn + .mark-as-read,
+.notification.notification-actions .btn-group-vertical .btn + .mark-as-read,
+.btn-group-vertical .notification.notification-actions .view-all-notifications + .mark-as-read,
+.notification.notification-actions .btn-group-vertical .view-all-notifications + .mark-as-read,
+.btn-group-vertical .notification.notification-actions .mark-as-read + .mark-as-read,
+.notification.notification-actions .btn-group-vertical .mark-as-read + .mark-as-read,
 .btn-group-vertical .btn + .btn-group,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn-group,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .view-all-notifications + .btn-group,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn-group,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .mark-as-read + .btn-group,
+.btn-group-vertical .notification.notification-actions .view-all-notifications + .btn-group,
+.notification.notification-actions .btn-group-vertical .view-all-notifications + .btn-group,
+.btn-group-vertical .notification.notification-actions .mark-as-read + .btn-group,
+.notification.notification-actions .btn-group-vertical .mark-as-read + .btn-group,
 .btn-group-vertical .btn-group + .btn,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .btn-group + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .btn-group + .view-all-notifications,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .btn-group + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .btn-group + .mark-as-read,
+.btn-group-vertical .notification.notification-actions .btn-group + .view-all-notifications,
+.notification.notification-actions .btn-group-vertical .btn-group + .view-all-notifications,
+.btn-group-vertical .notification.notification-actions .btn-group + .mark-as-read,
+.notification.notification-actions .btn-group-vertical .btn-group + .mark-as-read,
 .btn-group-vertical .btn-group + .btn-group {
   margin-left: -1px;
 }
@@ -4480,27 +4480,27 @@ tbody.collapse.show {
 }
 
 .btn-group > .btn:first-child,
-#navbar-notification-panel .notification.notification-actions .btn-group > .view-all-notifications:first-child,
-#navbar-notification-panel .notification.notification-actions .btn-group > .mark-as-read:first-child {
+.notification.notification-actions .btn-group > .view-all-notifications:first-child,
+.notification.notification-actions .btn-group > .mark-as-read:first-child {
   margin-left: 0;
 }
 
 .btn-group > .btn:not(:last-child):not(.dropdown-toggle),
-#navbar-notification-panel .notification.notification-actions .btn-group > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
-#navbar-notification-panel .notification.notification-actions .btn-group > .mark-as-read:not(:last-child):not(.dropdown-toggle),
+.notification.notification-actions .btn-group > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
+.notification.notification-actions .btn-group > .mark-as-read:not(:last-child):not(.dropdown-toggle),
 .btn-group > .btn-group:not(:last-child) > .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group > .btn-group:not(:last-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group > .btn-group:not(:last-child) > .mark-as-read {
+.notification.notification-actions .btn-group > .btn-group:not(:last-child) > .view-all-notifications,
+.notification.notification-actions .btn-group > .btn-group:not(:last-child) > .mark-as-read {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 .btn-group > .btn:not(:first-child),
-#navbar-notification-panel .notification.notification-actions .btn-group > .view-all-notifications:not(:first-child),
-#navbar-notification-panel .notification.notification-actions .btn-group > .mark-as-read:not(:first-child),
+.notification.notification-actions .btn-group > .view-all-notifications:not(:first-child),
+.notification.notification-actions .btn-group > .mark-as-read:not(:first-child),
 .btn-group > .btn-group:not(:first-child) > .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group > .btn-group:not(:first-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group > .btn-group:not(:first-child) > .mark-as-read {
+.notification.notification-actions .btn-group > .btn-group:not(:first-child) > .view-all-notifications,
+.notification.notification-actions .btn-group > .btn-group:not(:first-child) > .mark-as-read {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -4516,16 +4516,16 @@ tbody.collapse.show {
 
 .btn-sm + .dropdown-toggle-split,
 .btn-group-sm > .btn + .dropdown-toggle-split,
-#navbar-notification-panel .notification.notification-actions .btn-group-sm > .view-all-notifications + .dropdown-toggle-split,
-#navbar-notification-panel .notification.notification-actions .btn-group-sm > .mark-as-read + .dropdown-toggle-split {
+.notification.notification-actions .btn-group-sm > .view-all-notifications + .dropdown-toggle-split,
+.notification.notification-actions .btn-group-sm > .mark-as-read + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem;
 }
 
 .btn-lg + .dropdown-toggle-split,
 .btn-group-lg > .btn + .dropdown-toggle-split,
-#navbar-notification-panel .notification.notification-actions .btn-group-lg > .view-all-notifications + .dropdown-toggle-split,
-#navbar-notification-panel .notification.notification-actions .btn-group-lg > .mark-as-read + .dropdown-toggle-split {
+.notification.notification-actions .btn-group-lg > .view-all-notifications + .dropdown-toggle-split,
+.notification.notification-actions .btn-group-lg > .mark-as-read + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem;
 }
@@ -4544,75 +4544,75 @@ tbody.collapse.show {
 }
 
 .btn-group-vertical .btn,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .view-all-notifications,
-.btn-group-vertical #navbar-notification-panel .notification.notification-actions .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical .mark-as-read,
+.btn-group-vertical .notification.notification-actions .view-all-notifications,
+.notification.notification-actions .btn-group-vertical .view-all-notifications,
+.btn-group-vertical .notification.notification-actions .mark-as-read,
+.notification.notification-actions .btn-group-vertical .mark-as-read,
 .btn-group-vertical .btn-group {
   width: 100%;
 }
 
 .btn-group-vertical > .btn + .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications + .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read + .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read + .mark-as-read,
+.notification.notification-actions .btn-group-vertical > .view-all-notifications + .btn,
+.notification.notification-actions .btn-group-vertical > .mark-as-read + .btn,
+.notification.notification-actions .btn-group-vertical > .btn + .view-all-notifications,
+.notification.notification-actions .btn-group-vertical > .view-all-notifications + .view-all-notifications,
+.notification.notification-actions .btn-group-vertical > .mark-as-read + .view-all-notifications,
+.notification.notification-actions .btn-group-vertical > .btn + .mark-as-read,
+.notification.notification-actions .btn-group-vertical > .view-all-notifications + .mark-as-read,
+.notification.notification-actions .btn-group-vertical > .mark-as-read + .mark-as-read,
 .btn-group-vertical > .btn + .btn-group,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications + .btn-group,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read + .btn-group,
+.notification.notification-actions .btn-group-vertical > .view-all-notifications + .btn-group,
+.notification.notification-actions .btn-group-vertical > .mark-as-read + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group + .mark-as-read,
+.notification.notification-actions .btn-group-vertical > .btn-group + .view-all-notifications,
+.notification.notification-actions .btn-group-vertical > .btn-group + .mark-as-read,
 .btn-group-vertical > .btn-group + .btn-group {
   margin-top: -1px;
   margin-left: 0;
 }
 
 .btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle),
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read:not(:last-child):not(.dropdown-toggle),
+.notification.notification-actions .btn-group-vertical > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
+.notification.notification-actions .btn-group-vertical > .mark-as-read:not(:last-child):not(.dropdown-toggle),
 .btn-group-vertical > .btn-group:not(:last-child) > .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group:not(:last-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group:not(:last-child) > .mark-as-read {
+.notification.notification-actions .btn-group-vertical > .btn-group:not(:last-child) > .view-all-notifications,
+.notification.notification-actions .btn-group-vertical > .btn-group:not(:last-child) > .mark-as-read {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 .btn-group-vertical > .btn:not(:first-child),
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .view-all-notifications:not(:first-child),
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .mark-as-read:not(:first-child),
+.notification.notification-actions .btn-group-vertical > .view-all-notifications:not(:first-child),
+.notification.notification-actions .btn-group-vertical > .mark-as-read:not(:first-child),
 .btn-group-vertical > .btn-group:not(:first-child) > .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group:not(:first-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-vertical > .btn-group:not(:first-child) > .mark-as-read {
+.notification.notification-actions .btn-group-vertical > .btn-group:not(:first-child) > .view-all-notifications,
+.notification.notification-actions .btn-group-vertical > .btn-group:not(:first-child) > .mark-as-read {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
 .btn-group-toggle > .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .mark-as-read,
+.notification.notification-actions .btn-group-toggle > .view-all-notifications,
+.notification.notification-actions .btn-group-toggle > .mark-as-read,
 .btn-group-toggle > .btn-group > .btn,
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .mark-as-read {
+.notification.notification-actions .btn-group-toggle > .btn-group > .view-all-notifications,
+.notification.notification-actions .btn-group-toggle > .btn-group > .mark-as-read {
   margin-bottom: 0;
 }
 
 .btn-group-toggle > .btn input[type="radio"],
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .view-all-notifications input[type="radio"],
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .mark-as-read input[type="radio"],
+.notification.notification-actions .btn-group-toggle > .view-all-notifications input[type="radio"],
+.notification.notification-actions .btn-group-toggle > .mark-as-read input[type="radio"],
 .btn-group-toggle > .btn input[type="checkbox"],
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .view-all-notifications input[type="checkbox"],
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .mark-as-read input[type="checkbox"],
+.notification.notification-actions .btn-group-toggle > .view-all-notifications input[type="checkbox"],
+.notification.notification-actions .btn-group-toggle > .mark-as-read input[type="checkbox"],
 .btn-group-toggle > .btn-group > .btn input[type="radio"],
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .view-all-notifications input[type="radio"],
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .mark-as-read input[type="radio"],
+.notification.notification-actions .btn-group-toggle > .btn-group > .view-all-notifications input[type="radio"],
+.notification.notification-actions .btn-group-toggle > .btn-group > .mark-as-read input[type="radio"],
 .btn-group-toggle > .btn-group > .btn input[type="checkbox"],
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .view-all-notifications input[type="checkbox"],
-#navbar-notification-panel .notification.notification-actions .btn-group-toggle > .btn-group > .mark-as-read input[type="checkbox"] {
+.notification.notification-actions .btn-group-toggle > .btn-group > .view-all-notifications input[type="checkbox"],
+.notification.notification-actions .btn-group-toggle > .btn-group > .mark-as-read input[type="checkbox"] {
   position: absolute;
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
@@ -4797,75 +4797,75 @@ tbody.collapse.show {
 }
 
 .input-group-prepend .btn,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .view-all-notifications,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .mark-as-read,
+.input-group-prepend .notification.notification-actions .view-all-notifications,
+.notification.notification-actions .input-group-prepend .view-all-notifications,
+.input-group-prepend .notification.notification-actions .mark-as-read,
+.notification.notification-actions .input-group-prepend .mark-as-read,
 .input-group-append .btn,
-.input-group-append #navbar-notification-panel .notification.notification-actions .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-append .view-all-notifications,
-.input-group-append #navbar-notification-panel .notification.notification-actions .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .input-group-append .mark-as-read {
+.input-group-append .notification.notification-actions .view-all-notifications,
+.notification.notification-actions .input-group-append .view-all-notifications,
+.input-group-append .notification.notification-actions .mark-as-read,
+.notification.notification-actions .input-group-append .mark-as-read {
   position: relative;
   z-index: 2;
 }
 
 .input-group-prepend .btn + .btn,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .view-all-notifications + .btn,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .mark-as-read + .btn,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .btn + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .btn + .view-all-notifications,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .view-all-notifications + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .view-all-notifications + .view-all-notifications,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .mark-as-read + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .mark-as-read + .view-all-notifications,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .btn + .mark-as-read,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .view-all-notifications + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .view-all-notifications + .mark-as-read,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .mark-as-read + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .mark-as-read + .mark-as-read,
+.input-group-prepend .notification.notification-actions .view-all-notifications + .btn,
+.notification.notification-actions .input-group-prepend .view-all-notifications + .btn,
+.input-group-prepend .notification.notification-actions .mark-as-read + .btn,
+.notification.notification-actions .input-group-prepend .mark-as-read + .btn,
+.input-group-prepend .notification.notification-actions .btn + .view-all-notifications,
+.notification.notification-actions .input-group-prepend .btn + .view-all-notifications,
+.input-group-prepend .notification.notification-actions .view-all-notifications + .view-all-notifications,
+.notification.notification-actions .input-group-prepend .view-all-notifications + .view-all-notifications,
+.input-group-prepend .notification.notification-actions .mark-as-read + .view-all-notifications,
+.notification.notification-actions .input-group-prepend .mark-as-read + .view-all-notifications,
+.input-group-prepend .notification.notification-actions .btn + .mark-as-read,
+.notification.notification-actions .input-group-prepend .btn + .mark-as-read,
+.input-group-prepend .notification.notification-actions .view-all-notifications + .mark-as-read,
+.notification.notification-actions .input-group-prepend .view-all-notifications + .mark-as-read,
+.input-group-prepend .notification.notification-actions .mark-as-read + .mark-as-read,
+.notification.notification-actions .input-group-prepend .mark-as-read + .mark-as-read,
 .input-group-prepend .btn + .input-group-text,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .view-all-notifications + .input-group-text,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .view-all-notifications + .input-group-text,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .mark-as-read + .input-group-text,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .mark-as-read + .input-group-text,
+.input-group-prepend .notification.notification-actions .view-all-notifications + .input-group-text,
+.notification.notification-actions .input-group-prepend .view-all-notifications + .input-group-text,
+.input-group-prepend .notification.notification-actions .mark-as-read + .input-group-text,
+.notification.notification-actions .input-group-prepend .mark-as-read + .input-group-text,
 .input-group-prepend .input-group-text + .input-group-text,
 .input-group-prepend .input-group-text + .btn,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .input-group-text + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .input-group-text + .view-all-notifications,
-.input-group-prepend #navbar-notification-panel .notification.notification-actions .input-group-text + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .input-group-prepend .input-group-text + .mark-as-read,
+.input-group-prepend .notification.notification-actions .input-group-text + .view-all-notifications,
+.notification.notification-actions .input-group-prepend .input-group-text + .view-all-notifications,
+.input-group-prepend .notification.notification-actions .input-group-text + .mark-as-read,
+.notification.notification-actions .input-group-prepend .input-group-text + .mark-as-read,
 .input-group-append .btn + .btn,
-.input-group-append #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn,
-#navbar-notification-panel .notification.notification-actions .input-group-append .view-all-notifications + .btn,
-.input-group-append #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
-#navbar-notification-panel .notification.notification-actions .input-group-append .mark-as-read + .btn,
-.input-group-append #navbar-notification-panel .notification.notification-actions .btn + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-append .btn + .view-all-notifications,
-.input-group-append #navbar-notification-panel .notification.notification-actions .view-all-notifications + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-append .view-all-notifications + .view-all-notifications,
-.input-group-append #navbar-notification-panel .notification.notification-actions .mark-as-read + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-append .mark-as-read + .view-all-notifications,
-.input-group-append #navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .input-group-append .btn + .mark-as-read,
-.input-group-append #navbar-notification-panel .notification.notification-actions .view-all-notifications + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .input-group-append .view-all-notifications + .mark-as-read,
-.input-group-append #navbar-notification-panel .notification.notification-actions .mark-as-read + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .input-group-append .mark-as-read + .mark-as-read,
+.input-group-append .notification.notification-actions .view-all-notifications + .btn,
+.notification.notification-actions .input-group-append .view-all-notifications + .btn,
+.input-group-append .notification.notification-actions .mark-as-read + .btn,
+.notification.notification-actions .input-group-append .mark-as-read + .btn,
+.input-group-append .notification.notification-actions .btn + .view-all-notifications,
+.notification.notification-actions .input-group-append .btn + .view-all-notifications,
+.input-group-append .notification.notification-actions .view-all-notifications + .view-all-notifications,
+.notification.notification-actions .input-group-append .view-all-notifications + .view-all-notifications,
+.input-group-append .notification.notification-actions .mark-as-read + .view-all-notifications,
+.notification.notification-actions .input-group-append .mark-as-read + .view-all-notifications,
+.input-group-append .notification.notification-actions .btn + .mark-as-read,
+.notification.notification-actions .input-group-append .btn + .mark-as-read,
+.input-group-append .notification.notification-actions .view-all-notifications + .mark-as-read,
+.notification.notification-actions .input-group-append .view-all-notifications + .mark-as-read,
+.input-group-append .notification.notification-actions .mark-as-read + .mark-as-read,
+.notification.notification-actions .input-group-append .mark-as-read + .mark-as-read,
 .input-group-append .btn + .input-group-text,
-.input-group-append #navbar-notification-panel .notification.notification-actions .view-all-notifications + .input-group-text,
-#navbar-notification-panel .notification.notification-actions .input-group-append .view-all-notifications + .input-group-text,
-.input-group-append #navbar-notification-panel .notification.notification-actions .mark-as-read + .input-group-text,
-#navbar-notification-panel .notification.notification-actions .input-group-append .mark-as-read + .input-group-text,
+.input-group-append .notification.notification-actions .view-all-notifications + .input-group-text,
+.notification.notification-actions .input-group-append .view-all-notifications + .input-group-text,
+.input-group-append .notification.notification-actions .mark-as-read + .input-group-text,
+.notification.notification-actions .input-group-append .mark-as-read + .input-group-text,
 .input-group-append .input-group-text + .input-group-text,
 .input-group-append .input-group-text + .btn,
-.input-group-append #navbar-notification-panel .notification.notification-actions .input-group-text + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group-append .input-group-text + .view-all-notifications,
-.input-group-append #navbar-notification-panel .notification.notification-actions .input-group-text + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .input-group-append .input-group-text + .mark-as-read {
+.input-group-append .notification.notification-actions .input-group-text + .view-all-notifications,
+.notification.notification-actions .input-group-append .input-group-text + .view-all-notifications,
+.input-group-append .notification.notification-actions .input-group-text + .mark-as-read,
+.notification.notification-actions .input-group-append .input-group-text + .mark-as-read {
   margin-left: -1px;
 }
 
@@ -4903,32 +4903,32 @@ tbody.collapse.show {
 }
 
 .input-group > .input-group-prepend > .btn,
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-prepend > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-prepend > .mark-as-read,
+.notification.notification-actions .input-group > .input-group-prepend > .view-all-notifications,
+.notification.notification-actions .input-group > .input-group-prepend > .mark-as-read,
 .input-group > .input-group-prepend > .input-group-text,
 .input-group > .input-group-append:not(:last-child) > .btn,
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-append:not(:last-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-append:not(:last-child) > .mark-as-read,
+.notification.notification-actions .input-group > .input-group-append:not(:last-child) > .view-all-notifications,
+.notification.notification-actions .input-group > .input-group-append:not(:last-child) > .mark-as-read,
 .input-group > .input-group-append:not(:last-child) > .input-group-text,
 .input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-append:last-child > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-append:last-child > .mark-as-read:not(:last-child):not(.dropdown-toggle),
+.notification.notification-actions .input-group > .input-group-append:last-child > .view-all-notifications:not(:last-child):not(.dropdown-toggle),
+.notification.notification-actions .input-group > .input-group-append:last-child > .mark-as-read:not(:last-child):not(.dropdown-toggle),
 .input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 .input-group > .input-group-append > .btn,
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-append > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-append > .mark-as-read,
+.notification.notification-actions .input-group > .input-group-append > .view-all-notifications,
+.notification.notification-actions .input-group > .input-group-append > .mark-as-read,
 .input-group > .input-group-append > .input-group-text,
 .input-group > .input-group-prepend:not(:first-child) > .btn,
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-prepend:not(:first-child) > .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-prepend:not(:first-child) > .mark-as-read,
+.notification.notification-actions .input-group > .input-group-prepend:not(:first-child) > .view-all-notifications,
+.notification.notification-actions .input-group > .input-group-prepend:not(:first-child) > .mark-as-read,
 .input-group > .input-group-prepend:not(:first-child) > .input-group-text,
 .input-group > .input-group-prepend:first-child > .btn:not(:first-child),
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-prepend:first-child > .view-all-notifications:not(:first-child),
-#navbar-notification-panel .notification.notification-actions .input-group > .input-group-prepend:first-child > .mark-as-read:not(:first-child),
+.notification.notification-actions .input-group > .input-group-prepend:first-child > .view-all-notifications:not(:first-child),
+.notification.notification-actions .input-group > .input-group-prepend:first-child > .mark-as-read:not(:first-child),
 .input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -6277,8 +6277,8 @@ tbody.collapse.show {
 }
 
 .btn .badge,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications .badge,
-#navbar-notification-panel .notification.notification-actions .mark-as-read .badge {
+.notification.notification-actions .view-all-notifications .badge,
+.notification.notification-actions .mark-as-read .badge {
   position: relative;
   top: -1px;
 }
@@ -9279,8 +9279,8 @@ button.bg-golden:focus {
 }
 
 .mb-0,
-#navbar-notification-panel .notification.notification-private-message p,
-#navbar-notification-panel .notification.notification-application p,
+.notification.notification-private-message p,
+.notification.notification-application p,
 .my-0 {
   margin-bottom: 0 !important;
 }
@@ -10856,8 +10856,8 @@ button.bg-golden:focus {
 }
 
 .text-right,
-#navbar-notification-panel .notification.notification-private-message p:nth-child(4),
-#navbar-notification-panel .notification.notification-application p:nth-child(4) {
+.notification.notification-private-message p:nth-child(4),
+.notification.notification-application p:nth-child(4) {
   text-align: right !important;
 }
 
@@ -11517,7 +11517,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .mdc-elevation--z1,
-#navbar-notification-panel .notification,
+.notification,
 .card-custom-material {
   -webkit-box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
           box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
@@ -11555,7 +11555,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .mdc-elevation--z8,
-#navbar-notification-panel .notification:hover,
+.notification:hover,
 .card-custom-material-hover:hover {
   -webkit-box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
           box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -11643,7 +11643,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .mdc-elevation-transition,
-#navbar-notification-panel .notification,
+.notification,
 .card-custom-material {
   -webkit-transition: -webkit-box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: -webkit-box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -12146,9 +12146,9 @@ body {
 }
 
 .btn-action,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications,
+.notification.notification-actions .view-all-notifications,
 .btn-action:hover,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications:hover,
+.notification.notification-actions .view-all-notifications:hover,
 .btn-outline-action:hover,
 .btn-warning,
 .btn-warning:hover,
@@ -12165,20 +12165,20 @@ body {
 }
 
 .btn-group-full .btn,
-.btn-group-full #navbar-notification-panel .notification.notification-actions .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-full .view-all-notifications,
-.btn-group-full #navbar-notification-panel .notification.notification-actions .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group-full .mark-as-read {
+.btn-group-full .notification.notification-actions .view-all-notifications,
+.notification.notification-actions .btn-group-full .view-all-notifications,
+.btn-group-full .notification.notification-actions .mark-as-read,
+.notification.notification-actions .btn-group-full .mark-as-read {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
 
 .btn-group-square .btn,
-.btn-group-square #navbar-notification-panel .notification.notification-actions .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .btn-group-square .view-all-notifications,
-.btn-group-square #navbar-notification-panel .notification.notification-actions .mark-as-read,
-#navbar-notification-panel .notification.notification-actions .btn-group-square .mark-as-read {
+.btn-group-square .notification.notification-actions .view-all-notifications,
+.notification.notification-actions .btn-group-square .view-all-notifications,
+.btn-group-square .notification.notification-actions .mark-as-read,
+.notification.notification-actions .btn-group-square .mark-as-read {
   border-radius: 0 !important;
 }
 
@@ -15483,7 +15483,22 @@ body {
   margin-left: -240px;
 }
 
-#navbar-notification-panel .notification {
+#navbar-notification-panel.open {
+  margin-left: 240px;
+}
+
+#navbar #navbar-closer {
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border: #ced4da solid 1px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
+
+.notification {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -15494,11 +15509,11 @@ body {
   border-radius: 4px;
 }
 
-#navbar-notification-panel .notification.unread {
+.notification.unread {
   background-color: #fff;
 }
 
-#navbar-notification-panel .notification.notification-actions {
+.notification.notification-actions {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -15513,14 +15528,14 @@ body {
   height: 48px;
 }
 
-#navbar-notification-panel .notification.notification-actions .btn,
-#navbar-notification-panel .notification.notification-actions .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .mark-as-read {
+.notification.notification-actions .btn,
+.notification.notification-actions .view-all-notifications,
+.notification.notification-actions .mark-as-read {
   margin: 0;
 }
 
-#navbar-notification-panel .notification.notification-actions .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions .mark-as-read {
+.notification.notification-actions .view-all-notifications,
+.notification.notification-actions .mark-as-read {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -15540,51 +15555,36 @@ body {
   text-align: center;
 }
 
-#navbar-notification-panel .notification.notification-actions .view-all-notifications {
+.notification.notification-actions .view-all-notifications {
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 
-#navbar-notification-panel .notification.notification-actions .mark-as-read {
+.notification.notification-actions .mark-as-read {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
 
-#navbar-notification-panel .notification.notification-private-message,
-#navbar-notification-panel .notification.notification-application {
+.notification.notification-private-message,
+.notification.notification-application {
   padding: 0;
 }
 
-#navbar-notification-panel .notification.notification-private-message .notification-inner,
-#navbar-notification-panel .notification.notification-application .notification-inner {
+.notification.notification-private-message .notification-inner,
+.notification.notification-application .notification-inner {
   padding: 1rem;
 }
 
-#navbar-notification-panel .notification.notification-private-message hr,
-#navbar-notification-panel .notification.notification-application hr {
+.notification.notification-private-message hr,
+.notification.notification-application hr {
   margin: 8px 1rem;
 }
 
-#navbar-notification-panel .notification.notification-private-message p,
-#navbar-notification-panel .notification.notification-application p {
+.notification.notification-private-message p,
+.notification.notification-application p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-#navbar-notification-panel.open {
-  margin-left: 240px;
-}
-
-#navbar #navbar-closer {
-  cursor: pointer;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  border: #ced4da solid 1px;
-  width: 24px;
-  height: 24px;
-  text-align: center;
 }
 
 #navbar-opener {
@@ -15655,10 +15655,10 @@ body {
 }
 
 #home .banners .banner .text .container .buttons .btn,
-#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications,
-#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .mark-as-read,
-#navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .mark-as-read {
+#home .banners .banner .text .container .buttons .notification.notification-actions .view-all-notifications,
+.notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications,
+#home .banners .banner .text .container .buttons .notification.notification-actions .mark-as-read,
+.notification.notification-actions #home .banners .banner .text .container .buttons .mark-as-read {
   padding: 0px 50px;
   height: 50px;
   line-height: 52px;
@@ -15667,22 +15667,22 @@ body {
 }
 
 #home .banners .banner .text .container .buttons .btn + .btn,
-#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .view-all-notifications + .btn,
-#navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications + .btn,
-#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .mark-as-read + .btn,
-#navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .mark-as-read + .btn,
-#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .btn + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .btn + .view-all-notifications,
-#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .view-all-notifications + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications + .view-all-notifications,
-#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .mark-as-read + .view-all-notifications,
-#navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .mark-as-read + .view-all-notifications,
-#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .btn + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .btn + .mark-as-read,
-#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .view-all-notifications + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications + .mark-as-read,
-#home .banners .banner .text .container .buttons #navbar-notification-panel .notification.notification-actions .mark-as-read + .mark-as-read,
-#navbar-notification-panel .notification.notification-actions #home .banners .banner .text .container .buttons .mark-as-read + .mark-as-read {
+#home .banners .banner .text .container .buttons .notification.notification-actions .view-all-notifications + .btn,
+.notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications + .btn,
+#home .banners .banner .text .container .buttons .notification.notification-actions .mark-as-read + .btn,
+.notification.notification-actions #home .banners .banner .text .container .buttons .mark-as-read + .btn,
+#home .banners .banner .text .container .buttons .notification.notification-actions .btn + .view-all-notifications,
+.notification.notification-actions #home .banners .banner .text .container .buttons .btn + .view-all-notifications,
+#home .banners .banner .text .container .buttons .notification.notification-actions .view-all-notifications + .view-all-notifications,
+.notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications + .view-all-notifications,
+#home .banners .banner .text .container .buttons .notification.notification-actions .mark-as-read + .view-all-notifications,
+.notification.notification-actions #home .banners .banner .text .container .buttons .mark-as-read + .view-all-notifications,
+#home .banners .banner .text .container .buttons .notification.notification-actions .btn + .mark-as-read,
+.notification.notification-actions #home .banners .banner .text .container .buttons .btn + .mark-as-read,
+#home .banners .banner .text .container .buttons .notification.notification-actions .view-all-notifications + .mark-as-read,
+.notification.notification-actions #home .banners .banner .text .container .buttons .view-all-notifications + .mark-as-read,
+#home .banners .banner .text .container .buttons .notification.notification-actions .mark-as-read + .mark-as-read,
+.notification.notification-actions #home .banners .banner .text .container .buttons .mark-as-read + .mark-as-read {
   margin-left: 30px;
 }
 

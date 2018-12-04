@@ -122,13 +122,6 @@ export default {
   components: {
     vSelect,
   },
-  filters: {
-    dateDiff( val )
-    {
-      if ( !val ) return '';
-      return moment.utc( val ).local().fromNow();
-    },
-  },
   data()
   {
     return {

@@ -294,7 +294,7 @@ Route::prefix('notifications')
 	 ->name('notifications.')
 	 ->group(function ()
 	 {
-		 Route::get('/all', 'NotificationController@index')->name('index');
+		 Route::any('/all', 'NotificationController@index')->name('index');
 		 Route::any('/all/mark/read', 'NotificationController@markAllAsRead')->name('mark-all-as-read');
 		 Route::any('/all/mark/unread', 'NotificationController@markAllAsUnread')->name('mark-all-as-unread');
 		 Route::any('/all/delete/all', 'NotificationController@deleteAll')->name('delete-all');

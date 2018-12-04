@@ -7,10 +7,10 @@ import VueCurrencyFilter from 'vue-currency-filter';
 import VueChatScroll     from 'vue-chat-scroll';
 import VueSweetAlert     from 'vue-sweetalert2';
 
-import storeOptions      from './store/store';
-import LoadingIcon       from './components/LoadingIcon.vue';
-import Pagination        from './components/Pagination.vue';
-import VerifiedBadge     from './components/VerifiedBadge.vue';
+import storeOptions  from './store/store';
+import LoadingIcon   from './components/LoadingIcon.vue';
+import Pagination    from './components/Pagination.vue';
+import VerifiedBadge from './components/VerifiedBadge.vue';
 
 // fixes errors with using lodash in Vue SFCs
 Vue.prototype._ = _;
@@ -24,6 +24,12 @@ Vue.mixin( {
   },
 } );
 
+Vue.filter( 'dateDiff', ( val ) =>
+{
+  if ( !val ) return '';
+  return moment.utc( val ).local().fromNow();
+} );
+
 Vue.use( Vuex );
 Vue.use( AsyncComputed );
 Vue.use( VueChatScroll );
@@ -35,7 +41,7 @@ Vue.use( VueCurrencyFilter, {
   symbolPosition: 'front',
   symbolSpacing: false,
 } );
-Vue.use(VueSweetAlert);
+Vue.use( VueSweetAlert );
 
 Vue.component( 'loading-icon', LoadingIcon );
 Vue.component( 'pagination', Pagination );
@@ -51,6 +57,7 @@ Vue.component( 'create-job-listing', () => import( /* webpackChunkName: "js/comp
 Vue.component( 'employee-dashboard', () => import( /* webpackChunkName: "js/components/employee-dashboard" */ './components/EmployeeDashboard' ) );
 Vue.component( 'employee-view-applications-table', () => import( /* webpackChunkName: "js/components/employee-view-applications-table" */ './components/EmployeeViewApplicationsTable' ) );
 Vue.component( 'job-listings-table', () => import( /* webpackChunkName: "js/components/job-listings-table" */ './components/JobListingsTable' ) );
+Vue.component( 'notifications-index', () => import( /* webpackChunkName: "js/components/notifications-index" */ './components/NotificationsIndex' ) );
 Vue.component( 'private-messages', () => import( /* webpackChunkName: "js/components/private-messages" */ './components/PrivateMessages' ) );
 Vue.component( 'saved-job-listings-table', () => import( /* webpackChunkName: "js/components/saved-job-listings-table" */ './components/SavedJobListingsTable' ) );
 Vue.component( 'search', () => import( /* webpackChunkName: "js/components/search" */ './components/Search' ) );

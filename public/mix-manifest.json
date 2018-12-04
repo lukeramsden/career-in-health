@@ -5,6 +5,7 @@
     "/js/components/select2.js": "/js/components/select2.js",
     "/js/components/show-applications-for-job-listing.js": "/js/components/show-applications-for-job-listing.js",
     "/js/components/saved-job-listings-table.js": "/js/components/saved-job-listings-table.js",
+    "/js/components/notifications-index.js": "/js/components/notifications-index.js",
     "/js/components/job-listings-table.js": "/js/components/job-listings-table.js",
     "/js/components/employee-view-applications-table.js": "/js/components/employee-view-applications-table.js",
     "/js/components/company-view-applications-table.js": "/js/components/company-view-applications-table.js",
