@@ -49,6 +49,7 @@ Vue.component( 'company-view-applications-table', () => import( /* webpackChunkN
 Vue.component( 'create-address', () => import( /* webpackChunkName: "js/components/create-address" */ './components/CreateAddress' ) );
 Vue.component( 'create-job-listing', () => import( /* webpackChunkName: "js/components/create-job-listing" */ './components/CreateJobListing' ) );
 Vue.component( 'employee-dashboard', () => import( /* webpackChunkName: "js/components/employee-dashboard" */ './components/EmployeeDashboard' ) );
+Vue.component( 'employee-view-applications-table', () => import( /* webpackChunkName: "js/components/employee-view-applications-table" */ './components/EmployeeViewApplicationsTable' ) );
 Vue.component( 'job-listings-table', () => import( /* webpackChunkName: "js/components/job-listings-table" */ './components/JobListingsTable' ) );
 Vue.component( 'private-messages', () => import( /* webpackChunkName: "js/components/private-messages" */ './components/PrivateMessages' ) );
 Vue.component( 'saved-job-listings-table', () => import( /* webpackChunkName: "js/components/saved-job-listings-table" */ './components/SavedJobListingsTable' ) );

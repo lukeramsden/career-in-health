@@ -41,7 +41,7 @@ Route::prefix('job-listing')
 			  ->name('application.')
 			  ->group(function ()
 			  {
-				  Route::get('/all', 'JobListingApplicationController@index')->name('index');
+				  Route::any('/all', 'JobListingApplicationController@index')->name('index');
 
 				  Route::get('/{jobListing}/create', 'JobListingApplicationController@create')->name('create');
 				  Route::post('/{jobListing}/create', 'JobListingApplicationController@store')->name('store');
