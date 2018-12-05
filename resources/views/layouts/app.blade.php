@@ -14,7 +14,6 @@
     @yield('stylesheet')
 @endsection
 @section('body-end')
-    @routes
     @auth
         <script>
         function toggleNotificationDrawer()

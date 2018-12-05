@@ -36,8 +36,10 @@
         {{-- Scripts --}}
         <script>
             window.isAuthenticated = {{ Auth::check() ? 'true' : 'false' }};
-            window.currentUser = {{ Auth::check() ? json_encode(Auth::user()) : 'null' }};
+            window.currentUser = {!! Auth::check() ? json_encode(Auth::user()) : 'null' !!};
         </script>
+        
+        @routes
         @mix('js/manifest.js')
         @mix('js/vendor.js')
         @mix('js/app.js')

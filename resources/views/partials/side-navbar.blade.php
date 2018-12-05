@@ -184,7 +184,7 @@
                     @endcan
     
                     <a href="javascript:toggleNotificationDrawer()"
-                       class="nav-link"
+                       class="nav-link {{ active_route('notifications.*') }}"
                        id="navbar-notification-toggle">Notifications
                         @if(($unread_notif_count = $currentUser->unreadNotifications()->count()) > 0)
                             <span class="badge badge-danger" id="navbar-notification-unread-badge">{{ $unread_notif_count }}</span>

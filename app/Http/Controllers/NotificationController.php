@@ -30,17 +30,25 @@ class NotificationController extends Controller
 	  ->orderByRaw('-read_at ASC')
 	  ->get();
 
-	if (ajax())
-	  return response()->json([
-		'success' => true,
-		'models'  => $notifications,
-	  ], 200);
-
 	return view('notifications.index')
 	  ->with([
 		'notifications'
 		=> $notifications,
 	  ]);
+  }
+
+  public function get()
+  {
+	$notifications = Auth
+	  ::user()
+	  ->notifications()
+	  ->orderByRaw('-read_at ASC')
+	  ->get();
+
+	return response()->json([
+	  'success' => true,
+	  'models'  => $notifications,
+	], 200);
   }
 
   public function markAllAsRead()

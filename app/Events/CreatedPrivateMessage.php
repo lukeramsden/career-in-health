@@ -22,20 +22,12 @@ class CreatedPrivateMessage implements ShouldBroadcast
   public $message;
 
   /**
-   * The user that received the notification
-   *
-   * @var User
-   */
-  public $user;
-
-  /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct(User $user, PrivateMessage $privateMessage)
+  public function __construct(PrivateMessage $privateMessage)
   {
-	$this->user    = $user;
 	$this->message = $privateMessage;
   }
 
@@ -48,7 +40,7 @@ class CreatedPrivateMessage implements ShouldBroadcast
   {
 	return [
 	  new PrivateChannel(
-		"App.User.{$this->user->id}"
+		"App.User.{$this->message->employee->user->id}"
 	  ),
 	  new PrivateChannel(
 		"App.PrivateMessage.Listing.{$this->message->job_listing_id}.Employee.{$this->message->employee_id}"

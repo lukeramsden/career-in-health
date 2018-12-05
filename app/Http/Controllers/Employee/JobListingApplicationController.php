@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreatedListingApplication;
 use App\JobListing;
 use App\JobListingApplication;
 use App\PrivateMessage;
@@ -139,6 +140,8 @@ class JobListingApplicationController extends Controller
 		->map(returns('user')),
 	  new \App\Notifications\CompanyReceivedListingApplication($application)
 	);
+
+	broadcast(new CreatedListingApplication($application))->toOthers();
 
 	toast()->success('Applied!');
 	return redirect(route('job-listing.application.show', [$application]));

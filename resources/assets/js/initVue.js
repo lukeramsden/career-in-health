@@ -72,27 +72,56 @@ window.Echo = new Echo( {
   host: `${window.location.hostname}:6001`,
 } );
 
+const listeners = [
+  {
+    channel: `App.User.${currentUser.id}`,
+    private: true,
+    events: [ 'CreatedPrivateMessage' ],
+  },
+];
+
+if ( currentUser.user_type_name === 'company' )
+{
+  listeners.push( {
+    channel: `App.Company.${currentUser.userable.company_id}`,
+    private: true,
+    events: [ 'CreatedListingApplication' ],
+  } );
+}
+
 window.VApp = new Vue( {
   el: '#app',
   store,
   mounted()
   {
-    this.load().then( () =>
-    {
-      if ( window.isAuthenticated )
+    this
+      .load()
+      .then( () =>
       {
-        Echo
-          .private( `App.User.${currentUser.id}` )
-          .notification( ( n ) => this.store.commit( 'pushNotification', n ) );
-      }
-    } );
+        if ( window.isAuthenticated )
+        {
+          listeners.forEach( ( lsnr ) =>
+          {
+            const chan = window
+              .Echo[ lsnr.private ? 'private' : 'channel' ]( lsnr.channel );
+
+            lsnr.events.forEach(
+              ( event ) => chan.listen(
+                event, ( n ) => this.$store.commit( 'pushNotification', n ),
+              ),
+            );
+          } );
+        }
+      } );
   },
   methods: {
     async load()
     {
       if ( window.isAuthenticated )
-        this.store.commit( 'replaceNotifications',
-          ( await axios.post( route( 'notifications.index' ) ) ).data.models );
+      {
+        const notifications = await axios.post( route( 'notifications.get' ) );
+        this.$store.commit( 'pushNotification', notifications.data.models );
+      }
     },
   },
 } );

@@ -34,7 +34,18 @@
               <div v-for="result of queryResults"
                    :key="result.id" class="col-12 col-lg-6">
                 <template v-if="result.type === 'App\\Notifications\\ReceivedPrivateMessage'">
-
+                  <a :href="route('notifications.click-through', {notification:result.id})"
+                     class="link-unstyled">
+                    <div :class="{ unread: result.read_at === null }"
+                         class="notification notification-private-message">
+                      <div class="notification-inner">
+                        <p>Message from <b>{{ result.data.sender_name }}</b></p>
+                        <p>{{ result.data.body.substr(0, 100) }}</p>
+                        <hr>
+                        <p>{{ result.created_at | dateDiff }}</p>
+                      </div>
+                    </div>
+                  </a>
                 </template>
                 <template
                   v-else-if="result.type
@@ -67,21 +78,21 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   data()
   {
     return {
-      ...mapState({
-        notifications: 'notifications',
-      }),
       query: '',
 
-      loaded: false,
+      loaded: true,
     };
   },
   computed: {
+    ...mapState( {
+      notifications: 'notifications',
+    } ),
     queryResults()
     {
       // Don't bother with scoring anything if the query is empty.
@@ -89,8 +100,9 @@ export default {
 
       // Preparing the query before-hand lets fuzzaldrin-plus optimize things a bit.
       const preparedQuery = fuzzaldrin.prepareQuery( this.query );
+
       // We use this to keep track of the similarity for each option.
-      const scores        = {};
+      const scores = {};
 
       return this
         .notifications
@@ -142,7 +154,10 @@ export default {
         .then( ( resp ) =>
         {
           if ( resp.data.success )
-            this.notifications.map( a => a.read_at = moment() );
+            this.$store.commit(
+              'replaceNotifications',
+              this.notifications.map( a => ( { ...a, read_at: moment() } ) ),
+            );
         } )
         .catch( ( error ) =>
         {
@@ -163,7 +178,10 @@ export default {
         .then( ( resp ) =>
         {
           if ( resp.data.success )
-            this.notifications = self.notifications.filter( a => a.read_at == null );
+            this.$store.commit(
+              'replaceNotifications',
+              this.notifications.filter( a => a.read_at == null ),
+            );
         } )
         .catch( ( error ) =>
         {
