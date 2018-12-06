@@ -358,6 +358,7 @@ $navbar-opener-width: $navbar-width / 10;
   margin: 0.8rem 0.8rem 0 0.8rem;
   background-color: $gray-200;
   border-radius: 4px;
+  padding: 0;
   @extend .mdc-elevation--z1;
   @extend .mdc-elevation-transition;
 
@@ -406,17 +407,15 @@ $navbar-opener-width: $navbar-width / 10;
     }
   }
 
+  .notification-inner {
+    padding: 1rem;
+  }
+
+  hr {
+    margin: 8px 1rem;
+  }
+
   &.notification-private-message {
-    padding: 0;
-
-    .notification-inner {
-      padding: 1rem;
-    }
-
-    hr {
-      margin: 8px 1rem;
-    }
-
     p {
       white-space: nowrap;
       overflow: hidden;
@@ -439,6 +438,11 @@ $navbar-opener-width: $navbar-width / 10;
 
   &.notification-application {
     @extend .notification-private-message;
+  }
+
+  &.notification-unknown {
+    @extend .small;
+    @extend .text-right;
   }
 }
 

@@ -24,6 +24,7 @@ mix
     'vue-currency-filter',
     'vue-chat-scroll',
     'vue-sweetalert2',
+    'vue-moments-ago',
     'laravel-echo',
     'lodash',
     'axios',

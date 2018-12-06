@@ -471,7 +471,8 @@ small,
 .notification.notification-private-message p:nth-child(2),
 .notification.notification-application p:nth-child(2),
 .notification.notification-private-message p:nth-child(4),
-.notification.notification-application p:nth-child(4) {
+.notification.notification-application p:nth-child(4),
+.notification.notification-unknown {
   font-size: 80%;
   font-weight: 400;
 }
@@ -10857,7 +10858,8 @@ button.bg-golden:focus {
 
 .text-right,
 .notification.notification-private-message p:nth-child(4),
-.notification.notification-application p:nth-child(4) {
+.notification.notification-application p:nth-child(4),
+.notification.notification-unknown {
   text-align: right !important;
 }
 
@@ -15507,6 +15509,7 @@ body {
   margin: 0.8rem 0.8rem 0 0.8rem;
   background-color: #e9ecef;
   border-radius: 4px;
+  padding: 0;
 }
 
 .notification.unread {
@@ -15565,18 +15568,11 @@ body {
   border-bottom-right-radius: 4px;
 }
 
-.notification.notification-private-message,
-.notification.notification-application {
-  padding: 0;
-}
-
-.notification.notification-private-message .notification-inner,
-.notification.notification-application .notification-inner {
+.notification .notification-inner {
   padding: 1rem;
 }
 
-.notification.notification-private-message hr,
-.notification.notification-application hr {
+.notification hr {
   margin: 8px 1rem;
 }
 

@@ -28,8 +28,10 @@
                 </p>
               </div>
               <div>
-                <p><span class="oi oi-calendar"></span> <span
-                  class="text-muted">Last Updated</span> {{ listing.last_edited | dateDiff }}
+                <p>
+                  <span class="oi oi-calendar"></span> <span class="text-muted">
+                    Last Updated</span> <moments-ago
+                      :date="listing.last_edited" suffix="ago" />
                 </p>
               </div>
             </div>

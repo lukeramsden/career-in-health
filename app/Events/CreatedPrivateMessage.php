@@ -3,7 +3,6 @@
 namespace App\Events;
 
 use App\PrivateMessage;
-use App\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -41,6 +40,9 @@ class CreatedPrivateMessage implements ShouldBroadcast
 	return [
 	  new PrivateChannel(
 		"App.User.{$this->message->employee->user->id}"
+	  ),
+	  new PrivateChannel(
+		"App.Company.{$this->message->company_id}"
 	  ),
 	  new PrivateChannel(
 		"App.PrivateMessage.Listing.{$this->message->job_listing_id}.Employee.{$this->message->employee_id}"

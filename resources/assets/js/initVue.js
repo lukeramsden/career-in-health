@@ -6,6 +6,7 @@ import AsyncComputed     from 'vue-async-computed';
 import VueCurrencyFilter from 'vue-currency-filter';
 import VueChatScroll     from 'vue-chat-scroll';
 import VueSweetAlert     from 'vue-sweetalert2';
+import VueMomentsAgo     from 'vue-moments-ago';
 
 import storeOptions  from './store/store';
 import LoadingIcon   from './components/LoadingIcon.vue';
@@ -46,6 +47,7 @@ Vue.use( VueSweetAlert );
 Vue.component( 'loading-icon', LoadingIcon );
 Vue.component( 'pagination', Pagination );
 Vue.component( 'verified-badge', VerifiedBadge );
+Vue.component( 'moments-ago', VueMomentsAgo );
 
 /* eslint-disable max-len */
 // lazy load components
@@ -72,23 +74,6 @@ window.Echo = new Echo( {
   host: `${window.location.hostname}:6001`,
 } );
 
-const listeners = [
-  {
-    channel: `App.User.${currentUser.id}`,
-    private: true,
-    events: [ 'CreatedPrivateMessage' ],
-  },
-];
-
-if ( currentUser.user_type_name === 'company' )
-{
-  listeners.push( {
-    channel: `App.Company.${currentUser.userable.company_id}`,
-    private: true,
-    events: [ 'CreatedListingApplication' ],
-  } );
-}
-
 window.VApp = new Vue( {
   el: '#app',
   store,
@@ -100,17 +85,17 @@ window.VApp = new Vue( {
       {
         if ( window.isAuthenticated )
         {
-          listeners.forEach( ( lsnr ) =>
+          console.log( 'window.isAuthenticated' );
+          const pushNotification = ( n ) =>
           {
-            const chan = window
-              .Echo[ lsnr.private ? 'private' : 'channel' ]( lsnr.channel );
+            console.log( n );
+            this.$store.commit( 'pushNotification', n );
+          };
 
-            lsnr.events.forEach(
-              ( event ) => chan.listen(
-                event, ( n ) => this.$store.commit( 'pushNotification', n ),
-              ),
-            );
-          } );
+          window
+            .Echo
+            .private( `App.User.${currentUser.id}` )
+            .notification( pushNotification );
         }
       } );
   },

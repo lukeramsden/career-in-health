@@ -33,40 +33,7 @@
             <div class="row">
               <div v-for="result of queryResults"
                    :key="result.id" class="col-12 col-lg-6">
-                <template v-if="result.type === 'App\\Notifications\\ReceivedPrivateMessage'">
-                  <a :href="route('notifications.click-through', {notification:result.id})"
-                     class="link-unstyled">
-                    <div :class="{ unread: result.read_at === null }"
-                         class="notification notification-private-message">
-                      <div class="notification-inner">
-                        <p>Message from <b>{{ result.data.sender_name }}</b></p>
-                        <p>{{ result.data.body.substr(0, 100) }}</p>
-                        <hr>
-                        <p>{{ result.created_at | dateDiff }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </template>
-                <template
-                  v-else-if="result.type
-                  === 'App\\Notifications\\CompanyReceivedListingApplication'">
-                  <a :href="route('notifications.click-through', {notification:result.id})"
-                     class="link-unstyled">
-                    <div :class="{ unread: result.read_at === null }"
-                         class="notification notification-application">
-                      <div class="notification-inner">
-                        <p>Application from <b>{{ result.data.sender_name }}</b></p>
-                        <p v-if="result.data.body">{{ result.data.body.substr(0, 100) }}</p>
-                        <p v-else><span class="text-muted font-italic">No cover letter</span></p>
-                        <hr>
-                        <p>{{ result.created_at | dateDiff }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </template>
-                <template v-else>
-                  <pre>{{ result }}</pre>
-                </template>
+                <notification :model="result" />
               </div>
             </div>
           </div>
@@ -79,8 +46,12 @@
 
 <script>
 import { mapState } from 'vuex';
+import Notification from './Notification.vue';
 
 export default {
+  components: {
+    Notification,
+  },
   data()
   {
     return {

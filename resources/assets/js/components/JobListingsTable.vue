@@ -55,7 +55,7 @@
                           <span v-else-if="result.status_name === 'Closed'"
                                 class="badge badge-danger badge-pill p-2 px-3">
                             <span class="oi oi-ban"></span>
-                            Closed {{ result.closed_at | dateDiff }}
+                            Closed <moments-ago :date="result.closed_at" suffix="ago" />
                           </span>
                           <span v-else-if="result.status_name === 'Draft'"
                                 class="badge badge-secondary badge-pill p-2 px-3">
@@ -77,13 +77,13 @@
                       <div>
                         <p>
                           <span class="oi oi-calendar"></span>
-                          <span class="text-muted">Last Updated</span> {{ result.last_edited | dateDiff }}
+                          <span class="text-muted">Last Updated</span> <moments-ago :date="result.last_edited" suffix="ago" />
                         </p>
                       </div>
                       <div>
                         <p>
                           <span class="oi oi-calendar"></span>
-                          <span class="text-muted">Created</span> {{ result.created_at | dateDiff }}
+                          <span class="text-muted">Created</span> <moments-ago :date="result.created_at" suffix="ago" />
                         </p>
                       </div>
                     </div>

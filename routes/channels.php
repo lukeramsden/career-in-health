@@ -1,14 +1,22 @@
 <?php
 
+use App\Employee;
+use App\JobListing;
+use Illuminate\Support\Facades\Log;
+
 /**
  * User Type Authentication
  */
 
-use App\JobListing;
-
 Broadcast::channel('App.User.{id}', function ($user, $id) {
   /** @var \App\User $user */
-  return (int)$user->id === (int)$id;
+  Log::debug('App.User.'.$id, [$user]);
+  return $user->id === (int)$id;
+});
+
+Broadcast::channel('App.Employee.{id}', function ($user, $id) {
+  /** @var \App\User $user */
+  return $user->isEmployee() && (int)$user->userable->id === (int)$id;
 });
 
 Broadcast::channel('App.Employee.{id}', function ($user, $id) {
@@ -40,9 +48,8 @@ Broadcast::channel('App.Company.{id}', function ($user, $id) {
  * Model type authentication
  */
 
-Broadcast::channel('App.Listing.{id}', function ($user, $id) {
+Broadcast::channel('App.Listing.{listing}', function ($user, JobListing $listing) {
   /** @var \App\User $user */
-  $listing = JobListing::find($id);
   return $user->isValidCompany() && !is_null($listing) && (int)$user->userable->company->id === (int)$listing->company_id;
 });
 
@@ -50,26 +57,14 @@ Broadcast::channel('App.Listing.{id}', function ($user, $id) {
  * Other Types of Authentication
  */
 
-Broadcast::channel('App.PrivateMessage.Listing.{jobListingId}.Employee.{employeeId}', function ($user, $jobListingId, $employeeId) {
+Broadcast::channel('App.PrivateMessage.Listing.{listing}.Employee.{employee}', function ($user, JobListing $listing, Employee $employee) {
   /** @var \App\User $user */
-
-  try
-  {
-	/** @var \App\JobListing $jobListing */
-	$jobListing = \App\JobListing::findOrFail($jobListingId);
-	/** @var \App\Employee $employee */
-	$employee = \App\Employee::findOrFail($employeeId);
-  } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e)
-  {
-	Log::error($e->getMessage());
-	return false;
-  }
 
   if ($user->isEmployee())
 	return (int)$user->userable_id === (int)$employee->id;
 
   if ($user->isValidCompany())
-	return (int)$user->userable->company_id === (int)$jobListing->company_id;
+	return (int)$user->userable->company_id === (int)$listing->company_id;
 
   return false;
 });
