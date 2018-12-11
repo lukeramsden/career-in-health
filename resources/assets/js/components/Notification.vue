@@ -1,5 +1,5 @@
 <template>
-  <a :href="route('notifications.click-through', {notification:result.id}) || 'javascript:'"
+  <a :href="route('notifications.click-through', {notification:model.id}) || 'javascript:'"
      class="link-unstyled">
     <template v-if="model.type === 'App\\Notifications\\ReceivedPrivateMessage'">
       <div :class="{ unread: model.read_at === null }"
@@ -8,7 +8,7 @@
           <p>Message from <b>{{ model.data.sender_name }}</b></p>
           <p>{{ model.data.body.substr(0, 100) }}</p>
           <hr>
-          <p><moments-ago :date="model.created_at" suffix="ago" /></p>
+          <p><moments-ago :date="model.created_at" prefix="received" suffix="ago" /></p>
         </div>
       </div>
     </template>
@@ -22,7 +22,7 @@
           <p v-if="model.data.body">{{ model.data.body.substr(0, 100) }}</p>
           <p v-else><span class="text-muted font-italic">No cover letter</span></p>
           <hr>
-          <p><moments-ago :date="model.created_at" suffix="ago" /></p>
+          <p><moments-ago :date="model.created_at" prefix="applied" suffix="ago" /></p>
         </div>
       </div>
     </template>
@@ -32,7 +32,7 @@
         <div class="notification-inner">
           <pre>{{ model.data }}</pre>
           <hr>
-          <p><moments-ago :date="model.created_at" suffix="ago" /></p>
+          <p><moments-ago :date="model.created_at" prefix="" suffix="ago" /></p>
         </div>
       </div>
     </template>
@@ -41,7 +41,7 @@
 
 <script>
 export default {
-  prop: {
+  props: {
     model: {
       type: Object,
       required: true,

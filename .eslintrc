@@ -62,6 +62,7 @@
       "error",
       "always"
     ],
+    "no-sequences": "off",
     "nonblock-statement-body-position": "off",
     "no-restricted-globals": "off",
     "comma-dangle": [

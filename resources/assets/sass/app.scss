@@ -318,25 +318,6 @@ $navbar-opener-width: $navbar-width / 10;
     }
   }
 
-  &-notification-panel {
-    z-index: -1;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    overflow: hidden;
-    padding-bottom: 3rem;
-    width: $navbar-width * 1.5;
-    border-right: $gray-500 solid 1px;
-    background-color: $gray-300;
-
-    margin-left: -$navbar-width;
-
-    &.open {
-      margin-left: $navbar-width;
-    }
-  }
-
   #navbar-closer {
     cursor: pointer;
     position: absolute;
@@ -346,6 +327,30 @@ $navbar-opener-width: $navbar-width / 10;
     width: 24px;
     height: 24px;
     text-align: center;
+  }
+}
+
+#notification-panel {
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow: hidden;
+  padding-bottom: 3rem;
+  width: $navbar-width * 1.5;
+  border-right: $gray-500 solid 1px;
+  background-color: $gray-300;
+
+  margin-left: -($navbar-width * 3);
+
+  &.open {
+    z-index: 50;
+    margin-left: $navbar-width;
+
+    .navbar-collapsed > & {
+      margin-left: $navbar-opener-width;
+    }
   }
 }
 

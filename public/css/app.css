@@ -15471,7 +15471,18 @@ body {
   width: 100%;
 }
 
-#navbar-notification-panel {
+#navbar #navbar-closer {
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border: #ced4da solid 1px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
+
+#notification-panel {
   z-index: -1;
   position: fixed;
   top: 0;
@@ -15482,22 +15493,16 @@ body {
   width: 360px;
   border-right: #adb5bd solid 1px;
   background-color: #dee2e6;
-  margin-left: -240px;
+  margin-left: -720px;
 }
 
-#navbar-notification-panel.open {
+#notification-panel.open {
+  z-index: 50;
   margin-left: 240px;
 }
 
-#navbar #navbar-closer {
-  cursor: pointer;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  border: #ced4da solid 1px;
-  width: 24px;
-  height: 24px;
-  text-align: center;
+.navbar-collapsed > #notification-panel.open {
+  margin-left: 24px;
 }
 
 .notification {

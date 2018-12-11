@@ -35,19 +35,15 @@ export default {
         .head()
         .value();
     },
-    sorted: ( state ) =>
-    {
-      if ( state.messages.length <= 0 ) return [];
-
-      return _.clone( state.messages ).sort( ( a, b ) =>
+    sorted: ({ messages }) =>
+      _.clone( messages || [] ).sort( ( a, b ) =>
       {
         if ( moment( a.created_at ).isBefore( moment( b.created_at ) ) ) return -1;
 
         if ( moment( a.created_at ).isAfter( moment( b.created_at ) ) ) return 1;
 
         return 0;
-      } );
-    },
+      } ),
     unreadCount: ( state ) =>
     {
       if ( !state.userType ) return 0;

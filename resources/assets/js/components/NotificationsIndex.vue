@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import Notification from './Notification.vue';
 
 export default {
@@ -61,7 +61,7 @@ export default {
     };
   },
   computed: {
-    ...mapState( {
+    ...mapGetters( {
       notifications: 'notifications',
     } ),
     queryResults()

@@ -24,6 +24,21 @@ else
 
 require( './initVue' );
 
+const $app = $( '#app' );
+$( '#navbar-opener' ).click( () =>
+{
+  $app.removeClass( 'navbar-collapsed' );
+  sessionStorage.setItem( 'navbar-collapsed', false );
+} );
+$( '#navbar-closer' ).click( () =>
+{
+  $app.addClass( 'navbar-collapsed' );
+  sessionStorage.setItem( 'navbar-collapsed', true );
+} );
+
+if ( sessionStorage.getItem( 'navbar-collapsed' ) === 'true' )
+  $app.addClass( 'navbar-collapsed' );
+
 /*
  * Replace all SVG images with inline SVG
  */
