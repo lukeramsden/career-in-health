@@ -13,6 +13,9 @@ mix.webpackConfig( {
   plugins: [
     new webpack.ContextReplacementPlugin( /moment[/\\]locale$/, /en/ ),
   ],
+  output: {
+    chunkFilename: 'js/chunks/[name].js',
+  },
 } );
 
 mix

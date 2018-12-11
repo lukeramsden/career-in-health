@@ -1,22 +1,6 @@
 {
-  "presets": [
-    "babel-preset-env"
-  ],
   "plugins": [
-    "babel-plugin-syntax-dynamic-import",
-    [
-      "fast-async",
-      {
-        "env": {
-          "log": false
-        },
-        "compiler": {
-          "promises": true,
-          "generators": false
-        },
-        "runtimePattern": null,
-        "useRuntimeModule": true
-      }
-    ]
+    "@babel/plugin-syntax-dynamic-import",
+    "implicit-function"
   ]
 }

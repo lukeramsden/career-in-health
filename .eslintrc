@@ -63,6 +63,7 @@
       "always"
     ],
     "no-sequences": "off",
+    "no-bitwise": "off",
     "nonblock-statement-body-position": "off",
     "no-restricted-globals": "off",
     "comma-dangle": [

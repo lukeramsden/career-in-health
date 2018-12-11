@@ -51,20 +51,21 @@ Vue.component( 'moments-ago', VueMomentsAgo );
 
 /* eslint-disable max-len */
 // lazy load components
-Vue.component( 'addresses-mini', () => import( /* webpackChunkName: "js/components/addresses-mini" */ './components/AddressesMini' ) );
-Vue.component( 'company-dashboard', () => import( /* webpackChunkName: "js/components/company-dashboard" */ './components/CompanyDashboard' ) );
-Vue.component( 'company-view-applications-table', () => import( /* webpackChunkName: "js/components/company-view-applications-table" */ './components/CompanyViewApplicationsTable' ) );
-Vue.component( 'create-address', () => import( /* webpackChunkName: "js/components/create-address" */ './components/CreateAddress' ) );
-Vue.component( 'create-job-listing', () => import( /* webpackChunkName: "js/components/create-job-listing" */ './components/CreateJobListing' ) );
-Vue.component( 'employee-dashboard', () => import( /* webpackChunkName: "js/components/employee-dashboard" */ './components/EmployeeDashboard' ) );
-Vue.component( 'employee-view-applications-table', () => import( /* webpackChunkName: "js/components/employee-view-applications-table" */ './components/EmployeeViewApplicationsTable' ) );
-Vue.component( 'job-listings-table', () => import( /* webpackChunkName: "js/components/job-listings-table" */ './components/JobListingsTable' ) );
-Vue.component( 'notifications-index', () => import( /* webpackChunkName: "js/components/notifications-index" */ './components/NotificationsIndex' ) );
-Vue.component( 'private-messages', () => import( /* webpackChunkName: "js/components/private-messages" */ './components/PrivateMessages' ) );
-Vue.component( 'saved-job-listings-table', () => import( /* webpackChunkName: "js/components/saved-job-listings-table" */ './components/SavedJobListingsTable' ) );
-Vue.component( 'search', () => import( /* webpackChunkName: "js/components/search" */ './components/Search' ) );
-Vue.component( 'select2', () => import( /* webpackChunkName: "js/components/select2" */ './components/Select2' ) );
-Vue.component( 'show-applications-for-job-listing', () => import( /* webpackChunkName: "js/components/show-applications-for-job-listing" */ './components/ShowApplicationsForJobListing' ) );
+Vue.component( 'addresses-mini', ~import( './components/AddressesMini' ) );
+Vue.component( 'company-dashboard', ~import( './components/CompanyDashboard' ) );
+Vue.component( 'company-view-applications-table', ~import('./components/CompanyViewApplicationsTable' ) );
+Vue.component( 'create-address', ~import(  './components/CreateAddress' ) );
+Vue.component( 'create-job-listing', ~import(  './components/CreateJobListing' ) );
+Vue.component( 'employee-dashboard', ~import(  './components/EmployeeDashboard' ) );
+Vue.component( 'employee-view-applications-table', ~import( './components/EmployeeViewApplicationsTable' ) );
+Vue.component( 'job-listings-table', ~import(  './components/JobListingsTable' ) );
+Vue.component( 'latest-notifications', ~import( './components/LatestNotifications' ) );
+Vue.component( 'notifications-index', ~import( './components/NotificationsIndex' ) );
+Vue.component( 'private-messages', ~import( './components/PrivateMessages' ) );
+Vue.component( 'saved-job-listings-table', ~import( './components/SavedJobListingsTable' ) );
+Vue.component( 'search', ~import( './components/Search' ) );
+Vue.component( 'select2', ~import( './components/Select2' ) );
+Vue.component( 'show-applications-for-job-listing', ~import( './components/ShowApplicationsForJobListing' ) );
 /* eslint-enable max-len */
 
 window.store = new Vuex.Store( storeOptions );

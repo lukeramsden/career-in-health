@@ -2324,15 +2324,6 @@ pre code {
   opacity: 1;
 }
 
-.form-control:-ms-input-placeholder,
-#jobListings_wrapper input:-ms-input-placeholder,
-#applications_wrapper input:-ms-input-placeholder,
-#addresses_wrapper input:-ms-input-placeholder,
-#adverts_wrapper input:-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-
 .form-control::-ms-input-placeholder,
 #jobListings_wrapper input::-ms-input-placeholder,
 #applications_wrapper input::-ms-input-placeholder,
