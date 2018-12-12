@@ -39,6 +39,10 @@ export default {
       ( state, payload ) => ( state.notifications = _.isArray( payload )
         ? [ ...state.notifications, ...payload ]
         : [ ...state.notifications, payload ], updateNotificationsBadge() ),
+    notificationsMarkAllAsRead:
+      ( state ) => ( state.notifications = state.notifications.map(
+        (o) => o.read_at = moment().format('YYYY-MM-DD H:m:s')
+      )),
   },
   getters: {
     notifications: ( { notifications } ) =>

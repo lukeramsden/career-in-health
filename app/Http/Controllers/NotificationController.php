@@ -32,8 +32,7 @@ class NotificationController extends Controller
 
 	return view('notifications.index')
 	  ->with([
-		'notifications'
-		=> $notifications,
+		'notifications' => $notifications,
 	  ]);
   }
 

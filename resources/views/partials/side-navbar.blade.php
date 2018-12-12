@@ -428,7 +428,10 @@
 <script>
 function toggleNotificationDrawer()
 {
-    $( '#notification-panel' ).toggleClass( 'open' );
-    $( '#notification-toggle' ).toggleClass( 'active' );
+    const $panel   = $( '#notification-panel' );
+    const $toggle  = $( '#navbar-notification-toggle' );
+    const hasClass = $panel.hasClass( 'open' );
+    $panel[ hasClass ? 'removeClass' : 'addClass' ]( 'open' );
+    $toggle[ hasClass ? 'removeClass' : 'addClass' ]( 'active' );
 }
 </script>

@@ -10,7 +10,7 @@
                         <div class="card-header">
                             <b>With:</b> <a href="{{ route('company.show', [$message->company]) }}">{{ $message->company->name }} {!!verified_badge($message->company)!!}</a>
                             <br>
-                            <b>JobListing:</b> <a href="{{ route('job-listing.show', [$message->job_listing]) }}">{{ $message->job_listing->title }}</a>
+                            <b>Listing:</b> <a href="{{ route('job-listing.show', [$message->job_listing]) }}">{{ $message->job_listing->title }}</a>
                         </div>
                         <div class="card-body">
                             <p>Latest Message:</p>
@@ -29,7 +29,7 @@
                         <div class="card-header">
                             <b>With:</b> <a href="{{ route('employee.show', [$message->employee]) }}">{{ $message->employee->full_name }}</a>
                             <br>
-                            <b>JobListing:</b> <a href="{{ route('job-listing.show', [$message->job_listing]) }}">{{ $message->job_listing->title }}</a>
+                            <b>Listing:</b> <a href="{{ route('job-listing.show', [$message->job_listing]) }}">{{ $message->job_listing->title }}</a>
                         </div>
                         <div class="card-body">
                             <h6>Latest:</h6>

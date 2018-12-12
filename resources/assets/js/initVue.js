@@ -1,3 +1,4 @@
+/* global currentUser, isAuthenticated */
 import Vue  from 'vue';
 import Echo from 'laravel-echo';
 
@@ -80,13 +81,15 @@ window.VApp = new Vue( {
   store,
   mounted()
   {
+    console.log('VApp:mounted');
     this
       .load()
       .then( () =>
       {
+        console.log('VApp:loaded');
+
         if ( window.isAuthenticated )
         {
-          console.log( 'window.isAuthenticated' );
           const pushNotification = ( n ) =>
           {
             console.log( n );
@@ -103,7 +106,7 @@ window.VApp = new Vue( {
   methods: {
     async load()
     {
-      if ( window.isAuthenticated )
+      if ( isAuthenticated )
       {
         const notifications = await axios.post( route( 'notifications.get' ) );
         this.$store.commit( 'pushNotification', notifications.data.models );

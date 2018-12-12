@@ -77,13 +77,17 @@
                       <div>
                         <p>
                           <span class="oi oi-calendar"></span>
-                          <span class="text-muted">Last Updated</span> <moments-ago :date="result.last_edited" suffix="ago" />
+                          <span class="text-muted">
+                            Last Updated</span> <moments-ago
+                              :date="result.last_edited" suffix="ago" />
                         </p>
                       </div>
                       <div>
                         <p>
                           <span class="oi oi-calendar"></span>
-                          <span class="text-muted">Created</span> <moments-ago :date="result.created_at" suffix="ago" />
+                          <span class="text-muted">
+                            Created</span> <moments-ago
+                              :date="result.created_at" suffix="ago" />
                         </p>
                       </div>
                     </div>

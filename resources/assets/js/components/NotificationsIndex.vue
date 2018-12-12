@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid mt-4">
-    <div v-if="loaded" id="listing-show-row" class="row">
+    <div id="listing-show-row" class="row">
       <div class="col-12">
         <div class="row">
           <div class="col-12 col-lg-4 order-lg-last">
@@ -40,13 +40,12 @@
         </div>
       </div>
     </div>
-    <loading-icon v-else />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import Notification from './Notification.vue';
+import Notification   from './Notification.vue';
 
 export default {
   components: {
@@ -56,8 +55,6 @@ export default {
   {
     return {
       query: '',
-
-      loaded: true,
     };
   },
   computed: {
@@ -75,8 +72,7 @@ export default {
       // We use this to keep track of the similarity for each option.
       const scores = {};
 
-      return this
-        .notifications
+      return [ ...this.notifications ]
         // Score each option & create a new array out of them.
         .map( ( notification ) =>
         {
@@ -102,6 +98,10 @@ export default {
         // Finally, sort by the highest score.
         .sort( ( a, b ) => scores[ b.id ] - scores[ a.id ] );
     },
+  },
+  mounted()
+  {
+    console.log( 'NotificationsIndex:mounted' );
   },
   methods: {
     dataKeys( n )

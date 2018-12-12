@@ -4,10 +4,12 @@
     
     {{--main app--}}
     <div id="app" class="{{Auth::check()?'side-navbar':'top-navbar'}}">
-        @auth
-            <latest-notifications />
-        @endauth
-        @yield('content')
+        <div>
+            @auth
+                <latest-notifications></latest-notifications>
+            @endauth
+            @yield('content')
+        </div>
     </div>
     
     @includeWhen(Auth::check(), 'partials.side-navbar')
