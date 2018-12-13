@@ -8,6 +8,12 @@
             @auth
                 <latest-notifications></latest-notifications>
             @endauth
+            <notifications group="notifications"
+                           position="bottom right">
+                <template slot="body" slot-scope="props">
+                    <notification :model="props.item.data" @click="props.close" style="margin-bottom: 0.8rem;" />
+                </template>
+            </notifications>
             @yield('content')
         </div>
     </div>

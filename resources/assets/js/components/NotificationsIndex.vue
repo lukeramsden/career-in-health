@@ -45,12 +45,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Notification   from './Notification.vue';
 
 export default {
-  components: {
-    Notification,
-  },
   data()
   {
     return {

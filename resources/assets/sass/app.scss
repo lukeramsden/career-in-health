@@ -361,6 +361,11 @@ $navbar-opener-width: $navbar-width / 10;
   max-width: 100%;
   max-height: $navbar-width;
   margin: 0.8rem 0.8rem 0 0.8rem;
+
+  &-wrapper & {
+    margin: 1rem;
+  }
+
   background-color: $gray-200;
   border-radius: 4px;
   padding: 0;

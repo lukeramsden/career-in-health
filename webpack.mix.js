@@ -28,6 +28,7 @@ mix
     'vue-chat-scroll',
     'vue-sweetalert2',
     'vue-moments-ago',
+    'vue-notification',
     'laravel-echo',
     'lodash',
     'axios',

@@ -8,11 +8,13 @@ import VueCurrencyFilter from 'vue-currency-filter';
 import VueChatScroll     from 'vue-chat-scroll';
 import VueSweetAlert     from 'vue-sweetalert2';
 import VueMomentsAgo     from 'vue-moments-ago';
+import VueNotifications  from 'vue-notification';
 
 import storeOptions  from './store/store';
 import LoadingIcon   from './components/LoadingIcon.vue';
 import Pagination    from './components/Pagination.vue';
 import VerifiedBadge from './components/VerifiedBadge.vue';
+import Notification  from './components/Notification.vue';
 
 // fixes errors with using lodash in Vue SFCs
 Vue.prototype._ = _;
@@ -44,11 +46,13 @@ Vue.use( VueCurrencyFilter, {
   symbolSpacing: false,
 } );
 Vue.use( VueSweetAlert );
+Vue.use( VueNotifications );
 
 Vue.component( 'loading-icon', LoadingIcon );
 Vue.component( 'pagination', Pagination );
 Vue.component( 'verified-badge', VerifiedBadge );
 Vue.component( 'moments-ago', VueMomentsAgo );
+Vue.component( 'notification', Notification );
 
 /* eslint-disable max-len */
 // lazy load components
@@ -94,6 +98,12 @@ window.VApp = new Vue( {
           {
             console.log( n );
             this.$store.commit( 'pushNotification', n );
+            this.$notify({
+              group: 'notifications',
+              speed: 600,
+              duration: 7500,
+              data: n,
+            });
           };
 
           window

@@ -5,10 +5,7 @@
         View All
       </a>
       <button :disabled="markAllAsReadLoading" class="mark-as-read" @click="markAllAsRead">
-        <loading-icon v-if="markAllAsReadLoading" />
-        <template v-else>
-          Mark All As Read
-        </template>
+        Mark All As Read
       </button>
     </div>
     <notification v-for="item in latest" :model="item" :key="item.id" />
@@ -17,12 +14,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Notification   from './Notification.vue';
 
 export default {
-  components: {
-    Notification,
-  },
   data()
   {
     return {

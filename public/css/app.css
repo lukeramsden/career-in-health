@@ -15508,6 +15508,10 @@ body {
   padding: 0;
 }
 
+.notification-wrapper .notification {
+  margin: 1rem;
+}
+
 .notification.unread {
   background-color: #fff;
 }
