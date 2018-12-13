@@ -1,8 +1,9 @@
 @extends('layouts.app', ['title' => 'Create Your CV'])
 @section('content')
-    <div class="container">
-        <cv-builder class="mt-5" :schemas="schemas" :model="model"></cv-builder>
-    </div>
+    <cv-builder />
+    {{--<div class="container">--}}
+        {{--<cv-builder class="mt-5" :schemas="schemas" :model="model"></cv-builder>--}}
+    {{--</div>--}}
 @endsection
 @section('script')
     {{-- VUE TEMPLATES --}}

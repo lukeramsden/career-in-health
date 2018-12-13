@@ -1035,29 +1035,6 @@ $navbar-opener-width: $navbar-width / 10;
   }
 }
 
-.cv-item {
-  background-color: $white;
-  padding: 1rem;
-  margin: 1rem;
-  -webkit-box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.13);
-  -moz-box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.13);
-  box-shadow: 10px 29px 82px -21px rgba(0, 0, 0, 0.13);
-
-  &-inner {
-    display: inline-block;
-
-    .cv-item-education & {
-      p:first-child {
-        font-size: 1rem;
-      }
-
-      p:not(first-child) {
-        font-size: 0.85rem;
-      }
-    }
-  }
-}
-
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-up($breakpoint) {
     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);

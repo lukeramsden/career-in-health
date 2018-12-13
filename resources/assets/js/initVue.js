@@ -61,6 +61,7 @@ Vue.component( 'company-dashboard', ~import( './components/CompanyDashboard' ) )
 Vue.component( 'company-view-applications-table', ~import('./components/CompanyViewApplicationsTable' ) );
 Vue.component( 'create-address', ~import(  './components/CreateAddress' ) );
 Vue.component( 'create-job-listing', ~import(  './components/CreateJobListing' ) );
+Vue.component( 'cv-builder', ~import(  './components/CvBuilder' ) );
 Vue.component( 'employee-dashboard', ~import(  './components/EmployeeDashboard' ) );
 Vue.component( 'employee-view-applications-table', ~import( './components/EmployeeViewApplicationsTable' ) );
 Vue.component( 'job-listings-table', ~import(  './components/JobListingsTable' ) );
