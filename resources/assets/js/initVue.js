@@ -1,4 +1,4 @@
-/* global currentUser, isAuthenticated */
+/* global currentUser, isAuthenticated, toggleNotificationDrawer */
 import Vue  from 'vue';
 import Echo from 'laravel-echo';
 

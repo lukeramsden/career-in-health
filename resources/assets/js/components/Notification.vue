@@ -1,8 +1,10 @@
 <template>
-  <a :href="route('notifications.click-through', {notification:model.id}) || 'javascript:'"
+  <a :href="noclick
+       ? 'javascript:'
+     : ( route('notifications.click-through', {notification:model.id}) || 'javascript:' )"
      class="link-unstyled">
     <template v-if="model.type === 'App\\Notifications\\ReceivedPrivateMessage'">
-      <div :class="{ unread: model.read_at === null }"
+      <div :class="{ unread: _.isNull(model.read_at) }"
            class="notification notification-private-message">
         <div class="notification-inner">
           <p>Message from <b>{{ model.data.sender_name }}</b></p>
@@ -15,7 +17,7 @@
     <template
       v-else-if="model.type
       === 'App\\Notifications\\CompanyReceivedListingApplication'">
-      <div :class="{ unread: model.read_at === null }"
+      <div :class="{ unread: _.isNull(model.read_at) }"
            class="notification notification-application">
         <div class="notification-inner">
           <p>Application from <b>{{ model.data.sender_name }}</b></p>
@@ -27,7 +29,7 @@
       </div>
     </template>
     <template v-else>
-      <div :class="{ unread: model.read_at === null }"
+      <div :class="{ unread: _.isNull(model.read_at) }"
            class="notification notification-unknown">
         <div class="notification-inner">
           <pre>{{ model.data }}</pre>
@@ -45,6 +47,9 @@ export default {
     model: {
       type: Object,
       required: true,
+    },
+    noclick: {
+      type: Boolean,
     },
   },
 };

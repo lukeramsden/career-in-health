@@ -11,7 +11,7 @@
             <notifications group="notifications"
                            position="bottom right">
                 <template slot="body" slot-scope="props">
-                    <notification :model="props.item.data" @click="props.close" style="margin-bottom: 0.8rem;" />
+                    <notification :model="props.item.data" />
                 </template>
             </notifications>
             @yield('content')

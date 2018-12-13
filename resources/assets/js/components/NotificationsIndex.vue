@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid mt-4">
-    <div id="listing-show-row" class="row">
+    <div id="notifications-index-row" class="row">
       <div class="col-12">
         <div class="row">
           <div class="col-12 col-lg-4 order-lg-last">
