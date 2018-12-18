@@ -20,7 +20,6 @@ class AdvertisingEnabled
 	if ((bool)config('app.advertising') !== true)
 	  throw new \Exception('Advertising is not enabled at this time.');;
 
-
 	return $next($request);
   }
 }

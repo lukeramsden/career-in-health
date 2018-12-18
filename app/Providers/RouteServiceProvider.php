@@ -40,6 +40,8 @@ class RouteServiceProvider extends ServiceProvider
 	$this->mapWebRoutes();
 
 	//
+
+	$this->mapUserableRoutes();
   }
 
   /**
@@ -69,5 +71,14 @@ class RouteServiceProvider extends ServiceProvider
 	Route::middleware('web')
 		 ->namespace($this->namespace)
 		 ->group(base_path('routes/web.php'));
+  }
+
+  /**
+   * Define the routes prefixed by any userable type
+   *
+   */
+  protected function mapUserableRoutes()
+  {
+	// TODO
   }
 }

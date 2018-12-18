@@ -63,11 +63,23 @@ class UserSeeder extends Seeder
 	]));
 
 	$user->update([
-	  'updated_at' => Carbon::now()->addSecond(),
+	  'updated_at' => Carbon::now()->addSecond(3),
 	]);
 
 	$user->notificationPreferences()->update([
-	  'updated_at' => Carbon::now()->addSecond(),
+	  'updated_at' => Carbon::now()->addSecond(3),
+	]);
+
+	$userable->cv->education()->update([
+	  'updated_at' => Carbon::now()->addSecond(3),
+	]);
+
+	$userable->cv->workExperience()->update([
+	  'updated_at' => Carbon::now()->addSecond(3),
+	]);
+
+	$userable->cv->preferences()->update([
+	  'updated_at' => Carbon::now()->addSecond(3),
 	]);
   }
 
@@ -115,7 +127,7 @@ class UserSeeder extends Seeder
 	  ]);
 
 	$user->notificationPreferences()->update([
-	  'updated_at' => Carbon::now()->addSecond(),
+	  'updated_at' => Carbon::now()->addSecond(3),
 	]);
   }
 

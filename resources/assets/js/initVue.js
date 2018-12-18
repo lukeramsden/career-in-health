@@ -1,4 +1,4 @@
-/* global currentUser, isAuthenticated, toggleNotificationDrawer */
+/* global currentUser, isAuthenticated */
 import Vue  from 'vue';
 import Echo from 'laravel-echo';
 
@@ -34,6 +34,15 @@ Vue.filter( 'dateDiff', ( val ) =>
   return moment.utc( val ).local().fromNow();
 } );
 
+Vue.filter( 'truncate', ( text, length, clamp ) =>
+{
+  clamp          = clamp || '...';
+  const node     = document.createElement( 'div' );
+  node.innerHTML = text;
+  const content  = node.textContent;
+  return content.length > length ? content.slice( 0, length ) + clamp : content;
+} );
+
 Vue.use( Vuex );
 Vue.use( AsyncComputed );
 Vue.use( VueChatScroll );
@@ -61,7 +70,7 @@ Vue.component( 'company-dashboard', ~import( './components/CompanyDashboard' ) )
 Vue.component( 'company-view-applications-table', ~import('./components/CompanyViewApplicationsTable' ) );
 Vue.component( 'create-address', ~import(  './components/CreateAddress' ) );
 Vue.component( 'create-job-listing', ~import(  './components/CreateJobListing' ) );
-Vue.component( 'cv-builder', ~import(  './components/CvBuilder' ) );
+Vue.component( 'cv-builder', ~import(  './components/cv/Builder' ) );
 Vue.component( 'employee-dashboard', ~import(  './components/EmployeeDashboard' ) );
 Vue.component( 'employee-view-applications-table', ~import( './components/EmployeeViewApplicationsTable' ) );
 Vue.component( 'job-listings-table', ~import(  './components/JobListingsTable' ) );
@@ -86,12 +95,12 @@ window.VApp = new Vue( {
   store,
   mounted()
   {
-    console.log('VApp:mounted');
+    console.log( 'VApp:mounted' );
     this
       .load()
       .then( () =>
       {
-        console.log('VApp:loaded');
+        console.log( 'VApp:loaded' );
 
         if ( window.isAuthenticated )
         {
@@ -99,12 +108,12 @@ window.VApp = new Vue( {
           {
             console.log( n );
             this.$store.commit( 'pushNotification', n );
-            this.$notify({
+            this.$notify( {
               group: 'notifications',
               speed: 600,
               duration: 7500,
               data: n,
-            });
+            } );
           };
 
           window

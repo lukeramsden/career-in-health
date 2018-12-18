@@ -7,21 +7,23 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectToUnfinishedOnboardingStep
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
-    {
-        if (Auth::check() && Auth::user()->onboarding()->inProgress()) {
-            return redirect(
-                Auth::user()->onboarding()->nextUnfinishedStep()->link
-            );
-        }
+  /**
+   * Handle an incoming request.
+   *
+   * @param  \Illuminate\Http\Request $request
+   * @param  \Closure                 $next
+   *
+   * @return mixed
+   */
+  public function handle($request, Closure $next)
+  {
+	if (Auth::check() && Auth::user()->onboarding()->inProgress())
+	{
+	  return redirect(
+		Auth::user()->onboarding()->nextUnfinishedStep()->link
+	  );
+	}
 
-        return $next($request);
-    }
+	return $next($request);
+  }
 }
