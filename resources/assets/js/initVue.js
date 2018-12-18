@@ -54,7 +54,10 @@ Vue.use( VueCurrencyFilter, {
   symbolPosition: 'front',
   symbolSpacing: false,
 } );
-Vue.use( VueSweetAlert );
+Vue.use( VueSweetAlert, {
+  confirmButtonColor: '#455782',
+  cancelButtonColor: '#DC3545',
+} );
 Vue.use( VueNotifications );
 
 Vue.component( 'loading-icon', LoadingIcon );

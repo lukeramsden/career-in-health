@@ -33,4 +33,13 @@ class BuilderController extends Controller
 	  201
 	);
   }
+
+  public function store()
+  {
+	$this->request->validate([
+	  'cv' => 'required|object',
+	]);
+
+	
+  }
 }

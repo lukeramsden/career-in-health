@@ -198,8 +198,7 @@ export default {
 
 <!--suppress CssUnknownTarget -->
 <style lang="scss">
-  @import '~@/_variables.scss';
-  @import '~@/_mixins.scss';
+  @import '~@/abstracts/_variables.scss';
 
   #small-details {
     display: block;

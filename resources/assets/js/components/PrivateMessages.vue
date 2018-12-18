@@ -233,8 +233,7 @@ export default {
 
 <!--suppress CssUnknownTarget -->
 <style scoped lang="scss">
-  @import '~@/_variables.scss';
-  @import '~@/_mixins.scss';
+  @import '~@/abstracts/_variables.scss';
 
   @keyframes scaleIn {
     from {

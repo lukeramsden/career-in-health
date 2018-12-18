@@ -27,7 +27,7 @@
         <link rel="shortcut icon" type="image/png" href="/images/favicon.png"/>
 
         {{-- Stylesheets --}}
-        @mix('css/app.css')
+        @mix('css/main.css')
         @yield('head')
     </head>
     <body>

@@ -43,7 +43,7 @@ mix
     'fuzzaldrin-plus',
     'socket.io-client',
   ] )
-  .sass( 'resources/assets/sass/app.scss', 'public/css', {
+  .sass( 'resources/assets/sass/main.scss', 'public/css', {
     includePaths: [ 'node_modules' ],
   } )
   .sass( 'resources/assets/sass/pdf.scss', 'public/css' )

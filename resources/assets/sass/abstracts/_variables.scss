@@ -1,0 +1,43 @@
+$white: #FFFFFF;
+$gray-100: #F8F9FA;
+$gray-200: #E9ECEF;
+$gray-300: #DEE2E6;
+$gray-400: #CED4DA;
+$gray-500: #ADB5BD;
+$gray-600: #6C757D;
+$gray-700: #495057;
+$gray-800: #343A40;
+$gray-900: #212529;
+$black: #000000;
+$blue: #007BFF;
+$indigo: #6610F2;
+$purple: #6F42C1;
+$pink: #E83E8C;
+$red: #DC3545;
+$orange: #FD7E14;
+$yellow: #FFC107;
+$green: #28A745;
+$teal: #20C997;
+$cyan: #17A2B8;
+$primary: #455782;
+$dark-primary: #354968;
+$action: #F9834E;
+$golden: #FFCF40;
+$secondary: $gray-600;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-800;
+
+$theme-colors: (
+  'primary': $primary,
+  'dark-primary': $dark-primary,
+  'action': $action,
+  'golden': $golden,
+);
+
+$border-radius: .15rem;
+$border-radius-lg: .2rem;
+$border-radius-sm: .1rem;
