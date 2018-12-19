@@ -1,8 +1,7 @@
 <template>
   <div class="container-fluid mt-4 mt-lg-5">
     <template v-if="loaded">
-      <button class="btn btn-primary" @click="save">Save</button>
-      <pre>{{ cv }}</pre>
+     <!-- TODO: CV Builder UI -->
     </template>
     <loading-icon v-else />
   </div>
@@ -50,8 +49,9 @@ export default {
       try
       {
         const response = await axios.post( route( 'cv.save' ), { cv: this.cv } );
-        if ( response.data.success )
+        if ( response.status === 204 )
           toastr.success( 'Saved' );
+        else throw response;
       }
       catch ( error )
       {
