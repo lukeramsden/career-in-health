@@ -19,7 +19,7 @@ class EmployeeController extends Controller
         $this->middleware('user-type:employee')->except('show');
     }
 
-    protected function rules()
+    public function rules()
     {
         return [
             'first_name'    => 'required|string',

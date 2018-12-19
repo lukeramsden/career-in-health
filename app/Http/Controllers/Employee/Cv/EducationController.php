@@ -18,7 +18,7 @@ class EducationController extends Controller
 	$this->middleware(['auth', 'user-type:employee']);
   }
 
-  protected function rules()
+  public function rules()
   {
 	return [
 	  'degree'         => 'required|string|max:150',

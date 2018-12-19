@@ -2,7 +2,7 @@
 
 namespace App\Cv;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Model\CustomModel as Model;
 
 class Cv extends Model
 {

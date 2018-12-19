@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cv;
 
+use App\Cv\Cv;
 use App\Cv\CvPreferences;
 use App\Http\Controllers\Controller;
 use App\JobListing;
@@ -20,7 +21,7 @@ class PreferencesController extends Controller
 	$this->middleware(['auth', 'user-type:employee']);
   }
 
-  protected function rules()
+  public function rules()
   {
 	return [
 	  'job_role' => 'nullable|integer|exists:job_roles,id',
@@ -40,6 +41,7 @@ class PreferencesController extends Controller
 
 	$data['willing_to_relocate'] = $data['willing_to_relocate'] ?? false;
 
+	/** @var Cv $cv */
 	$cv = Auth::user()->userable->cv;
 
 	if ($cv->preferences()->exists())

@@ -18,7 +18,7 @@ class WorkExperienceController extends Controller
 	$this->middleware(['auth', 'user-type:employee']);
   }
 
-  protected function rules()
+  public function rules()
   {
 	return [
 	  'job_title'    => 'required|string|max:150',

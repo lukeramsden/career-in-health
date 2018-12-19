@@ -252,7 +252,7 @@ class JobListingController extends Controller
   /**
    * @return array
    */
-  protected function rules()
+  public function rules()
   {
 	if ($this->request->has('savingForLater')
 	  && $this->request->savingForLater == true)

@@ -19,7 +19,7 @@ class CompanyUserController extends Controller
         $this->middleware('user-type:company')->except('show');
     }
 
-    protected function rules()
+    public function rules()
     {
         return [
             'first_name'    => 'required|string',

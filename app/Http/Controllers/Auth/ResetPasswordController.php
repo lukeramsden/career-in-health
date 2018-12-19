@@ -80,7 +80,7 @@ class ResetPasswordController extends Controller
      *
      * @return array
      */
-    protected function rules()
+    public function rules()
     {
         return [
             'token' => 'required',

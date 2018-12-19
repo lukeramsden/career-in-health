@@ -4,22 +4,27 @@ namespace App\Cv;
 
 class CvPreferences extends AbstractCvItemModel
 {
-    static $salaryTypes = [
-        '1' => 'Year',
-        '2' => 'Month',
-        '3' => 'Week',
-        '4' => 'Day',
-        '5' => 'Hour',
-    ];
+  static $salaryTypes = [
+	'1' => 'Year',
+	'2' => 'Month',
+	'3' => 'Week',
+	'4' => 'Day',
+	'5' => 'Hour',
+  ];
 
-    protected $table = 'cv_preferences';
+  protected $table = 'cv_preferences';
 
-    protected $fillable = ['job_role', 'setting', 'type', 'salary_number', 'salary_type', 'willing_to_relocate'];
+  protected $fillable = [
+    'job_role',
+	'setting',
+	'type',
+	'salary_number',
+	'salary_type',
+	'willing_to_relocate',
+  ];
 
-    protected $hidden = ['cv_id'];
-
-    public function cv()
-    {
-        return $this->belongsTo(Cv::class, 'preferences_id', 'id');
-    }
+  public function cv()
+  {
+	return $this->belongsTo(Cv::class, 'preferences_id', 'id');
+  }
 }

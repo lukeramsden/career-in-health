@@ -29,7 +29,7 @@ class PrivateMessageController extends Controller
 	$this->middleware('user-type:company')->only('showForJobListingAndEmployee');
   }
 
-  protected function rules()
+  public function rules()
   {
 	return [
 	  'body'           => 'required|string|max:1000',
