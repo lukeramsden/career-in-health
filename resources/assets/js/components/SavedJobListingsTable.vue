@@ -147,9 +147,7 @@ export default {
       console.log( 'loading' );
       const listings = await axios.post( route( 'employee.saved-job-listings.get' ) );
       if ( listings.data.success )
-      {
         this.listings = listings.data.models;
-      }
     },
     permalink( listing )
     {

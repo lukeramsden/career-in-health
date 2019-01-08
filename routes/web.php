@@ -1,6 +1,6 @@
 <?php /** @noinspection PhpParamsInspection */
 
-Route::view('/', 'home')->name('home');
+Route::view('/', 'home')->name('home')->middleware('guest');
 Route::view('/pricing', 'pricing')->name('pricing');
 
 Route::get('/search', 'SearchController@show')->name('search');

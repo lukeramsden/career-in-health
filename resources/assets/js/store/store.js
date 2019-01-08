@@ -9,8 +9,12 @@ import CompanyDashboardModule  from './plugins/CompanyDashboard';
 
 function updateNotificationsBadge()
 {
-  document.getElementById( 'navbar-notification-unread-badge' )
-    .innerHTML = window.store.getters.unreadNotificationsCount;
+  const { unreadNotificationsCount } = window.store.getters;
+
+  const element     = document.getElementById( 'navbar-notification-unread-badge' );
+  element.innerHTML = unreadNotificationsCount;
+  element.classList.toggle('badge-danger', unreadNotificationsCount > 0);
+  element.classList.toggle('badge-secondary', unreadNotificationsCount <= 0);
 }
 
 export default {
@@ -41,8 +45,8 @@ export default {
         : [ ...state.notifications, payload ], updateNotificationsBadge() ),
     notificationsMarkAllAsRead:
       ( state ) => ( state.notifications = state.notifications.map(
-        o => ({ ...o, read_at: moment().format('YYYY-MM-DD H:m:s') })
-      )),
+        o => ( { ...o, read_at: moment().format( 'YYYY-MM-DD H:m:s' ) } ),
+      ) ),
   },
   getters: {
     notifications: ( { notifications } ) =>

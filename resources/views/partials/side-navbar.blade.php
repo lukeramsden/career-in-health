@@ -207,7 +207,7 @@
                 <a href="javascript:toggleNotificationDrawer()"
                    class="nav-link {{ active_route('notifications.*') }}"
                    id="navbar-notification-toggle">Notifications
-                    <span class="badge badge-danger"
+                    <span class="badge badge-{{ ($unread_notif_count ?? 0) > 0 ? 'danger' : 'secondary' }}"
                           id="navbar-notification-unread-badge">{{ $unread_notif_count ?? '0' }}</span>
                 </a>
                 
