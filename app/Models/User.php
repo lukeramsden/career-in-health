@@ -47,19 +47,19 @@ class User extends Authenticatable
    */
   public function getUserTypeNameAttribute()
   {
-	if ($this->userable_type === \App\Employee::class)
+	if ($this->userable instanceof \App\Employee)
 	  return 'employee';
 
 
-	if ($this->userable_type === \App\CompanyUser::class)
+	if ($this->userable instanceof \App\CompanyUser)
 	  return 'company';
 
 
-	if ($this->userable_type === \App\Admin::class)
+	if ($this->userable instanceof \App\Admin)
 	  return 'admin';
 
 
-	if ($this->userable_type === \App\Advertising\Advertiser::class)
+	if ($this->userable instanceof \App\Advertising\Advertiser)
 	  return 'advertiser';
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
@@ -20,6 +21,13 @@ class AppServiceProvider extends ServiceProvider
 
 	Schema::defaultStringLength(191);
 	Cashier::useCurrency('gbp');
+
+	Relation::morphMap([
+	  'App\Employee',
+	  'App\CompanyUser',
+	  'App\Admin',
+	  'App\Advertising\Advertiser',
+	]);
   }
 
   /**
