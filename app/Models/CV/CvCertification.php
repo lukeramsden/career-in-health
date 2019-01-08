@@ -4,9 +4,9 @@ namespace App\Cv;
 
 use Illuminate\Support\Facades\Storage;
 
-class CvCert extends AbstractCvItemModel
+class CvCertification extends AbstractCvItemModel
 {
-  protected $table = 'cv_certs';
+  protected $table = 'cv_certifications';
 
   protected $fillable = [
 	'title',
@@ -30,7 +30,7 @@ class CvCert extends AbstractCvItemModel
   {
 	parent::boot();
 
-	static::deleting(function (CvCert $cert) {
+	static::deleting(function (CvCertification $cert) {
 	  Storage::delete($cert->file);
 	});
   }

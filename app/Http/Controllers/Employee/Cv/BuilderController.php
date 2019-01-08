@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Cv;
 
 use App\Cv\Cv;
+use App\Cv\CvCertification;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class BuilderController extends Controller
 {
@@ -47,10 +49,11 @@ class BuilderController extends Controller
 	// Basic validation
 	$this->request->validate([
 	  'cv'                 => 'required|array',
-	  'cv.education'       => 'nullable|array',
-	  'cv.work_experience' => 'nullable|array',
-	  'cv.certifications'  => 'nullable|array',
 	  'cv.preferences'     => 'nullable|array',
+	  'cv.work_experience' => 'nullable|array',
+	  'cv.education'       => 'nullable|array',
+	  'cv.certifications'  => 'nullable|array',
+	  'cv.certifications.*.',
 	]);
 
 	// Base vars
@@ -101,7 +104,40 @@ class BuilderController extends Controller
 		$cv->education()->sync($requestCv->education);
 	  }
 
-	  // TODO: Certifications (needs some logic for files)
+	  // Same as previous 2
+	  if ($this->request->has('cv.certifications'))
+	  {
+		$relatedKeyName = CvCertification::getKeyName();
+		foreach ($requestCv->certifications as $cert)
+		{
+		  $existing      = isset($cert[$relatedKeyName]) && !empty($cert[$relatedKeyName]);
+		  $clonedRequest = (clone $this->request)->replace($cert);
+		  $clonedRequest
+			->validate(
+			  (new CertificationsController($clonedRequest))
+				->rules(!$existing)
+			);
+		}
+
+		// separate loop because we don't want to create files if
+		// the validation in the previous loop fails at any point
+		foreach ($requestCv->certifications as $idx => $cert)
+		{
+		  $existing = isset($cert[$relatedKeyName]) && !empty($cert[$relatedKeyName]);
+		  $path     = $this->request->file($cert->_request_file)->store('certifications');
+
+		  if ($path)
+		  {
+			if ($existing)
+			  Storage::delete($cert->file);
+			$requestCv->certifications[$idx]->file = $path;
+		  }
+		  else
+			throw new \Exception('Problem saving file.');
+		}
+
+		$cv->certifications()->sync($requestCv->certifications);
+	  }
 	} catch (\Throwable $e)
 	{
 	  // Roll back tx
@@ -118,6 +154,8 @@ class BuilderController extends Controller
 
 	// Make changes
 	DB::commit();
-	return response('', 204);
+	return response()->json([
+	  'success' => true,
+	], 204);
   }
 }

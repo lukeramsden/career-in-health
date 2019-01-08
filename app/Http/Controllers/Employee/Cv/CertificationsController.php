@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Cv;
 
-use App\Cv\CvCert;
+use App\Cv\CvCertification;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CertsController extends Controller
+class CertificationsController extends Controller
 {
   protected $request;
 
@@ -18,7 +18,7 @@ class CertsController extends Controller
 	$this->middleware(['auth', 'user-type:employee']);
   }
 
-  protected function rules(bool $creatingNew)
+  public function rules(bool $creatingNew)
   {
 	$rules = [
 	  'title'       => 'required|string|max:150',
@@ -37,9 +37,9 @@ class CertsController extends Controller
   {
 	$data = $this->request->validate(self::rules(true));
 
-	$certification = new CvCert();
+	$certification = new CvCertification();
 
-	$path = $this->request->file('file')->store('certs');
+	$path = $this->request->file('file')->store('certifications');
 
 	if ($path)
 	  $certification->file = $path;
@@ -65,7 +65,7 @@ class CertsController extends Controller
 	return back();
   }
 
-  public function update(CvCert $certification)
+  public function update(CvCertification $certification)
   {
 	$data = $this->request->validate(self::rules(false));
 
@@ -85,7 +85,7 @@ class CertsController extends Controller
   /**
    * @throws \Exception
    */
-  public function destroy(CvCert $certification)
+  public function destroy(CvCertification $certification)
   {
 	$certification->delete();
 

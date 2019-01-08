@@ -43,7 +43,7 @@ class Cv extends Model
 
   public function certifications()
   {
-	return $this->hasMany(CvCert::class);
+	return $this->hasMany(CvCertification::class);
   }
 
   public function preferences()

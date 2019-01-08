@@ -193,7 +193,7 @@ Route::prefix('cv')
 		   'store', 'update', 'destroy',
 		 ]]);
 
-	   Route::resource('certifications', 'Cv\CertsController', [
+	   Route::resource('certifications', 'Cv\CertificationsController', [
 		 'only' => [
 		   'store', 'update', 'destroy',
 		 ]]);
