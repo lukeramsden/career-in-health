@@ -156,6 +156,6 @@ class BuilderController extends Controller
 	DB::commit();
 	return response()->json([
 	  'success' => true,
-	], 204);
+	], 200);
   }
 }

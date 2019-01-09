@@ -10849,8 +10849,7 @@ button.bg-golden:focus {
 
 .text-right,
 .notification.notification-private-message p:nth-child(4),
-.notification.notification-application p:nth-child(4),
-.notification.notification-unknown {
+.notification.notification-application p:nth-child(4) {
   text-align: right !important;
 }
 

@@ -452,7 +452,6 @@ $navbar-opener-width: $navbar-width / 10;
 
   &.notification-unknown {
     @extend .small;
-    @extend .text-right;
   }
 }
 
