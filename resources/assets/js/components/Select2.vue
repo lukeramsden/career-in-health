@@ -21,9 +21,9 @@ export default {
     value( nval )
     {
       // update value
-      $( this.$el )
-        .val( nval )
-        .trigger( 'change' );
+      // $( this.$el )
+      //   .val( nval )
+      //   .trigger( 'change' );
     },
     data( oval )
     {

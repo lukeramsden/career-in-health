@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cv;
 
 use App\Cv\Cv;
 use App\Cv\CvCertification;
+use App\Employee;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
@@ -138,6 +139,9 @@ class BuilderController extends Controller
 
 		$cv->certifications()->sync($requestCv->certifications);
 	  }
+
+	  $cv->draft = null;
+	  $cv->save();
 	} catch (\Throwable $e)
 	{
 	  // Roll back tx
@@ -156,6 +160,75 @@ class BuilderController extends Controller
 	DB::commit();
 	return response()->json([
 	  'success' => true,
+	], 200);
+  }
+
+  public function saveDraft()
+  {
+	// Basic validation
+	$this->request->validate([
+	  'cv'                 => 'required|array',
+	  'cv.preferences'     => 'nullable|array',
+	  'cv.work_experience' => 'nullable|array',
+	  'cv.education'       => 'nullable|array',
+	  'cv.certifications'  => 'nullable|array',
+	  'cv.certifications.*.',
+	]);
+
+	// Base vars
+	/** @var Employee $userable */
+	/** @var array $requestCv */
+	/** @var array $cv */
+	$userable  = Auth::user()->userable;
+	$requestCv = (array)$this->request->get('cv');
+	$cv        = $userable->cv()
+						  ->with(['education', 'workExperience', 'certifications', 'preferences'])
+						  ->first()
+						  ->toArray();
+
+	// https://eddmann.com/posts/handling-array-equality-in-php/
+
+	unset(
+	  $requestCv['draft'],
+	  $requestCv['created_at'],
+	  $requestCv['updated_at']
+	);
+	unset(
+	  $cv['draft'],
+	  $cv['created_at'],
+	  $cv['updated_at']
+	);
+
+	if ($cv == $requestCv)
+	{
+	  $this->deleteDraft();
+
+	  return response()->json([
+		'success' => true,
+		'message' => 'Draft and published versions are identical, draft has been erased.',
+	  ], 202);
+	}
+	else
+	{
+	  $userable->cv->draft = json_encode($requestCv);
+	  $userable->cv->save();
+
+	  return response()->json([
+		'success' => true,
+		'message' => 'Draft has been saved.',
+	  ], 200);
+	}
+  }
+
+  public function deleteDraft()
+  {
+	$cv        = Auth::user()->userable->cv;
+	$cv->draft = null;
+	$cv->save();
+
+	return response()->json([
+	  'success' => true,
+	  'message' => 'Draft has been deleted.',
 	], 200);
   }
 }

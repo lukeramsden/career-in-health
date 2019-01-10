@@ -206,6 +206,8 @@ Route::prefix('cv')
 	   Route::any('/', 'Cv\BuilderController@show')->name('builder');
 	   Route::any('/get/full', 'Cv\BuilderController@getFull')->name('get.full');
 	   Route::any('/save', 'Cv\BuilderController@save')->name('save');
+	   Route::any('/save-draft', 'Cv\BuilderController@saveDraft')->name('save.draft');
+	   Route::any('/delete-draft', 'Cv\BuilderController@deleteDraft')->name('delete.draft');
 	 });
 
 Route::get('/accept-invite/{code}', 'CompanyUserInviteController@show')->name('accept-invite.show');

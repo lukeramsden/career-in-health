@@ -6,19 +6,23 @@
           <PreferencesEditor v-model="cv.preferences" />
         </div>
       </div>
-      <template v-if="dirty">
-        <div class="dirty-actions">
-          <button :disabled="saving" class="btn btn-success" @click="save">
+      <div class="dirty-actions">
+        <div v-if="savingDraft" id="autosaving-indicator" class="btn btn-link disabled">
+          <p>Auto-saving draft...</p>
+          <loading-icon class="d-inline-block" style="width: 20px; height: 20px;" />
+        </div>
+
+        <div v-if="lastSaved" id="last-saved-at" class="btn btn-link disabled">
+          <moments-ago :date="lastSaved"
+                       prefix="Last saved"
+                       suffix="ago" />
+        </div>
+
+        <template v-if="dirty">
+          <button :disabled="saving" class="btn btn-action" @click="save">
             <loading-icon v-if="saving" />
             <template v-else>
               Save
-            </template>
-          </button>
-
-          <button :disabled="saving" class="btn btn-secondary">
-            <loading-icon v-if="saving" />
-            <template v-else>
-              Save as Draft
             </template>
           </button>
 
@@ -26,8 +30,8 @@
                   class="btn btn-link btn-sm"
                   @click="reset">Reset Changes
           </button>
-        </div>
-      </template>
+        </template>
+      </div>
     </template>
     <loading-icon v-else />
   </div>
@@ -43,17 +47,20 @@ export default {
   data()
   {
     return {
-      cv: {},
+      cv: {
+        draft: {},
+      },
 
       originalCv: {},
       originalTitle: '',
 
       loaded: false,
       saving: false,
+      savingDraft: false,
       dirty: false,
+      lastSaved: null,
     };
   },
-  computed: {},
   watch: {
     dirty( val )
     {
@@ -63,9 +70,52 @@ export default {
   mounted()
   {
     this.originalTitle = document.title;
-    this.load().then( () =>
+    this.load().then( async () =>
     {
-      this.$set( this, 'originalCv', JSON.parse( JSON.stringify( this.cv ) ) );
+      this.$set( this, 'originalCv',
+        _.omit(
+          JSON.parse(
+            JSON.stringify( this.cv ),
+          ), [ 'draft' ],
+        ) );
+
+      if ( !_.isEmpty( this.cv.draft ) )
+      {
+        const { value } = await this.$swal( {
+          title: 'Load Draft Version?',
+          text: 'You have unpublished changes from last time you were here,'
+            + ' would you like to load them?',
+          type: 'info',
+          showCancelButton: true,
+          confirmButtonColor: '#455782',
+          cancelButtonColor: '#DC3545',
+          confirmButtonText: 'Yes, load draft version.',
+          cancelButtonText: 'No, delete the draft version',
+        } );
+
+        if ( value )
+        {
+          // load draft
+          this.$set( this, 'cv', _.omit( JSON.parse( this.cv.draft ), [ 'draft' ] ) );
+          this.dirty = true;
+        }
+        else
+        {
+          // delete draft
+          this.$set( this, 'cv.draft', null );
+          try
+          {
+            const response = await axios.post( route( 'cv.delete.draft' ) );
+            if ( !response.data.success )
+              console.error( response );
+          }
+          catch ( e )
+          {
+            console.error( e );
+          }
+        }
+      }
+
       this.loaded = true;
 
       window.onbeforeunload = () =>
@@ -74,6 +124,7 @@ export default {
       this.$watch( 'cv', () =>
       {
         this.dirty = true;
+        _.debounce( ~this.saveDraft(), 1000, { leading: false, trailing: true } )();
       }, { deep: true } );
 
       this.$nextTick( () =>
@@ -116,7 +167,12 @@ export default {
         if ( response.data.success === true )
         {
           this.dirty = false;
-          this.$set( this, 'originalCv', JSON.parse( JSON.stringify( this.cv ) ) );
+          this.$set( this, 'originalCv',
+            _.omit(
+              JSON.parse(
+                JSON.stringify( this.cv ),
+              ), [ 'draft' ],
+            ) );
         }
         else throw response;
       }
@@ -132,7 +188,34 @@ export default {
         } );
       }
 
-      this.saving = false;
+      this.saving    = false;
+      this.lastSaved = moment().format();
+    },
+    async saveDraft()
+    {
+      console.log( 'Builder:saveDraft' );
+      this.savingDraft = true;
+
+      try
+      {
+        const response = await axios.post( route( 'cv.save.draft' ), { cv: this.cv } );
+        if ( response.data.success === true )
+        {
+          if ( response.status === 200 )
+            this.$set( this, 'cv.draft', JSON.stringify( _.omit( this.cv, [ 'draft' ] ) ) );
+          else if ( response.status === 202 )
+            this.$set( this, 'cv.draft', null );
+        }
+        else throw response;
+      }
+      catch ( error )
+      {
+        console.error( error );
+        toastr.error( 'Error while auto-saving draft.' );
+      }
+
+      this.savingDraft = false;
+      this.lastSaved   = moment().format();
     },
     async reset()
     {
@@ -190,5 +273,13 @@ export default {
     position: absolute;
     bottom: 15px;
     right: 15px;
+  }
+
+  #autosaving-indicator {
+    p {
+      display: inline-block;
+      vertical-align: middle;
+      margin-bottom: 0;
+    }
   }
 </style>

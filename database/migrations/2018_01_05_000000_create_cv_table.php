@@ -18,6 +18,7 @@ class CreateCvTable extends Migration
             $table->integer('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->integer('preferences_id')->nullable()->unsigned();
+            $table->longText('draft')->nullable();
             $table->timestamps();
         });
     }
