@@ -2,8 +2,13 @@
   <div class="container-fluid" style="padding-top: 30px">
     <template v-if="loaded">
       <div class="row">
-        <div class="col-12 col-lg-6">
-          <PreferencesEditor :value="cv.preferences" @input="subSaved('preferences', $event)" />
+        <div class="col-12 mb-4 col-lg-6 mb-lg-0">
+          <PreferencesEditor :value="cv.preferences"
+                             @input="subSaved('preferences', $event)" />
+        </div>
+        <div class="col-12 mb-4 col-lg-6 mb-lg-0">
+          <EducationEditor :value="cv.education"
+                           @input="subSaved('education', $event)" />
         </div>
       </div>
       <div class="dirty-actions">
@@ -39,10 +44,12 @@
 
 <script>
 import PreferencesEditor from './Preferences.vue';
+import EducationEditor   from './Education.vue';
 
 export default {
   components: {
     PreferencesEditor,
+    EducationEditor,
   },
   data()
   {

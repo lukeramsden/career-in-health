@@ -24,7 +24,7 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #F2F2F2;
+  background-color: $gray-100;
 }
 
 $navbar-width: 240px;
@@ -555,7 +555,7 @@ $navbar-opener-width: $navbar-width / 10;
   // card styling
   border-radius: 0;
   border: 0;
-  background-color: #E6E6E6;
+  background-color: $gray-200;
 
   &.card-custom-no-top-bar {
     &:before {
@@ -565,7 +565,7 @@ $navbar-opener-width: $navbar-width / 10;
 
   .list-group {
     &-item {
-      background-color: #E6E6E6;
+      background-color: $gray-200;
     }
   }
 

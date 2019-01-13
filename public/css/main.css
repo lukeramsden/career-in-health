@@ -12134,7 +12134,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #F2F2F2;
+  background-color: #F8F9FA;
 }
 
 .btn-action,
@@ -15690,7 +15690,7 @@ body {
   position: relative;
   border-radius: 0;
   border: 0;
-  background-color: #E6E6E6;
+  background-color: #E9ECEF;
 }
 
 .card-custom:before,
@@ -15711,7 +15711,7 @@ body {
 
 .card-custom .list-group-item,
 .card-custom-material .list-group-item {
-  background-color: #E6E6E6;
+  background-color: #E9ECEF;
 }
 
 .card-custom.card-listing h1,

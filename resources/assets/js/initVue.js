@@ -18,6 +18,7 @@ import Notification  from './components/Notification.vue';
 
 // fixes errors with using lodash in Vue SFCs
 Vue.prototype._ = _;
+Vue.prototype.moment = moment;
 
 Vue.mixin( {
   methods: {
