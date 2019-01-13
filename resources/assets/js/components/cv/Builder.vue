@@ -3,7 +3,7 @@
     <template v-if="loaded">
       <div class="row">
         <div class="col-12 col-lg-6">
-          <PreferencesEditor v-model="cv.preferences" />
+          <PreferencesEditor :value="cv.preferences" @input="subSaved('preferences', $event)" />
         </div>
       </div>
       <div class="dirty-actions">
@@ -102,7 +102,7 @@ export default {
         else
         {
           // delete draft
-          this.$set( this, 'cv.draft', null );
+          this.$set( this.cv, 'draft', null );
           try
           {
             const response = await axios.post( route( 'cv.delete.draft' ) );
@@ -124,7 +124,6 @@ export default {
       this.$watch( 'cv', () =>
       {
         this.dirty = true;
-        _.debounce( ~this.saveDraft(), 1000, { leading: false, trailing: true } )();
       }, { deep: true } );
 
       this.$nextTick( () =>
@@ -134,6 +133,11 @@ export default {
     } );
   },
   methods: {
+    subSaved( prop, event )
+    {
+      this.$set( this.cv, prop, event );
+      this.saveDraft();
+    },
     async load()
     {
       const requests = [
@@ -193,6 +197,9 @@ export default {
     },
     async saveDraft()
     {
+      if ( this.savingDraft )
+        return;
+
       console.log( 'Builder:saveDraft' );
       this.savingDraft = true;
 
@@ -202,9 +209,9 @@ export default {
         if ( response.data.success === true )
         {
           if ( response.status === 200 )
-            this.$set( this, 'cv.draft', JSON.stringify( _.omit( this.cv, [ 'draft' ] ) ) );
+            this.$set( this.cv, 'draft', JSON.stringify( _.omit( this.cv, [ 'draft' ] ) ) );
           else if ( response.status === 202 )
-            this.$set( this, 'cv.draft', null );
+            this.$set( this.cv, 'draft', null );
         }
         else throw response;
       }
