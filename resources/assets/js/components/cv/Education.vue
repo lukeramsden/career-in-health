@@ -18,8 +18,8 @@
         <div class="col-12">
           <template v-if="open">
             <div v-for="(model, idx) in models" :key="idx" class="cv-item">
-              <form class="cv-item-multiple-form" @submit.prevent="">
-                <div class="form-group">
+              <form v-if="!model.collapsed" class="cv-item-multiple-form" @submit.prevent="">
+                <div class="form-group mb-0">
                   <div class="row">
                     <div class="col-12 mb-3 col-xl-6">
                       <label for="input_degree">Degree</label>
@@ -123,9 +123,23 @@
                         Delete <span class="oi oi-trash"></span>
                       </button>
                     </div>
+
+                    <div class="col-12">
+                      <div class="item-collapse" @click="collapsed(true, idx)"><span class="oi oi-collapse-up"></span></div>
+                    </div>
                   </div>
                 </div>
               </form>
+              <div v-else class="cv-item-multiple-form">
+                <p>
+                  {{model.degree || '-'}}
+                  <span class="text-muted">in</span>
+                  {{model.field_of_study || '-' }}
+                  <span class="text-muted">from</span>
+                  {{model.school_name || '-' }} 
+                </p>
+                <div class="item-uncollapse" @click="collapsed(false, idx)"><span class="oi oi-collapse-down"></span></div>
+              </div>
 
               <hr class="mx-5">
             </div>
@@ -244,6 +258,10 @@ export default {
     {
       this.$delete(this.models, idx);
     },
+    collapsed(b, idx)
+    {
+      this.$set(this.models, idx, { ...this.models[ idx ], collapsed: b });
+    },
     input( model, field, event )
     {
       if ( _.isNull( event ) )
@@ -305,4 +323,18 @@ export default {
       padding: 7px 9px;
     }
   }
+
+  .item-collapse, .item-uncollapse {
+    width: 100%;
+    cursor: pointer;
+    border: #CED4DA solid 1px;
+    text-align: center;
+  }  
 </style>
+
+<style lang="scss">
+  .vdp-datepicker > .input-group > .form-control {
+    background-color: #fff !important;
+  }
+</style>
+
