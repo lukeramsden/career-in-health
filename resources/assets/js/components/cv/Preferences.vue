@@ -87,27 +87,21 @@
                   <label for="job_role">
                     <small><b>Job Role</b></small>
                   </label>
-                  <select2 id="job_role" :value="null" disabled>
-                    <option :value="null">{{ jobRole }}</option>
-                  </select2>
+                  <input id="job_role" :value="jobRole" type="text" class="form-control" disabled />
                 </div>
 
                 <div class="form-group">
                   <label for="job_setting">
                     <small><b>Job Setting</b></small>
                   </label>
-                  <select2 id="job_setting" :value="null" disabled>
-                    <option :value="null">{{ setting }}</option>
-                  </select2>
+                  <input id="job_setting" :value="setting" type="text" class="form-control" disabled />
                 </div>
 
                 <div class="form-group">
                   <label for="job_type">
                     <small><b>Job Type</b></small>
                   </label>
-                  <select2 id="job_type" :value="null" disabled>
-                    <option :value="null">{{ type }}</option>
-                  </select2>
+                  <input id="job_type" :value="type" type="text" class="form-control" disabled />
                 </div>
 
                 <div class="form-group">
@@ -184,10 +178,13 @@ export default {
     value: {
       handler( val )
       {
+        console.log('handler');
         if ( !_.isEqual( val, this.model ) )
         {
           this.$set( this, 'model', JSON.parse( JSON.stringify( this.value ) ) );
+          console.log('unequal');
         }
+        else console.log(JSON.parse(JSON.stringify(val)), JSON.parse(JSON.stringify(this.model)));
       },
       deep: true,
     },

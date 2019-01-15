@@ -107,20 +107,7 @@ export default {
           this.dirty = true;
         }
         else
-        {
-          // delete draft
-          this.$set( this.cv, 'draft', null );
-          try
-          {
-            const response = await axios.post( route( 'cv.delete.draft' ) );
-            if ( !response.data.success )
-              console.error( response );
-          }
-          catch ( e )
-          {
-            console.error( e );
-          }
-        }
+          this.deleteDraft();
       }
 
       this.loaded = true;
@@ -140,6 +127,21 @@ export default {
     } );
   },
   methods: {
+    async deleteDraft()
+    {
+      // delete draft
+      this.$set( this.cv, 'draft', null );
+      try
+      {
+        const response = await axios.post( route( 'cv.delete.draft' ) );
+        if ( !response.data.success )
+          console.error( response );
+      }
+      catch ( e )
+      {
+        console.error( e );
+      }
+    },
     subSaved( prop, event )
     {
       this.$set( this.cv, prop, event );
@@ -246,6 +248,7 @@ export default {
       if ( value )
       {
         this.$set( this, 'cv', JSON.parse( JSON.stringify( this.originalCv ) ) );
+        this.deleteDraft();
         this.$nextTick( () =>
         {
           this.dirty = false;
