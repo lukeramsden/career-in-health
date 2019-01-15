@@ -237,11 +237,11 @@
         </nav>
     </div>
     <div id="navbar-closer">
-        <div>&lt;</div>
+        <div><span class="oi oi-collapse-left"></span></div>
     </div>
 </div>
 <div id="navbar-opener">
-    <div>&gt;</div>
+    <div><span class="oi oi-collapse-right"></span></div>
 </div>
 {{-- mobile nav --}}
 <nav class="navbar navbar-dark bg-primary d-block d-lg-none fixed-top">
