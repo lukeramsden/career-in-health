@@ -17,8 +17,8 @@
         </div>
         <div class="col-12">
           <template v-if="open">
-            <div v-for="model in models" class="cv-item">
-              <form class="cv-item-multiple-form">
+            <div v-for="(model, idx) in models" :key="idx" class="cv-item">
+              <form class="cv-item-multiple-form" @submit.prevent="">
                 <div class="form-group">
                   <div class="row">
                     <div class="col-12 mb-3 col-xl-6">
@@ -117,15 +117,23 @@
                         Current students, please put your expected graduation date.
                       </small>
                     </div>
+
+                    <div class="col-12">
+                      <button class="btn btn-link float-right" @click="removeItem(idx)">
+                        Delete <span class="oi oi-trash"></span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </form>
 
               <hr class="mx-5">
             </div>
+
+            <button class="btn btn-link btn-block" @click="addNew"><span class="oi oi-plus"></span></button>
           </template>
           <template v-else>
-            <div v-for="model in models" class="cv-item">
+            <div v-for="(model, idx) in models" :key="idx" class="cv-item">
               <div class="cv-item-inner ml-md-3">
                 <p class="my-1">{{ model.degree }} in {{ model.field_of_study }}</p>
                 <p class="my-1">{{ model.school_name }} - {{ model.location }}</p>
@@ -174,7 +182,7 @@ export default {
         return {
           customPredictor( date )
           {
-            return !_.isNull( model.end_date )
+            return model.end_date
               && moment( date ).isSameOrAfter( model.end_date, 'M' );
           },
         };
@@ -185,7 +193,8 @@ export default {
         return {
           customPredictor( date )
           {
-            return moment( date ).isSameOrBefore( model.start_date, 'M' );
+            return model.start_date
+              && moment( date ).isSameOrBefore( model.start_date, 'M' );
           },
         };
       },
@@ -227,6 +236,14 @@ export default {
       this.$set( this, 'models', JSON.parse( JSON.stringify( this.original ) ) );
       this.open = false;
     },
+    addNew()
+    {
+      this.models.push({});
+    },
+    removeItem(idx)
+    {
+      this.$delete(this.models, idx);
+    },
     input( model, field, event )
     {
       if ( _.isNull( event ) )
@@ -247,7 +264,7 @@ export default {
       }
 
       if ( field === 'start_date'
-        && !_.isNull( model.end_date )
+        && model.end_date
         && m.isAfter( model.end_date ) )
       {
         toastr.error( 'Start date must be before end date.' );
@@ -255,6 +272,7 @@ export default {
       }
 
       if ( field === 'end_date'
+        && model.start_date
         && m.isBefore( model.start_date ) )
       {
         toastr.error( 'End date must be after start date.' );
