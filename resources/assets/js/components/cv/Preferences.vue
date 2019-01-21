@@ -94,7 +94,11 @@
                   <label for="job_setting">
                     <small><b>Job Setting</b></small>
                   </label>
-                  <input id="job_setting" :value="setting" type="text" class="form-control" disabled />
+                  <input id="job_setting"
+                         :value="setting"
+                         type="text"
+                         class="form-control"
+                         disabled />
                 </div>
 
                 <div class="form-group">

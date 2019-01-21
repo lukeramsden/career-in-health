@@ -176,6 +176,7 @@ export default {
 
       try
       {
+        console.log(JSON.parse(JSON.stringify(this.cv)));
         const response = await axios.post( route( 'cv.save' ), { cv: this.cv } );
         if ( response.data.success === true )
         {
@@ -287,7 +288,7 @@ export default {
   }
 
   .dirty-actions {
-    position: absolute;
+    position: fixed;
     bottom: 15px;
     right: 15px;
   }

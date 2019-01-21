@@ -125,7 +125,10 @@
                     </div>
 
                     <div class="col-12">
-                      <div class="item-collapse" @click="collapsed(true, idx)"><span class="oi oi-collapse-up"></span></div>
+                      <div class="item-collapse"
+                           @click="collapsed(true, idx)">
+                        <span class="oi oi-collapse-up"></span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -136,15 +139,30 @@
                   <span class="text-muted">in</span>
                   {{model.field_of_study || '-' }}
                   <span class="text-muted">from</span>
-                  {{model.school_name || '-' }} 
+                  {{model.school_name || '-' }}
                 </p>
-                <div class="item-uncollapse" @click="collapsed(false, idx)"><span class="oi oi-collapse-down"></span></div>
+                <div class="item-uncollapse"
+                     @click="collapsed(false, idx)">
+                  <span class="oi oi-collapse-down"></span>
+                </div>
               </div>
 
               <hr class="mx-5">
             </div>
 
-            <button class="btn btn-link btn-block" @click="addNew"><span class="oi oi-plus"></span></button>
+            <button :class="{ 'disabled': saving }"
+                    :disabled="saving"
+                    type="button"
+                    class="btn btn-action w-25"
+                    @click="save">
+              <loading-icon v-if="saving" />
+              <template v-else>Save</template>
+            </button>
+
+            <button class="btn btn-link btn-block"
+                    @click="addNew">
+              <span class="oi oi-plus"></span>
+            </button>
           </template>
           <template v-else>
             <div v-for="(model, idx) in models" :key="idx" class="cv-item">
@@ -329,7 +347,7 @@ export default {
     cursor: pointer;
     border: #CED4DA solid 1px;
     text-align: center;
-  }  
+  }
 </style>
 
 <style lang="scss">
@@ -337,4 +355,3 @@ export default {
     background-color: #fff !important;
   }
 </style>
-

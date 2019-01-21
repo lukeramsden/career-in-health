@@ -62,7 +62,7 @@ class BuilderController extends Controller
 	/** @var object $requestCv */
 	/** @var Cv $cv */
 	$user      = Auth::user();
-	$requestCv = (object)$this->request->get('cv');
+	$requestCv = (array)$this->request->get('cv');
 	$cv        = $user->userable->cv;
 
 	try
@@ -70,19 +70,19 @@ class BuilderController extends Controller
 	  DB::beginTransaction();
 
 	  // Update preferences
-	  if ($this->request->has('cv.preferences'))
+	  if (array_key_exists('preferences', $requestCv))
 	  {
 		$clonedRequest = clone $this->request;
-		$clonedRequest->replace($requestCv->preferences);
+		$clonedRequest->replace($requestCv['preferences']);
 		// Use the real preferences controller to handle validation and whatnot
 		$controller = new PreferencesController($clonedRequest);
 		$controller->update();
 	  }
 
-	  if ($this->request->has('cv.work_experience'))
+	  if (array_key_exists('work_experience', $requestCv))
 	  {
 		// Validate all entries in WorkExp with controllers rules and a fake request
-		foreach ($requestCv->work_experience as $wexp)
+		foreach ($requestCv['work_experience'] as $wexp)
 		{
 		  $clonedRequest = (clone $this->request)->replace($wexp);
 		  $clonedRequest->validate((new WorkExperienceController($clonedRequest))->rules());
@@ -90,26 +90,26 @@ class BuilderController extends Controller
 
 		// Use App\CustomModel's HasManySyncable function to update existing entries,
 		// create new ones and delete unused ones. Really cool stuff I pasted from SO.
-		$cv->workExperience()->sync($requestCv->work_experience);
+		$cv->workExperience()->sync($requestCv['work_experience']);
 	  }
 
 	  // same thing as WorkExp
-	  if ($this->request->has('cv.education'))
+	  if (array_key_exists('education', $requestCv))
 	  {
-		foreach ($requestCv->education as $edu)
+		foreach ($requestCv['education'] as $edu)
 		{
 		  $clonedRequest = (clone $this->request)->replace($edu);
 		  $clonedRequest->validate((new EducationController($clonedRequest))->rules());
 		}
 
-		$cv->education()->sync($requestCv->education);
+		$cv->education()->sync($requestCv['education']);
 	  }
 
 	  // Same as previous 2
-	  if ($this->request->has('cv.certifications'))
+	  if (array_key_exists('certifications', $requestCv))
 	  {
-		$relatedKeyName = CvCertification::getKeyName();
-		foreach ($requestCv->certifications as $cert)
+		$relatedKeyName = (new CvCertification)->getKeyName();
+		foreach ($requestCv['certifications'] as $cert)
 		{
 		  $existing      = isset($cert[$relatedKeyName]) && !empty($cert[$relatedKeyName]);
 		  $clonedRequest = (clone $this->request)->replace($cert);
@@ -122,7 +122,7 @@ class BuilderController extends Controller
 
 		// separate loop because we don't want to create files if
 		// the validation in the previous loop fails at any point
-		foreach ($requestCv->certifications as $idx => $cert)
+		foreach ($requestCv['certifications'] as $idx => $cert)
 		{
 		  $existing = isset($cert[$relatedKeyName]) && !empty($cert[$relatedKeyName]);
 		  $path     = $this->request->file($cert->_request_file)->store('certifications');
@@ -131,13 +131,13 @@ class BuilderController extends Controller
 		  {
 			if ($existing)
 			  Storage::delete($cert->file);
-			$requestCv->certifications[$idx]->file = $path;
+			$requestCv['certifications'][$idx]->file = $path;
 		  }
 		  else
 			throw new \Exception('Problem saving file.');
 		}
 
-		$cv->certifications()->sync($requestCv->certifications);
+		$cv->certifications()->sync($requestCv['certifications']);
 	  }
 
 	  $cv->draft = null;

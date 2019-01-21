@@ -18,7 +18,7 @@ export default {
     allowClear: Boolean,
   },
   watch: {
-    value( nval )
+    value( /* nval */ )
     {
       // update value
       // $( this.$el )

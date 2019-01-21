@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Log;
 
 Broadcast::channel('App.User.{id}', function ($user, $id) {
   /** @var \App\User $user */
-  Log::debug('App.User.'.$id, [$user]);
   return $user->id === (int)$id;
 });
 

@@ -57,8 +57,6 @@ class HasManySyncable extends HasMany
 	  $changes['deleted'] = $this->castKeys($deleteIds);
 	}
 
-	\Debugbar::addMessage($this->getRelated());
-
 	// Update the updatable rows
 	foreach ($updateRows as $id => $row)
 	  $this->getRelated()
