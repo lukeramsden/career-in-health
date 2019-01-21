@@ -2,13 +2,17 @@
   <div class="container-fluid" style="padding-top: 30px">
     <template v-if="loaded">
       <div class="row">
-        <div class="col-12 mb-4 col-lg-6 mb-lg-0">
+        <div class="col-12 mb-4 col-lg-6 mb-lg-3">
           <PreferencesEditor :value="cv.preferences"
                              @input="subSaved('preferences', $event)" />
         </div>
-        <div class="col-12 mb-4 col-lg-6 mb-lg-0">
+        <div class="col-12 mb-4 col-lg-6 mb-lg-3">
           <EducationEditor :value="cv.education"
                            @input="subSaved('education', $event)" />
+        </div>
+        <div class="col-12 mb-4 col-lg-6 mb-lg-3">
+          <WorkExperienceEditor :value="cv.work_experience"
+                                @input="subSaved('work_experience', $event)" />
         </div>
       </div>
       <div class="dirty-actions">
@@ -43,13 +47,15 @@
 </template>
 
 <script>
-import PreferencesEditor from './Preferences.vue';
-import EducationEditor   from './Education.vue';
+import PreferencesEditor    from './Preferences.vue';
+import EducationEditor      from './Education.vue';
+import WorkExperienceEditor from './WorkExperience.vue';
 
 export default {
   components: {
     PreferencesEditor,
     EducationEditor,
+    WorkExperienceEditor,
   },
   data()
   {
@@ -88,6 +94,42 @@ export default {
 
       if ( !_.isEmpty( this.cv.draft ) )
       {
+        // https://stackoverflow.com/a/51298488/9690677
+        /**
+         *
+         * @param object
+         * @param base
+         * @returns {*}
+         *
+         * @example
+         *
+         *  diff({a: 1}, {a:2})
+         * => Object { a: 1 }
+         */
+        const diff = ( object, base ) =>
+        {
+          // eslint-disable-next-line no-shadow
+          function changes( object, base )
+          {
+            return _.transform( object, ( result, value, key ) =>
+            {
+              if ( !_.isEqual( value, base[ key ] ) )
+              {
+                result[ key ] = ( _.isObject( value ) && _.isObject( base[ key ] ) )
+                  ? changes( value, base[ key ] )
+                  : value;
+              }
+            } );
+          }
+
+          return changes( object, base );
+        };
+
+        console.log( diff(
+          _.omit( this.cv, [ 'draft' ] ),
+          _.omit( JSON.parse( this.cv.draft ), [ 'draft' ] ),
+        ) );
+
         const { value } = await this.$swal( {
           title: 'Load Draft Version?',
           text: 'You have unpublished changes from last time you were here,'
@@ -176,7 +218,7 @@ export default {
 
       try
       {
-        console.log(JSON.parse(JSON.stringify(this.cv)));
+        console.log( JSON.parse( JSON.stringify( this.cv ) ) );
         const response = await axios.post( route( 'cv.save' ), { cv: this.cv } );
         if ( response.data.success === true )
         {
