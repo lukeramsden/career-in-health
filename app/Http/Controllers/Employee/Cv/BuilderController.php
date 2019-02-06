@@ -49,12 +49,12 @@ class BuilderController extends Controller
   {
 	// Basic validation
 	$this->request->validate([
-	  'cv'                 => 'required|array',
-	  'cv.preferences'     => 'nullable|array',
-	  'cv.work_experience' => 'nullable|array',
-	  'cv.education'       => 'nullable|array',
-	  'cv.certifications'  => 'nullable|array',
-	  'cv.certifications.*.',
+	  'cv'                       => 'required|array',
+	  'cv.preferences'           => 'nullable|array',
+	  'cv.work_experience'       => 'nullable|array',
+	  'cv.education'             => 'nullable|array',
+	  'cv.certifications'        => 'nullable|array',
+	  'cv.certifications.*.file' => 'file',
 	]);
 
 	// Base vars
@@ -167,12 +167,12 @@ class BuilderController extends Controller
   {
 	// Basic validation
 	$this->request->validate([
-	  'cv'                 => 'required|array',
-	  'cv.preferences'     => 'nullable|array',
-	  'cv.work_experience' => 'nullable|array',
-	  'cv.education'       => 'nullable|array',
-	  'cv.certifications'  => 'nullable|array',
-	  'cv.certifications.*.',
+	  'cv'                       => 'required|array',
+	  'cv.preferences'           => 'nullable|array',
+	  'cv.work_experience'       => 'nullable|array',
+	  'cv.education'             => 'nullable|array',
+	  'cv.certifications'        => 'nullable|array',
+	  'cv.certifications.*.file' => 'file',
 	]);
 
 	// Base vars
@@ -210,6 +210,33 @@ class BuilderController extends Controller
 	}
 	else
 	{
+	  try
+	  {
+		$relatedKeyName = (new CvCertification)->getKeyName();
+
+		// separate loop because we don't want to create files if
+		// the validation in the previous loop fails at any point
+		foreach ($requestCv['certifications'] as $idx => $cert)
+		{
+		  $path = $this->request->file($cert->_request_file)->store('certifications');
+
+		  if ($path)
+		  {
+			Storage::delete($cert->file);
+			$requestCv['certifications'][$idx]->file = $path;
+		  }
+		  else
+			throw new \Exception('Problem saving file.');
+		}
+	  } catch (\Throwable $e)
+	  {
+		report($e);
+		return response()->json([
+		  'success' => false,
+		  'message' => 'Could not complete your request.',
+		], 500);
+	  }
+
 	  $userable->cv->draft = json_encode($requestCv);
 	  $userable->cv->save();
 
@@ -222,7 +249,13 @@ class BuilderController extends Controller
 
   public function deleteDraft()
   {
-	$cv        = Auth::user()->userable->cv;
+	$cv = Auth::user()->userable->cv;
+
+	$draft = json_decode($cv->draft);
+
+	foreach ($draft->certifications as $cert)
+	  Storage::delete($cert->file);
+
 	$cv->draft = null;
 	$cv->save();
 

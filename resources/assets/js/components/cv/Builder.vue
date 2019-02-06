@@ -94,42 +94,6 @@ export default {
 
       if ( !_.isEmpty( this.cv.draft ) )
       {
-        // https://stackoverflow.com/a/51298488/9690677
-        /**
-         *
-         * @param object
-         * @param base
-         * @returns {*}
-         *
-         * @example
-         *
-         *  diff({a: 1}, {a:2})
-         * => Object { a: 1 }
-         */
-        const diff = ( object, base ) =>
-        {
-          // eslint-disable-next-line no-shadow
-          function changes( object, base )
-          {
-            return _.transform( object, ( result, value, key ) =>
-            {
-              if ( !_.isEqual( value, base[ key ] ) )
-              {
-                result[ key ] = ( _.isObject( value ) && _.isObject( base[ key ] ) )
-                  ? changes( value, base[ key ] )
-                  : value;
-              }
-            } );
-          }
-
-          return changes( object, base );
-        };
-
-        console.log( diff(
-          _.omit( this.cv, [ 'draft' ] ),
-          _.omit( JSON.parse( this.cv.draft ), [ 'draft' ] ),
-        ) );
-
         const { value } = await this.$swal( {
           title: 'Load Draft Version?',
           text: 'You have unpublished changes from last time you were here,'
@@ -263,7 +227,13 @@ export default {
           if ( response.status === 200 )
             this.$set( this.cv, 'draft', JSON.stringify( _.omit( this.cv, [ 'draft' ] ) ) );
           else if ( response.status === 202 )
+          {
             this.$set( this.cv, 'draft', null );
+            this.$nextTick( () =>
+            {
+              this.dirty = false;
+            } );
+          }
         }
         else throw response;
       }

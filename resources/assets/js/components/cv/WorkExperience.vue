@@ -174,8 +174,10 @@
           <template v-else>
             <div v-for="(model, idx) in models" :key="idx" class="cv-item">
               <div class="cv-item-inner ml-md-3">
-                <p class="my-1">{{ model.job_title }} at {{ model.company_name }}</p>
-                <p class="my-1">{{ model.location }}</p>
+                <p v-if="model.job_title && model.company_name" class="my-1">
+                  {{ model.job_title }} at {{ model.company_name }}
+                </p>
+                <p v-if="model.location" class="my-1">{{ model.location }}</p>
                 <template v-if="validDate(model.end_date)">
                   <p class="my-1">
                     {{ formatDate(model.start_date, 'MMMM YYYY') }}
@@ -183,7 +185,9 @@
                     {{ formatDate(model.end_date, 'MMMM YYYY') }}</p>
                 </template>
                 <template v-else>
-                  <p class="my-1">Started {{ formatDate(model.start_date, 'MMMM YYYY') }}</p>
+                  <p v-if="model.start_date" class="my-1">
+                    Started {{ formatDate(model.start_date, 'MMMM YYYY') }}
+                  </p>
                 </template>
                 <p v-if="model.description" class="my-1">{{ model.description | truncate(50) }}</p>
               </div>
