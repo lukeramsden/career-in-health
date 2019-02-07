@@ -14,6 +14,10 @@
           <WorkExperienceEditor :value="cv.work_experience"
                                 @input="subSaved('work_experience', $event)" />
         </div>
+        <div class="col-12 mb-4 col-lg-6 mb-lg-3">
+          <CertificationsEditor :value="cv.certifications"
+                                @input="subSaved('certifications', $event)" />
+        </div>
       </div>
       <div class="dirty-actions">
         <div v-if="savingDraft" id="autosaving-indicator" class="btn btn-link disabled">
@@ -50,12 +54,14 @@
 import PreferencesEditor    from './Preferences.vue';
 import EducationEditor      from './Education.vue';
 import WorkExperienceEditor from './WorkExperience.vue';
+import CertificationsEditor from './Certifications.vue';
 
 export default {
   components: {
     PreferencesEditor,
     EducationEditor,
     WorkExperienceEditor,
+    CertificationsEditor,
   },
   data()
   {

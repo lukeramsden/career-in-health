@@ -253,8 +253,9 @@ class BuilderController extends Controller
 
 	$draft = json_decode($cv->draft);
 
-	foreach ($draft->certifications as $cert)
-	  Storage::delete($cert->file);
+	if ($draft)
+	  foreach ($draft->certifications as $cert)
+		Storage::delete($cert->file);
 
 	$cv->draft = null;
 	$cv->save();
