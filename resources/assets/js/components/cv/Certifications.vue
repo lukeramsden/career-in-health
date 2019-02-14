@@ -39,7 +39,7 @@
                                   :value="model.start_date"
                                   :bootstrap-styling="true"
                                   :required="true"
-                                  :disabled-dates="startDateDisabled(model)"
+                                  :disabled-dates="model.startDateDisabled"
                                   format="MMMM yyyy"
                                   minimum-view="month"
                                   @input="input(model,'start_date',$event)" />
@@ -51,7 +51,7 @@
                                   :value="model.end_date"
                                   :bootstrap-styling="true"
                                   :clear-button="true"
-                                  :disabled-dates="endDateDisabled(model)"
+                                  :disabled-dates="model.endDateDisabled"
                                   format="MMMM yyyy"
                                   minimum-view="month"
                                   @input="input(model,'end_date',$event)" />
@@ -175,28 +175,6 @@ export default {
 
       loaded: false,
       saving: false,
-
-      startDateDisabled( model )
-      {
-        return {
-          customPredictor( date )
-          {
-            return model.end_date
-              && moment( date ).isSameOrAfter( model.end_date, 'M' );
-          },
-        };
-      },
-
-      endDateDisabled( model )
-      {
-        return {
-          customPredictor( date )
-          {
-            return model.start_date
-              && moment( date ).isSameOrBefore( model.start_date, 'M' );
-          },
-        };
-      },
     };
   },
   watch: {
@@ -213,6 +191,20 @@ export default {
   {
     this.$set( this, 'original', JSON.parse( JSON.stringify( this.value ) ) );
     this.$set( this, 'models', JSON.parse( JSON.stringify( this.value ) ) );
+
+    this.models.forEach( model =>
+    {
+      model.startDateDisabled = {
+        customPredictor: ( date ) =>
+          model.end_date
+          && moment( date ).isSameOrAfter( model.end_date, 'M' ),
+      };
+      model.endDateDisabled   = {
+        customPredictor: ( date ) =>
+          model.start_date
+          && moment( date ).isSameOrBefore( model.start_date, 'M' ),
+      };
+    } );
 
     this.load().then( () =>
     {
@@ -237,7 +229,7 @@ export default {
     },
     addNew()
     {
-      this.models.push( {} );
+      this.models.push( { startDateDisabled: {}, endDateDisabled: {} } );
     },
     removeItem( idx )
     {
@@ -249,6 +241,14 @@ export default {
     },
     input( model, field, event )
     {
+      this.$set( model.startDateDisabled, 'customPredictor', ( date ) =>
+        model.end_date
+        && moment( date ).isSameOrAfter( model.end_date, 'M' ) );
+
+      this.$set( model.endDateDisabled, 'customPredictor', ( date ) =>
+        model.start_date
+        && moment( date ).isSameOrBefore( model.start_date, 'M' ) );
+
       if ( _.isNull( event ) )
       {
         if ( field === 'end_date' )
