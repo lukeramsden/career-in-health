@@ -49,12 +49,7 @@
     "no-multi-assign": "off",
     "implicit-arrow-linebreak": "off",
     "no-extra-boolean-cast": "off",
-    "no-underscore-dangle": [
-      "error",
-      {
-        "allowAfterThis": true
-      }
-    ],
+    "no-underscore-dangle": "off",
     "arrow-parens": "off",
     "func-names": "off",
     "no-new": "off",

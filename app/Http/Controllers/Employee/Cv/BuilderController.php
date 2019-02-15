@@ -54,7 +54,7 @@ class BuilderController extends Controller
 	  'cv.work_experience'       => 'nullable|array',
 	  'cv.education'             => 'nullable|array',
 	  'cv.certifications'        => 'nullable|array',
-	  'cv.certifications.*.file' => 'file',
+	  'cv.certifications.*._request_file' => 'required|file|max:1024|mimes:pdf,jpg,jpeg,png',
 	]);
 
 	// Base vars
@@ -172,7 +172,7 @@ class BuilderController extends Controller
 	  'cv.work_experience'       => 'nullable|array',
 	  'cv.education'             => 'nullable|array',
 	  'cv.certifications'        => 'nullable|array',
-	  'cv.certifications.*.file' => 'file',
+	  'cv.certifications.*._request_file' => 'required|file|max:1024|mimes:pdf,jpg,jpeg,png',
 	]);
 
 	// Base vars

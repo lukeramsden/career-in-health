@@ -182,13 +182,10 @@ export default {
     value: {
       handler( val )
       {
-        console.log('handler');
         if ( !_.isEqual( val, this.model ) )
         {
           this.$set( this, 'model', JSON.parse( JSON.stringify( this.value ) ) );
-          console.log('unequal');
         }
-        else console.log(JSON.parse(JSON.stringify(val)), JSON.parse(JSON.stringify(this.model)));
       },
       deep: true,
     },

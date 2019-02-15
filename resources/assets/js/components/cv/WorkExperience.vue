@@ -18,7 +18,10 @@
         <div class="col-12">
           <template v-if="open">
             <div v-for="(model, idx) in models" :key="idx" class="cv-item">
-              <form v-if="!model.collapsed" class="cv-item-multiple-form" @submit.prevent="">
+              <form v-if="!model.collapsed"
+                    :ref="'cv-item-form-' + idx"
+                    class="cv-item-multiple-form"
+                    @submit.prevent="">
                 <div class="form-group mb-0">
                   <div class="row">
                     <div class="col-12 mb-3 col-xl-6">
@@ -263,6 +266,27 @@ export default {
     },
     save()
     {
+      const refKeys = Object.keys( this.$refs );
+
+      if ( refKeys.length )
+      {
+        let fullyValid = true;
+
+        refKeys.forEach( keyRef =>
+        {
+          if ( keyRef && keyRef.substr( 0, 12 ) === 'cv-item-form' )
+          {
+            const formIsValid = this.$refs[ keyRef ][ 0 ].reportValidity();
+
+            if ( !formIsValid )
+              fullyValid = false;
+          }
+        } );
+
+        if ( !fullyValid )
+          return;
+      }
+
       this.$emit( 'input', this.models );
       this.$set( this, 'original', JSON.parse( JSON.stringify( this.models ) ) );
       this.open = false;
