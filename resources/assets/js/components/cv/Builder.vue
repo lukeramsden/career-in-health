@@ -56,6 +56,8 @@ import EducationEditor      from './Education.vue';
 import WorkExperienceEditor from './WorkExperience.vue';
 import CertificationsEditor from './Certifications.vue';
 
+import objectToFormData from '../../modules/objectToFormData';
+
 export default {
   components: {
     PreferencesEditor,
@@ -188,8 +190,11 @@ export default {
 
       try
       {
-        console.log( JSON.parse( JSON.stringify( this.cv ) ) );
-        const response = await axios.post( route( 'cv.save' ), { cv: this.cv } );
+        const response = await axios( {
+          method: 'post',
+          url: route( 'cv.save' ),
+          data: objectToFormData( { cv: this.cv } ),
+        } );
         if ( response.data.success === true )
         {
           this.dirty = false;
@@ -227,7 +232,18 @@ export default {
 
       try
       {
-        const response = await axios.post( route( 'cv.save.draft' ), { cv: this.cv } );
+        const response = await axios(
+          {
+            method: 'post',
+            url: route( 'cv.save.draft' ),
+            data: objectToFormData( this.cv, 'cv', [
+              'draft', 'startDateDisabled', 'endDateDisabled',
+            ], true ),
+            headers: {
+              'Content-Type': undefined,
+            },
+          },
+        );
         if ( response.data.success === true )
         {
           if ( response.status === 200 )

@@ -91,6 +91,10 @@
                                class="custom-file-input"
                                accept="image/*,.pdf"
                                required
+                               onchange="this.setCustomValidity(
+                                 this.files[0].size > 2097152 ?
+                                  'File size too large. (maximum 2MB)'
+                                   : '')"
                                @change="fileChange(model, $event)">
                         <label class="custom-file-label" for="input_file">
                           {{ model._file_name || 'Choose file'}}
@@ -163,7 +167,7 @@
                   </p>
                 </template>
                 <p v-if="model.description" class="my-1">{{ model.description | truncate(50) }}</p>
-                <a :href="model.url" class="btn btn-link">View File</a>
+                <a v-if="model.url" :href="model.url" class="btn btn-link">View File</a>
               </div>
               <hr class="mx-5">
             </div>
@@ -247,7 +251,6 @@ export default {
         {
           if ( keyRef && keyRef.substr( 0, 12 ) === 'cv-item-form' )
           {
-            console.log( keyRef, this.$refs[ keyRef ] );
             const formIsValid = this.$refs[ keyRef ][ 0 ].reportValidity();
 
             if ( !formIsValid )

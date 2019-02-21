@@ -49,12 +49,12 @@ class BuilderController extends Controller
   {
 	// Basic validation
 	$this->request->validate([
-	  'cv'                       => 'required|array',
-	  'cv.preferences'           => 'nullable|array',
-	  'cv.work_experience'       => 'nullable|array',
-	  'cv.education'             => 'nullable|array',
-	  'cv.certifications'        => 'nullable|array',
-	  'cv.certifications.*._request_file' => 'required|file|max:1024|mimes:pdf,jpg,jpeg,png',
+	  'cv'                                => 'required|array',
+	  'cv.preferences'                    => 'nullable|array',
+	  'cv.work_experience'                => 'nullable|array',
+	  'cv.education'                      => 'nullable|array',
+	  'cv.certifications'                 => 'nullable|array',
+	  'cv.certifications.*._request_file' => 'required|file|max:2048|mimes:pdf,jpg,jpeg,png',
 	]);
 
 	// Base vars
@@ -165,14 +165,16 @@ class BuilderController extends Controller
 
   public function saveDraft()
   {
+	\Debugbar::addMessage($this->request->toArray());
+
 	// Basic validation
 	$this->request->validate([
-	  'cv'                       => 'required|array',
-	  'cv.preferences'           => 'nullable|array',
-	  'cv.work_experience'       => 'nullable|array',
-	  'cv.education'             => 'nullable|array',
-	  'cv.certifications'        => 'nullable|array',
-	  'cv.certifications.*._request_file' => 'required|file|max:1024|mimes:pdf,jpg,jpeg,png',
+	  'cv'                                => 'required|array',
+	  'cv.preferences'                    => 'nullable|array',
+	  'cv.work_experience'                => 'nullable|array',
+	  'cv.education'                      => 'nullable|array',
+	  'cv.certifications'                 => 'nullable|array',
+	  'cv.certifications.*._request_file' => 'required|file|max:2048|mimes:pdf,jpg,jpeg,png',
 	]);
 
 	// Base vars
