@@ -7,41 +7,50 @@
                     <div class="card-body">
                         <form action="{{ route('login') }}" method="post">
                             {{ csrf_field() }}
-                            @if($errors->has('email'))
-                                <div class="form-group">
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ $errors->first('email') }}
-                                    </div>
-                                </div>
-                            @endif
-                            
-                            @if($errors->has('password'))
-                                <div class="form-group">
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ $errors->first('password') }}
-                                    </div>
-                                </div>
-                            @endif
                             
                             <div class="form-group">
                                 <label>Email Address (<span class='text-action'>*</span>)</label>
-                                <input type="email" name='email'
-                                       class="form-control {{ $errors->has('email') || $errors->has('password') ? 'is-invalid' : '' }}"
+                                <input required type="email" name='email' class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
                                        placeholder="Email Address" value='{{ old('email') }}'>
+                                
+                                @if ($errors->has('email'))
+                                    <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+                                @endif
                             </div>
                             
                             <div class="form-group">
                                 <label>Password (<span class='text-action'>*</span>)</label>
-                                <input type="password" name='password'
-                                       class="form-control {{ $errors->has('email') || $errors->has('password') ? 'is-invalid' : '' }}"
-                                       placeholder="Password">
+                                <input
+                                required
+                                type="password"
+                                name="password"
+                                class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                                placeholder="Password">
+                                
+                                @if ($errors->has('password'))
+                                    <div class="invalid-feedback">{{ $errors->first('password') }}</div>
+                                @endif
                             </div>
                             
                             <div class="form-group">
-                                <button class='btn btn-action px-5 float-right'>Login</button>
-                                <a href="{{ route('password.request') }}" class='btn btn-sm btn-link float-right'>Forgot
-                                    your
-                                    password?</a>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox"
+                                           autocomplete="off"
+                                           id="remember"
+                                           name="remember"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label text-sm" for="remember">Stay logged in.</label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="btn-group float-right">
+                                    <a href="{{ route('password.request') }}" class="btn btn-sm btn-link">
+                                        Forgot your password?
+                                    </a>
+                                    <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
+                                    <button class="btn btn-action">Login</button>
+                                </div>
                             </div>
                         
                         </form>

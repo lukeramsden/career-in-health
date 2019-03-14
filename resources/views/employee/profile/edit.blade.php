@@ -104,12 +104,6 @@
 @endsection
 @section('stylesheet')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
-    
-    <style>
-        .custom-checkbox .custom-control-label::before {
-            border: 1px solid #495057;
-        }
-    </style>
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>

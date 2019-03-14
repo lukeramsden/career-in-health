@@ -93,10 +93,3 @@
         </form>
     </div>
 @endsection
-@section('stylesheet')
-    <style>
-        .custom-checkbox .custom-control-label::before {
-            border: 1px solid #495057;
-        }
-    </style>
-@endsection

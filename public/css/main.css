@@ -15597,6 +15597,11 @@ body {
   outline: 0;
 }
 
+.custom-checkbox .custom-control-label::before,
+.custom-radio .custom-control-label::before {
+  border: 1px solid #495057;
+}
+
 #home .banners {
   width: 100%;
   height: 400px;
@@ -15749,11 +15754,6 @@ body {
 .card-custom.card-listing #small-details div:not(:first-child),
 .card-listing.card-custom-material #small-details div:not(:first-child) {
   margin-left: 1.5rem;
-}
-
-.card-custom .custom-checkbox .custom-control-label::before,
-.card-custom-material .custom-checkbox .custom-control-label::before {
-  border: 1px solid #495057;
 }
 
 .card-custom-material {

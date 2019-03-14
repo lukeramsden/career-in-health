@@ -410,11 +410,6 @@ export default {
 </script>
 
 <style lang="scss">
-  .custom-checkbox .custom-control-label::before,
-  .custom-radio .custom-control-label::before {
-    border: 1px solid #495057;
-  }
-
   #salary-slider {
     margin: 0 40px 50px 20px;
   }

@@ -470,6 +470,14 @@ $navbar-opener-width: $navbar-width / 10;
   @extend .mdc-elevation--z24;
 }
 
+.custom-checkbox, .custom-radio {
+  .custom-control-label {
+    &::before {
+      border: 1px solid $gray-700;
+    }
+  }
+}
+
 #home {
   .banners {
     width: 100%;
@@ -588,14 +596,6 @@ $navbar-opener-width: $navbar-width / 10;
         &:not(:first-child) {
           margin-left: $spacer * 1.5;
         }
-      }
-    }
-  }
-
-  .custom-checkbox {
-    .custom-control-label {
-      &::before {
-        border: 1px solid $gray-700;
       }
     }
   }
