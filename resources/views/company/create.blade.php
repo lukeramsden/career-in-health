@@ -1,10 +1,10 @@
 @extends('layouts.app', ['title' => 'Create a Company'])
 @section('content')
-    <div class="container my-lg-5">
+    <div class="container-fluid my-lg-5">
         <form
-        action="{{ route($edit ? 'company.update' : 'company.store') }}"
-        method="post"
-        enctype="multipart/form-data">
+            action="{{ route($edit ? 'company.update' : 'company.store') }}"
+            method="post"
+            enctype="multipart/form-data">
             {{ csrf_field() }}
             
             <div class="card-columns smaller-card-columns">
@@ -14,7 +14,9 @@
                             <div class="row">
                                 <div class="col-12 offset-lg-3 col-lg-6">
                                     <img src="{{ optional($company)->picture() ?? '/images/generic.png' }}" alt="Profile picture"
-                                         class="img-thumbnail mx-auto d-block" style="width: 100%; max-width: 230px;">
+                                         class="img-thumbnail mx-auto d-block"
+                                         id="profile-picture"
+                                         style="width: 100%; max-width: 230px;">
                                 </div>
                                 <div class="col-12">
                                     <div class="row">
@@ -23,7 +25,10 @@
                                             <div class="custom-file">
                                                 <input type="file"
                                                        class="custom-file-input {{ $errors->has('avatar') ? 'is-invalid' : '' }}"
-                                                       id="inputAvatar" name="avatar" accept="image/png,image/jpeg">
+                                                       id="inputAvatar"
+                                                       name="avatar"
+                                                       accept="image/png,image/jpeg"
+                                                       onchange="onAvatarChange(this)">
                                                 <label class="custom-file-label" for="inputAvatar">Choose
                                                     file...</label>
                                                 <small class="text-muted">(.png, .jpg, .jpeg)</small>
@@ -53,12 +58,12 @@
                         <div class="form-group">
                             <label for="inputName">Name (<span class='text-action'>*</span>)</label>
                             <input
-                            required
-                            name="name"
-                            id="inputName"
-                            class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
-                            placeholder="Name"
-                            value="{{ old('name', $company->name) }}">
+                                required
+                                name="name"
+                                id="inputName"
+                                class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                placeholder="Name"
+                                value="{{ old('name', $company->name) }}">
                             
                             @if ($errors->has('name'))
                                 <div class="invalid-feedback">{{ $errors->first('name') }}</div>
@@ -89,11 +94,11 @@
                             <div class="form-group">
                                 <label for="usersInviteSelect">Users To Invite</label>
                                 <select
-                                class="form-control {{ count($errors->get('usersToInvite.*')) ? 'is-invalid' : '' }}"
-                                multiple="multiple"
-                                size="1"
-                                name="usersToInvite[]"
-                                id="usersInviteSelect">
+                                    class="form-control {{ count($errors->get('usersToInvite.*')) ? 'is-invalid' : '' }}"
+                                    multiple="multiple"
+                                    size="1"
+                                    name="usersToInvite[]"
+                                    id="usersInviteSelect">
                                     @if (is_array(old('usersToInvite')))
                                         @foreach (old('usersToInvite') as $email)
                                             <option value="{{ $email }}" selected="selected">{{ $email }}</option>
@@ -125,21 +130,21 @@
                         <div class="form-group">
                             <label>Contact Details</label>
                             <input
-                            type="tel"
-                            class="form-control my-1 {{ $errors->has('phone') ? 'is-invalid' : '' }}"
-                            placeholder="Phone Number"
-                            name="phone"
-                            value="{{ old('phone', $company->phone) }}">
+                                type="tel"
+                                class="form-control my-1 {{ $errors->has('phone') ? 'is-invalid' : '' }}"
+                                placeholder="Phone Number"
+                                name="phone"
+                                value="{{ old('phone', $company->phone) }}">
                             
                             @if ($errors->has('phone'))
                                 <div class="invalid-feedback">{{ $errors->first('phone') }}</div>
                             @endif
                             <input
-                            type="email"
-                            class="form-control my-1 {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                            placeholder="Email Address"
-                            name="email"
-                            value="{{ old('email', $company->email) }}">
+                                type="email"
+                                class="form-control my-1 {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                                placeholder="Email Address"
+                                name="email"
+                                value="{{ old('email', $company->email) }}">
                             
                             @if ($errors->has('email'))
                                 <div class="invalid-feedback">{{ $errors->first('email') }}</div>
@@ -164,52 +169,52 @@
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
     <script>
-        $(function () {
-            function validateEmail(email) {
-                var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return re.test(String(email).toLowerCase());
-            }
-            $('#usersInviteSelect').select2({
-                tags: true,
-                placeholder: 'Enter a list of emails (comma separated)',
-                tokenSeparators: [',', ' '],
-                createTag: function (params) {
-                    const term = $.trim(params.term);
-
-                    if (term === '')
-                        return null;
-
-                    if (!validateEmail(term))
-                        return null;
-
-                    return {
-                        id: term,
-                        text: term,
-                        newTag: true,
-                    }
-                },
-                language: {
-                    noResults: function (params) {
-                        return 'Invalid email.';
-                    },
-                },
-                containerCssClass: 'select2-sleek-input',
-            });
+    $( function ()
+    {
+        function validateEmail( email )
+        {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test( String( email ).toLowerCase() );
+        }
         
-            $('.location-control').select2({
-                dropdownAutoWidth : true,
-                width: '100%'
-            });
-
-            $('input[name="avatar"]').change(function(){
-                const path = $(this).val();
-                $('label[for="inputAvatar"]').text(path.substr(path.lastIndexOf('\\') + 1));
-            });
-        })
+        $( '#usersInviteSelect' ).select2( {
+            tags: true,
+            placeholder: 'Enter a list of emails (comma separated)',
+            tokenSeparators: [ ',', ' ' ],
+            createTag: function ( params )
+            {
+                const term = $.trim( params.term );
+                
+                if ( term === '' )
+                    return null;
+                
+                if ( !validateEmail( term ) )
+                    return null;
+                
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true,
+                };
+            },
+            language: {
+                noResults: function ( params )
+                {
+                    return 'Invalid email.';
+                },
+            },
+            containerCssClass: 'select2-sleek-input',
+        } );
+        
+        $( '.location-control' ).select2( {
+            dropdownAutoWidth: true,
+            width: '100%',
+        } );
+    } );
     </script>
 @endsection
 @section('stylesheet')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
     <style>
         .custom-checkbox .custom-control-label::before {
             border: 1px solid #495057;

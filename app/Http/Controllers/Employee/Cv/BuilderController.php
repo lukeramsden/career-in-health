@@ -165,7 +165,7 @@ class BuilderController extends Controller
 
   public function saveDraft()
   {
-	\Debugbar::addMessage($this->request->toArray());
+	\Debugbar::addMessage($this->request->get('cv'));
 
 	// Basic validation
 	$this->request->validate([

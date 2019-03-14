@@ -56,8 +56,6 @@ import EducationEditor      from './Education.vue';
 import WorkExperienceEditor from './WorkExperience.vue';
 import CertificationsEditor from './Certifications.vue';
 
-import objectToFormData from '../../modules/objectToFormData';
-
 export default {
   components: {
     PreferencesEditor,
@@ -193,7 +191,7 @@ export default {
         const response = await axios( {
           method: 'post',
           url: route( 'cv.save' ),
-          data: objectToFormData( { cv: this.cv } ),
+          data: { cv: this.cv },
         } );
         if ( response.data.success === true )
         {
@@ -236,12 +234,7 @@ export default {
           {
             method: 'post',
             url: route( 'cv.save.draft' ),
-            data: objectToFormData( this.cv, 'cv', [
-              'draft', 'startDateDisabled', 'endDateDisabled',
-            ], true ),
-            headers: {
-              'Content-Type': undefined,
-            },
+            data: { cv: this.cv },
           },
         );
         if ( response.data.success === true )

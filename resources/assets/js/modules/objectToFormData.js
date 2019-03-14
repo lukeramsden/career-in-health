@@ -57,7 +57,7 @@ module.exports = ( obj, rootName, ignoreList, debug = false ) =>
   appendFormData( obj, rootName );
 
   if ( debug )
-    console.log( formData );
+    console.log( formData.get(rootName) );
 
   return formData;
 };

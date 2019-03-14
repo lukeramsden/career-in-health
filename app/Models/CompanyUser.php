@@ -8,101 +8,103 @@ use Illuminate\Support\Facades\Storage;
 
 class CompanyUser extends Model
 {
-	protected $appends = ['is_edited', 'full_name', 'permission_level'];
+  protected $appends = ['is_edited', 'full_name', 'permission_level'];
 
-	protected $fillable = [
-		'first_name', 'last_name', 'job_title', 'company_id',
-	];
+  protected $fillable = [
+	'first_name', 'last_name', 'job_title', 'company_id',
+  ];
 
-	public function getIsEditedAttribute()
-	{
-		return $this->created_at != $this->updated_at;
-	}
+  public function getIsEditedAttribute()
+  {
+	return $this->created_at != $this->updated_at;
+  }
 
-	public function getFullNameAttribute()
-	{
-		return $this->fullName();
-	}
+  public function getFullNameAttribute()
+  {
+	return $this->fullName();
+  }
 
-	public function fullName()
-	{
-		return trim("{$this->first_name} {$this->last_name}");
-	}
+  public function fullName()
+  {
+	return trim("{$this->first_name} {$this->last_name}");
+  }
 
-	public function getPermissionLevelAttribute()
-	{
-		return $this->permissionLevel();
-	}
+  public function getPermissionLevelAttribute()
+  {
+	return $this->permissionLevel();
+  }
 
-	public function permissionLevel()
-	{
-		return DB
-			::table('company_user_permissions')
-			->where('company_user_id', $this->id)
-			->first()
-			->permission_level;
-	}
+  public function permissionLevel()
+  {
+	$perms = DB::table('company_user_permissions')
+			   ->where('company_user_id', $this->id)
+			   ->first();
+	if ($perms)
+	  return $perms->permission_level;
 
-	public function user()
-	{
-		return $this->morphOne(User::class, 'userable');
-	}
+	return null;
+  }
 
-	public function company()
-	{
-		return $this->belongsTo(Company::class);
-	}
+  public function user()
+  {
+	return $this->morphOne(User::class, 'userable');
+  }
 
-	public function picture()
-	{
-		return $this->avatar ? Storage::url($this->avatar) : null;
-	}
+  public function company()
+  {
+	return $this->belongsTo(Company::class);
+  }
 
-	public function invites()
-	{
-		return $this->hasMany(CompanyUserInvite::class, 'invited_by_id');
-	}
+  public function picture()
+  {
+	return $this->avatar ? Storage::url($this->avatar) : null;
+  }
 
-	public function hasPermsOver(CompanyUser $user)
-	{
-		if ($this->ownsCompany())
-			return true;
+  public function invites()
+  {
+	return $this->hasMany(CompanyUserInvite::class, 'invited_by_id');
+  }
 
-		if ($this->permission_level === 'manager'
-			&& $user->permission_level === 'standard')
-			return true;
+  public function hasPermsOver(CompanyUser $user)
+  {
+	if ($this->ownsCompany())
+	  return true;
 
-		return false;
-	}
+	if ($this->permission_level === 'manager'
+	  && $user->permission_level === 'standard')
+	  return true;
 
-	public function ownsCompany()
-	{
-		return $this->company->isOwner($this);
-	}
+	return false;
+  }
 
-	public function hasUserManagePerms()
-	{
-		if ($this->ownsCompany())
-			return true;
+  public function ownsCompany()
+  {
+	return $this->company->isOwner($this);
+  }
 
-		if ($this->permission_level === 'manager')
-			return true;
+  public function hasUserManagePerms()
+  {
+	if ($this->ownsCompany())
+	  return true;
 
-		return false;
-	}
+	if ($this->permission_level === 'manager')
+	  return true;
 
-	public function isActive()
-	{
-		return !$this->user->deactivated;
-	}
+	return false;
+  }
 
-	public function activate()
-	{
-		$this->user->activate();
-	}
+  public function isActive()
+  {
+	return !$this->user->deactivated;
+  }
 
-	public function deactivate()
-	{
-		$this->user->deactivate();
-	}
+  public function activate()
+  {
+	$this->user->activate();
+  }
+
+  public function deactivate()
+  {
+	$this->user->deactivate();
+  }
 }

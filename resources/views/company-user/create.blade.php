@@ -1,10 +1,10 @@
 @extends('layouts.app', ['title' => 'Create Your Profile'])
 @section('content')
-    <div class="container my-lg-5">
+    <div class="container-fluid my-lg-5">
         <form
-        action="{{ route('company-user.update') }}"
-        method="post"
-        enctype="multipart/form-data">
+            action="{{ route('company-user.update') }}"
+            method="post"
+            enctype="multipart/form-data">
             {{ csrf_field() }}
             
             <div class="card-columns smaller-card-columns">
@@ -13,14 +13,23 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-12 offset-lg-3 col-lg-6">
-                                    <img src="{{ $companyUser->picture() ?? '/images/generic.png' }}" alt="Profile picture" class="img-thumbnail mx-auto d-block" style="width: 100%; max-width: 230px;">
+                                    <img src="{{ $companyUser->picture() ?? '/images/generic.png' }}"
+                                         id="profile-picture"
+                                         alt="Profile picture"
+                                         class="img-thumbnail mx-auto d-block"
+                                         style="width: 100%; max-width: 230px;">
                                 </div>
                                 <div class="col-12">
                                     <div class="row">
                                         <div class="col">
                                             <label>Avatar</label>
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input {{ $errors->has('avatar') ? 'is-invalid' : '' }}" id="inputAvatar" name="avatar" accept="image/png,image/jpeg">
+                                                <input type="file"
+                                                       class="custom-file-input {{ $errors->has('avatar') ? 'is-invalid' : '' }}"
+                                                       id="inputAvatar"
+                                                       name="avatar"
+                                                       accept="image/png,image/jpeg"
+                                                       onchange="onAvatarChange(this)">
                                                 <label class="custom-file-label" for="inputAvatar">Choose file...</label>
                                                 <small class="text-muted">(.png, .jpg, .jpeg)</small>
                                                 @if ($errors->has('avatar'))
@@ -85,23 +94,9 @@
     </div>
 @endsection
 @section('stylesheet')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
-    
     <style>
         .custom-checkbox .custom-control-label::before {
             border: 1px solid #495057;
         }
     </style>
-@endsection
-@section('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
-    
-    <script>
-        $(function() {
-            $('input[name="avatar"]').change(function(){
-                const path = $(this).val();
-                $('label[for="inputAvatar"]').text(path.substr(path.lastIndexOf('\\') + 1));
-            });
-        });
-    </script>
 @endsection

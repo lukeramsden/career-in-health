@@ -80,3 +80,21 @@ $( 'img.svg-inline' ).each( function ()
     $img.replaceWith( $svg );
   }, 'xml' );
 } );
+
+window.onAvatarChange = function ( fileInput, previewId = 'profile-picture' )
+{
+  const $input = $( fileInput );
+  const path   = $input.val();
+  $( `label[for="${$input.attr( 'id' )}"]` )
+    .text( path.substr( path.lastIndexOf( '\\' ) + 1 ) );
+
+  const file = fileInput.files[ 0 ];
+  if ( file.type.match( /image.*/ ) )
+  {
+    const preview = document.getElementById( previewId );
+    preview.file  = file;
+    const reader  = new FileReader();
+    reader.onload = ( ( img ) => e => img.src = e.target.result )( preview );
+    reader.readAsDataURL( file );
+  }
+};

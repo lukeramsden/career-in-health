@@ -341,7 +341,6 @@ $navbar-opener-width: $navbar-width / 10;
   width: $navbar-width * 1.5;
   border-right: $gray-500 solid 1px;
   background-color: $gray-300;
-
   margin-left: -($navbar-width * 3);
 
   &.open {
