@@ -217,6 +217,7 @@ export default {
           this.$set( this.listing, 'address',
             this.listing.address = _.find( this.addresses,
               ( address ) => address.id === parseInt( nval, 10 ) ) );
+          this.$set( this.listing, 'address_id', parseInt( nval, 10 ) );
         },
       },
     savingForLater: {
@@ -334,7 +335,7 @@ export default {
         .post( this.editing
           ? route( 'job-listing.update', { jobListing: this.listingId } )
           : route( 'job-listing.create' ),
-        { ...this.listing, savingForLater: this.savingForLater } )
+          { ...this.listing, savingForLater: this.savingForLater } )
         .then( ( response ) =>
         {
           if ( response.data.success )

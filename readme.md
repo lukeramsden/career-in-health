@@ -1,5 +1,19 @@
-## Career in Health (project care)
-### http://careerinhealth.co.uk
+Web application I implemented during a ~10 month work experience - also my first time using PHP/Laravel.
+
+---
+
+![Demo screenshot](screenshots/screenshot1.png)
+![Demo screenshot](screenshots/screenshot2.png)
+![Demo screenshot](screenshots/screenshot3.png)
+![Demo screenshot](screenshots/screenshot5.png)
+![Demo screenshot](screenshots/screenshot6.png)
+![Demo screenshot](screenshots/screenshot7.png)
+![Demo screenshot](screenshots/screenshot8.png)
+![Demo screenshot](screenshots/screenshot9.png)
+![Demo screenshot](screenshots/screenshot10.png)
+
+
+--
 
 ### Installation
 #### Dependencies
@@ -26,7 +40,7 @@ laravel-echo-server init
 # Development mode : No
 # Port             : default (6001)
 # Database         : redis
-# 
+#
 # Choose HTTPS for the next 2 only if SSL is set up for this server/domain
 # Host       : http(s)://careerinhealth.co.uk
 # Http/Https : http(s)
@@ -50,22 +64,3 @@ pm2 save
 ```
 * * * * * php /path-to-application/artisan schedule:run >> /dev/null 2>&1
 ```
-
-### General Ideas
-- Post Jobs (care home)
-- Find Jobs (person)
-- CV Builder
-- Personnel file generator
-- Care home employment history
-- Stripe for payment
-- On new job upload, look for persons that can do job
-- On adding job references look to see if it is in the system, if not email / sms them?
-- Facebook / Google / Twitter logins (maybe?)
-
-### Potential Competitors
-https://jobs.communitycare.co.uk/?intcmp=Jobs-Navbar
-https://carerecruiter.co.uk/ DA - 18, Found by adwords
-
-### Potential Media Boost
-https://ukrecruiter.co.uk/ DA - 42
-https://www.socialtalent.com DA - 32 Maybe..

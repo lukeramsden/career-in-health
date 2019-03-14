@@ -19,7 +19,7 @@ class CompanyController extends Controller
 
 	$this->middleware('auth')->except('show');
 	$this->middleware('user-type:company')->except('show');
-	$this->middleware('must-onboard')->except(['create', 'store']);
+	$this->middleware('must-onboard')->except(['create', 'store', 'getAddresses']);
   }
 
   public function show(Company $company)
