@@ -264,6 +264,7 @@ export default {
             ] : [ 0, 150000 ],
             step: 500,
             tooltips: true,
+            // connect: true,
             margin: 2000,
             range: {
               min: 0,
@@ -414,21 +415,7 @@ export default {
     margin: 0 40px 50px 20px;
   }
 
-  .noUi-tooltip {
-    display: none;
-  }
-
-  .noUi-active .noUi-tooltip {
-    display: block;
-  }
-
   .noUi-handle {
-    outline: none;
     border-radius: 0;
-  }
-
-  .noUi-value-sub {
-    color: #999999;
-    line-height: 1.8;
   }
 </style>

@@ -155,7 +155,7 @@ export default {
         maxFiles: 20,
         maxFilesize: 10,
         acceptedFiles: 'image/png,image/jpeg',
-        autoQueue: false,
+        autoQueue: true,
         addRemoveLinks: true,
         paramName: 'images',
       },
@@ -247,6 +247,11 @@ export default {
             {
               toastr.success( 'Updated!' );
               return;
+            }
+
+            if ( isOnboarding )
+            {
+              window.href = nextOnboardingStep;
             }
 
             this
@@ -354,10 +359,15 @@ export default {
     },
     dzfileAdded( file )
     {
-      if ( !this.editing ) return;
-
+      console.log( file );
       const vm = this;
       const dz = vm.$refs.fileUploader.dropzone;
+
+      if ( !this.editing )
+      {
+        dz.emit( 'complete', file );
+        return;
+      }
 
       const formData = new FormData();
       formData.append( 'image', file );
@@ -381,7 +391,6 @@ export default {
             } )
           .then( ( response ) =>
           {
-            console.log();
             file.id = _.get( response, 'data.model.id' );
             dz.emit( 'success', file, response );
             dz.emit( 'complete', file );
@@ -401,7 +410,6 @@ export default {
     },
     dzremoved( file )
     {
-      console.log( file );
       if ( file.id )
       // remove file on server
         axios

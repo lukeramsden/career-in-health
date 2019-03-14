@@ -11,10 +11,12 @@ function updateNotificationsBadge()
 {
   const { unreadNotificationsCount } = window.store.getters;
 
-  const element     = document.getElementById( 'navbar-notification-unread-badge' );
+  const element = document.getElementById( 'navbar-notification-unread-badge' );
+
+  if ( !element ) return;
   element.innerHTML = unreadNotificationsCount;
-  element.classList.toggle('badge-danger', unreadNotificationsCount > 0);
-  element.classList.toggle('badge-secondary', unreadNotificationsCount <= 0);
+  element.classList.toggle( 'badge-danger', unreadNotificationsCount > 0 );
+  element.classList.toggle( 'badge-secondary', unreadNotificationsCount <= 0 );
 }
 
 export default {

@@ -552,7 +552,6 @@ export default {
   }
 
   .noUi-handle {
-    outline: none;
     border-radius: 0;
   }
 

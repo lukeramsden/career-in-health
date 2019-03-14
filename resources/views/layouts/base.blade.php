@@ -37,6 +37,8 @@
         <script>
             window.isAuthenticated = {{ Auth::check() ? 'true' : 'false' }};
             window.currentUser = {!! Auth::check() ? json_encode(Auth::user()) : 'null' !!};
+            window.isOnboarding = {{ Auth::check() && Auth::user()->onboarding()->inProgress() ? 'true' : 'false' }}
+            window.nextOnboardingStep = {!! Auth::check() ? "'".Auth::user()->onboarding()->nextUnfinishedStep()->link."'" : 'null' !!}
         </script>
         
         @routes

@@ -105,6 +105,10 @@
     "axios": false,
     "toastr": true,
     "route": false,
-    "Echo": false
+    "Echo": false,
+    "isAuthenticated": true,
+    "currentUser": true,
+    "isOnboarding": true,
+    "nextOnboardingStep": true
   }
 }
